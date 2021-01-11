@@ -23,10 +23,19 @@ const config = {
                 github_username: 'jaimeadf'
             }
         ],
-        version: '1.0.0',
+        version: '1.0.1',
         description: 'Allows you to see bigger previews of streams via the context menu.',
         github: 'https://github.com/jaimeadf/BetterDiscordPlugins/blob/main/BiggerStreamPreview',
-        github_raw: 'https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/BiggerStreamPreview/BiggerStreamPreview.plugin.js'
+        github_raw: 'https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/BiggerStreamPreview/BiggerStreamPreview.plugin.js',
+        changelog: [
+            {
+                title: 'Improvements',
+                type: 'improved',
+                items: [
+                    'Using new library modules'
+                ]
+            }
+        ]
     }
 };
 
@@ -68,10 +77,8 @@ module.exports = !global.ZeresPluginLibrary ? class {
     stop() { }
 } : (([Plugin, Library]) => {
     const { DiscordModules, WebpackModules, Patcher, DiscordContextMenu } = Library;
-    const { React, ModalStack } = DiscordModules;
+    const { React, StreamStore, StreamPreviewStore, ModalStack } = DiscordModules;
 
-    const StreamStore = WebpackModules.getByProps('getAllActiveStreams', 'getStreamForUser');
-    const StreamPreviewStore = WebpackModules.getByProps('getIsPreviewLoading', 'getPreviewURL');
     const ImageModal = WebpackModules.getByDisplayName('ImageModal');
     const MaskedLink = WebpackModules.getByDisplayName('MaskedLink');
 
@@ -157,7 +164,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
                 image.addEventListener('error', () => {
                     reject(new Error('Image not found'))
-                })
+                });
             });
         }
     }
