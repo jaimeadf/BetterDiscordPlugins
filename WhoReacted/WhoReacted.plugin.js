@@ -23,10 +23,19 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.0",
+        version: "1.0.1",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
-        github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js"
+        github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
+        changelog: [
+            {
+                title: "Fixes",
+                type: "fixed",
+                items: [
+                    "Now working with normalize classes disabled"
+                ]
+            }
+        ]
     }
 };
 
@@ -162,7 +171,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
             let reactorsWrapperNode = reactionNode.querySelector(".reactors-wrapper");
 
             if (!reactorsWrapperNode) {
-                const reactionInnerNode = reactionNode.querySelector(".da-reactionInner");
+                const reactionInnerNode = reactionNode.querySelector(".reactionInner-15NvIl, .da-reactionInner");
 
                 reactorsWrapperNode = document.createElement("div");
                 reactorsWrapperNode.className = "reactors-wrapper";
