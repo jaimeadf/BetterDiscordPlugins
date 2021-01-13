@@ -8,31 +8,31 @@
 
 /// <reference types="bandagedbd/bdapi" />
 
-const request = require('request');
-const path = require('path');
-const fs = require('fs');
-const electron = require('electron');
+const request = require("request");
+const path = require("path");
+const fs = require("fs");
+const electron = require("electron");
 
 const config = {
     info: {
-        name: 'BiggerStreamPreview',
+        name: "BiggerStreamPreview",
         authors: [
             {
-                name: 'Jaime Filho',
-                discord_id: '289112759948410881',
-                github_username: 'jaimeadf'
+                name: "Jaime Filho",
+                discord_id: "289112759948410881",
+                github_username: "jaimeadf"
             }
         ],
-        version: '1.0.1',
-        description: 'Allows you to see bigger previews of streams via the context menu.',
-        github: 'https://github.com/jaimeadf/BetterDiscordPlugins/blob/main/BiggerStreamPreview',
-        github_raw: 'https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/BiggerStreamPreview/BiggerStreamPreview.plugin.js',
+        version: "1.0.2",
+        description: "Allows you to see bigger previews of streams via the context menu.",
+        github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/BiggerStreamPreview",
+        github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/BiggerStreamPreview/BiggerStreamPreview.plugin.js",
         changelog: [
             {
-                title: 'Improvements',
-                type: 'improved',
+                title: "Improvements",
+                type: "improved",
                 items: [
-                    'Using new library modules'
+                    "Adjusted code style"
                 ]
             }
         ]
@@ -45,7 +45,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
     }
 
     getAuthor() {
-        return config.info.authors.map(author => author.name).join(', ');
+        return config.info.authors.map(author => author.name).join(", ");
     }
 
     getDescription() {
@@ -57,16 +57,16 @@ module.exports = !global.ZeresPluginLibrary ? class {
     }
 
     load() {
-        BdApi.showConfirmationModal('Library plugin is needed',
+        BdApi.showConfirmationModal("Library plugin is needed",
             `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`, {
-                confirmText: 'Download',
-                cancelText: 'Cancel',
+                confirmText: "Download",
+                cancelText: "Cancel",
                 onConfirm: () => {
-                    request.get('https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js', (error, response, body) => {
+                    request.get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js", (error, response, body) => {
                         if (error)
-                            return electron.shell.openExternal('https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js');
+                            return electron.shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");
 
-                        fs.writeFileSync(path.join(BdApi.Plugins.folder, '0PluginLibrary.plugin.js'), body);
+                        fs.writeFileSync(path.join(BdApi.Plugins.folder, "0PluginLibrary.plugin.js"), body);
                     });
                 }
             });
@@ -79,38 +79,28 @@ module.exports = !global.ZeresPluginLibrary ? class {
     const { DiscordModules, WebpackModules, Patcher, DiscordContextMenu } = Library;
     const { React, StreamStore, StreamPreviewStore, ModalStack } = DiscordModules;
 
-    const ImageModal = WebpackModules.getByDisplayName('ImageModal');
-    const MaskedLink = WebpackModules.getByDisplayName('MaskedLink');
+    const ImageModal = WebpackModules.getByDisplayName("ImageModal");
+    const MaskedLink = WebpackModules.getByDisplayName("MaskedLink");
 
     class BiggerStreamPreview extends Plugin {
         constructor() {
             super();
-            this.contextMenusUnpatches = [];
+            this.userContextMenusPatches = [];
         }
 
         onStart() {
-            this.bindContextMenus();
-        }
-
-        onStop() {
-            this.unbindContextMenus();
-        }
-
-        bindContextMenus() {
             this.patchUserContextMenus();
         }
 
-        unbindContextMenus() {
-            for (const unpatch of this.contextMenusUnpatches) {
-                unpatch();
-            }
+        onStop() {
+            this.unpatchUserContextMenus();
         }
 
         patchUserContextMenus() {
             const UserContextMenus = WebpackModules.findAll(
-                m => m.default && m.default.displayName.includes('UserContextMenu'));
+                m => m.default && m.default.displayName.includes("UserContextMenu"));
 
-            const patch = (self, [props], returnValue) => {
+            const patch = (thisObject, [props], returnValue) => {
                 const { user } = props;
 
                 const stream = StreamStore.getStreamForUser(user.id);
@@ -120,12 +110,12 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
                 returnValue.props.children.props.children.push(
                     DiscordContextMenu.buildMenuItem({
-                        type: 'separator'
+                        type: "separator"
                     }),
                     DiscordContextMenu.buildMenuItem({
-                        label: 'View Stream Preview',
+                        label: "View Stream Preview",
                         action: async () => {
-                            await this.showImage(previewURL)
+                            await this.showImageModal(previewURL)
                         },
                         disabled: previewURL === null
                     })
@@ -133,11 +123,17 @@ module.exports = !global.ZeresPluginLibrary ? class {
             };
 
             for (const UserContextMenu of UserContextMenus) {
-                this.contextMenusUnpatches.push(Patcher.after(UserContextMenu, 'default', patch));
+                this.userContextMenusPatches.push(Patcher.after(UserContextMenu, "default", patch));
             }
         }
 
-        async showImage(url) {
+        unpatchUserContextMenus() {
+            for (const unpatch of this.userContextMenusPatches) {
+                unpatch();
+            }
+        }
+
+        async showImageModal(url) {
             const image = await this.fetchImage(url);
             ModalStack.push(
                 ImageModal,
@@ -158,12 +154,12 @@ module.exports = !global.ZeresPluginLibrary ? class {
                 const image = new Image();
                 image.src = url;
 
-                image.addEventListener('load', () => {
+                image.addEventListener("load", () => {
                     resolve(image);
                 });
 
-                image.addEventListener('error', () => {
-                    reject(new Error('Image not found'))
+                image.addEventListener("error", () => {
+                    reject(new Error("Image not found"))
                 });
             });
         }
