@@ -23,16 +23,15 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.1",
+        version: "1.0.2",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "Fixes",
-                type: "fixed",
+                title: "Even more features",
                 items: [
-                    "Now working with normalize classes disabled"
+                    "Added settings"
                 ]
             }
         ]
@@ -76,8 +75,9 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
     stop() { }
 } : (([Plugin, Library]) => {
-    const { Patcher, DiscordModules, WebpackModules, PluginUtilities } = Library;
+    const { Patcher, DiscordModules, Settings, WebpackModules, PluginUtilities, Toasts } = Library;
     const { React, ReactDOM } = DiscordModules;
+    const { SettingPanel, Textbox } = Settings;
 
     const ReactionManager = WebpackModules.getByProps("getReactions", "addReaction", "removeReaction");
     const ReactionStore = WebpackModules.getByProps("getReactions", "_changeCallbacks");
@@ -94,6 +94,9 @@ module.exports = !global.ZeresPluginLibrary ? class {
         constructor() {
             super();
             this.reactionPatches = [];
+            this.defaultSettings = {
+                maxUsersShown: 6
+            };
         }
 
         onStart() {
@@ -104,6 +107,27 @@ module.exports = !global.ZeresPluginLibrary ? class {
         onStop() {
             PluginUtilities.removeStyle(this.getName());
             this.unpatchReaction();
+        }
+
+        buildSettingsPanel() {
+            return new SettingPanel(this.saveSettings.bind(this),
+                new Textbox(
+                    "Max users shown",
+                    "The maximum number of users shown by reaction.",
+                    this.settings.maxUsersShown,
+                    value => {
+                        if (isNaN(value)) {
+                            return Toasts.error("Value must be a number!");
+                        }
+
+                        this.settings.maxUsersShown = parseInt(value);
+                    }
+                )
+            );
+        }
+
+        getSettingsPanel() {
+            return this.buildSettingsPanel().getElement();
         }
 
         patchReaction() {
@@ -137,7 +161,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     const reactors = Object.values(ReactionStore.getReactions(message.channel_id, message.id, emoji));
 
                     ReactDOM.render(React.createElement(UserSummaryItem.default, {
-                        max: 6,
+                        max: this.settings.maxUsersShown,
                         users: reactors,
                         renderIcon: false,
                     }), this.getOrCreateReactorsWrapperNode(reactionNode));
