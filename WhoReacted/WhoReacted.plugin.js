@@ -23,7 +23,7 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.3",
+        version: "1.0.4",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
@@ -32,7 +32,7 @@ const config = {
                 title: "Improvements",
                 type: "improved",
                 items: [
-                    "Added spacing between the avatars and the reaction borders"
+                    "More performatic when there is a lot of reactions."
                 ]
             }
         ]
@@ -76,20 +76,24 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
     stop() { }
 } : (([Plugin, Library]) => {
-    const { Patcher, DiscordModules, Settings, WebpackModules, PluginUtilities, Toasts } = Library;
-    const { React, ReactDOM } = DiscordModules;
+    const {
+        DiscordModules,
+        Settings,
+        WebpackModules,
+        PluginUtilities,
+        Patcher,
+        Toasts,
+        DiscordSelectors,
+        ReactComponents
+    } = Library;
+    const { React, ReactDOM, Dispatcher, DiscordConstants: { ActionTypes } } = DiscordModules;
     const { SettingPanel, Textbox } = Settings;
 
-    const ReactionManager = WebpackModules.getByProps("getReactions", "addReaction", "removeReaction");
     const ReactionStore = WebpackModules.getByProps("getReactions", "_changeCallbacks");
 
     class WhoReacted extends Plugin {
         get css() {
-            return `     
-                .reactors-wrapper {
-                    padding: 2px 0;
-                }
-            
+            return `          
                 .reactors-wrapper > div:not(:empty) {
                     margin-left: 6px;
                 }
@@ -98,7 +102,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
         constructor() {
             super();
-            this.reactionPatches = [];
+
             this.defaultSettings = {
                 maxUsersShown: 6
             };
@@ -106,19 +110,19 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
         onStart() {
             PluginUtilities.addStyle(this.getName(), this.css);
-            this.patchReaction();
+            this.patchReactions();
         }
 
         onStop() {
             PluginUtilities.removeStyle(this.getName());
-            this.unpatchReaction();
+            Patcher.unpatchAll();
         }
 
         buildSettingsPanel() {
             return new SettingPanel(this.saveSettings.bind(this),
                 new Textbox(
                     "Max users shown",
-                    "The maximum number of users shown by reaction.",
+                    "The maximum amount of users shown per reaction.",
                     this.settings.maxUsersShown,
                     value => {
                         if (isNaN(value)) {
@@ -135,79 +139,119 @@ module.exports = !global.ZeresPluginLibrary ? class {
             return this.buildSettingsPanel().getElement();
         }
 
-        patchReaction() {
-            const VoiceUserSummaryItem = WebpackModules.find(m => m.default?.displayName === "VoiceUserSummaryItem");
+        async patchReactions() {
+            const VoiceUserSummaryItemComponent = WebpackModules.find(m => m.default?.displayName === "VoiceUserSummaryItem").default;
 
-            this.findReactionComponent().then(ReactionComponent => {
-                this.reactionPatches.push(Patcher.after(ReactionComponent.prototype, "componentWillMount", thisObject => {
-                    thisObject.setState({
-                        ...thisObject.state,
-                        isReactorsLoading: true
+            const Reaction = await this.findReaction();
+            const Reactions = await this.findReactions();
+
+            const settings = this.settings;
+
+            class ReactionWithReactorsComponent extends Reaction.component {
+                constructor(props) {
+                    super(props);
+                    this.state.reactors = [];
+                }
+
+                refreshReactors = () => {
+                    const { message, emoji } = this.props;
+
+                    this.setState({
+                        reactors: Object.values(ReactionStore.getReactions(message.channel_id, message.id, emoji))
                     });
-                }));
+                };
 
-                this.reactionPatches.push(Patcher.after(ReactionComponent.prototype, "componentDidMount", thisObject => {
-                    const { emoji, message } = thisObject.props;
+                componentDidMount() {
+                    Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD, this.refreshReactors);
+                    Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD_USERS, this.refreshReactors);
+                    Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
+                    Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_REMOVE_ALL, this.refreshReactors);
 
-                    ReactionManager.getReactions(message.channel_id, message.id, emoji).then(() => {
-                        thisObject.setState({
-                            ...thisObject.state,
-                            isReactorsLoading: false
-                        });
-                    });
-                }));
+                    this.refreshReactors();
+                }
 
-                this.reactionPatches.push(Patcher.after(ReactionComponent.prototype, "render", thisObject => {
-                    const reactionNode = ReactDOM.findDOMNode(thisObject);
-                    if (!reactionNode || thisObject.state.isReactorsLoading) return;
+                componentDidUpdate() {
+                    this.renderReactors();
+                }
 
-                    const { emoji, message } = thisObject.props;
+                componentWillUnmount() {
+                    Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_ADD, this.refreshReactors);
+                    Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_ADD_USERS, this.refreshReactors);
+                    Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
+                    Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_REMOVE_ALL, this.refreshReactors);
+                }
 
-                    const reactors = Object.values(ReactionStore.getReactions(message.channel_id, message.id, emoji));
+                renderReactors() {
+                    const { reactors } = this.state;
 
-                    ReactDOM.render(React.createElement(VoiceUserSummaryItem.default, {
-                        max: this.settings.maxUsersShown,
-                        users: reactors
-                    }), this.getOrCreateReactorsWrapperNode(reactionNode));
-                }));
-            });
-        }
+                    ReactDOM.render(React.createElement(VoiceUserSummaryItemComponent, {
+                        max: settings.maxUsersShown,
+                        users: reactors,
+                        renderMoreUsers: (text, className) => {
+                            return React.createElement("div", {
+                                className,
+                                style: {
+                                    backgroundColor: "var(--background-tertiary)",
+                                    color: "var(--text-normal)",
+                                    fontWeight: 500
+                                }
+                            }, text);
+                        }
+                    }), this.getOrCreateReactorsWrapperNode());
+                }
 
-        unpatchReaction() {
-            for (const unpatch of this.reactionPatches) {
-                unpatch();
+                getOrCreateReactorsWrapperNode() {
+                    const reactionNode = ReactDOM.findDOMNode(this);
+                    let reactorsWrapperNode = reactionNode.querySelector(".reactors-wrapper");
+
+                    if (!reactorsWrapperNode) {
+                        const reactionInnerNode = reactionNode.querySelector(DiscordSelectors.Reactions.reactionInner);
+
+                        reactorsWrapperNode = document.createElement("div");
+                        reactorsWrapperNode.className = "reactors-wrapper";
+
+                        reactionInnerNode.appendChild(reactorsWrapperNode);
+                    }
+
+                    return reactorsWrapperNode;
+                }
             }
-        }
 
-        async findReactionComponent() {
-            return new Promise(resolve => {
-                const Reactions = WebpackModules.find(m => m.default?.displayName === "Reactions");
-
-                const unpatch = Patcher.after(Reactions.default.prototype, "render", (thisObject, args, returnValue) => {
+            Patcher.after(Reactions.component.prototype, "render",
+                (thisObject, args, returnValue) => {
                     if (!returnValue) return;
 
-                    const reaction = returnValue.props.children[0][0];
-                    if (reaction) {
-                        unpatch();
-                        resolve(reaction.type);
-                    }
-                });
-            });
+                    returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
+                        return React.createElement(ReactionWithReactorsComponent, {
+                            ...reactionElement.props
+                        });
+                    });
+                }
+            );
+
+            Reactions.forceUpdateAll();
         }
 
-        getOrCreateReactorsWrapperNode(reactionNode) {
-            let reactorsWrapperNode = reactionNode.querySelector(".reactors-wrapper");
+        async findReaction() {
+            const Reactions = await this.findReactions();
 
-            if (!reactorsWrapperNode) {
-                const reactionInnerNode = reactionNode.querySelector(".reactionInner-15NvIl, .da-reactionInner");
+            const unpatch = Patcher.after(Reactions.component.prototype, "render", (thisObject, args, returnValue) => {
+                if (!returnValue) return;
 
-                reactorsWrapperNode = document.createElement("div");
-                reactorsWrapperNode.className = "reactors-wrapper";
+                const reactionElement = returnValue.props.children[0][0];
+                if (reactionElement) {
+                    unpatch();
+                    ReactComponents.push(reactionElement.type);
+                }
+            });
 
-                reactionInnerNode.appendChild(reactorsWrapperNode);
-            }
+            Reactions.forceUpdateAll();
 
-            return reactorsWrapperNode;
+            return ReactComponents.getComponentByName("Reaction");
+        }
+
+        findReactions() {
+            return ReactComponents.getComponentByName("Reactions", DiscordSelectors.Reactions.reactions);
         }
     }
 
