@@ -23,15 +23,16 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.2",
+        version: "1.0.3",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "Even more features",
+                title: "Improvements",
+                type: "improved",
                 items: [
-                    "Added settings"
+                    "Added spacing between the avatars and the reaction borders"
                 ]
             }
         ]
@@ -84,7 +85,11 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
     class WhoReacted extends Plugin {
         get css() {
-            return `           
+            return `     
+                .reactors-wrapper {
+                    padding: 2px 0;
+                }
+            
                 .reactors-wrapper > div:not(:empty) {
                     margin-left: 6px;
                 }
@@ -131,7 +136,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
         }
 
         patchReaction() {
-            const UserSummaryItem = WebpackModules.find(m => m.default?.displayName === "UserSummaryItem");
+            const VoiceUserSummaryItem = WebpackModules.find(m => m.default?.displayName === "VoiceUserSummaryItem");
 
             this.findReactionComponent().then(ReactionComponent => {
                 this.reactionPatches.push(Patcher.after(ReactionComponent.prototype, "componentWillMount", thisObject => {
@@ -160,10 +165,9 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
                     const reactors = Object.values(ReactionStore.getReactions(message.channel_id, message.id, emoji));
 
-                    ReactDOM.render(React.createElement(UserSummaryItem.default, {
+                    ReactDOM.render(React.createElement(VoiceUserSummaryItem.default, {
                         max: this.settings.maxUsersShown,
-                        users: reactors,
-                        renderIcon: false,
+                        users: reactors
                     }), this.getOrCreateReactorsWrapperNode(reactionNode));
                 }));
             });
