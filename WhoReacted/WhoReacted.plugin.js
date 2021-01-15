@@ -23,16 +23,16 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.5",
+        version: "1.0.4",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "Fixes",
-                type: "fixed",
+                title: "Improvements",
+                type: "improved",
                 items: [
-                    "Now more users doesn't count as an user.  "
+                    "More performatic when there is a lot of reactions."
                 ]
             }
         ]
@@ -104,7 +104,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
             super();
 
             this.defaultSettings = {
-                maxUsersShown: 5
+                maxUsersShown: 6
             };
         }
 
@@ -125,8 +125,8 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     "The maximum amount of users shown per reaction.",
                     this.settings.maxUsersShown,
                     value => {
-                        if (isNaN(value) || value < 0) {
-                            return Toasts.error("Value must be a non-negative number!");
+                        if (isNaN(value)) {
+                            return Toasts.error("Value must be a number!");
                         }
 
                         this.settings.maxUsersShown = parseInt(value);
@@ -185,7 +185,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     const { reactors } = this.state;
 
                     ReactDOM.render(React.createElement(VoiceUserSummaryItemComponent, {
-                        max: settings.maxUsersShown + 1,
+                        max: settings.maxUsersShown,
                         users: reactors,
                         renderMoreUsers: (text, className) => {
                             return React.createElement("div", {
