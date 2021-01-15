@@ -23,16 +23,16 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.4",
+        version: "1.0.6",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "Improvements",
-                type: "improved",
+                title: "Fixes",
+                type: "fixed",
                 items: [
-                    "More performatic when there is a lot of reactions."
+                    "Now counting more users correctly."
                 ]
             }
         ]
@@ -125,8 +125,8 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     "The maximum amount of users shown per reaction.",
                     this.settings.maxUsersShown,
                     value => {
-                        if (isNaN(value)) {
-                            return Toasts.error("Value must be a number!");
+                        if (isNaN(value) || value < 1 || value > 99) {
+                            return Toasts.error("Value must be a number between 1 and 99!");
                         }
 
                         this.settings.maxUsersShown = parseInt(value);
@@ -182,6 +182,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                 }
 
                 renderReactors() {
+                    const { count } = this.props;
                     const { reactors } = this.state;
 
                     ReactDOM.render(React.createElement(VoiceUserSummaryItemComponent, {
@@ -195,7 +196,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                                     color: "var(--text-normal)",
                                     fontWeight: 500
                                 }
-                            }, text);
+                            }, `+${count - settings.maxUsersShown + 1}`);
                         }
                     }), this.getOrCreateReactorsWrapperNode());
                 }
