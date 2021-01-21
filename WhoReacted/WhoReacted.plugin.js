@@ -2,6 +2,7 @@
  * @name WhoReacted
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
+ * @website https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted
  * @source https://github.com/jaimeadf/BetterDiscordPlugins/blob/main/WhoReacted/WhoReacted.plugin.js
  * @updateUrl https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js
  */
@@ -23,15 +24,15 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.7",
+        version: "1.0.8",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "More settings and more performance",
+                title: "New meta",
                 items: [
-                    "Added setting to hide all the users on messages with an amount of reactions."
+                    "Added website."
                 ]
             }
         ]

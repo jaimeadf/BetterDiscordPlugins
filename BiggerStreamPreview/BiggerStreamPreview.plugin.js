@@ -2,6 +2,7 @@
  * @name BiggerStreamPreview
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
+ * @website https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/BiggerStreamPreview
  * @source https://github.com/jaimeadf/BetterDiscordPlugins/blob/main/BiggerStreamPreview/BiggerStreamPreview.plugin.js
  * @updateUrl https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/BiggerStreamPreview/BiggerStreamPreview.plugin.js
  */
@@ -23,16 +24,15 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.3",
+        version: "1.0.4",
         description: "Allows you to see bigger previews of streams via the context menu.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/BiggerStreamPreview",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/BiggerStreamPreview/BiggerStreamPreview.plugin.js",
         changelog: [
             {
-                title: "Improvements",
-                type: "improved",
+                title: "New meta",
                 items: [
-                    "Made the code cleaner."
+                    "Added website."
                 ]
             }
         ]
