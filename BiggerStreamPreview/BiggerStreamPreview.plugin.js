@@ -23,7 +23,7 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.2",
+        version: "1.0.3",
         description: "Allows you to see bigger previews of streams via the context menu.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/BiggerStreamPreview",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/BiggerStreamPreview/BiggerStreamPreview.plugin.js",
@@ -32,7 +32,7 @@ const config = {
                 title: "Improvements",
                 type: "improved",
                 items: [
-                    "Adjusted code style"
+                    "Made the code cleaner."
                 ]
             }
         ]
@@ -85,7 +85,6 @@ module.exports = !global.ZeresPluginLibrary ? class {
     class BiggerStreamPreview extends Plugin {
         constructor() {
             super();
-            this.userContextMenusPatches = [];
         }
 
         onStart() {
@@ -93,7 +92,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
         }
 
         onStop() {
-            this.unpatchUserContextMenus();
+            Patcher.unpatchAll();
         }
 
         patchUserContextMenus() {
@@ -123,13 +122,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
             };
 
             for (const UserContextMenu of UserContextMenus) {
-                this.userContextMenusPatches.push(Patcher.after(UserContextMenu, "default", patch));
-            }
-        }
-
-        unpatchUserContextMenus() {
-            for (const unpatch of this.userContextMenusPatches) {
-                unpatch();
+                Patcher.after(UserContextMenu, "default", patch);
             }
         }
 
