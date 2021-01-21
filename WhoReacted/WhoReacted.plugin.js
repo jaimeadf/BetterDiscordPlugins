@@ -23,16 +23,15 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.6",
+        version: "1.0.7",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "Fixes",
-                type: "fixed",
+                title: "More settings and more performance",
                 items: [
-                    "Now counting more users correctly."
+                    "Added setting to hide all the users on messages with an amount of reactions."
                 ]
             }
         ]
@@ -104,7 +103,8 @@ module.exports = !global.ZeresPluginLibrary ? class {
             super();
 
             this.defaultSettings = {
-                maxUsersShown: 6
+                maxUsersShown: 6,
+                amountOfReactionsToHideUsers: 10
             };
         }
 
@@ -130,6 +130,18 @@ module.exports = !global.ZeresPluginLibrary ? class {
                         }
 
                         this.settings.maxUsersShown = parseInt(value);
+                    }
+                ),
+                new Textbox(
+                    "Amount of reactions to hide users",
+                    "The minimum amount of reactions on a message to hide all the users. Set to 0 to never hide.",
+                    this.settings.amountOfReactionsToHideUsers,
+                    value => {
+                        if (isNaN(value) && value >= 0) {
+                            return Toasts.error("Value must be a non-negative number!");
+                        }
+
+                        this.settings.amountOfReactionsToHideUsers = parseInt(value);
                     }
                 )
             );
@@ -165,7 +177,6 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD_USERS, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
-                    Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_REMOVE_ALL, this.refreshReactors);
 
                     this.refreshReactors();
                 }
@@ -178,7 +189,6 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_ADD, this.refreshReactors);
                     Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_ADD_USERS, this.refreshReactors);
                     Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
-                    Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_REMOVE_ALL, this.refreshReactors);
                 }
 
                 renderReactors() {
@@ -222,11 +232,15 @@ module.exports = !global.ZeresPluginLibrary ? class {
                 (thisObject, args, returnValue) => {
                     if (!returnValue) return;
 
-                    returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
-                        return React.createElement(ReactionWithReactorsComponent, {
-                            ...reactionElement.props
+                    const { message } = thisObject.props;
+
+                    if (this.settings.amountOfReactionsToHideUsers === 0 || message.reactions.length <= this.settings.amountOfReactionsToHideUsers) {
+                        returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
+                            return React.createElement(ReactionWithReactorsComponent, {
+                                ...reactionElement.props
+                            });
                         });
-                    });
+                    }
                 }
             );
 
