@@ -24,15 +24,16 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.8",
+        version: "1.0.9",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "New meta",
+                title: "Fixes",
                 items: [
-                    "Added website."
+                    "Fixed lags when opening channel with reactions",
+                    "Fixed force updating every reaction on every reaction-related dispatch"
                 ]
             }
         ]
@@ -84,7 +85,9 @@ module.exports = !global.ZeresPluginLibrary ? class {
         Patcher,
         Toasts,
         DiscordSelectors,
-        ReactComponents
+        ReactComponents,
+        ReactTools,
+        Utilities
     } = Library;
     const { React, ReactDOM, Dispatcher, DiscordConstants: { ActionTypes } } = DiscordModules;
     const { SettingPanel, Textbox } = Settings;
@@ -156,21 +159,22 @@ module.exports = !global.ZeresPluginLibrary ? class {
             const VoiceUserSummaryItemComponent = WebpackModules.find(m => m.default?.displayName === "VoiceUserSummaryItem").default;
 
             const Reaction = await this.findReaction();
-            const Reactions = await this.findReactions();
+            const Reactions = this.findReactions();
 
             const settings = this.settings;
 
             class ReactionWithReactorsComponent extends Reaction.component {
                 constructor(props) {
                     super(props);
-                    this.state.reactors = [];
+                    this.state.reactors = this.getReactors();
                 }
 
-                refreshReactors = () => {
-                    const { message, emoji } = this.props;
+                refreshReactors = data => {
+                    const { message } = this.props;
+                    if (data.channelId !== message.channel_id || data.messageId !== message.id) return;
 
                     this.setState({
-                        reactors: Object.values(ReactionStore.getReactions(message.channel_id, message.id, emoji))
+                        reactors: this.getReactors()
                     });
                 };
 
@@ -178,12 +182,25 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD_USERS, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
-
-                    this.refreshReactors();
                 }
 
-                componentDidUpdate() {
-                    this.renderReactors();
+                render() {
+                    const res = super.render();
+                    const { children } = res.props;
+                    res.props.children = e => {
+                        const ret = children(e);
+                        const popoutProps = Utilities.findInReactTree(ret, e => e && typeof e.children === "function" && e.position);
+                        if (popoutProps) {
+                            const oChildren = popoutProps.children;
+                            popoutProps.children = e => {
+                                const ret2 = oChildren(e);
+                                ret2.props.children.props.children.push(React.createElement("div", { className: "reactors-wrapper" }, this.renderReactors()));
+                                return ret2;
+                            }
+                        }
+                        return ret;
+                    };
+                    return res;
                 }
 
                 componentWillUnmount() {
@@ -192,11 +209,16 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
                 }
 
+                getReactors() {
+                    const { message, emoji } = this.props;
+                    return Object.values(ReactionStore.getReactions(message.channel_id, message.id, emoji));
+                }
+
                 renderReactors() {
                     const { count } = this.props;
                     const { reactors } = this.state;
 
-                    ReactDOM.render(React.createElement(VoiceUserSummaryItemComponent, {
+                    return React.createElement(VoiceUserSummaryItemComponent, {
                         max: settings.maxUsersShown,
                         users: reactors,
                         renderMoreUsers: (text, className) => {
@@ -209,27 +231,11 @@ module.exports = !global.ZeresPluginLibrary ? class {
                                 }
                             }, `+${count - settings.maxUsersShown + 1}`);
                         }
-                    }), this.getOrCreateReactorsWrapperNode());
-                }
-
-                getOrCreateReactorsWrapperNode() {
-                    const reactionNode = ReactDOM.findDOMNode(this);
-                    let reactorsWrapperNode = reactionNode.querySelector(".reactors-wrapper");
-
-                    if (!reactorsWrapperNode) {
-                        const reactionInnerNode = reactionNode.querySelector(DiscordSelectors.Reactions.reactionInner);
-
-                        reactorsWrapperNode = document.createElement("div");
-                        reactorsWrapperNode.className = "reactors-wrapper";
-
-                        reactionInnerNode.appendChild(reactorsWrapperNode);
-                    }
-
-                    return reactorsWrapperNode;
+                    });
                 }
             }
 
-            Patcher.after(Reactions.component.prototype, "render",
+            Patcher.after(Reactions.prototype, "render",
                 (thisObject, args, returnValue) => {
                     if (!returnValue) return;
 
@@ -245,29 +251,15 @@ module.exports = !global.ZeresPluginLibrary ? class {
                 }
             );
 
-            Reactions.forceUpdateAll();
+            ReactComponents.getComponentByName("Reactions", DiscordSelectors.Reactions.reactions).then(c => c.forceUpdateAll());
         }
 
         async findReaction() {
-            const Reactions = await this.findReactions();
-
-            const unpatch = Patcher.after(Reactions.component.prototype, "render", (thisObject, args, returnValue) => {
-                if (!returnValue) return;
-
-                const reactionElement = returnValue.props.children[0][0];
-                if (reactionElement) {
-                    unpatch();
-                    ReactComponents.push(reactionElement.type);
-                }
-            });
-
-            Reactions.forceUpdateAll();
-
             return ReactComponents.getComponentByName("Reaction");
         }
 
         findReactions() {
-            return ReactComponents.getComponentByName("Reactions", DiscordSelectors.Reactions.reactions);
+            return WebpackModules.findByDisplayName("Reactions");
         }
     }
 
