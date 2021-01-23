@@ -31,9 +31,10 @@ const config = {
         changelog: [
             {
                 title: "Fixes",
+                type: "fixed",
                 items: [
-                    "Fixed lags when opening channel with reactions",
-                    "Fixed force updating every reaction on every reaction-related dispatch"
+                    "Fixed lags when opening channel with reactions (Thanks @Juby210 on GitHub).",
+                    "Fixed force updating every reaction on every reaction-related dispatch (Thanks @Juby210 on GitHub)."
                 ]
             }
         ]
@@ -85,11 +86,9 @@ module.exports = !global.ZeresPluginLibrary ? class {
         Patcher,
         Toasts,
         DiscordSelectors,
-        ReactComponents,
-        ReactTools,
-        Utilities
+        ReactComponents
     } = Library;
-    const { React, ReactDOM, Dispatcher, DiscordConstants: { ActionTypes } } = DiscordModules;
+    const { React, Dispatcher, DiscordConstants: { ActionTypes } } = DiscordModules;
     const { SettingPanel, Textbox } = Settings;
 
     const ReactionStore = WebpackModules.getByProps("getReactions", "_changeCallbacks");
@@ -97,7 +96,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
     class WhoReacted extends Plugin {
         get css() {
             return `          
-                .reactors-wrapper > div:not(:empty) {
+                .reactors:not(:empty) {
                     margin-left: 6px;
                 }
             `;
@@ -141,7 +140,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     "The minimum amount of reactions on a message to hide all the users. Set to 0 to never hide.",
                     this.settings.amountOfReactionsToHideUsers,
                     value => {
-                        if (isNaN(value) && value >= 0) {
+                        if (isNaN(value) || value < 0) {
                             return Toasts.error("Value must be a non-negative number!");
                         }
 
@@ -159,14 +158,14 @@ module.exports = !global.ZeresPluginLibrary ? class {
             const VoiceUserSummaryItemComponent = WebpackModules.find(m => m.default?.displayName === "VoiceUserSummaryItem").default;
 
             const Reaction = await this.findReaction();
-            const Reactions = this.findReactions();
+            const Reactions = await this.findReactions();
 
-            const settings = this.settings;
+            const self = this;
 
             class ReactionWithReactorsComponent extends Reaction.component {
                 constructor(props) {
                     super(props);
-                    this.state.reactors = this.getReactors();
+                    this.state.reactors = [];
                 }
 
                 refreshReactors = data => {
@@ -182,25 +181,34 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD_USERS, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
+
+                    this.setState({
+                        reactors: this.getReactors()
+                    });
                 }
 
                 render() {
-                    const res = super.render();
-                    const { children } = res.props;
-                    res.props.children = e => {
-                        const ret = children(e);
-                        const popoutProps = Utilities.findInReactTree(ret, e => e && typeof e.children === "function" && e.position);
-                        if (popoutProps) {
-                            const oChildren = popoutProps.children;
-                            popoutProps.children = e => {
-                                const ret2 = oChildren(e);
-                                ret2.props.children.props.children.push(React.createElement("div", { className: "reactors-wrapper" }, this.renderReactors()));
-                                return ret2;
-                            }
+                    const element = super.render();
+                    const tooltip = element.props.children;
+
+                    element.props.children = props => {
+                        const tooltipElement = tooltip(props);
+                        const popoutElement = tooltipElement.props.children;
+
+                        const reactionInner = popoutElement.props.children.props.children;
+
+                        popoutElement.props.children.props.children = props => {
+                            const reactionInnerElement = reactionInner(props);
+
+                            reactionInnerElement.props.children.props.children.push(this.renderReactors());
+
+                            return reactionInnerElement;
                         }
-                        return ret;
+
+                        return tooltipElement;
                     };
-                    return res;
+
+                    return element;
                 }
 
                 componentWillUnmount() {
@@ -219,47 +227,62 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     const { reactors } = this.state;
 
                     return React.createElement(VoiceUserSummaryItemComponent, {
-                        max: settings.maxUsersShown,
-                        users: reactors,
-                        renderMoreUsers: (text, className) => {
-                            return React.createElement("div", {
-                                className,
-                                style: {
-                                    backgroundColor: "var(--background-tertiary)",
-                                    color: "var(--text-normal)",
-                                    fontWeight: 500
-                                }
-                            }, `+${count - settings.maxUsersShown + 1}`);
+                            className: "reactors",
+                            max: self.settings.maxUsersShown,
+                            users: reactors,
+                            renderMoreUsers: (text, className) => {
+                                return React.createElement("div", {
+                                    className,
+                                    style: {
+                                        backgroundColor: "var(--background-tertiary)",
+                                        color: "var(--text-normal)",
+                                        fontWeight: 500
+                                    }
+                                }, `+${count - self.settings.maxUsersShown + 1}`);
+                            }
                         }
-                    });
+                    );
                 }
             }
 
-            Patcher.after(Reactions.prototype, "render",
-                (thisObject, args, returnValue) => {
-                    if (!returnValue) return;
+            Patcher.after(Reactions.component.prototype, "render", (thisObject, args, returnValue) => {
+                if (!returnValue) return;
 
-                    const { message } = thisObject.props;
+                const { message } = thisObject.props;
 
-                    if (this.settings.amountOfReactionsToHideUsers === 0 || message.reactions.length <= this.settings.amountOfReactionsToHideUsers) {
-                        returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
-                            return React.createElement(ReactionWithReactorsComponent, {
-                                ...reactionElement.props
-                            });
+                if (this.settings.amountOfReactionsToHideUsers === 0
+                    || message.reactions.length <= this.settings.amountOfReactionsToHideUsers) {
+                    returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
+                        return React.createElement(ReactionWithReactorsComponent, {
+                            ...reactionElement.props
                         });
-                    }
+                    });
                 }
-            );
+            });
 
-            ReactComponents.getComponentByName("Reactions", DiscordSelectors.Reactions.reactions).then(c => c.forceUpdateAll());
+            Reactions.forceUpdateAll();
         }
 
         async findReaction() {
+            const Reactions = await this.findReactions();
+
+            const unpatch = Patcher.after(Reactions.component.prototype, "render", (thisObject, args, returnValue) => {
+                if (!returnValue) return;
+
+                const reactionElement = returnValue.props.children[0][0];
+                if (reactionElement) {
+                    unpatch();
+                    ReactComponents.push(reactionElement.type);
+                }
+            });
+
+            Reactions.forceUpdateAll();
+
             return ReactComponents.getComponentByName("Reaction");
         }
 
-        findReactions() {
-            return WebpackModules.findByDisplayName("Reactions");
+        async findReactions() {
+            return ReactComponents.getComponentByName("Reactions", DiscordSelectors.Reactions.reactions);
         }
     }
 
