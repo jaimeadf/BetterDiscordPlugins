@@ -24,15 +24,17 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.8",
+        version: "1.0.9",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "New meta",
+                title: "Fixes",
+                type: "fixed",
                 items: [
-                    "Added website."
+                    "Fixed lags when opening channel with reactions (Thanks @Juby210 on GitHub).",
+                    "Fixed force updating every reaction on every reaction-related dispatch (Thanks @Juby210 on GitHub)."
                 ]
             }
         ]
@@ -86,7 +88,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
         DiscordSelectors,
         ReactComponents
     } = Library;
-    const { React, ReactDOM, Dispatcher, DiscordConstants: { ActionTypes } } = DiscordModules;
+    const { React, Dispatcher, DiscordConstants: { ActionTypes } } = DiscordModules;
     const { SettingPanel, Textbox } = Settings;
 
     const ReactionStore = WebpackModules.getByProps("getReactions", "_changeCallbacks");
@@ -94,7 +96,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
     class WhoReacted extends Plugin {
         get css() {
             return `          
-                .reactors-wrapper > div:not(:empty) {
+                .reactors:not(:empty) {
                     margin-left: 6px;
                 }
             `;
@@ -138,7 +140,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     "The minimum amount of reactions on a message to hide all the users. Set to 0 to never hide.",
                     this.settings.amountOfReactionsToHideUsers,
                     value => {
-                        if (isNaN(value) && value >= 0) {
+                        if (isNaN(value) || value < 0) {
                             return Toasts.error("Value must be a non-negative number!");
                         }
 
@@ -158,7 +160,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
             const Reaction = await this.findReaction();
             const Reactions = await this.findReactions();
 
-            const settings = this.settings;
+            const self = this;
 
             class ReactionWithReactorsComponent extends Reaction.component {
                 constructor(props) {
@@ -166,11 +168,12 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     this.state.reactors = [];
                 }
 
-                refreshReactors = () => {
-                    const { message, emoji } = this.props;
+                refreshReactors = data => {
+                    const { message } = this.props;
+                    if (data.channelId !== message.channel_id || data.messageId !== message.id) return;
 
                     this.setState({
-                        reactors: Object.values(ReactionStore.getReactions(message.channel_id, message.id, emoji))
+                        reactors: this.getReactors()
                     });
                 };
 
@@ -179,11 +182,33 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD_USERS, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
 
-                    this.refreshReactors();
+                    this.setState({
+                        reactors: this.getReactors()
+                    });
                 }
 
-                componentDidUpdate() {
-                    this.renderReactors();
+                render() {
+                    const element = super.render();
+                    const tooltip = element.props.children;
+
+                    element.props.children = props => {
+                        const tooltipElement = tooltip(props);
+                        const popoutElement = tooltipElement.props.children;
+
+                        const reactionInner = popoutElement.props.children.props.children;
+
+                        popoutElement.props.children.props.children = props => {
+                            const reactionInnerElement = reactionInner(props);
+
+                            reactionInnerElement.props.children.props.children.push(this.renderReactors());
+
+                            return reactionInnerElement;
+                        }
+
+                        return tooltipElement;
+                    };
+
+                    return element;
                 }
 
                 componentWillUnmount() {
@@ -192,58 +217,48 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
                 }
 
+                getReactors() {
+                    const { message, emoji } = this.props;
+                    return Object.values(ReactionStore.getReactions(message.channel_id, message.id, emoji));
+                }
+
                 renderReactors() {
                     const { count } = this.props;
                     const { reactors } = this.state;
 
-                    ReactDOM.render(React.createElement(VoiceUserSummaryItemComponent, {
-                        max: settings.maxUsersShown,
-                        users: reactors,
-                        renderMoreUsers: (text, className) => {
-                            return React.createElement("div", {
-                                className,
-                                style: {
-                                    backgroundColor: "var(--background-tertiary)",
-                                    color: "var(--text-normal)",
-                                    fontWeight: 500
-                                }
-                            }, `+${count - settings.maxUsersShown + 1}`);
+                    return React.createElement(VoiceUserSummaryItemComponent, {
+                            className: "reactors",
+                            max: self.settings.maxUsersShown,
+                            users: reactors,
+                            renderMoreUsers: (text, className) => {
+                                return React.createElement("div", {
+                                    className,
+                                    style: {
+                                        backgroundColor: "var(--background-tertiary)",
+                                        color: "var(--text-normal)",
+                                        fontWeight: 500
+                                    }
+                                }, `+${count - self.settings.maxUsersShown + 1}`);
+                            }
                         }
-                    }), this.getOrCreateReactorsWrapperNode());
-                }
-
-                getOrCreateReactorsWrapperNode() {
-                    const reactionNode = ReactDOM.findDOMNode(this);
-                    let reactorsWrapperNode = reactionNode.querySelector(".reactors-wrapper");
-
-                    if (!reactorsWrapperNode) {
-                        const reactionInnerNode = reactionNode.querySelector(DiscordSelectors.Reactions.reactionInner);
-
-                        reactorsWrapperNode = document.createElement("div");
-                        reactorsWrapperNode.className = "reactors-wrapper";
-
-                        reactionInnerNode.appendChild(reactorsWrapperNode);
-                    }
-
-                    return reactorsWrapperNode;
+                    );
                 }
             }
 
-            Patcher.after(Reactions.component.prototype, "render",
-                (thisObject, args, returnValue) => {
-                    if (!returnValue) return;
+            Patcher.after(Reactions.component.prototype, "render", (thisObject, args, returnValue) => {
+                if (!returnValue) return;
 
-                    const { message } = thisObject.props;
+                const { message } = thisObject.props;
 
-                    if (this.settings.amountOfReactionsToHideUsers === 0 || message.reactions.length <= this.settings.amountOfReactionsToHideUsers) {
-                        returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
-                            return React.createElement(ReactionWithReactorsComponent, {
-                                ...reactionElement.props
-                            });
+                if (this.settings.amountOfReactionsToHideUsers === 0
+                    || message.reactions.length <= this.settings.amountOfReactionsToHideUsers) {
+                    returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
+                        return React.createElement(ReactionWithReactorsComponent, {
+                            ...reactionElement.props
                         });
-                    }
+                    });
                 }
-            );
+            });
 
             Reactions.forceUpdateAll();
         }
@@ -266,7 +281,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
             return ReactComponents.getComponentByName("Reaction");
         }
 
-        findReactions() {
+        async findReactions() {
             return ReactComponents.getComponentByName("Reactions", DiscordSelectors.Reactions.reactions);
         }
     }
