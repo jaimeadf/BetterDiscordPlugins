@@ -24,17 +24,16 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.9",
+        version: "1.0.10",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "Fixes",
-                type: "fixed",
+                title: "Improvements",
+                type: "improved",
                 items: [
-                    "Fixed lags when opening channel with reactions (Thanks @Juby210 on GitHub).",
-                    "Fixed force updating every reaction on every reaction-related dispatch (Thanks @Juby210 on GitHub)."
+                    "More performance improvements."
                 ]
             }
         ]
@@ -165,7 +164,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
             class ReactionWithReactorsComponent extends Reaction.component {
                 constructor(props) {
                     super(props);
-                    this.state.reactors = [];
+                    this.state.reactors = this.getReactors();
                 }
 
                 refreshReactors = data => {
@@ -173,6 +172,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     if (data.channelId !== message.channel_id || data.messageId !== message.id) return;
 
                     this.setState({
+                        ...this.state,
                         reactors: this.getReactors()
                     });
                 };
@@ -181,10 +181,6 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD_USERS, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
-
-                    this.setState({
-                        reactors: this.getReactors()
-                    });
                 }
 
                 render() {
@@ -281,7 +277,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
             return ReactComponents.getComponentByName("Reaction");
         }
 
-        async findReactions() {
+        findReactions() {
             return ReactComponents.getComponentByName("Reactions", DiscordSelectors.Reactions.reactions);
         }
     }
