@@ -46,16 +46,16 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.10",
+        version: "1.0.11",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "Improvements",
-                type: "improved",
+                title: "Fixes",
+                type: "fixed",
                 items: [
-                    "More performance improvements."
+                    "Fixed not updating when all reactions are removed."
                 ]
             }
         ]
@@ -203,6 +203,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_ADD_USERS, this.refreshReactors);
                     Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
+                    Dispatcher.subscribe(ActionTypes.MESSAGE_REACTION_REMOVE_ALL, this.refreshReactors);
                 }
 
                 render() {
@@ -233,6 +234,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_ADD, this.refreshReactors);
                     Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_ADD_USERS, this.refreshReactors);
                     Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_REMOVE, this.refreshReactors);
+                    Dispatcher.unsubscribe(ActionTypes.MESSAGE_REACTION_REMOVE_ALL, this.refreshReactors);
                 }
 
                 getReactors() {
