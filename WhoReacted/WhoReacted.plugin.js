@@ -46,7 +46,7 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.11",
+        version: "1.0.12",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
@@ -55,7 +55,7 @@ const config = {
                 title: "Fixes",
                 type: "fixed",
                 items: [
-                    "Fixed not updating when all reactions are removed."
+                    "Fixed crash on server preview mode."
                 ]
             }
         ]
@@ -239,7 +239,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
                 getReactors() {
                     const { message, emoji } = this.props;
-                    return Object.values(ReactionStore.getReactions(message.channel_id, message.id, emoji));
+                    return Object.values(ReactionStore.getReactions(message.channel_id, message.id, emoji) ?? {});
                 }
 
                 renderReactors() {
