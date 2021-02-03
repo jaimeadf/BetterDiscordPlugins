@@ -46,16 +46,15 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.0.13",
+        version: "1.1.0",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
         github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
         changelog: [
             {
-                title: "Improvements",
-                type: "improved",
+                title: "New Settings",
                 items: [
-                    "Some performance tweaks."
+                    "New setting to hide all the users when there is a specified count of reactions on a single emoji (Thanks @YeapGuy on GitHub)."
                 ]
             }
         ]
