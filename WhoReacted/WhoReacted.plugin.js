@@ -128,7 +128,8 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
             this.defaultSettings = {
                 maxUsersShown: 6,
-                amountOfReactionsToHideUsers: 10
+                amountOfReactionsToHideUsers: 10,
+                amountOfReactionsOnEmojiToHideUsers: 20
             };
         }
 
@@ -162,7 +163,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                 ),
                 new Textbox(
                     "Amount of reactions to hide users",
-                    "The minimum amount of reactions on a message to hide all the users. Set to 0 to never hide.",
+                    "The minimum amount of separate emoji reactions on a message to hide all the users. Set to 0 to never hide.",
                     this.settings.amountOfReactionsToHideUsers,
                     value => {
                         if (isNaN(value) || value < 0) {
@@ -170,6 +171,18 @@ module.exports = !global.ZeresPluginLibrary ? class {
                         }
 
                         this.settings.amountOfReactionsToHideUsers = parseInt(value);
+                    }
+                ),
+                new Textbox(
+                    "Amount of reactions on emoji to hide users",
+                    "The minimum amount of reactions on a single emoji to hide all the users. Set to 0 to never hide.",
+                    this.settings.amountOfReactionsOnEmojiToHideUsers,
+                    value => {
+                        if (isNaN(value) || value < 0) {
+                            return Toasts.error("Value must be a non-negative number!");
+                        }
+
+                        this.settings.amountOfReactionsOnEmojiToHideUsers = parseInt(value);
                     }
                 )
             );
@@ -270,9 +283,12 @@ module.exports = !global.ZeresPluginLibrary ? class {
                 if (!returnValue) return;
 
                 const { message } = thisObject.props;
-
-                if (this.settings.amountOfReactionsToHideUsers === 0
-                    || message.reactions.length <= this.settings.amountOfReactionsToHideUsers) {
+                
+                const highestReactionCount = Math.max.apply(Math, message.reactions.map(function(o) { return o.count; }));
+                if ((this.settings.amountOfReactionsToHideUsers === 0
+                    || message.reactions.length <= this.settings.amountOfReactionsToHideUsers)
+                    && (this.settings.amountOfReactionsOnEmojiToHideUsers === 0
+                    || highestReactionCount < this.settings.amountOfReactionsOnEmojiToHideUsers)) {
                     returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
                         return React.createElement(ReactionWithReactorsComponent, {
                             ...reactionElement.props
