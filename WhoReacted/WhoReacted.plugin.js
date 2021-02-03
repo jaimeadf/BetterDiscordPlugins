@@ -128,12 +128,20 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
             this.defaultSettings = {
                 maxUsersShown: 6,
-                amountOfReactionsToHideUsers: 10,
-                amountOfReactionsOnEmojiToHideUsers: 20
+                countOfEmojisToHideUsers: 10,
+                countOfReactionsOnEmojiToHideUsers: 50
             };
         }
 
         async onStart() {
+            // Compatibility with older version
+            if (this.settings.amountOfReactionsToHideUsers !== undefined) {
+                this.settings.countOfEmojisToHideUsers = this.settings.amountOfReactionsToHideUsers;
+                delete this.settings.amountOfReactionsToHideUsers;
+
+                this.saveSettings();
+            }
+
             PluginUtilities.addStyle(this.getName(), this.css);
 
             this.Reactions = await this.findReactions();
@@ -151,7 +159,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
             return new SettingPanel(this.saveSettings.bind(this),
                 new Textbox(
                     "Max users shown",
-                    "The maximum amount of users shown per reaction.",
+                    "The maximum count of users shown per emoji.",
                     this.settings.maxUsersShown,
                     value => {
                         if (isNaN(value) || value < 1 || value > 99) {
@@ -162,27 +170,27 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     }
                 ),
                 new Textbox(
-                    "Amount of reactions to hide users",
-                    "The minimum amount of separate emoji reactions on a message to hide all the users. Set to 0 to never hide.",
-                    this.settings.amountOfReactionsToHideUsers,
+                    "Count of emojis to hide users",
+                    "The minimum count of separate emojis on a message to hide all the users. Set to 0 to disable.",
+                    this.settings.countOfEmojisToHideUsers,
                     value => {
                         if (isNaN(value) || value < 0) {
                             return Toasts.error("Value must be a non-negative number!");
                         }
 
-                        this.settings.amountOfReactionsToHideUsers = parseInt(value);
+                        this.settings.countOfEmojisToHideUsers = parseInt(value);
                     }
                 ),
                 new Textbox(
-                    "Amount of reactions on emoji to hide users",
-                    "The minimum amount of reactions on a single emoji to hide all the users. Set to 0 to never hide.",
-                    this.settings.amountOfReactionsOnEmojiToHideUsers,
+                    "Count of reactions on emoji to hide users",
+                    "The minimum count of reactions on a single emoji to hide all the users. Set to 0 to disable.",
+                    this.settings.countOfReactionsOnEmojiToHideUsers,
                     value => {
                         if (isNaN(value) || value < 0) {
                             return Toasts.error("Value must be a non-negative number!");
                         }
 
-                        this.settings.amountOfReactionsOnEmojiToHideUsers = parseInt(value);
+                        this.settings.countOfReactionsOnEmojiToHideUsers = parseInt(value);
                     }
                 )
             );
@@ -283,12 +291,8 @@ module.exports = !global.ZeresPluginLibrary ? class {
                 if (!returnValue) return;
 
                 const { message } = thisObject.props;
-                
-                const highestReactionCount = Math.max.apply(Math, message.reactions.map(function(o) { return o.count; }));
-                if ((this.settings.amountOfReactionsToHideUsers === 0
-                    || message.reactions.length <= this.settings.amountOfReactionsToHideUsers)
-                    && (this.settings.amountOfReactionsOnEmojiToHideUsers === 0
-                    || highestReactionCount < this.settings.amountOfReactionsOnEmojiToHideUsers)) {
+
+                if (this.canShowReactors(message)) {
                     returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
                         return React.createElement(ReactionWithReactorsComponent, {
                             ...reactionElement.props
@@ -298,6 +302,19 @@ module.exports = !global.ZeresPluginLibrary ? class {
             });
 
             this.Reactions.forceUpdateAll();
+        }
+
+        canShowReactors({ reactions }) {
+            const { countOfEmojisToHideUsers, countOfReactionsOnEmojiToHideUsers } = this.settings;
+
+            if (countOfEmojisToHideUsers !== 0 && reactions.length >= countOfEmojisToHideUsers)
+                return false;
+
+            const highestReactionCount = Math.max(...reactions.map(reaction => reaction.count));
+            if (countOfReactionsOnEmojiToHideUsers !== 0 && highestReactionCount >= countOfReactionsOnEmojiToHideUsers)
+                return false;
+
+            return true;
         }
 
         findReactions() {
