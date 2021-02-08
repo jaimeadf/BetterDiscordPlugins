@@ -62,6 +62,10 @@ const config = {
 };
 
 module.exports = !global.ZeresPluginLibrary ? class {
+    constructor() {
+        this._config = config;
+    }
+
     getName() {
         return config.info.name;
     }
