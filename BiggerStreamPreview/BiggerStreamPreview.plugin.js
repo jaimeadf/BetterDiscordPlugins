@@ -1,5 +1,6 @@
 /**
  * @name BiggerStreamPreview
+ * @version 1.0.4
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
  * @website https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/BiggerStreamPreview
