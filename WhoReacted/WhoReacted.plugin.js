@@ -234,6 +234,19 @@ module.exports = !global.ZeresPluginLibrary ? class {
         }
 
         patchReactions() {
+            function canShowReactors({ reactions }) {
+                const { countOfEmojisToHideUsers, countOfReactionsOnEmojiToHideUsers } = this.settings;
+
+                if (countOfEmojisToHideUsers !== 0 && reactions.length >= countOfEmojisToHideUsers)
+                    return false;
+
+                const highestReactionCount = Math.max(...reactions.map(reaction => reaction.count));
+                if (countOfReactionsOnEmojiToHideUsers !== 0 && highestReactionCount >= countOfReactionsOnEmojiToHideUsers)
+                    return false;
+
+                return true;
+            }
+
             const self = this;
 
             class ReactionWithReactors extends this.Reaction.component {
@@ -270,7 +283,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
                 const { message } = thisObject.props;
 
-                if (this.canShowReactors(message)) {
+                if (canShowReactors(message)) {
                     returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
                         return React.createElement(ReactionWithReactors, {
                             ...reactionElement.props
@@ -280,19 +293,6 @@ module.exports = !global.ZeresPluginLibrary ? class {
             });
 
             this.Reactions.forceUpdateAll();
-        }
-
-        canShowReactors({ reactions }) {
-            const { countOfEmojisToHideUsers, countOfReactionsOnEmojiToHideUsers } = this.settings;
-
-            if (countOfEmojisToHideUsers !== 0 && reactions.length >= countOfEmojisToHideUsers)
-                return false;
-
-            const highestReactionCount = Math.max(...reactions.map(reaction => reaction.count));
-            if (countOfReactionsOnEmojiToHideUsers !== 0 && highestReactionCount >= countOfReactionsOnEmojiToHideUsers)
-                return false;
-
-            return true;
         }
 
         findReactions() {
