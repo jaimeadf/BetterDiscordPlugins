@@ -111,7 +111,8 @@ module.exports = !global.ZeresPluginLibrary ? class {
         Patcher,
         Toasts,
         DiscordSelectors,
-        ReactComponents
+        ReactTools,
+        Utilities
     } = Library;
     const { React } = DiscordModules;
     const { SettingPanel, Textbox } = Settings;
@@ -119,9 +120,10 @@ module.exports = !global.ZeresPluginLibrary ? class {
     const Flux = WebpackModules.getByProps("Store", "connectStores");
     const ReactionStore = WebpackModules.getByProps("getReactions", "_changeCallbacks");
 
+    const Reactions = WebpackModules.find(m => m?.default?.displayName === "Reactions").default;
     const VoiceUserSummaryItem = WebpackModules.find(m => m?.default?.displayName === "VoiceUserSummaryItem").default;
 
-    function Reactors({ max, count, users }) {
+    function Reactors({ count, max, users }) {
         function renderMoreUsers(text, className) {
             return React.createElement("div", {
                 className: `${className} more-reactors`,
@@ -176,11 +178,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
             }
 
             PluginUtilities.addStyle(this.getName(), this.css);
-
-            this.Reactions = await this.findReactions();
-            this.Reaction = await this.findReaction();
-
-            this.patchReactions();
+            await this.patchReaction();
         }
 
         onStop() {
@@ -233,8 +231,10 @@ module.exports = !global.ZeresPluginLibrary ? class {
             return this.buildSettingsPanel().getElement();
         }
 
-        patchReactions() {
-            function canShowReactors({ reactions }) {
+        async patchReaction() {
+            const Reaction = await this.findReaction();
+
+            const canShowReactors = ({ reactions }) => {
                 const { countOfEmojisToHideUsers, countOfReactionsOnEmojiToHideUsers } = this.settings;
 
                 if (countOfEmojisToHideUsers !== 0 && reactions.length >= countOfEmojisToHideUsers)
@@ -247,72 +247,65 @@ module.exports = !global.ZeresPluginLibrary ? class {
                 return true;
             }
 
-            const self = this;
+            Patcher.after(Reaction.prototype, "render", (thisObject, args, returnValue) => {
+                const { message, emoji, count } = thisObject.props;
+                if (!canShowReactors(message)) return;
 
-            class ReactionWithReactors extends this.Reaction.component {
-                render() {
-                    const element = super.render();
-                    const tooltip = element.props.children;
+                const renderTooltip = returnValue.props.children;
+                returnValue.props.children = props => {
+                    const tooltip = renderTooltip(props);
+                    const popout = tooltip.props.children.props.children;
 
-                    element.props.children = props => {
-                        const tooltipElement = tooltip(props);
-                        const popoutElement = tooltipElement.props.children;
+                    const renderReactionInner = popout.props.children;
+                    popout.props.children = props => {
+                        const reactionInner = renderReactionInner(props);
 
-                        const reactionInner = popoutElement.props.children.props.children;
+                        reactionInner.props.children.props.children.push(React.createElement(Reactors, {
+                            message,
+                            emoji,
+                            count,
+                            max: this.settings.maxUsersShown
+                        }));
 
-                        popoutElement.props.children.props.children = props => {
-                            const reactionInnerElement = reactionInner(props);
+                        return reactionInner;
+                    }
 
-                            reactionInnerElement.props.children.props.children.push(React.createElement(Reactors, {
-                                ...this.props,
-                                max: self.settings.maxUsersShown
-                            }));
-
-                            return reactionInnerElement;
-                        }
-
-                        return tooltipElement;
-                    };
-
-                    return element;
-                }
-            }
-
-            Patcher.after(this.Reactions.component.prototype, "render", (thisObject, args, returnValue) => {
-                if (!returnValue) return;
-
-                const { message } = thisObject.props;
-
-                if (canShowReactors(message)) {
-                    returnValue.props.children[0] = returnValue.props.children[0].map(reactionElement => {
-                        return React.createElement(ReactionWithReactors, {
-                            ...reactionElement.props
-                        });
-                    });
+                    return tooltip;
                 }
             });
 
-            this.Reactions.forceUpdateAll();
-        }
-
-        findReactions() {
-            return ReactComponents.getComponentByName("Reactions", DiscordSelectors.Reactions.reactions);
+            this.forceUpdateAllReactions();
         }
 
         findReaction() {
-            const unpatch = Patcher.after(this.Reactions.component.prototype, "render", (thisObject, args, returnValue) => {
-                if (!returnValue) return;
-
-                const reactionElement = returnValue.props.children[0][0];
-                if (reactionElement) {
-                    unpatch();
-                    ReactComponents.push(reactionElement.type);
+            return new Promise(resolve => {
+                const node = document.querySelector(DiscordSelectors.Reactions.reaction);
+                if (node) {
+                    return resolve(this.findReactionReactInstance(node).type);
                 }
+
+                const unpatch = Patcher.after(Reactions.prototype, "render", (thisObject, args, returnValue) => {
+                    if (!returnValue) return;
+
+                    const reaction = returnValue.props.children[0][0];
+                    if (reaction) {
+                        unpatch();
+                        resolve(reaction.type);
+                    }
+                });
             });
+        }
 
-            this.Reactions.forceUpdateAll();
+        forceUpdateAllReactions() {
+            for (const node of document.querySelectorAll(DiscordSelectors.Reactions.reaction)) {
+                this.findReactionReactInstance(node).stateNode.forceUpdate();
+            }
+        }
 
-            return ReactComponents.getComponentByName("Reaction");
+        findReactionReactInstance(node) {
+            return Utilities.findInTree(ReactTools.getReactInstance(node), r => r?.type?.displayName === "Reaction", {
+                walkable: ["return"]
+            });
         }
     }
 
