@@ -121,8 +121,14 @@ module.exports = !global.ZeresPluginLibrary ? class {
     class WhoReacted extends Plugin {
         get css() {
             return `          
-                .reactors:not(:empty) {
+                .who-reacted-reactors:not(:empty) {
                     margin-left: 6px;
+                }
+                
+                .who-reacted-reactors .more-reactors {
+                    background-color: var(--background-tertiary);
+                    color: var(--text-normal);
+                    font-weight: 500;
                 }
             `;
         }
@@ -273,17 +279,12 @@ module.exports = !global.ZeresPluginLibrary ? class {
                     const { reactors } = this.state;
 
                     return React.createElement(VoiceUserSummaryItemComponent, {
-                            className: "reactors",
+                            className: "who-reacted-reactors",
                             max: self.settings.maxUsersShown,
                             users: reactors,
                             renderMoreUsers: (text, className) => {
                                 return React.createElement("div", {
-                                    className,
-                                    style: {
-                                        backgroundColor: "var(--background-tertiary)",
-                                        color: "var(--text-normal)",
-                                        fontWeight: 500
-                                    }
+                                    className: `${className} more-reactors`
                                 }, `+${count - self.settings.maxUsersShown + 1}`);
                             }
                         }
