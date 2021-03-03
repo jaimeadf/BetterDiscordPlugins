@@ -192,7 +192,10 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
         buildSettingsPanel() {
             return new SettingPanel(
-                this.saveSettings.bind(this),
+                () => {
+                    this.saveSettings();
+                    this.forceUpdateAllReactions();
+                },
                 new Textbox(
                     "Max users shown",
                     "The maximum number of users shown for each reaction emoji.",
