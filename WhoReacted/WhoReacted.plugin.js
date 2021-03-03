@@ -115,7 +115,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
         Utilities
     } = Library;
     const { React } = DiscordModules;
-    const { SettingPanel, Textbox } = Settings;
+    const { SettingPanel, Textbox, Slider } = Settings;
 
     const Flux = WebpackModules.getByProps("Store", "connectStores");
     const ReactionStore = WebpackModules.getByProps("getReactions", "_changeCallbacks");
@@ -163,20 +163,12 @@ module.exports = !global.ZeresPluginLibrary ? class {
 
             this.defaultSettings = {
                 maxUsersShown: 6,
-                countOfEmojisToHideUsers: 10,
-                countOfReactionsOnEmojiToHideUsers: 50
+                reactionThreshold: 10,
+                userThreshold: 100
             };
         }
 
         async onStart() {
-            // Compatibility with older version
-            if (this.settings.amountOfReactionsToHideUsers !== undefined) {
-                this.settings.countOfEmojisToHideUsers = this.settings.amountOfReactionsToHideUsers;
-                delete this.settings.amountOfReactionsToHideUsers;
-
-                this.saveSettings();
-            }
-
             PluginUtilities.addStyle(this.getName(), this.css);
             await this.patchReaction();
         }
@@ -186,11 +178,24 @@ module.exports = !global.ZeresPluginLibrary ? class {
             Patcher.unpatchAll();
         }
 
+        loadSettings(defaultSettings) {
+            const settings = super.loadSettings(defaultSettings);
+
+            settings.reactionThreshold = settings.countOfEmojisToHideUsers ?? settings.reactionThreshold;
+            settings.userThreshold = settings.countOfReactionsOnEmojiToHideUsers ?? settings.userThreshold;
+
+            delete settings.countOfEmojisToHideUsers;
+            delete settings.countOfReactionsOnEmojiToHideUsers;
+
+            return settings;
+        }
+
         buildSettingsPanel() {
-            return new SettingPanel(this.saveSettings.bind(this),
+            return new SettingPanel(
+                this.saveSettings.bind(this),
                 new Textbox(
                     "Max users shown",
-                    "The maximum count of users shown per emoji.",
+                    "The maximum number of users shown for each reaction emoji.",
                     this.settings.maxUsersShown,
                     value => {
                         if (isNaN(value) || value < 1 || value > 99) {
@@ -200,28 +205,29 @@ module.exports = !global.ZeresPluginLibrary ? class {
                         this.settings.maxUsersShown = parseInt(value);
                     }
                 ),
-                new Textbox(
-                    "Count of emojis to hide users",
-                    "The minimum count of separate emojis on a message to hide all the users. Set to 0 to disable.",
-                    this.settings.countOfEmojisToHideUsers,
-                    value => {
-                        if (isNaN(value) || value < 0) {
-                            return Toasts.error("Value must be a non-negative number!");
-                        }
-
-                        this.settings.countOfEmojisToHideUsers = parseInt(value);
+                new Slider(
+                    "Reaction threshold",
+                    "Hides the reactors when the number of separate reactions is exceeded on a message. Set to 0 to disable.",
+                    0,
+                    20,
+                    this.settings.reactionThreshold,
+                    value => this.settings.reactionThreshold = value,
+                    {
+                        markers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+                        stickToMarkers: true
                     }
                 ),
-                new Textbox(
-                    "Count of reactions on emoji to hide users",
-                    "The minimum count of reactions on a single emoji to hide all the users. Set to 0 to disable.",
-                    this.settings.countOfReactionsOnEmojiToHideUsers,
-                    value => {
-                        if (isNaN(value) || value < 0) {
-                            return Toasts.error("Value must be a non-negative number!");
-                        }
-
-                        this.settings.countOfReactionsOnEmojiToHideUsers = parseInt(value);
+                new Slider(
+                    "User threshold",
+                    "Hides the reactors when their count is exceeded on a message. Set to 0 to disable.",
+                    0,
+                    10000,
+                    this.settings.userThreshold,
+                    value => this.settings.userThreshold = value,
+                    {
+                        markers: [0, 10, 20, 50, 100, 500, 1000, 2000, 3000, 4000, 5000, 10000],
+                        stickToMarkers: true,
+                        equidistant: true
                     }
                 )
             );
@@ -235,13 +241,13 @@ module.exports = !global.ZeresPluginLibrary ? class {
             const Reaction = await this.findReaction();
 
             const canShowReactors = ({ reactions }) => {
-                const { countOfEmojisToHideUsers, countOfReactionsOnEmojiToHideUsers } = this.settings;
+                const { reactionThreshold, userThreshold } = this.settings;
 
-                if (countOfEmojisToHideUsers !== 0 && reactions.length >= countOfEmojisToHideUsers)
+                if (reactionThreshold !== 0 && reactions.length >= reactionThreshold)
                     return false;
 
                 const highestReactionCount = Math.max(...reactions.map(reaction => reaction.count));
-                if (countOfReactionsOnEmojiToHideUsers !== 0 && highestReactionCount >= countOfReactionsOnEmojiToHideUsers)
+                if (userThreshold !== 0 && highestReactionCount >= userThreshold)
                     return false;
 
                 return true;
