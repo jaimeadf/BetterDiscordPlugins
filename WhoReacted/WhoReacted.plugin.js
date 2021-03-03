@@ -1,6 +1,6 @@
 /**
  * @name WhoReacted
- * @version 1.1.0
+ * @version 1.2.0
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
  * @website https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted
@@ -47,19 +47,35 @@ const config = {
                 github_username: "jaimeadf"
             }
         ],
-        version: "1.1.0",
+        version: "1.2.0",
         description: "Shows the avatars of the users who reacted to a message.",
         github: "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/WhoReacted",
-        github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js",
-        changelog: [
-            {
-                title: "New Settings",
-                items: [
-                    "New setting to hide all the users when there is a specified count of reactions on a single emoji (Thanks @YeapGuy on GitHub)."
-                ]
-            }
-        ]
-    }
+        github_raw: "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/main/WhoReacted/WhoReacted.plugin.js"
+    },
+    changelog: [
+        {
+            title: "More features",
+            items: [
+                "Added a new setting that lets you choose if you want to use the reaction with most reactors or the sum of reactors for the user threshold.",
+                "Added auto updating when any setting is changed."
+            ]
+        },
+        {
+            title: "Improvements",
+            type: "improved",
+            items: [
+                "Various optimizations and performance fixes for a much smoother experience.",
+                "Renamed settings and rewritten their descriptions."
+            ]
+        },
+        {
+            title: "Finally fixed",
+            type: "fixed",
+            items: [
+                "The changelog now shows (yay)."
+            ]
+        }
+    ]
 };
 
 module.exports = !global.ZeresPluginLibrary ? class {
@@ -237,7 +253,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
                 ),
                 new Switch(
                     "Use highest user count",
-                    "Uses the reaction with most users of a message for user threshold.",
+                    "Uses the reaction with most reactors of a message for user threshold.",
                     this.settings.useHighestUserCount,
                     value => this.settings.useHighestUserCount = value
                 )
