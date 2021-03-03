@@ -115,7 +115,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
         Utilities
     } = Library;
     const { React } = DiscordModules;
-    const { SettingPanel, Textbox, Slider } = Settings;
+    const { SettingPanel, Textbox, Slider, Switch } = Settings;
 
     const Flux = WebpackModules.getByProps("Store", "connectStores");
     const ReactionStore = WebpackModules.getByProps("getReactions", "_changeCallbacks");
@@ -164,7 +164,8 @@ module.exports = !global.ZeresPluginLibrary ? class {
             this.defaultSettings = {
                 maxUsersShown: 6,
                 reactionThreshold: 10,
-                userThreshold: 100
+                userThreshold: 100,
+                useHighestUserCount: true
             };
         }
 
@@ -232,6 +233,12 @@ module.exports = !global.ZeresPluginLibrary ? class {
                         stickToMarkers: true,
                         equidistant: true
                     }
+                ),
+                new Switch(
+                    "Use highest user count",
+                    "Uses the reaction with most users of a message for user threshold.",
+                    this.settings.useHighestUserCount,
+                    value => this.settings.useHighestUserCount = value
                 )
             );
         }
@@ -244,14 +251,21 @@ module.exports = !global.ZeresPluginLibrary ? class {
             const Reaction = await this.findReaction();
 
             const canShowReactors = ({ reactions }) => {
-                const { reactionThreshold, userThreshold } = this.settings;
+                const { reactionThreshold, userThreshold, useHighestUserCount } = this.settings;
 
-                if (reactionThreshold !== 0 && reactions.length >= reactionThreshold)
+                if (reactionThreshold !== 0 && reactions.length > reactionThreshold) {
                     return false;
+                }
 
-                const highestReactionCount = Math.max(...reactions.map(reaction => reaction.count));
-                if (userThreshold !== 0 && highestReactionCount >= userThreshold)
-                    return false;
+                if (userThreshold !== 0) {
+                    const userCount = useHighestUserCount ?
+                        Math.max(...reactions.map(reaction => reaction.count)) :
+                        reactions.reduce((total, reaction) => total + reaction.count, 0);
+
+                    if (userCount > userThreshold) {
+                        return false;
+                    }
+                }
 
                 return true;
             }
