@@ -90,8 +90,9 @@ module.exports = !global.ZeresPluginLibrary ? class {
                 cancelText: "Cancel",
                 onConfirm: () => {
                     request.get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js", (error, response, body) => {
-                        if (error)
+                        if (error) {
                             return electron.shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");
+                        }
 
                         fs.writeFileSync(path.join(BdApi.Plugins.folder, "0PluginLibrary.plugin.js"), body);
                     });
@@ -139,7 +140,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
         });
     }
 
-    Reactors = Flux.connectStores([ ReactionStore ], ({ message, emoji }) => ({
+    Reactors = Flux.connectStores([ReactionStore], ({ message, emoji }) => ({
         users: Object.values(ReactionStore.getReactions(message.getChannelId(), message.id, emoji) ?? {})
     }))(Reactors);
 
