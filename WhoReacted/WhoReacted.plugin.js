@@ -149,7 +149,7 @@ module.exports = !global.ZeresPluginLibrary ? class {
         }
 
         return React.createElement(VoiceUserSummaryItem, {
-            className: 'who-reacted-reactors',
+            className: "who-reacted-reactors",
             max,
             users,
             renderMoreUsers
