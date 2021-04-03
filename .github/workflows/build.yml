@@ -2,7 +2,7 @@ name: build
 on:
   push:
     branches:
-      - develop
+      - release
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v2
         with:
-          ref: develop
+          ref: release
       - name: Setup node
         uses: actions/setup-node@v2
         with:
