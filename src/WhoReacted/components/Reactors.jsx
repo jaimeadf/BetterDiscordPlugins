@@ -1,9 +1,9 @@
 import React from 'react';
-import { WebpackModules } from 'zlibrary';
+import { BdApi } from '@bandagedbd/bdapi';
 
-const Flux = WebpackModules.getByProps('Store', 'connectStores');
-const ReactionStore = WebpackModules.getByProps('getReactions', '_changeCallbacks');
-const VoiceUserSummaryItem = WebpackModules.find(m => m?.default?.displayName === 'VoiceUserSummaryItem').default;
+const Flux = BdApi.findModuleByProps('Store', 'connectStores');
+const ReactionStore = BdApi.findModuleByProps('getReactions', '_changeCallbacks');
+const VoiceUserSummaryItem = BdApi.findModule(m => m?.default?.displayName === 'VoiceUserSummaryItem').default;
 
 const Reactors = ({ count, max, users }) => {
     function renderMoreUsers(text, className) {

@@ -53,6 +53,7 @@ module.exports = {
         zlibrary: 'global ZeresPluginLibrary',
         electron: 'commonjs2 electron',
         request: 'commonjs2 request',
+        '@bandagedbd/bdapi': 'assign {BdApi: global.BdApi}'
     },
     optimization: {
         minimizer: [
