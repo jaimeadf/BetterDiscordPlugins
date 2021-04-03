@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Reactors from './components/Reactors';
+
 export default ([Plugin, Library]) => {
     const {
         Settings,
@@ -13,31 +15,7 @@ export default ([Plugin, Library]) => {
     } = Library;
     const { SettingPanel, Textbox, Slider, Switch } = Settings;
 
-    const Flux = WebpackModules.getByProps('Store', 'connectStores');
-    const ReactionStore = WebpackModules.getByProps('getReactions', '_changeCallbacks');
-
     const Reactions = WebpackModules.find(m => m?.default?.displayName === 'Reactions').default;
-    const VoiceUserSummaryItem = WebpackModules.find(m => m?.default?.displayName === 'VoiceUserSummaryItem').default;
-
-    function Reactors({ count, max, users }) {
-        function renderMoreUsers(text, className) {
-            return React.createElement('div', {
-                className: `${className} more-reactors`,
-                children: `+${1 + count - max}`
-            });
-        }
-
-        return React.createElement(VoiceUserSummaryItem, {
-            className: 'who-reacted-reactors',
-            max,
-            users,
-            renderMoreUsers
-        });
-    }
-
-    Reactors = Flux.connectStores([ReactionStore], ({ message, emoji }) => ({
-        users: Object.values(ReactionStore.getReactions(message.getChannelId(), message.id, emoji) ?? {})
-    }))(Reactors);
 
     class WhoReacted extends Plugin {
         get css() {
