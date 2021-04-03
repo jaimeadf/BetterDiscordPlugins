@@ -6,7 +6,7 @@ import electron from 'electron';
 import { BdApi } from '@bandagedbd/bdapi';
 import ZLibrary from 'zlibrary';
 
-import createPlugin from '{{importPath}}'
+import createPlugin from '{{importPath}}';
 
 const config = {{serializedConfig}};
 
