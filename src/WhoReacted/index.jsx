@@ -75,18 +75,6 @@ export default ([Plugin, Library]) => {
             Patcher.unpatchAll();
         }
 
-        loadSettings(defaultSettings) {
-            const settings = super.loadSettings(defaultSettings);
-
-            settings.reactionThreshold = settings.countOfEmojisToHideUsers ?? settings.reactionThreshold;
-            settings.userThreshold = settings.countOfReactionsOnEmojiToHideUsers ?? settings.userThreshold;
-
-            delete settings.countOfEmojisToHideUsers;
-            delete settings.countOfReactionsOnEmojiToHideUsers;
-
-            return settings;
-        }
-
         buildSettingsPanel() {
             return new SettingPanel(
                 () => {
