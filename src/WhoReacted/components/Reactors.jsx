@@ -14,12 +14,14 @@ const Reactors = ({ count, max, users }) => {
         );
     }
 
-    return <VoiceUserSummaryItem
-        className="bd-who-reacted-reactors"
-        max={max}
-        users={users}
-        renderMoreUsers={renderMoreUsers}
-    />
+    return (
+        <VoiceUserSummaryItem
+            className="bd-who-reacted-reactors"
+            max={max}
+            users={users}
+            renderMoreUsers={renderMoreUsers}
+        />
+    );
 };
 
 export default Flux.connectStores([ReactionStore], ({ message, emoji }) => ({
