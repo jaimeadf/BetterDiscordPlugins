@@ -22,7 +22,7 @@ export default ([Plugin, Library]) => {
 
         patchUserContextMenus() {
             const UserContextMenus = WebpackModules.findAll(
-                m => m.default && m.default.displayName.includes('UserContextMenu'));
+                m =>m?.default?.displayName?.includes('UserContextMenu'));
 
             const patch = (thisObject, [props], returnValue) => {
                 const { user } = props;
@@ -62,7 +62,7 @@ export default ([Plugin, Library]) => {
                     width: image.width,
                     height: image.height,
                     onClickUntrusted: e => e.openHref(),
-                    renderLinkComponent: props => React.createElement(MaskedLink, props)
+                    renderLinkComponent: props => <MaskedLink {...props} />
                 }
             )
         }
