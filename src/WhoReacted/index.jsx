@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Reactors from './components/Reactors';
+import style from './style.scss';
 
 export default ([Plugin, Library]) => {
     const {
@@ -18,20 +19,6 @@ export default ([Plugin, Library]) => {
     const Reactions = WebpackModules.find(m => m?.default?.displayName === 'Reactions').default;
 
     class WhoReacted extends Plugin {
-        get css() {
-            return `
-                .who-reacted-reactors:not(:empty) {
-                    margin-left: 6px;
-                }
-              
-                .who-reacted-reactors .more-reactors {
-                    background-color: var(--background-tertiary);
-                    color: var(--text-normal);
-                    font-weight: 500;
-                }
-            `;
-        }
-
         constructor() {
             super();
 
@@ -44,7 +31,7 @@ export default ([Plugin, Library]) => {
         }
 
         async onStart() {
-            PluginUtilities.addStyle(this.getName(), this.css);
+            PluginUtilities.addStyle(this.getName(), style);
             await this.patchReaction();
         }
 

@@ -8,14 +8,14 @@ const VoiceUserSummaryItem = WebpackModules.find(m => m?.default?.displayName ==
 const Reactors = ({ count, max, users }) => {
     function renderMoreUsers(text, className) {
         return (
-            <div className={`${className} more-reactors`}>
+            <div className={`${className} bd-who-reacted-more-reactors`}>
                 +{1 + count - max}
             </div>
         );
     }
 
     return <VoiceUserSummaryItem
-        className="who-reacted-reactors"
+        className="bd-who-reacted-reactors"
         max={max}
         users={users}
         renderMoreUsers={renderMoreUsers}
