@@ -107,9 +107,9 @@ export default ([Plugin, Library]) => {
                 }
 
                 if (userThreshold !== 0) {
-                    const userCount = useHighestUserCount ?
-                        Math.max(...reactions.map(reaction => reaction.count)) :
-                        reactions.reduce((total, reaction) => total + reaction.count, 0);
+                    const userCount = useHighestUserCount
+                        ? Math.max(...reactions.map(reaction => reaction.count))
+                        : reactions.reduce((total, reaction) => total + reaction.count, 0);
 
                     if (userCount > userThreshold) {
                         return false;
@@ -132,12 +132,14 @@ export default ([Plugin, Library]) => {
                     popout.props.children = props => {
                         const reactionInner = renderReactionInner(props);
 
-                        reactionInner.props.children.props.children.push(React.createElement(Reactors, {
-                            message,
-                            emoji,
-                            count,
-                            max: this.settings.maxUsersShown
-                        }));
+                        reactionInner.props.children.props.children.push(
+                            <Reactors
+                                message={message}
+                                emoji={emoji}
+                                count={count}
+                                max={this.settings.maxUsersShown}
+                            />
+                        );
 
                         return reactionInner;
                     }
