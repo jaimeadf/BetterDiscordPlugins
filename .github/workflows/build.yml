@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - release
+    paths:
+      - src/*/README.md
+      - src/*/manifest.json
 
 jobs:
   build:
