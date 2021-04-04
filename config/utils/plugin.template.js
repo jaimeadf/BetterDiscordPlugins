@@ -45,9 +45,9 @@ export default ZLibrary
                             }
 
                             fs.writeFileSync(path.join(BdApi.Plugins.folder, '0PluginLibrary.plugin.js'), body);
-                        })
+                        });
                     }
-                })
+                });
         }
 
         start() {
@@ -57,4 +57,4 @@ export default ZLibrary
         stop() {
 
         }
-    }
+    };

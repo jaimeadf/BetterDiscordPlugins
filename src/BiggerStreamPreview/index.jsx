@@ -8,10 +8,6 @@ export default ([Plugin, Library]) => {
     const MaskedLink = WebpackModules.getByDisplayName('MaskedLink');
 
     class BiggerStreamPreview extends Plugin {
-        constructor() {
-            super();
-        }
-
         onStart() {
             this.patchUserContextMenus();
         }
@@ -22,7 +18,7 @@ export default ([Plugin, Library]) => {
 
         patchUserContextMenus() {
             const UserContextMenus = WebpackModules.findAll(
-                m =>m?.default?.displayName?.includes('UserContextMenu'));
+                m => m?.default?.displayName?.includes('UserContextMenu'));
 
             const patch = (thisObject, [props], returnValue) => {
                 const { user } = props;
@@ -38,9 +34,7 @@ export default ([Plugin, Library]) => {
                     }),
                     DiscordContextMenu.buildMenuItem({
                         label: 'View Stream Preview',
-                        action: async () => {
-                            await this.showImageModal(previewURL)
-                        },
+                        action: () => this.showImageModal(previewURL),
                         disabled: previewURL === null
                     })
                 );

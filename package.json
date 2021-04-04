@@ -1,29 +1,29 @@
 {
-  "name": "bd-plugins",
-  "version": "1.0.0",
-  "repository": "https://github.com/jaimeadf/BetterDiscordPlugins",
-  "author": "Jaime Daniel <jaimeadanielfilho@hotmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "dev": "webpack --config config/webpack.development.js --watch",
-    "build": "webpack --config config/webpack.production.js"
-  },
-  "devDependencies": {
-    "@sucrase/webpack-loader": "^2.0.0",
-    "@svgr/webpack": "^5.5.0",
-    "@types/bandagedbd__bdapi": "^0.3.0",
-    "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^8.1.0",
-    "node-sass": "^5.0.0",
-    "raw-loader": "^4.0.2",
-    "sass-loader": "^11.0.1",
-    "sucrase": "^3.17.1",
-    "template-file": "^5.1.0",
-    "terser-webpack-plugin": "^5.1.1",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.30.0",
-    "webpack-cli": "^4.6.0",
-    "webpack-inject-plugin": "^1.5.5",
-    "webpack-merge": "^5.7.3"
-  }
+    "name": "bd-plugins",
+    "version": "1.0.0",
+    "repository": "https://github.com/jaimeadf/BetterDiscordPlugins",
+    "author": "Jaime Daniel <jaimeadanielfilho@hotmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "dev": "webpack --config config/webpack.development.js --watch",
+        "build": "webpack --config config/webpack.production.js"
+    },
+    "devDependencies": {
+        "@sucrase/webpack-loader": "^2.0.0",
+        "@svgr/webpack": "^5.5.0",
+        "@types/bandagedbd__bdapi": "^0.3.0",
+        "clean-webpack-plugin": "^3.0.0",
+        "copy-webpack-plugin": "^8.1.0",
+        "node-sass": "^5.0.0",
+        "raw-loader": "^4.0.2",
+        "sass-loader": "^11.0.1",
+        "sucrase": "^3.17.1",
+        "template-file": "^5.1.0",
+        "terser-webpack-plugin": "^5.1.1",
+        "url-loader": "^4.1.1",
+        "webpack": "^5.30.0",
+        "webpack-cli": "^4.6.0",
+        "webpack-inject-plugin": "^1.5.5",
+        "webpack-merge": "^5.7.3"
+    }
 }

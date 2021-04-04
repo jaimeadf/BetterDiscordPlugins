@@ -1,13 +1,13 @@
 {
-  "name": "WhoReacted",
-  "description": "Shows the avatars of the users who reacted to a message.",
-  "version": "1.2.1",
-  "author": {
-    "id": "289112759948410881",
-    "name": "Jaime Filho"
-  },
-  "invite": "z6Yx9A8VDR",
-  "website": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted",
-  "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted",
-  "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js"
+    "name": "WhoReacted",
+    "description": "Shows the avatars of the users who reacted to a message.",
+    "version": "1.2.1",
+    "author": {
+        "id": "289112759948410881",
+        "name": "Jaime Filho"
+    },
+    "invite": "z6Yx9A8VDR",
+    "website": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted",
+    "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted",
+    "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js"
 }

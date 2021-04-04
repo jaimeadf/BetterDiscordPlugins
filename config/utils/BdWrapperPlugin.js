@@ -40,7 +40,7 @@ class BdWrapperPlugin {
         const { manifest, importPath } = this.options;
 
         new InjectPlugin(
-            () => renderFile(path.resolve(__dirname, 'plugin.js.template'), {
+            () => renderFile(path.resolve(__dirname, 'plugin.template.js'), {
                 importPath: importPath,
                 serializedConfig: JSON.stringify({
                     info: {

@@ -1,13 +1,13 @@
 {
-  "name": "BiggerStreamPreview",
-  "description": "Adds a button in the context menu to see bigger stream previews.",
-  "version": "1.0.5",
-  "author": {
-    "id": "289112759948410881",
-    "name": "Jaime Filho"
-  },
-  "invite": "z6Yx9A8VDR",
-  "website": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/source/src/BiggerStreamPreview",
-  "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/source/src/BiggerStreamPreview",
-  "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"
+    "name": "BiggerStreamPreview",
+    "description": "Adds a button in the context menu to see bigger stream previews.",
+    "version": "1.0.5",
+    "author": {
+        "id": "289112759948410881",
+        "name": "Jaime Filho"
+    },
+    "invite": "z6Yx9A8VDR",
+    "website": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/source/src/BiggerStreamPreview",
+    "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/source/src/BiggerStreamPreview",
+    "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"
 }
