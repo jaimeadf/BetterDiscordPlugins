@@ -12,7 +12,7 @@ This repository contains a collection of plugins for the [@BetterDiscord](https:
 
 ## Development
 
-This section is designed for people who are willing to contribute or modify the source code for personal use. Here you can find all the information for developing and building locally.
+This section is designed for people who are willing to contribute or want to modify the source code for personal use. Here you can find all the information for developing and building locally.
 
 ### Prerequisites
 
@@ -24,7 +24,7 @@ This section is designed for people who are willing to contribute or modify the 
 
 #### `yarn dev`
 
-Watches for any editions and automatically builds the plugins in development mode directly to your plugins folder.
+Watches for any editions and automatically builds the plugins directly to your plugins folder.
 
 #### `yarn build`
 
@@ -49,6 +49,8 @@ yarn install
 yarn dev
 ```
 
+4. Happy coding.
+
 ### Contributing
 
-Please always submit pull requests to the [develop](https://github.com/jaimeadf/BetterDiscordPlugins/tree/develop) branch and be careful to never commit your dist folder, our [GitHub Actions](https://github.com/features/actions) is set up to automatically run the `build` script when any change is merged.
+All contributions are welcome, whether they're a bug fix or a new feature. Only make sure to target the [develop](https://github.com/jaimeadf/BetterDiscordPlugins/tree/develop) branch and don't commit your `dist` folder. [GitHub Actions](https://github.com/features/actions) takes care of the entire building process for us.
