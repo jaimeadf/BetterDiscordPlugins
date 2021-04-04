@@ -6,6 +6,7 @@ on:
     paths:
       - src/*/README.md
       - src/*/manifest.json
+      - .github/workflows/build.yml
 
 jobs:
   build:
