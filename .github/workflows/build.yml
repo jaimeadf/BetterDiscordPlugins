@@ -2,7 +2,7 @@ name: build
 on:
   push:
     branches:
-      - release
+      - develop
     paths:
       - src/*/README.md
       - src/*/manifest.json
