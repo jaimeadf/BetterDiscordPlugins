@@ -7,7 +7,7 @@
         "name": "Jaime Filho"
     },
     "invite": "z6Yx9A8VDR",
-    "website": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/source/src/BiggerStreamPreview",
-    "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/source/src/BiggerStreamPreview",
-    "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"
+    "website": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview",
+    "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview",
+    "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"
 }
