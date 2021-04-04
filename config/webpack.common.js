@@ -9,7 +9,8 @@ module.exports = {
     },
     output: {
         library: {
-            type: 'commonjs2',
+            type: 'var',
+            name: 'createPlugin',
             export: 'default'
         }
     },
@@ -58,6 +59,11 @@ module.exports = {
     optimization: {
         minimizer: [
             new TerserPlugin({
+                terserOptions: {
+                    format: {
+                        comments: /^\**!|@preserve|@license|@cc_on|@end/i
+                    }
+                },
                 extractComments: false
             })
         ]

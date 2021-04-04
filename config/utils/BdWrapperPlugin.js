@@ -1,8 +1,12 @@
+const fs = require('fs');
 const path = require('path');
-const { renderFile } = require('template-file');
 
-const { default: InjectPlugin, ENTRY_ORDER } = require('webpack-inject-plugin');
-const { BannerPlugin } = require('webpack');
+const { ConcatSource } = require('webpack-sources');
+const { Compilation } = require('webpack');
+
+const { render } = require('template-file');
+
+const template = fs.readFileSync(path.resolve(__dirname, 'plugin.template.js')).toString();
 
 class BdMeta {
     constructor() {
@@ -37,41 +41,39 @@ class BdWrapperPlugin {
     }
 
     apply(compiler) {
-        const { manifest, importPath } = this.options;
+        compiler.hooks.thisCompilation.tap('BdWrapperPlugin', (compilation) => {
+            compilation.hooks.processAssets.tap(
+                {
+                    name: 'BdWrapperPlugin',
+                    stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONS,
+                },
+                () => {
+                    for (const chunk of compilation.chunks) {
+                        if (!chunk.canBeInitial() || chunk.name !== this.options.entryName) continue;
 
-        new InjectPlugin(
-            () => renderFile(path.resolve(__dirname, 'plugin.template.js'), {
-                importPath: importPath,
-                serializedConfig: JSON.stringify({
-                    info: {
-                        name: manifest.name,
-                        description: manifest.description,
-                        version: manifest.version,
-                        authors: [
-                            {
-                                name: manifest.author.name,
-                                discord_id: manifest.author.id
+                        for (const file of chunk.files) {
+                            wrapFile(file);
+                        }
+                    }
+                },
+            );
+
+            const wrapFile = file => {
+                compilation.updateAsset(
+                    file,
+                    old => new ConcatSource(
+                        render(template, {
+                                metaComment: this.buildMeta().toString(),
+                                serializedConfig: JSON.stringify(this.buildConfig()),
+                                code: old.buffer().toString()
                             }
-                        ],
-                        github: manifest.source,
-                        github_raw: manifest.updateUrl
-                    },
-                    changelog: manifest.changelog
-                })
-            }),
-            {
-                entryName: name => name === this.options.entryName || name === 'import',
-                entryOrder: ENTRY_ORDER.Last
+                        )
+                    )
+                );
             }
-        ).apply(compiler);
-
-        new BannerPlugin({
-            banner: this.buildMeta().toString(),
-            raw: true,
-            entryOnly: true,
-            test: this.options.entryName
-        }).apply(compiler);
+        });
     }
+
 
     buildMeta() {
         const { manifest } = this.options;
@@ -89,6 +91,27 @@ class BdWrapperPlugin {
         meta.set('updateUrl', manifest.updateUrl);
 
         return meta;
+    }
+
+    buildConfig() {
+        const { manifest } = this.options;
+
+        return {
+            info: {
+                name: manifest.name,
+                description: manifest.description,
+                version: manifest.version,
+                authors: [
+                    {
+                        name: manifest.author.name,
+                        discord_id: manifest.author.id
+                    }
+                ],
+                github: manifest.source,
+                github_raw: manifest.updateUrl
+            },
+            changelog: manifest.changelog
+        };
     }
 }
 
