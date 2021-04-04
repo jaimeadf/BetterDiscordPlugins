@@ -40,13 +40,11 @@ module.exports = {
     plugins: [
         new BdWrapperPlugin({
             entryName: 'WhoReacted',
-            manifest: require('../src/WhoReacted/manifest.json'),
-            importPath: './src/WhoReacted'
+            manifest: require('../src/WhoReacted/manifest.json')
         }),
         new BdWrapperPlugin({
             entryName: 'BiggerStreamPreview',
-            manifest: require('../src/BiggerStreamPreview/manifest.json'),
-            importPath: './src/BiggerStreamPreview'
+            manifest: require('../src/BiggerStreamPreview/manifest.json')
         })
     ],
     externals: {
