@@ -1,5 +1,5 @@
 import React from 'react';
-import { WebpackModules } from 'zlibrary';
+import { WebpackModules } from '@zlibrary';
 
 const Flux = WebpackModules.getByProps('Store', 'connectStores');
 const ReactionStore = WebpackModules.getByProps('getReactions', '_changeCallbacks');

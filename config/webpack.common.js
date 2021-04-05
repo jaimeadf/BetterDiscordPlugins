@@ -10,7 +10,7 @@ module.exports = {
     output: {
         library: {
             type: 'var',
-            name: 'createPlugin',
+            name: 'plugin',
             export: 'default'
         }
     },
@@ -49,17 +49,18 @@ module.exports = {
     ],
     externals: {
         react: ['global BdApi', 'React'],
-        zlibrary: 'global ZeresPluginLibrary',
         electron: 'commonjs2 electron',
         request: 'commonjs2 request',
-        '@bandagedbd/bdapi': 'assign {BdApi: global.BdApi}'
+        '@bandagedbd/bdapi': 'assign {BdApi: global.BdApi}',
+        '@zlibrary': 'assign BoundedLibrary',
+        '@zlibrary/plugin': 'assign Plugin'
     },
     optimization: {
         minimizer: [
             new TerserPlugin({
                 terserOptions: {
                     format: {
-                        comments: /^\**!|@preserve|@license|@cc_on|@end/i
+                        comments: /^(\**!)|@preserve|@license|@cc_on|@end/i
                     }
                 },
                 extractComments: false

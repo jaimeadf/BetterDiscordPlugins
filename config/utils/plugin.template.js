@@ -30,8 +30,10 @@ const electron = require('electron');
 const config = {{serializedConfig}};
 
 function buildPlugin() {
+    const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
     {{code}}
-    return createPlugin(global.ZeresPluginLibrary.buildPlugin(config));
+
+    return plugin;
 }
 
 module.exports = global.ZeresPluginLibrary
