@@ -4,7 +4,10 @@ const { merge } = require('webpack-merge');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
+const findPlugins = require('./utils/findPlugins');
 const common = require('./webpack.common');
+
+const plugins = findPlugins();
 
 module.exports = merge(common, {
     mode: 'production',
@@ -29,10 +32,10 @@ module.exports = merge(common, {
     plugins: [
         new CleanWebpackPlugin(),
         new CopyPlugin({
-            patterns: [
-                { from: 'src/WhoReacted/README.md', to: 'WhoReacted/README.md' },
-                { from: 'src/BiggerStreamPreview/README.md', to: 'BiggerStreamPreview/README.md' }
-            ]
+            patterns: plugins.map(plugin => ({
+                from: path.join(plugin.path, 'README.md'),
+                to: path.join(plugin.folder, 'README.md')
+            }))
         })
     ]
 });

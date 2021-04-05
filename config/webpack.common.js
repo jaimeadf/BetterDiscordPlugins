@@ -1,12 +1,13 @@
-const BdWrapperPlugin = require('./utils/BdWrapperPlugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const BdWrapperPlugin = require('./utils/BdWrapperPlugin');
+
+const findPlugins = require('./utils/findPlugins');
+
+const plugins = findPlugins();
 
 module.exports = {
     target: 'node',
-    entry: {
-        WhoReacted: './src/WhoReacted',
-        BiggerStreamPreview: './src/BiggerStreamPreview'
-    },
+    entry: Object.fromEntries(plugins.map(plugin => [plugin.folder, plugin.path])),
     output: {
         library: {
             type: 'var',
@@ -38,14 +39,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new BdWrapperPlugin({
-            entryName: 'WhoReacted',
-            manifest: require('../src/WhoReacted/manifest.json')
-        }),
-        new BdWrapperPlugin({
-            entryName: 'BiggerStreamPreview',
-            manifest: require('../src/BiggerStreamPreview/manifest.json')
-        })
+        ...plugins.map(plugin => new BdWrapperPlugin({
+            entryName: plugin.folder,
+            manifest: plugin.manifest
+        }))
     ],
     externals: {
         react: ['global BdApi', 'React'],
