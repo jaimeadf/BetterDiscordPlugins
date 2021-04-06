@@ -6,7 +6,7 @@ const common = require('./webpack.common');
 function getBdDataPath() {
     const dataPath = process.env.APPDATA || (process.platform === 'darwin'
         ? `${process.env.HOME}/Library/Application Support`
-        : `${process.env.HOME}/.local/share`);
+        : process.env.XDG_CONFIG_HOME || `${process.env.HOME}/.config`);
 
     return path.join(dataPath, 'BetterDiscord');
 }
