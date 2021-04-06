@@ -107,29 +107,9 @@ export default class WhoReacted extends Plugin {
     async patchReaction() {
         const Reaction = await this.findReaction();
 
-        const canShowReactors = ({ reactions }) => {
-            const { reactionThreshold, userThreshold, useHighestUserCount } = this.settings;
-
-            if (reactionThreshold !== 0 && reactions.length > reactionThreshold) {
-                return false;
-            }
-
-            if (userThreshold !== 0) {
-                const userCount = useHighestUserCount
-                    ? Math.max(...reactions.map(reaction => reaction.count))
-                    : reactions.reduce((total, reaction) => total + reaction.count, 0);
-
-                if (userCount > userThreshold) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
         Patcher.after(Reaction.prototype, 'render', (thisObject, args, returnValue) => {
             const { message, emoji, count } = thisObject.props;
-            if (!canShowReactors(message)) return;
+            if (!this.canShowReactors(message)) return;
 
             const renderTooltip = returnValue.props.children;
             returnValue.props.children = props => {
@@ -159,6 +139,26 @@ export default class WhoReacted extends Plugin {
         });
 
         this.forceUpdateAllReactions();
+    }
+
+    canShowReactors = ({ reactions }) => {
+        const { reactionThreshold, userThreshold, useHighestUserCount } = this.settings;
+
+        if (reactionThreshold !== 0 && reactions.length > reactionThreshold) {
+            return false;
+        }
+
+        if (userThreshold !== 0) {
+            const userCount = useHighestUserCount
+                ? Math.max(...reactions.map(reaction => reaction.count))
+                : reactions.reduce((total, reaction) => total + reaction.count, 0);
+
+            if (userCount > userThreshold) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     findReaction() {
