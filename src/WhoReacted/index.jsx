@@ -24,6 +24,7 @@ export default class WhoReacted extends Plugin {
 
         this.defaultSettings = {
             maxUsersShown: 6,
+            imageSize: 20,
             reactionThreshold: 10,
             userThreshold: 100,
             useHighestUserCount: true,
@@ -58,6 +59,18 @@ export default class WhoReacted extends Plugin {
                     }
 
                     this.settings.maxUsersShown = parseInt(value);
+                }
+            ),
+            new Slider(
+                'Reactor image size',
+                'Specify the image size of the reactors in px.',
+                8,
+                32,
+                this.settings.imageSize,
+                value => this.settings.imageSize = value,
+                {
+                    markers: [8, 12, 16, 20, 24, 32],
+                    stickToMarkers: true
                 }
             ),
             new Slider(
@@ -128,6 +141,7 @@ export default class WhoReacted extends Plugin {
                             userId={this.userId}
                             max={this.settings.maxUsersShown}
                             showBot={this.settings.showBot}
+                            size={this.settings.imageSize}
                         />
                     );
 
