@@ -13,7 +13,7 @@
         "@svgr/webpack": "^5.5.0",
         "@types/bandagedbd__bdapi": "^0.3.0",
         "clean-webpack-plugin": "^3.0.0",
-        "copy-webpack-plugin": "^8.1.0",
+        "copy-webpack-plugin": "^8.1.1",
         "node-sass": "^5.0.0",
         "raw-loader": "^4.0.2",
         "sass-loader": "^11.0.1",
