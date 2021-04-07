@@ -5,8 +5,8 @@ const Flux = WebpackModules.getByProps('Store', 'connectStores');
 const ReactionStore = WebpackModules.getByProps('getReactions', '_changeCallbacks');
 const VoiceUserSummaryItem = WebpackModules.find(m => m?.default?.displayName === 'VoiceUserSummaryItem').default;
 
-const Reactors = ({ count, max, users, userId, showBot, size }) => {
-    const filteredUsers = users.filter(user => user.id != userId && (showBot || user.bot !== true));
+const Reactors = ({ count, max, users, hideUserId, showBot, size }) => {
+    const filteredUsers = users.filter(user => user.id != hideUserId && (showBot || user.bot !== true));
     const filtered = users.length - filteredUsers.length;
 
     function renderMoreUsers(text, className) {

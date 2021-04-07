@@ -29,6 +29,7 @@ export default class WhoReacted extends Plugin {
             userThreshold: 100,
             useHighestUserCount: true,
             showBot: false,
+            showSelf: false,
         };
     }
 
@@ -110,6 +111,12 @@ export default class WhoReacted extends Plugin {
                 this.settings.showBot,
                 value => this.settings.showBot = value
             ),
+            new Switch(
+                'Show yourself as reactor',
+                '',
+                this.settings.showSelf,
+                value => this.settings.showSelf = value
+            ),
         );
     }
 
@@ -138,7 +145,7 @@ export default class WhoReacted extends Plugin {
                             message={message}
                             emoji={emoji}
                             count={count}
-                            userId={this.userId}
+                            hideUserId={this.settings.showSelf ? null : this.userId}
                             max={this.settings.maxUsersShown}
                             showBot={this.settings.showBot}
                             size={this.settings.imageSize}
