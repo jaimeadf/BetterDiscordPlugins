@@ -1,6 +1,6 @@
 const TerserPlugin = require('terser-webpack-plugin');
-const BdWrapperPlugin = require('./utils/BdWrapperPlugin');
 
+const BdWrapperPlugin = require('./BdWrapperPlugin');
 const findPlugins = require('./utils/findPlugins');
 
 const plugins = findPlugins();

@@ -4,7 +4,7 @@ const { merge } = require('webpack-merge');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-const findPlugins = require('./utils/findPlugins');
+const { findPlugins } = require('./utils');
 const common = require('./webpack.common');
 
 const plugins = findPlugins();

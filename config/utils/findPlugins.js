@@ -1,13 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const PLUGINS_DIRECTORY = path.resolve('./src');
+const PLUGINS_PATH = path.resolve('./src');
 
-module.exports = function findPlugins() {
+function findPlugins() {
     const plugins = [];
 
-    for (const dirent of fs.readdirSync(PLUGINS_DIRECTORY, { withFileTypes: true })) {
-        const pluginPath = path.join(PLUGINS_DIRECTORY, dirent.name);
+    for (const dirent of fs.readdirSync(PLUGINS_PATH, { withFileTypes: true })) {
+        const pluginPath = path.join(PLUGINS_PATH, dirent.name);
         const manifestPath = path.join(pluginPath, 'manifest.json');
 
         if (!dirent.isDirectory() || !fs.existsSync(manifestPath)) continue;
@@ -21,3 +21,5 @@ module.exports = function findPlugins() {
 
     return plugins;
 }
+
+module.exports = findPlugins;

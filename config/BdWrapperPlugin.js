@@ -6,7 +6,7 @@ const { Compilation } = require('webpack');
 
 const { render } = require('template-file');
 
-const template = fs.readFileSync(path.resolve(__dirname, 'plugin.template.js')).toString();
+const template = fs.readFileSync(path.resolve(__dirname, 'templates', 'plugin.template.js')).toString();
 
 class BdMeta {
     constructor() {

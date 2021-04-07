@@ -1,15 +1,8 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 
+const { getBdDataPath } = require('./utils');
 const common = require('./webpack.common');
-
-function getBdDataPath() {
-    const dataPath = process.env.APPDATA || (process.platform === 'darwin'
-        ? `${process.env.HOME}/Library/Application Support`
-        : process.env.XDG_CONFIG_HOME || `${process.env.HOME}/.config`);
-
-    return path.join(dataPath, 'BetterDiscord');
-}
 
 module.exports = merge(common, {
     mode: 'development',
