@@ -10,12 +10,31 @@
     }
 }
 
+$original_size: 20px;
 $sizes: 8px, 12px, 16px, 20px, 24px, 32px;
 
 @each $size in $sizes {
-    .bd-who-reacted-size-#{$size} [class*=avatarSize] {
-        // Some other styling has !important, so we need to override that.
-        width: #{$size} !important;
-        height: #{$size} !important;
+    $factor: $size / $original_size;
+
+    @if $factor != 1 {
+        .bd-who-reacted-size-#{$size} {
+            [class*=avatarSize] {
+                // Some other styling has !important, so we need to override that.
+                width: $size !important;
+                height: $size !important;
+            }
+
+            .bd-who-reacted-more-reactors {
+                // Scaling doesn't affect the bounding box of the parent calculator,
+                // so we override every property related to size.
+                // transform: scale($factor);
+                font-size: 12px * $factor;
+                height: 20px * $factor;
+                line-height: 20px * $factor;
+                border-radius: 10px * $factor;
+                padding-right: 8px * $factor;
+                padding-left: 6px * $factor;
+            }
+        }
     }
 }
