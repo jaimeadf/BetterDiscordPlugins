@@ -57,7 +57,7 @@ module.exports = {
             new TerserPlugin({
                 terserOptions: {
                     format: {
-                        comments: /^(\**!)|@preserve|@license|@cc_on|@end/i
+                        comments: /^\**!|@license|@cc_on|@end/i
                     }
                 },
                 extractComments: false
