@@ -58,6 +58,10 @@ module.exports = {
                 terserOptions: {
                     format: {
                         comments: /^\**!|@license|@cc_on|@end/i
+                    },
+                    mangle: {
+                        keep_fnames: true,
+                        keep_classnames: true
                     }
                 },
                 extractComments: false
