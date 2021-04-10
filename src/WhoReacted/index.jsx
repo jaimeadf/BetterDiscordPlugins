@@ -29,7 +29,7 @@ export default class WhoReacted extends Plugin {
             userThreshold: 100,
             useHighestUserCount: true,
             showSelf: false,
-            showBot: false
+            showBots: false
         };
     }
 
@@ -62,8 +62,8 @@ export default class WhoReacted extends Plugin {
                 }
             ),
             new Slider(
-                'Reactor avatar size',
-                'Specify the avatar size of the reactors in px.',
+                'Avatar size',
+                'Sets the size of the user avatars in pixels.',
                 8,
                 32,
                 this.settings.avatarSize,
@@ -105,16 +105,16 @@ export default class WhoReacted extends Plugin {
                 value => this.settings.useHighestUserCount = value
             ),
             new Switch(
-                'Show yourself as reactor',
-                '',
+                'Show self',
+                'Shows yourself within the reactors.',
                 this.settings.showSelf,
                 value => this.settings.showSelf = value
             ),
             new Switch(
-                'Show bot reactors',
-                '',
-                this.settings.showBot,
-                value => this.settings.showBot = value
+                'Show bots',
+                'Shows bots within the reactors.',
+                this.settings.showBots,
+                value => this.settings.showBots = value
             )
         );
     }
@@ -146,7 +146,7 @@ export default class WhoReacted extends Plugin {
                             count={count}
                             max={this.settings.maxUsersShown}
                             showSelf={this.settings.showSelf}
-                            showBot={this.settings.showBot}
+                            showBots={this.settings.showBots}
                             size={this.settings.avatarSize}
                         />
                     );
