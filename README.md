@@ -7,6 +7,7 @@
 This repository contains a collection of plugins for the [@BetterDiscord](https://github.com/BetterDiscord) client modification, you can use the shortcuts below to download and see more details about each one:
 - [BiggerStreamPreview](/src/BiggerStreamPreview)
 - [WhoReacted](/src/WhoReacted)
+- [SecretRingTone](/src/SecretRingTone)
 
 > If you have any questions, feel free to message me on discord.
 
