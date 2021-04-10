@@ -16,7 +16,7 @@ import Reactors from './components/Reactors';
 import style from './style.scss';
 
 const Reactions = WebpackModules.find(m => m?.default?.displayName === 'Reactions').default;
-const { SettingPanel, Textbox, Slider, Switch } = Settings;
+const { SettingPanel, SettingGroup, Textbox, Slider, Switch } = Settings;
 
 export default class WhoReacted extends Plugin {
     constructor() {
@@ -49,7 +49,15 @@ export default class WhoReacted extends Plugin {
                 this.saveSettings();
                 this.forceUpdateAllReactions();
             },
-            new Textbox(
+            this.buildDisplaySettingsGroup(),
+            this.buildThresholdSettingsGroup(),
+            this.buildFilterSettingsGroup()
+        );
+    }
+
+    buildDisplaySettingsGroup() {
+        return new SettingGroup('Display settings')
+            .append(new Textbox(
                 'Max users shown',
                 'The maximum number of users shown for each reaction emoji.',
                 this.settings.maxUsersShown,
@@ -60,8 +68,8 @@ export default class WhoReacted extends Plugin {
 
                     this.settings.maxUsersShown = parseInt(value);
                 }
-            ),
-            new Slider(
+            ))
+            .append(new Slider(
                 'Avatar size',
                 'Sets the size of the user avatars in pixels.',
                 8,
@@ -72,8 +80,12 @@ export default class WhoReacted extends Plugin {
                     markers: [8, 12, 16, 20, 24, 32],
                     stickToMarkers: true
                 }
-            ),
-            new Slider(
+            ));
+    }
+
+    buildThresholdSettingsGroup() {
+        return new SettingGroup('Thresholds')
+            .append(new Slider(
                 'Reaction threshold',
                 'Hides the reactors when the number of separate reactions is exceeded on a message. Set to 0 to disable.',
                 0,
@@ -84,8 +96,8 @@ export default class WhoReacted extends Plugin {
                     markers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
                     stickToMarkers: true
                 }
-            ),
-            new Slider(
+            ))
+            .append(new Slider(
                 'User threshold',
                 'Hides the reactors when their count is exceeded on a message. Set to 0 to disable.',
                 0,
@@ -97,26 +109,29 @@ export default class WhoReacted extends Plugin {
                     stickToMarkers: true,
                     equidistant: true
                 }
-            ),
-            new Switch(
+            ))
+            .append(new Switch(
                 'Use highest user count',
                 'Uses the reaction with most reactors of a message for user threshold.',
                 this.settings.useHighestUserCount,
                 value => this.settings.useHighestUserCount = value
-            ),
-            new Switch(
+            ));
+    }
+
+    buildFilterSettingsGroup() {
+        return new SettingGroup('Filters')
+            .append(new Switch(
                 'Show self',
                 'Shows yourself within the reactors.',
                 this.settings.showSelf,
                 value => this.settings.showSelf = value
-            ),
-            new Switch(
+            ))
+            .append(new Switch(
                 'Show bots',
                 'Shows bots within the reactors.',
                 this.settings.showBots,
                 value => this.settings.showBots = value
-            )
-        );
+            ));
     }
 
     getSettingsPanel() {
