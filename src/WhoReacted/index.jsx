@@ -161,7 +161,7 @@ export default class WhoReacted extends Plugin {
         this.forceUpdateAllReactions();
     }
 
-    canShowReactors = ({ reactions }) => {
+    canShowReactors({ reactions }) {
         const { reactionThreshold, userThreshold, useHighestUserCount } = this.settings;
 
         if (reactionThreshold !== 0 && reactions.length > reactionThreshold) {
