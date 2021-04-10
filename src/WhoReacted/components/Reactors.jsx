@@ -1,12 +1,14 @@
 import React from 'react';
-import { WebpackModules } from '@zlibrary';
+import { DiscordModules, WebpackModules } from '@zlibrary';
+
+const { UserStore } = DiscordModules;
 
 const Flux = WebpackModules.getByProps('Store', 'connectStores');
 const ReactionStore = WebpackModules.getByProps('getReactions', '_changeCallbacks');
 const VoiceUserSummaryItem = WebpackModules.find(m => m?.default?.displayName === 'VoiceUserSummaryItem').default;
 
-const Reactors = ({ count, max, users, hideUserId, showBot, size }) => {
-    const filteredUsers = users.filter(user => user.id != hideUserId && (showBot || user.bot !== true));
+const Reactors = ({ count, max, currentUser, users, showSelf, showBot, size }) => {
+    const filteredUsers = users.filter(user => (showSelf || user !== currentUser) && (showBot || user.bot !== true));
     const filtered = users.length - filteredUsers.length;
 
     function renderMoreUsers(text, className) {
@@ -27,6 +29,7 @@ const Reactors = ({ count, max, users, hideUserId, showBot, size }) => {
     );
 };
 
-export default Flux.connectStores([ReactionStore], ({ message, emoji }) => ({
+export default Flux.connectStores([UserStore, ReactionStore], ({ message, emoji }) => ({
+    currentUser: UserStore.getCurrentUser(),
     users: Object.values(ReactionStore.getReactions(message.getChannelId(), message.id, emoji) ?? {})
 }))(Reactors);

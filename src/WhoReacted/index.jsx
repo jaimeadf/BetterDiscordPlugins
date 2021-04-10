@@ -28,14 +28,13 @@ export default class WhoReacted extends Plugin {
             reactionThreshold: 10,
             userThreshold: 100,
             useHighestUserCount: true,
-            showBot: false,
             showSelf: false,
+            showBot: false
         };
     }
 
     async onStart() {
         PluginUtilities.addStyle(this.getName(), style);
-        this.userId = BdApi.findModuleByProps('getCurrentUser').getCurrentUser().id;
         await this.patchReaction();
     }
 
@@ -106,17 +105,17 @@ export default class WhoReacted extends Plugin {
                 value => this.settings.useHighestUserCount = value
             ),
             new Switch(
-                'Show bot reactors',
-                '',
-                this.settings.showBot,
-                value => this.settings.showBot = value
-            ),
-            new Switch(
                 'Show yourself as reactor',
                 '',
                 this.settings.showSelf,
                 value => this.settings.showSelf = value
             ),
+            new Switch(
+                'Show bot reactors',
+                '',
+                this.settings.showBot,
+                value => this.settings.showBot = value
+            )
         );
     }
 
@@ -145,8 +144,8 @@ export default class WhoReacted extends Plugin {
                             message={message}
                             emoji={emoji}
                             count={count}
-                            hideUserId={this.settings.showSelf ? null : this.userId}
                             max={this.settings.maxUsersShown}
+                            showSelf={this.settings.showSelf}
                             showBot={this.settings.showBot}
                             size={this.settings.imageSize}
                         />
