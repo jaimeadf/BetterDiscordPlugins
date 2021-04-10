@@ -16,7 +16,7 @@ function findPlugins() {
             folder: dirent.name,
             path: pluginPath,
             manifest: require(manifestPath)
-        })
+        });
     }
 
     return plugins;
