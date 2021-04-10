@@ -1,4 +1,4 @@
-import { Patcher, WebpackModules } from '@zlibrary';
+import { WebpackModules, Patcher } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 const { WebAudioSound } = WebpackModules.getByProps('WebAudioSound');

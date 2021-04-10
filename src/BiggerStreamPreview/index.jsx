@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { DiscordModules, WebpackModules, Patcher, DiscordContextMenu } from '@zlibrary';
+import {
+    DiscordModules,
+    WebpackModules,
+    Patcher,
+    DiscordContextMenu
+} from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 const { StreamStore, StreamPreviewStore, ModalStack } = DiscordModules;

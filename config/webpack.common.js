@@ -1,7 +1,7 @@
 const TerserPlugin = require('terser-webpack-plugin');
 
 const BdWrapperPlugin = require('./BdWrapperPlugin');
-const findPlugins = require('./utils/findPlugins');
+const { findPlugins } = require('./utils');
 
 const plugins = findPlugins();
 
@@ -49,7 +49,7 @@ module.exports = {
         electron: 'commonjs2 electron',
         request: 'commonjs2 request',
         '@bandagedbd/bdapi': 'assign {BdApi: global.BdApi}',
-        '@zlibrary': 'assign BoundedLibrary',
+        '@zlibrary/api': 'assign BoundedLibrary',
         '@zlibrary/plugin': 'assign Plugin'
     },
     optimization: {

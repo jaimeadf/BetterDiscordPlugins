@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { DiscordModules, WebpackModules } from '@zlibrary';
+import { DiscordModules, WebpackModules } from '@zlibrary/api';
 
 const { UserStore } = DiscordModules;
 

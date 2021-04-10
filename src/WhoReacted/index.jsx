@@ -1,15 +1,15 @@
 import React from 'react';
 
 import {
-    Settings,
     WebpackModules,
+    Settings,
     PluginUtilities,
-    Patcher,
     Toasts,
+    Patcher,
     DiscordSelectors,
-    ReactTools,
-    Utilities
-} from '@zlibrary';
+    Utilities,
+    ReactTools
+} from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 import Reactors from './components/Reactors';
