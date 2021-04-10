@@ -7,9 +7,9 @@ const Flux = WebpackModules.getByProps('Store', 'connectStores');
 const ReactionStore = WebpackModules.getByProps('getReactions', '_changeCallbacks');
 const VoiceUserSummaryItem = WebpackModules.find(m => m?.default?.displayName === 'VoiceUserSummaryItem').default;
 
-const Reactors = ({ users, currentUser, showSelf, showBots, max, size, count }) => {
+function Reactors({ users, currentUser, showSelf, showBots, max, size, count }) {
     const filteredUsers = useMemo(() => {
-        return users.filter(user => (showSelf || user !== currentUser) && (showBots || user.bot !== true));
+        return users.filter(user => (showSelf || user !== currentUser) && (showBots || !user.bot));
     }, [users, currentUser, showSelf, showBots]);
 
     function renderMoreUsers(text, className) {
@@ -28,7 +28,7 @@ const Reactors = ({ users, currentUser, showSelf, showBots, max, size, count }) 
             renderMoreUsers={renderMoreUsers}
         />
     );
-};
+}
 
 export default Flux.connectStores([UserStore, ReactionStore], ({ message, emoji }) => ({
     currentUser: UserStore.getCurrentUser(),
