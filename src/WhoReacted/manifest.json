@@ -1,7 +1,7 @@
 {
     "name": "WhoReacted",
     "description": "Shows the avatars of the users who reacted to a message.",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "author": {
         "id": "289112759948410881",
         "name": "Jaime Filho"
@@ -17,6 +17,13 @@
                 "Added settings to let you decide whether you want to hide or show yourself and/or bots in the reactors (Thanks @FichteFoll on GitHub).",
                 "Added setting to set the avatars size (Thanks @FichteFoll on GitHub).",
                 "Categorized the settings for better organization and easier access."
+            ]
+        },
+        {
+            "title": "I knew I shouldn't mess with the comparisons",
+            "type": "fixed",
+            "items": [
+                "Fixed setting to not show yourself not working for everyone (Thanks again @FichteFoll on GitHub)."
             ]
         }
     ]
