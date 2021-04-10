@@ -7,6 +7,6 @@ function getBdDataPath() {
             : `${process.env.HOME}/.config`);
 
     return path.join(dataPath, 'BetterDiscord');
-};
+}
 
 module.exports = getBdDataPath;
