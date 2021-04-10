@@ -1,7 +1,7 @@
 {
     "name": "WhoReacted",
     "description": "Shows the avatars of the users who reacted to a message.",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "author": {
         "id": "289112759948410881",
         "name": "Jaime Filho"
@@ -9,5 +9,15 @@
     "invite": "z6Yx9A8VDR",
     "website": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted",
     "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted",
-    "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js"
+    "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js",
+    "changelog": [
+        {
+            "title": "So many settings",
+            "items": [
+                "Added settings to let you decide whether you want to hide or show yourself and/or bots in the reactors (Thanks @FichteFoll on GitHub).",
+                "Added setting to set the avatars size (Thanks @FichteFoll on GitHub).",
+                "Categorized the settings for better organization and easier access."
+            ]
+        }
+    ]
 }
