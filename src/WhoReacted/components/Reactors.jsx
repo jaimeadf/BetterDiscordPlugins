@@ -14,7 +14,7 @@ function Reactors({ users, currentUser, showSelf, showBots, max, size, count }) 
 
     function renderMoreUsers(text, className) {
         return (
-            <div className={`${className} bd-who-reacted-more-reactors`}>
+            <div className={`${className} more-reactors`}>
                 +{1 + count - max - (users.length - filteredUsers.length)}
             </div>
         );
@@ -22,7 +22,7 @@ function Reactors({ users, currentUser, showSelf, showBots, max, size, count }) 
 
     return (
         <VoiceUserSummaryItem
-            className={`bd-who-reacted-reactors bd-who-reacted-size-${size}px`}
+            className={`reactors reactors-size-${size}px`}
             max={max}
             users={filteredUsers}
             renderMoreUsers={renderMoreUsers}
