@@ -28,8 +28,8 @@ export default class WhoReacted extends Plugin {
             reactionThreshold: 10,
             userThreshold: 100,
             useHighestUserCount: true,
-            showSelf: false,
-            showBots: false
+            showSelf: true,
+            showBots: true
         };
     }
 
