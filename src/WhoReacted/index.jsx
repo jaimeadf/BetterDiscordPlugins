@@ -24,9 +24,12 @@ export default class WhoReacted extends Plugin {
 
         this.defaultSettings = {
             maxUsersShown: 6,
+            avatarSize: 20,
             reactionThreshold: 10,
             userThreshold: 100,
-            useHighestUserCount: true
+            useHighestUserCount: true,
+            showSelf: true,
+            showBots: true
         };
     }
 
@@ -59,6 +62,18 @@ export default class WhoReacted extends Plugin {
                 }
             ),
             new Slider(
+                'Avatar size',
+                'Sets the size of the user avatars in pixels.',
+                8,
+                32,
+                this.settings.avatarSize,
+                value => this.settings.avatarSize = value,
+                {
+                    markers: [8, 12, 16, 20, 24, 32],
+                    stickToMarkers: true
+                }
+            ),
+            new Slider(
                 'Reaction threshold',
                 'Hides the reactors when the number of separate reactions is exceeded on a message. Set to 0 to disable.',
                 0,
@@ -88,6 +103,18 @@ export default class WhoReacted extends Plugin {
                 'Uses the reaction with most reactors of a message for user threshold.',
                 this.settings.useHighestUserCount,
                 value => this.settings.useHighestUserCount = value
+            ),
+            new Switch(
+                'Show self',
+                'Shows yourself within the reactors.',
+                this.settings.showSelf,
+                value => this.settings.showSelf = value
+            ),
+            new Switch(
+                'Show bots',
+                'Shows bots within the reactors.',
+                this.settings.showBots,
+                value => this.settings.showBots = value
             )
         );
     }
@@ -99,29 +126,9 @@ export default class WhoReacted extends Plugin {
     async patchReaction() {
         const Reaction = await this.findReaction();
 
-        const canShowReactors = ({ reactions }) => {
-            const { reactionThreshold, userThreshold, useHighestUserCount } = this.settings;
-
-            if (reactionThreshold !== 0 && reactions.length > reactionThreshold) {
-                return false;
-            }
-
-            if (userThreshold !== 0) {
-                const userCount = useHighestUserCount
-                    ? Math.max(...reactions.map(reaction => reaction.count))
-                    : reactions.reduce((total, reaction) => total + reaction.count, 0);
-
-                if (userCount > userThreshold) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
         Patcher.after(Reaction.prototype, 'render', (thisObject, args, returnValue) => {
             const { message, emoji, count } = thisObject.props;
-            if (!canShowReactors(message)) return;
+            if (!this.canShowReactors(message)) return;
 
             const renderTooltip = returnValue.props.children;
             returnValue.props.children = props => {
@@ -138,6 +145,9 @@ export default class WhoReacted extends Plugin {
                             emoji={emoji}
                             count={count}
                             max={this.settings.maxUsersShown}
+                            showSelf={this.settings.showSelf}
+                            showBots={this.settings.showBots}
+                            size={this.settings.avatarSize}
                         />
                     );
 
@@ -149,6 +159,26 @@ export default class WhoReacted extends Plugin {
         });
 
         this.forceUpdateAllReactions();
+    }
+
+    canShowReactors({ reactions }) {
+        const { reactionThreshold, userThreshold, useHighestUserCount } = this.settings;
+
+        if (reactionThreshold !== 0 && reactions.length > reactionThreshold) {
+            return false;
+        }
+
+        if (userThreshold !== 0) {
+            const userCount = useHighestUserCount
+                ? Math.max(...reactions.map(reaction => reaction.count))
+                : reactions.reduce((total, reaction) => total + reaction.count, 0);
+
+            if (userCount > userThreshold) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     findReaction() {
