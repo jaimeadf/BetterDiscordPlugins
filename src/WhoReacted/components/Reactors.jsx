@@ -9,7 +9,7 @@ const VoiceUserSummaryItem = WebpackModules.find(m => m?.default?.displayName ==
 
 function Reactors({ users, currentUser, showSelf, showBots, max, size, count }) {
     const filteredUsers = useMemo(() => {
-        return users.filter(user => (showSelf || user !== currentUser) && (showBots || !user.bot));
+        return users.filter(user => (showSelf || user.id !== currentUser.id) && (showBots || !user.bot));
     }, [users, currentUser, showSelf, showBots]);
 
     function renderMoreUsers(text, className) {
