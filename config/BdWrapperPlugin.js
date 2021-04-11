@@ -82,9 +82,9 @@ class BdWrapperPlugin {
         meta.set('name', manifest.name);
         meta.set('description', manifest.description);
         meta.set('version', manifest.version);
-        meta.set('author', manifest?.author?.name);
-        meta.set('authorId', manifest?.author?.id);
-        meta.set('authorLink', manifest?.author?.link);
+        meta.set('author', manifest.author?.name);
+        meta.set('authorId', manifest.author?.id);
+        meta.set('authorLink', manifest.author?.link);
         meta.set('invite', manifest.invite);
         meta.set('website', manifest.website);
         meta.set('source', manifest.source);
