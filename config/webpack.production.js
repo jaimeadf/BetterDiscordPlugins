@@ -1,7 +1,6 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 const { findPlugins } = require('./utils');
@@ -13,7 +12,8 @@ module.exports = merge(common, {
     mode: 'production',
     output: {
         filename: '[name]/[name].plugin.js',
-        path: path.resolve(__dirname, '..', 'dist')
+        path: path.resolve(__dirname, '..', 'dist'),
+        clean: true
     },
     module: {
         rules: [
@@ -30,7 +30,6 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(),
         new CopyPlugin({
             patterns: plugins.map(plugin => ({
                 from: path.join(plugin.path, 'README.md'),
