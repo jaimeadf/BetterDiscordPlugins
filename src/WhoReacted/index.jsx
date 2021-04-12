@@ -71,43 +71,61 @@ export default class WhoReacted extends Plugin {
             ))
             .append(new Slider(
                 'Avatar size',
-                'Sets the size of the user avatars in pixels.',
+                'Sets the size of the user avatars.',
                 8,
                 32,
                 this.settings.avatarSize,
                 value => this.settings.avatarSize = value,
                 {
+                    defaultValue: this.defaultSettings.avatarSize,
                     markers: [8, 12, 16, 20, 24, 32],
-                    stickToMarkers: true
+                    stickToMarkers: true,
+                    units: 'px'
                 }
             ));
     }
 
     buildThresholdSettingsGroup() {
+        function renderMarker(value) {
+            if (value === 0) {
+                return 'Off';
+            }
+
+            if (value >= 1000) {
+                return `${value / 1000}k`;
+            }
+
+            return value;
+        }
+
         return new SettingGroup('Thresholds')
             .append(new Slider(
                 'Reaction threshold',
-                'Hides the reactors when the number of separate reactions is exceeded on a message. Set to 0 to disable.',
+                'Hides the reactors when the number of separate reactions is exceeded on a message.',
                 0,
                 20,
                 this.settings.reactionThreshold,
                 value => this.settings.reactionThreshold = value,
                 {
+                    defaultValue: this.defaultSettings.reactionThreshold,
                     markers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-                    stickToMarkers: true
+                    stickToMarkers: true,
+                    renderMarker
                 }
             ))
             .append(new Slider(
                 'User threshold',
-                'Hides the reactors when their count is exceeded on a message. Set to 0 to disable.',
+                'Hides the reactors when their count is exceeded on a message.',
                 0,
                 10000,
                 this.settings.userThreshold,
                 value => this.settings.userThreshold = value,
                 {
+                    defaultValue: this.defaultSettings.userThreshold,
                     markers: [0, 10, 20, 50, 100, 500, 1000, 2000, 3000, 4000, 5000, 10000],
                     stickToMarkers: true,
-                    equidistant: true
+                    equidistant: true,
+                    renderMarker
                 }
             ))
             .append(new Switch(
