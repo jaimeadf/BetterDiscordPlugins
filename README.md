@@ -8,6 +8,7 @@ This repository contains a collection of plugins for the [@BetterDiscord](https:
 - [BiggerStreamPreview](/src/BiggerStreamPreview)
 - [WhoReacted](/src/WhoReacted)
 - [SecretRingTone](/src/SecretRingTone)
+- [GuildProfile](/src/GuildProfile)
 
 > If you have any questions, feel free to message me on discord.
 

@@ -1,0 +1,13 @@
+{
+    "name": "GuildProfile",
+    "description": "",
+    "version": "1.0.0",
+    "author": {
+        "id": "289112759948410881",
+        "name": "Jaime Filho"
+    },
+    "invite": "z6Yx9A8VDR",
+    "website": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile",
+    "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile",
+    "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"
+}
