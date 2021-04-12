@@ -11,15 +11,19 @@ const {
     RelationshipStore,
     GuildMemberStore,
     UserStore,
+    GuildChannelsStore,
     i18n: { Messages },
     ModalStack,
     UserProfileModals,
+    ContextMenuActions,
     ScrollerThin,
     Clickable,
     DiscordConstants: {
         RelationshipTypes
     }
 } = DiscordModules;
+
+const GuildChannelUserContextMenu = WebpackModules.getByDisplayName('GuildChannelUserContextMenu');
 
 const { Avatar } = WebpackModules.getByProps('Avatar');
 const DiscordTag = WebpackModules.getByDisplayName('DiscordTag');
@@ -35,10 +39,21 @@ const NoRelationshipsOfTypeMessages = {
     [RelationshipTypes.BLOCKED]: 'NO_BLOCKED_USERS_IN_THIS_GUILD'
 };
 
-function Relationships({ users, relationshipType }) {
+function Relationships({ guild, channel, users, relationshipType }) {
     function handleSelect(user) {
         ModalStack.pop();
         UserProfileModals.open(user.id);
+    }
+
+    function handleContextMenu(event, user) {
+        ContextMenuActions.openContextMenu(event, () => (
+            <GuildChannelUserContextMenu
+                {...event}
+                user={user}
+                guildId={guild.id}
+                channelId={channel?.id}
+            />
+        ));
     }
 
     if (users.length <= 0) {
@@ -59,6 +74,7 @@ function Relationships({ users, relationshipType }) {
                     className={classes.listRow}
                     onClick={() => handleSelect(user)}
                     onSelect={() => handleSelect(user)}
+                    onContextMenu={event => handleContextMenu(event, user)}
                 >
                     <Avatar
                         className={classes.listAvatar}
@@ -77,7 +93,7 @@ function Relationships({ users, relationshipType }) {
 }
 
 export default Flux.connectStores(
-    [RelationshipStore, GuildMemberStore, UserStore],
+    [RelationshipStore, GuildMemberStore, UserStore, GuildChannelsStore],
     ({ guild, relationshipType }) => {
         const users = [];
         const relationships = RelationshipStore.getRelationships();
@@ -91,7 +107,8 @@ export default Flux.connectStores(
         }
 
         return {
-            users
+            users,
+            channel: GuildChannelsStore.getDefaultChannel(guild.id)
         };
     }
 )(Relationships);
