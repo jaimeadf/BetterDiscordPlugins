@@ -108,7 +108,7 @@ function GuildInfo({ guild, owner, hide, channel }) {
                 <Section title={Messages.GUILD_PREMIUM_TIER}>
                     {guild.premiumTier}
                 </Section>
-                <Section title={Messages.PREFERRED_LOCALE}>
+                <Section title={Messages.FORM_LABEL_SERVER_LANGUAGE}>
                     {Messages[guild.preferredLocale]}
                 </Section>
             </Flex>

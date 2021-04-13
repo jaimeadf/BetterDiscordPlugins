@@ -25,6 +25,5 @@
     "NO_FRIENDS_IN_THIS_GUILD": "No friends in this server",
     "NO_BLOCKED_USERS_IN_THIS_GUILD": "No blocked users in this server",
     "GUILD_PREMIUM_SUBSCRIBER_COUNT": "Server Booster Count",
-    "GUILD_PREMIUM_TIER": "Server Boost Level",
-    "PREFERRED_LOCALE": "Preferred Locale"
+    "GUILD_PREMIUM_TIER": "Server Boost Level"
 }
