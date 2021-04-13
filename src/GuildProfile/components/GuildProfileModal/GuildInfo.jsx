@@ -109,7 +109,7 @@ function GuildInfo({ guild, owner, hide, channel }) {
                     {guild.premiumTier}
                 </Section>
                 <Section title={Messages.PREFERRED_LOCALE}>
-                    {guild.preferredLocale}
+                    {Messages[guild.preferredLocale]}
                 </Section>
             </Flex>
         </ScrollerThin>
