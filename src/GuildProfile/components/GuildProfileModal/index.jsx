@@ -17,6 +17,7 @@ const {
     Flux,
     MemberCountStore,
     i18n: { Messages },
+    ContextMenuActions,
     ImageResolver,
     Flex,
     Clickable,
@@ -31,6 +32,7 @@ const {
 const { GuildIcon } = WebpackModules.getByProps('GuildIcon');
 const GuildBadge = WebpackModules.getByDisplayName('GuildBadge');
 const InviteButton = WebpackModules.getByDisplayName('InviteButton');
+const NativeImageContextMenu = WebpackModules.getByDisplayName('NativeImageContextMenu');
 
 const classes = {
     ...WebpackModules.getByProps('guildDetail'),
@@ -75,14 +77,8 @@ class GuildProfileModal extends React.PureComponent {
                         {guild.icon
                             ? (
                                 <Clickable
-                                    onClick={() => clipboard.writeText(
-                                        ImageResolver.getGuildIconURL({
-                                            id: guild.id,
-                                            icon: guild.icon,
-                                            size: 1024,
-                                            format: ImageResolver.hasAnimatedGuildIcon(guild.icon) ? 'gif' : 'png'
-                                        })
-                                    )}
+                                    onClick={this.handleGuildIconContextMenu.bind(this)}
+                                    onContextMenu={this.handleGuildIconContextMenu.bind(this)}
                                 >
                                     <Tooltip
                                         position="top"
@@ -187,9 +183,30 @@ class GuildProfileModal extends React.PureComponent {
         }
     }
 
+    handleGuildIconClick() {
+        clipboard.writeText(this.getGuildIconURL());
+    }
+
+    handleGuildIconContextMenu(event) {
+        ContextMenuActions.openContextMenu(event, () => (
+            <NativeImageContextMenu {...event} src={this.getGuildIconURL()} />
+        ));
+    }
+
     handleSectionSelect(section) {
         this.setState({
             selectedSection: section
+        });
+    }
+
+    getGuildIconURL() {
+        const { guild } = this.props;
+
+        return ImageResolver.getGuildIconURL({
+            id: guild.id,
+            icon: guild.icon,
+            size: 1024,
+            format: ImageResolver.hasAnimatedGuildIcon(guild.icon) ? 'gif' : 'png'
         });
     }
 }
