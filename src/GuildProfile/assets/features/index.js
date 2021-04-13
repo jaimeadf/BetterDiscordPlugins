@@ -17,7 +17,7 @@ import NewsIcon from './news.svg';
 import AnimatedIcon from './animated-icon.svg';
 import BannerIcon from './banner.svg';
 import EnabledDiscoverableBeforeIcon from './enabled-discoverable-before.svg';
-import WelcomeScreenEnabledIcon from './enabled-discoverable-before.svg';
+import WelcomeScreenEnabledIcon from './welcome-screen-enabled.svg';
 import MemberVerificationGateEnabledIcon from './member-verification-gate-enabled.svg';
 import PreviewEnabledIcon from './preview-enabled.svg';
 
