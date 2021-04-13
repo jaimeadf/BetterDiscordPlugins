@@ -76,7 +76,7 @@ function GuildInfo({ guild, owner, hide, channel }) {
                 <Section title={Messages.GUILD_OWNER}>
                     {owner
                         ? <UserMention className="mention" userId={owner.id} channelId={channel?.id} />
-                        : `${Messages.LOADING}...`}
+                        : `${Messages.GUILD_PROFILE_LOADING}...`}
                 </Section>
                 {guild.description && (
                     <Section title={Messages.FORM_LABEL_SERVER_DESCRIPTION}>
@@ -90,10 +90,10 @@ function GuildInfo({ guild, owner, hide, channel }) {
                         </Anchor>
                     </Section>
                 )}
-                <Section title={Messages.CREATED_AT}>
+                <Section title={Messages.GUILD_PROFILE_CREATED_AT}>
                     {Moment(Timestamps.extractTimestamp(guild.id)).format('LLL')}
                 </Section>
-                <Section title={Messages.JOINED_AT}>
+                <Section title={Messages.GUILD_PROFILE_JOINED_AT}>
                     {Moment(guild.joinedAt).format('LLL')}
                 </Section>
                 <Section title={Messages.FORM_LABEL_VERIFICATION_LEVEL}>
@@ -102,10 +102,10 @@ function GuildInfo({ guild, owner, hide, channel }) {
                 <Section title={Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER}>
                     {Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]}
                 </Section>
-                <Section title={Messages.GUILD_PREMIUM_SUBSCRIBER_COUNT}>
+                <Section title={Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT}>
                     {guild.premiumSubscriberCount}
                 </Section>
-                <Section title={Messages.GUILD_PREMIUM_TIER}>
+                <Section title={Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER}>
                     {guild.premiumTier}
                 </Section>
                 <Section title={Messages.FORM_LABEL_SERVER_LANGUAGE}>

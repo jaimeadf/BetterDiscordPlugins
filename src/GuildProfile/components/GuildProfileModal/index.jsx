@@ -82,7 +82,7 @@ class GuildProfileModal extends React.PureComponent {
                                 >
                                     <Tooltip
                                         position="top"
-                                        text={Messages.CLICK_TO_COPY_SERVER_ICON_URL}
+                                        text={Messages.GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL}
                                     >
                                         {guildIcon}
                                     </Tooltip>
@@ -127,19 +127,19 @@ class GuildProfileModal extends React.PureComponent {
                                     className={classes.tabBarItem}
                                     id={GuildProfileSections.GUILD_INFO}
                                 >
-                                    {Messages.GUILD_INFO}
+                                    {Messages.GUILD_PROFILE_GUILD_INFO}
                                 </TabBar.Item>
                                 <TabBar.Item
                                     className={classes.tabBarItem}
                                     id={GuildProfileSections.FRIENDS}
                                 >
-                                    {Messages.FRIENDS_IN_GUILD}
+                                    {Messages.GUILD_PROFILE_FRIENDS_IN_GUILD}
                                 </TabBar.Item>
                                 <TabBar.Item
                                     className={classes.tabBarItem}
                                     id={GuildProfileSections.BLOCKED_USERS}
                                 >
-                                    {Messages.BLOCKED_USERS_IN_GUILD}
+                                    {Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD}
                                 </TabBar.Item>
                             </TabBar>
                         </div>
@@ -159,7 +159,7 @@ class GuildProfileModal extends React.PureComponent {
             <div className={classes.profileBadgeWrapper}>
                 <Tooltip
                     position="top"
-                    text={Messages[feature]}
+                    text={Messages[`GUILD_PROFILE_${feature}`]}
                 >
                     <Clickable role="button" tag="div">
                         <Icon className={`${classes.profileBadge} badge`} />

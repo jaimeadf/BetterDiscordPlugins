@@ -35,8 +35,8 @@ const classes = {
 };
 
 const NoRelationshipsOfTypeMessages = {
-    [RelationshipTypes.FRIEND]: 'NO_FRIENDS_IN_THIS_GUILD',
-    [RelationshipTypes.BLOCKED]: 'NO_BLOCKED_USERS_IN_THIS_GUILD'
+    [RelationshipTypes.FRIEND]: 'GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD',
+    [RelationshipTypes.BLOCKED]: 'GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD'
 };
 
 function Relationships({ guild, channel, users, relationshipType }) {
