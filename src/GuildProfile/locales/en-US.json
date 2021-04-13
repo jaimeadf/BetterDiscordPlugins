@@ -24,7 +24,7 @@
     "GUILD_PROFILE_BANNER": "Server Banner",
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Enabled Discoverable Before",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Welcome Screen Enabled",
-    "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Membership Gating Enabled",
+    "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Membership Screening",
     "GUILD_PROFILE_RELAY_ENABLED": "Relay Enabled",
     "GUILD_PROFILE_PREVIEW_ENABLED": "Preview Enabled"
 }
