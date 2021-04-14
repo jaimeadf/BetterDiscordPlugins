@@ -5,7 +5,7 @@
 
 ## Overview
 
-This plugin was based on [guild-profile](https://github.com/NurMarvin/guild-profile) for [Powercord](https://github.com/powercord-org/powercord) made by [@NurMarvin](https://github.com/NurMarvin). It adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
+This plugin adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more. It also supports internationalization, so feel welcome to open a PR adding translation to any language.
 
 ![Preview](https://i.imgur.com/KUuVPFy.png)
 ![Preview](https://i.imgur.com/AmnzOQU.png)
@@ -15,3 +15,8 @@ This plugin was based on [guild-profile](https://github.com/NurMarvin/guild-prof
 1. Download the plugin by clicking [here](https://betterdiscord.net/ghdl?url=https://github.com/jaimeadf/BetterDiscordPlugins/blob/release/dist/GuildProfile/GuildProfile.plugin.js).
 2. Open your plugins folder by going to your settings, then to plugins and click the button at the top of the page.
 3. Drag the file that you just downloaded to there and make sure that it doesn't end with `(1)` or anything similar.
+
+## Special thanks to
+
+- [@NurMarvin](https://github.com/NurMarvin) for creating [guild-profile](https://github.com/NurMarvin/guild-profile) for [Powercord](https://github.com/powercord-org/powercord) in the first place, which this plugin was based on.
+- [Iconify](https://iconify.design) for providing all these amazing icons.
