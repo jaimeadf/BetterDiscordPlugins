@@ -77,7 +77,7 @@ class GuildProfileModal extends React.PureComponent {
                         {guild.icon
                             ? (
                                 <Clickable
-                                    onClick={this.handleGuildIconContextMenu.bind(this)}
+                                    onClick={this.handleGuildIconClick.bind(this)}
                                     onContextMenu={this.handleGuildIconContextMenu.bind(this)}
                                 >
                                     <Tooltip
