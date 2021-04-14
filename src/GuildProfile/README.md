@@ -8,7 +8,6 @@
 This plugin adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more. It also supports internationalization, so feel welcome to open a PR adding translation to any language.
 
 ![Preview](https://i.imgur.com/KUuVPFy.png)
-![Preview](https://i.imgur.com/AmnzOQU.png)
 
 ## How to install
 
