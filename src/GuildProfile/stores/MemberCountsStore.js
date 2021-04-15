@@ -35,7 +35,7 @@ function handleGuildMemberListUpdate({ guildId, memberCount, groups }) {
     }, 0));
 }
 
-function handleGuildOnlineMemberCountUpdate({ guildId, count }) {
+function handleOnlineGuildMemberCountUpdate({ guildId, count }) {
     onlineMemberCounts.set(guildId, count);
 }
 
@@ -53,5 +53,5 @@ export default new MemberCountsStore(Dispatcher, {
     [ActionTypes.GUILD_CREATE]: handleGuildCreate,
     [ActionTypes.GUILD_DELETE]: handleGuildDelete,
     [ActionTypes.GUILD_MEMBER_LIST_UPDATE]: handleGuildMemberListUpdate,
-    [ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE]: handleGuildOnlineMemberCountUpdate
+    [ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE]: handleOnlineGuildMemberCountUpdate
 });
