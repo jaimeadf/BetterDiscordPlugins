@@ -30,9 +30,9 @@ const {
     }
 } = DiscordModules;
 
+const InviteButton = WebpackModules.getByDisplayName('InviteButton');
 const { GuildIcon } = WebpackModules.getByProps('GuildIcon');
 const GuildBadge = WebpackModules.getByDisplayName('GuildBadge');
-const InviteButton = WebpackModules.getByDisplayName('InviteButton');
 const NativeImageContextMenu = WebpackModules.getByDisplayName('NativeImageContextMenu');
 
 const classes = {
@@ -43,13 +43,18 @@ const classes = {
     ...WebpackModules.getByProps('profileBadge')
 };
 
+const MemberCounts = Flux.connectStores(
+    [MemberCountsStore],
+    ({ guild }) => MemberCountsStore.getMemberCounts(guild.id)
+)(InviteButton.Data);
+
 export const GuildProfileSections = {
     GUILD_INFO: 'GUILD_INFO',
     FRIENDS: 'FRIENDS',
     BLOCKED_USERS: 'BLOCKED_USERS'
 };
 
-class GuildProfileModal extends React.PureComponent {
+export default class GuildProfileModal extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -59,7 +64,7 @@ class GuildProfileModal extends React.PureComponent {
 
     render() {
         const { selectedSection } = this.state;
-        const { guild, counts: { members, membersOnline } } = this.props;
+        const { guild } = this.props;
 
         const features = Array.from(guild.features);
 
@@ -109,10 +114,7 @@ class GuildProfileModal extends React.PureComponent {
                                 </div>
                             )}
                             <TextElement className={classes.guildDetail}>
-                                <InviteButton.Data
-                                    members={members}
-                                    membersOnline={membersOnline}
-                                />
+                                <MemberCounts guild={guild} />
                             </TextElement>
                         </div>
                     </header>
@@ -212,6 +214,4 @@ class GuildProfileModal extends React.PureComponent {
     }
 }
 
-export default Flux.connectStores([MemberCountsStore], ({ guild }) => ({
-    counts: MemberCountsStore.getMemberCounts(guild.id)
-}))(GuildProfileModal);
+
