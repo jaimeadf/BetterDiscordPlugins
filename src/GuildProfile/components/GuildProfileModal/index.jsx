@@ -13,9 +13,10 @@ import Relationships from './Relationships';
 
 import FeatureIcons from '../../assets/features';
 
+import MemberCountsStore from '../../stores/MemberCountsStore';
+
 const {
     Flux,
-    MemberCountStore,
     i18n: { Messages },
     ContextMenuActions,
     ImageResolver,
@@ -211,9 +212,6 @@ class GuildProfileModal extends React.PureComponent {
     }
 }
 
-export default Flux.connectStores([MemberCountStore], ({ guild }) => ({
-    counts: {
-        members: MemberCountStore.getMemberCount(guild.id),
-        membersOnline: MemberCountStore.getOnlineCount(guild.id)
-    }
+export default Flux.connectStores([MemberCountsStore], ({ guild }) => ({
+    counts: MemberCountsStore.getMemberCounts(guild.id)
 }))(GuildProfileModal);

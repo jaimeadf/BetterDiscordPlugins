@@ -22,22 +22,17 @@ import style from './style.scss';
 import locales from './locales';
 
 const {
-    Dispatcher,
     ModalStack,
     UserSettingsStore,
     SelectedGuildStore,
     GuildStore,
-    i18n,
-    DiscordConstants: {
-        ActionTypes
-    }
+    i18n
 } = DiscordModules;
 const { Messages } = i18n;
 
 export default class GuildProfile extends Plugin {
     onStart() {
         PluginUtilities.addStyle(this.getName(), style);
-        Dispatcher.subscribe(ActionTypes.GUILD_MEMBER_LIST_UPDATE, this.handleGuildMemberListUpdate);
         UserSettingsStore.addChangeListener(this.handleUserSettingsChange);
 
         this.loadLocale();
@@ -47,7 +42,6 @@ export default class GuildProfile extends Plugin {
 
     onStop() {
         PluginUtilities.removeStyle(this.getName());
-        Dispatcher.unsubscribe(ActionTypes.GUILD_MEMBER_LIST_UPDATE, this.handleGuildMemberListUpdate);
         UserSettingsStore.removeChangeListener(this.handleUserSettingsChange);
 
         Patcher.unpatchAll();
@@ -91,16 +85,6 @@ export default class GuildProfile extends Plugin {
                     type: 'separator'
                 })
             );
-        });
-    }
-
-    handleGuildMemberListUpdate = ({ guildId, groups }) => {
-        Dispatcher.dirtyDispatch({
-            type: ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE,
-            guildId,
-            count: groups.reduce((total, group) => {
-                return group.id !== 'offline' ? total + group.count : total;
-            }, 0)
         });
     }
 
