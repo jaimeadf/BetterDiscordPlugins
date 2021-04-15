@@ -35,15 +35,11 @@ function handleGuildMemberListUpdate({ guildId, memberCount, groups }) {
     }, 0));
 }
 
-function handleOnlineMemberCountUpdate({ guildId, count }) {
+function handleGuildOnlineMemberCountUpdate({ guildId, count }) {
     onlineMemberCounts.set(guildId, count);
 }
 
 class MemberCountsStore extends Flux.Store {
-    constructor(dispatcher, handlers) {
-        super(dispatcher, handlers);
-    }
-
     getMemberCounts(guildId) {
         return {
             members: memberCounts.get(guildId) ?? MemberCountStore.getMemberCount(guildId),
@@ -57,5 +53,5 @@ export default new MemberCountsStore(Dispatcher, {
     [ActionTypes.GUILD_CREATE]: handleGuildCreate,
     [ActionTypes.GUILD_DELETE]: handleGuildDelete,
     [ActionTypes.GUILD_MEMBER_LIST_UPDATE]: handleGuildMemberListUpdate,
-    [ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE]: handleOnlineMemberCountUpdate
+    [ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE]: handleGuildOnlineMemberCountUpdate
 });
