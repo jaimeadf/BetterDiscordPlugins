@@ -54,12 +54,8 @@ export default class GuildProfile extends Plugin {
     patchMenu() {
         const Menu = WebpackModules.getByProps('MenuItem');
 
-        Patcher.after(Menu, 'default', (thisObject, [{ children }], returnValue) => {
-            if (returnValue.props.id !== 'guild-header-popout') {
-                return;
-            }
-
-            if (Utilities.findInReactTree(children, child => child?.id === 'guild-profile')) {
+        Patcher.before(Menu, 'default', (thisObject, [{ navId, children }]) => {
+            if (navId !== 'guild-header-popout' || Utilities.findInReactTree(children, c => c?.id === 'guild-profile')) {
                 return;
             }
 
