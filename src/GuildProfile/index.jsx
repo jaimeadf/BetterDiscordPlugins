@@ -18,6 +18,8 @@ import Plugin from '@zlibrary/plugin';
 import GuildProfileModal from './components/GuildProfileModal';
 import GuildProfileIcon from './assets/guild-profile.svg';
 
+import MemberCountsStore from './stores/MemberCountsStore';
+
 import style from './style.scss';
 import locales from './locales';
 
@@ -34,6 +36,8 @@ export default class GuildProfile extends Plugin {
     onStart() {
         PluginUtilities.addStyle(this.getName(), style);
         UserSettingsStore.addChangeListener(this.handleUserSettingsChange);
+
+        MemberCountsStore.initializeIfNeeded();
 
         this.loadLocale();
         this.patchMenu();

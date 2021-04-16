@@ -40,9 +40,16 @@ function handleOnlineGuildMemberCountUpdate({ guildId, count }) {
 }
 
 class MemberCountsStore extends Flux.Store {
+    initialize() {
+        const nativeMemberCounts = MemberCountStore.getMemberCounts();
+        for (const guildId in nativeMemberCounts) {
+            memberCounts.set(guildId, nativeMemberCounts[guildId]);
+        }
+    }
+
     getMemberCounts(guildId) {
         return {
-            members: memberCounts.get(guildId) ?? MemberCountStore.getMemberCount(guildId),
+            members: memberCounts.get(guildId),
             membersOnline: onlineMemberCounts.get(guildId)
         };
     }
