@@ -2,7 +2,7 @@ name: build
 on:
   push:
     branches:
-      - develop
+      - release
     paths:
       - src/*/README.md
       - src/*/manifest.json
@@ -12,10 +12,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
+      - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: develop
+          ref: release
       - name: Setup node
         uses: actions/setup-node@v2
         with:
