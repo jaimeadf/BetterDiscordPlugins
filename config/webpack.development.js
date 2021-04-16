@@ -6,6 +6,7 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
     mode: 'development',
+    devtool: 'eval-cheap-source-map',
     output: {
         filename: '[name].plugin.js',
         path: path.join(getBdDataPath(), 'plugins')
