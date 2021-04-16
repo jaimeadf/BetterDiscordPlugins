@@ -1,0 +1,13 @@
+{
+    "name": "GuildProfile",
+    "description": "Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.",
+    "version": "1.0.0",
+    "author": {
+        "id": "289112759948410881",
+        "name": "Jaime Filho"
+    },
+    "invite": "z6Yx9A8VDR",
+    "website": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile",
+    "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile",
+    "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"
+}

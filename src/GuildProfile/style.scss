@@ -1,0 +1,25 @@
+/*@license
+ * Copyright (c) 2020 NurMarvin (Marvin Witt) & jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
+
+.guild-profile {
+    .icon {
+        width: 80px;
+        height: 80px;
+        vertical-align: top;
+    }
+
+    .badge {
+        color: var(--header-secondary);
+    }
+}
+
+.guild-info {
+    height: 100%;
+    padding: 20px 10px;
+
+    .section {
+        padding: 5px 10px;
+    }
+}
