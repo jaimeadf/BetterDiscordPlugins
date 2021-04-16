@@ -11,3 +11,7 @@ This plugin makes discord always play the secret ring tone when someone calls yo
 1. Download the plugin by clicking [here](https://betterdiscord.net/ghdl?url=https://github.com/jaimeadf/BetterDiscordPlugins/blob/release/dist/SecretRingTone/SecretRingTone.plugin.js).
 2. Open your plugins folder by going to your settings, then to plugins and click the button at the top of the page.
 3. Drag the file that you just downloaded to there and make sure that it doesn't end with `(1)` or anything similar.
+
+## Note
+
+The only purpose of this plugin is to make the Easter Egg ring tone the default one. If you're looking to customize your ring tone or any other sound, please consider using [NotificationSounds](https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/NotificationSounds) from [@mwittrien](https://github.com/mwittrien).
