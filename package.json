@@ -1,21 +1,19 @@
 {
+    "private": true,
     "name": "bd-plugins",
     "version": "1.0.0",
     "repository": "https://github.com/jaimeadf/BetterDiscordPlugins",
     "author": "Jaime Daniel <jaimeadanielfilho@hotmail.com>",
     "license": "MIT",
     "scripts": {
+        "postinstall": "husky install",
         "dev": "webpack --config config/webpack.development.js --watch",
         "build": "webpack --config config/webpack.production.js",
         "lint": "eslint --ext .js,.jsx .",
         "lint:fix": "eslint --ext .js,.jsx . --fix"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": {
-                "*.{js,jsx}": ["yarn lint:fix", "git add"]
-            }
-        }
+    "lint-staged": {
+        "*.{js,jsx}": ["yarn lint:fix", "git add"]
     },
     "devDependencies": {
         "@sucrase/webpack-loader": "^2.0.0",
