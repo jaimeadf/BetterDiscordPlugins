@@ -20,7 +20,7 @@
         "global-require": "off",
         "guard-for-in": "off",
         "import/no-dynamic-require": "off",
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["config/**.js"]}],
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": ["config/**.js"] }],
         "import/no-named-as-default-member": "off",
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "linebreak-style": ["warn", "windows"],
