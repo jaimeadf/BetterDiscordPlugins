@@ -1,4 +1,4 @@
-/*@license
+/* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */

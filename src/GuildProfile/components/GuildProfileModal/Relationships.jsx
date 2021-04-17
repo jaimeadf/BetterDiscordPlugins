@@ -1,4 +1,4 @@
-/*@license
+/* @license
  * Copyright (c) 2021 NurMarvin (Marvin Witt) & jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
@@ -68,7 +68,7 @@ function Relationships({ guild, channel, users, relationshipType }) {
     }
 
     return (
-        <ScrollerThin className={classes.listScroller} fade={true}>
+        <ScrollerThin className={classes.listScroller} fade>
             {users.map(user => (
                 <Clickable
                     className={classes.listRow}

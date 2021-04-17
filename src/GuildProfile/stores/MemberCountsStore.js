@@ -1,11 +1,16 @@
-/*@license
+/* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
 
 import { DiscordModules } from '@zlibrary/api';
 
-const { Flux, Dispatcher, MemberCountStore, DiscordConstants: { ActionTypes } } = DiscordModules;
+const {
+    Flux,
+    Dispatcher,
+    MemberCountStore,
+    DiscordConstants: { ActionTypes }
+} = DiscordModules;
 
 const memberCounts = new Map();
 const onlineMemberCounts = new Map();

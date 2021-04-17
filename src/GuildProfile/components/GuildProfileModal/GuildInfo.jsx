@@ -1,4 +1,4 @@
-/*@license
+/* @license
  * Copyright (c) 2021 NurMarvin (Marvin Witt) & jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
@@ -47,7 +47,7 @@ function Section({ title, children }) {
             tag="h5"
             title={title}
         >
-            <TextElement selectable={true}>{children}</TextElement>
+            <TextElement selectable>{children}</TextElement>
         </FormSection>
     );
 }
@@ -57,7 +57,7 @@ function GuildInfo({ guild, owner, hide, channel }) {
         if (!owner) {
             UserFetcher.getUser(guild.ownerId);
         }
-    }, [guild, owner])
+    }, [guild, owner]);
 
     if (hide) {
         return (
@@ -71,7 +71,7 @@ function GuildInfo({ guild, owner, hide, channel }) {
     }
 
     return (
-        <ScrollerThin className={`${classes.infoScroller} guild-info`} fade={true}>
+        <ScrollerThin className={`${classes.infoScroller} guild-info`} fade>
             <Flex justify={Flex.Justify.START} wrap={Flex.Wrap.WRAP}>
                 <Section title={Messages.GUILD_OWNER}>
                     {owner

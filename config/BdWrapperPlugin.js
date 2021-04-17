@@ -41,11 +41,24 @@ class BdWrapperPlugin {
     }
 
     apply(compiler) {
-        compiler.hooks.thisCompilation.tap('BdWrapperPlugin', (compilation) => {
+        compiler.hooks.thisCompilation.tap('BdWrapperPlugin', compilation => {
+            const wrapFile = file => {
+                compilation.updateAsset(
+                    file,
+                    old => new ConcatSource(
+                        render(template, {
+                            metaComment: this.buildMeta().toString(),
+                            serializedConfig: JSON.stringify(this.buildConfig()),
+                            code: old.buffer().toString()
+                        })
+                    )
+                );
+            };
+
             compilation.hooks.processAssets.tap(
                 {
                     name: 'BdWrapperPlugin',
-                    stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONS,
+                    stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONS
                 },
                 () => {
                     for (const chunk of compilation.chunks) {
@@ -55,25 +68,10 @@ class BdWrapperPlugin {
                             wrapFile(file);
                         }
                     }
-                },
+                }
             );
-
-            const wrapFile = file => {
-                compilation.updateAsset(
-                    file,
-                    old => new ConcatSource(
-                        render(template, {
-                                metaComment: this.buildMeta().toString(),
-                                serializedConfig: JSON.stringify(this.buildConfig()),
-                                code: old.buffer().toString()
-                            }
-                        )
-                    )
-                );
-            }
         });
     }
-
 
     buildMeta() {
         const { manifest } = this.options;

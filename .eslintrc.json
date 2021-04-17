@@ -1,0 +1,51 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": ["plugin:react/recommended", "airbnb"],
+    "parserOptions": {
+        "ecmaFeatures": { "jsx": true },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": ["react"],
+    "rules": {
+        "arrow-body-style": "off",
+        "arrow-parens": ["warn", "as-needed", { "requireForBlockBody": false }],
+        "class-methods-use-this": "off",
+        "comma-dangle": ["warn", "never"],
+        "consistent-return": "off",
+        "global-require": "off",
+        "guard-for-in": "off",
+        "import/no-dynamic-require": "off",
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["config/**.js"]}],
+        "import/no-named-as-default-member": "off",
+        "indent": ["error", 4],
+        "linebreak-style": ["warn", "windows"],
+        "max-classes-per-file": "off",
+        "max-len": ["warn", { "code": 120 }],
+        "no-continue": "off",
+        "no-param-reassign": "off",
+        "no-restricted-syntax": "off",
+        "no-underscore-dangle": "off",
+        "object-curly-newline": "off",
+        "radix": "off",
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-no-bind": "off",
+        "react/jsx-one-expression-per-line": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/prop-types": "off",
+        "react/sort-comp": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {},
+            "webpack": {
+                "config": "./config/webpack.common.js"
+            }
+        }
+    }
+}

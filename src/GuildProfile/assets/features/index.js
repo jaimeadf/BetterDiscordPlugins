@@ -1,4 +1,4 @@
-/*@license
+/* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
@@ -38,5 +38,5 @@ export default {
     [GuildFeatures.ENABLED_DISCOVERABLE_BEFORE]: EnabledDiscoverableBeforeIcon,
     [GuildFeatures.WELCOME_SCREEN_ENABLED]: WelcomeScreenEnabledIcon,
     [GuildFeatures.MEMBER_VERIFICATION_GATE_ENABLED]: MemberVerificationGateEnabledIcon,
-    [GuildFeatures.PREVIEW_ENABLED]: PreviewEnabledIcon,
+    [GuildFeatures.PREVIEW_ENABLED]: PreviewEnabledIcon
 };

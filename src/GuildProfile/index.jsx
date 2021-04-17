@@ -1,4 +1,4 @@
-/*@license
+/* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
@@ -33,6 +33,11 @@ const {
 const { Messages } = i18n;
 
 export default class GuildProfile extends Plugin {
+    constructor() {
+        super();
+        this.handleUserSettingsChange = this.handleUserSettingsChange.bind(this);
+    }
+
     onStart() {
         PluginUtilities.addStyle(this.getName(), style);
         UserSettingsStore.addChangeListener(this.handleUserSettingsChange);
@@ -55,7 +60,8 @@ export default class GuildProfile extends Plugin {
         const Menu = WebpackModules.getByProps('MenuItem');
 
         Patcher.before(Menu, 'default', (thisObject, [{ navId, children }]) => {
-            if (navId !== 'guild-header-popout' || Utilities.findInReactTree(children, c => c?.id === 'guild-profile')) {
+            if (navId !== 'guild-header-popout'
+                || Utilities.findInReactTree(children, c => c?.id === 'guild-profile')) {
                 return;
             }
 
@@ -88,11 +94,6 @@ export default class GuildProfile extends Plugin {
         });
     }
 
-    handleUserSettingsChange = async () => {
-        await i18n.loadPromise;
-        this.loadLocale();
-    }
-
     loadLocale() {
         Object.assign(i18n._proxyContext.messages, locales[UserSettingsStore.locale]);
         Object.assign(i18n._proxyContext.defaultMessages, locales['en-US']);
@@ -100,5 +101,10 @@ export default class GuildProfile extends Plugin {
 
     openGuildProfileModal(guild) {
         ModalStack.push(() => <GuildProfileModal guild={guild} />);
+    }
+
+    async handleUserSettingsChange() {
+        await i18n.loadPromise;
+        this.loadLocale();
     }
 }

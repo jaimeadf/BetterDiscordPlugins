@@ -62,7 +62,7 @@ export default class WhoReacted extends Plugin {
                 'The maximum number of users shown for each reaction emoji.',
                 this.settings.maxUsersShown,
                 value => {
-                    if (isNaN(value) || value < 1 || value > 99) {
+                    if (Number.isNaN(value) || value < 1 || value > 99) {
                         return Toasts.error('Value must be a number between 1 and 99!');
                     }
 
@@ -75,7 +75,9 @@ export default class WhoReacted extends Plugin {
                 8,
                 32,
                 this.settings.avatarSize,
-                value => this.settings.avatarSize = value,
+                value => {
+                    this.settings.avatarSize = value;
+                },
                 {
                     defaultValue: this.defaultSettings.avatarSize,
                     markers: [8, 12, 16, 20, 24, 32],
@@ -105,7 +107,9 @@ export default class WhoReacted extends Plugin {
                 0,
                 20,
                 this.settings.reactionThreshold,
-                value => this.settings.reactionThreshold = value,
+                value => {
+                    this.settings.reactionThreshold = value;
+                },
                 {
                     defaultValue: this.defaultSettings.reactionThreshold,
                     markers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
@@ -119,7 +123,9 @@ export default class WhoReacted extends Plugin {
                 0,
                 10000,
                 this.settings.userThreshold,
-                value => this.settings.userThreshold = value,
+                value => {
+                    this.settings.userThreshold = value;
+                },
                 {
                     defaultValue: this.defaultSettings.userThreshold,
                     markers: [0, 10, 20, 50, 100, 500, 1000, 2000, 3000, 4000, 5000, 10000],
@@ -132,7 +138,9 @@ export default class WhoReacted extends Plugin {
                 'Use highest user count',
                 'Uses the reaction with most reactors of a message for user threshold.',
                 this.settings.useHighestUserCount,
-                value => this.settings.useHighestUserCount = value
+                value => {
+                    this.settings.useHighestUserCount = value;
+                }
             ));
     }
 
@@ -142,13 +150,17 @@ export default class WhoReacted extends Plugin {
                 'Show self',
                 'Shows yourself within the reactors.',
                 this.settings.showSelf,
-                value => this.settings.showSelf = value
+                value => {
+                    this.settings.showSelf = value;
+                }
             ))
             .append(new Switch(
                 'Show bots',
                 'Shows bots within the reactors.',
                 this.settings.showBots,
-                value => this.settings.showBots = value
+                value => {
+                    this.settings.showBots = value;
+                }
             ));
     }
 
@@ -164,13 +176,13 @@ export default class WhoReacted extends Plugin {
             if (!this.canShowReactors(message)) return;
 
             const renderTooltip = returnValue.props.children;
-            returnValue.props.children = props => {
-                const tooltip = renderTooltip(props);
+            returnValue.props.children = tooltipProps => {
+                const tooltip = renderTooltip(tooltipProps);
                 const popout = tooltip.props.children.props.children;
 
                 const renderReactionInner = popout.props.children;
-                popout.props.children = props => {
-                    const reactionInner = renderReactionInner(props);
+                popout.props.children = popoutProps => {
+                    const reactionInner = renderReactionInner(popoutProps);
 
                     reactionInner.props.children.props.children.push(
                         <Reactors
@@ -185,10 +197,10 @@ export default class WhoReacted extends Plugin {
                     );
 
                     return reactionInner;
-                }
+                };
 
                 return tooltip;
-            }
+            };
         });
 
         this.forceUpdateAllReactions();

@@ -23,8 +23,7 @@ export default class BiggerStreamPreview extends Plugin {
     }
 
     patchUserContextMenus() {
-        const UserContextMenus = WebpackModules.findAll(
-            m => m?.default?.displayName?.includes('UserContextMenu'));
+        const UserContextMenus = WebpackModules.findAll(m => m?.default?.displayName?.includes('UserContextMenu'));
 
         const patch = (thisObject, [props], returnValue) => {
             const { user } = props;
@@ -64,7 +63,7 @@ export default class BiggerStreamPreview extends Plugin {
                 onClickUntrusted: e => e.openHref(),
                 renderLinkComponent: props => <MaskedLink {...props} />
             }
-        )
+        );
     }
 
     async fetchImage(url) {
