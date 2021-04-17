@@ -177,12 +177,12 @@ export default class GuildProfileModal extends React.PureComponent {
         const { guild } = this.props;
 
         switch (selectedSection) {
-        case GuildProfileSections.FRIENDS:
-            return <Relationships guild={guild} relationshipType={RelationshipTypes.FRIEND} />;
-        case GuildProfileSections.BLOCKED_USERS:
-            return <Relationships guild={guild} relationshipType={RelationshipTypes.BLOCKED} />;
-        default:
-            return <GuildInfo guild={guild} />;
+            case GuildProfileSections.FRIENDS:
+                return <Relationships guild={guild} relationshipType={RelationshipTypes.FRIEND} />;
+            case GuildProfileSections.BLOCKED_USERS:
+                return <Relationships guild={guild} relationshipType={RelationshipTypes.BLOCKED} />;
+            default:
+                return <GuildInfo guild={guild} />;
         }
     }
 
