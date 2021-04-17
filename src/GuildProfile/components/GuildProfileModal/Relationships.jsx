@@ -1,5 +1,6 @@
 /* @license
- * Copyright (c) 2021 NurMarvin (Marvin Witt) & jaimeadf (Jaime Filho)
+ * Copyright (c) 2020 NurMarvin (Marvin Witt)
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
 
