@@ -1,6 +1,6 @@
 # BetterDiscordPlugins
 [![Marmota's Basement](https://discordapp.com/api/guilds/514185816315265068/widget.png)](https://discord.gg/z6Yx9A8VDR)
-[![build](https://github.com/jaimeadf/BetterDiscordPlugins/actions/workflows/build.yml/badge.svg)](https://github.com/jaimeadf/BetterDiscordPlugins/actions/workflows/release.yml)
+[![release](https://github.com/jaimeadf/BetterDiscordPlugins/actions/workflows/build.yml/badge.svg)](https://github.com/jaimeadf/BetterDiscordPlugins/actions/workflows/release.yml)
 
 ## Overview
 
