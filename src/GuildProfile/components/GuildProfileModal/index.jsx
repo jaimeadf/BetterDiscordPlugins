@@ -64,6 +64,10 @@ export default class GuildProfileModal extends React.PureComponent {
         this.state = {
             selectedSection: props.section ?? GuildProfileSections.GUILD_INFO
         };
+
+        this.handleGuildIconClick = this.handleGuildIconClick.bind(this);
+        this.handleGuildIconContextMenu = this.handleGuildIconContextMenu.bind(this);
+        this.handleSectionSelect = this.handleSectionSelect.bind(this);
     }
 
     render() {
@@ -82,8 +86,8 @@ export default class GuildProfileModal extends React.PureComponent {
                     <header className={classes.header}>
                         {guild.icon ? (
                             <Clickable
-                                onClick={this.handleGuildIconClick.bind(this)}
-                                onContextMenu={this.handleGuildIconContextMenu.bind(this)}
+                                onClick={this.handleGuildIconClick}
+                                onContextMenu={this.handleGuildIconContextMenu.bind}
                             >
                                 <TooltipContainer
                                     position="top"
@@ -122,7 +126,7 @@ export default class GuildProfileModal extends React.PureComponent {
                                 className={classes.tabBar}
                                 selectedItem={selectedSection}
                                 type={TabBar.Types.TOP}
-                                onItemSelect={this.handleSectionSelect.bind(this)}
+                                onItemSelect={this.handleSectionSelect}
                             >
                                 <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.GUILD_INFO}>
                                     {i18n.Messages.GUILD_PROFILE_GUILD_INFO}
