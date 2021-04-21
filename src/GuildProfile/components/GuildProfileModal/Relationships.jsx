@@ -7,7 +7,7 @@
 import React from 'react';
 import { DiscordModules, WebpackModules } from '@zlibrary/api';
 
-import Flux from '@discord/Flux';
+import { useStateFromStores } from '@discord/Flux';
 import i18n from '@discord/i18n';
 
 import { ScrollerThin } from '@discord/components/Scroller';
@@ -40,7 +40,23 @@ const NoRelationshipsOfTypeMessages = {
     [RelationshipTypes.BLOCKED]: 'GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD'
 };
 
-function Relationships({ guild, channel, users, relationshipType }) {
+export default function Relationships({ guild, relationshipType }) {
+    const channel = useStateFromStores([GuildChannelsStore], () => GuildChannelsStore.getDefaultChannel(guild.id));
+    const users = useStateFromStores([RelationshipStore, GuildMemberStore, UserStore], () => {
+        const users = [];
+        const relationships = RelationshipStore.getRelationships();
+
+        for (const userId in relationships) {
+            if (relationships[userId] !== relationshipType || !GuildMemberStore.isMember(guild.id, userId)) {
+                continue;
+            }
+
+            users.push(UserStore.getUser(userId));
+        }
+
+        return users;
+    });
+
     function handleSelect(user) {
         ModalStack.pop();
         UserProfileModals.open(user.id);
@@ -84,24 +100,3 @@ function Relationships({ guild, channel, users, relationshipType }) {
         </ScrollerThin>
     );
 }
-
-export default Flux.connectStores(
-    [RelationshipStore, GuildMemberStore, UserStore, GuildChannelsStore],
-    ({ guild, relationshipType }) => {
-        const users = [];
-        const relationships = RelationshipStore.getRelationships();
-
-        for (const userId in relationships) {
-            if (relationships[userId] !== relationshipType || !GuildMemberStore.isMember(guild.id, userId)) {
-                continue;
-            }
-
-            users.push(UserStore.getUser(userId));
-        }
-
-        return {
-            users,
-            channel: GuildChannelsStore.getDefaultChannel(guild.id)
-        };
-    }
-)(Relationships);
