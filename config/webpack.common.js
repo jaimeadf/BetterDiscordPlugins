@@ -1,3 +1,5 @@
+const path = require('path');
+
 const TerserPlugin = require('terser-webpack-plugin');
 
 const BdWrapperPlugin = require('./BdWrapperPlugin');
@@ -16,7 +18,10 @@ module.exports = {
         }
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        alias: {
+            '@discord': path.resolve(__dirname, '..', 'src', '@discord')
+        }
     },
     module: {
         rules: [
