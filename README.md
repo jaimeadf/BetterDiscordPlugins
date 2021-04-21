@@ -32,6 +32,12 @@ Watches for any editions and automatically builds the plugins directly to your p
 
 Builds the plugins for distribution.
 
+#### `yarn lint`
+Lints your changes using [ESLint](https://eslint.org/).
+
+#### `yarn lint:fix`
+Same as above but tries to fix any problems.
+
 ### First steps
 
 > Run these commands using any command line tool of your choice.
