@@ -1,23 +1,26 @@
-/*@license
- * Copyright (c) 2021 NurMarvin (Marvin Witt) & jaimeadf (Jaime Filho)
+/* @license
+ * Copyright (c) 2020 NurMarvin (Marvin Witt)
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
 
 import React from 'react';
 import { DiscordModules, WebpackModules } from '@zlibrary/api';
 
+import Flux from '@discord/Flux';
+import i18n from '@discord/i18n';
+
+import { ScrollerThin } from '@discord/components/Scroller';
+import Clickable from '@discord/components/Clickable';
+
 const {
-    Flux,
     RelationshipStore,
     GuildMemberStore,
     UserStore,
     GuildChannelsStore,
-    i18n: { Messages },
     ModalStack,
     UserProfileModals,
     ContextMenuActions,
-    ScrollerThin,
-    Clickable,
     DiscordConstants: { RelationshipTypes }
 } = DiscordModules;
 
@@ -53,7 +56,9 @@ function Relationships({ guild, channel, users, relationshipType }) {
         return (
             <div className={classes.empty}>
                 <div className={classes.emptyIconFriends} />
-                <div className={classes.emptyText}>{Messages[NoRelationshipsOfTypeMessages[relationshipType]]}</div>
+                <div className={classes.emptyText}>
+                    {i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]}
+                </div>
             </div>
         );
     }

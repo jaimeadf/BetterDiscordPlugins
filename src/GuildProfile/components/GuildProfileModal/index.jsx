@@ -1,5 +1,6 @@
-/*@license
- * Copyright (c) 2021 NurMarvin (Marvin Witt) & jaimeadf (Jaime Filho)
+/* @license
+ * Copyright (c) 2020 NurMarvin (Marvin Witt)
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
 
@@ -7,6 +8,15 @@ import React from 'react';
 import { clipboard } from 'electron';
 
 import { DiscordModules, WebpackModules } from '@zlibrary/api';
+
+import { useStateFromStores } from '@discord/Flux';
+import i18n from '@discord/i18n';
+
+import Flex from '@discord/components/Flex';
+import Clickable from '@discord/components/Clickable';
+import { TooltipContainer } from '@discord/components/Tooltip';
+import Text from '@discord/components/Text';
+import TabBar from '@discord/components/TabBar';
 
 import GuildInfo from './GuildInfo';
 import Relationships from './Relationships';
@@ -16,15 +26,8 @@ import FeatureIcons from '../../assets/features';
 import MemberCountsStore from '../../stores/MemberCountsStore';
 
 const {
-    Flux,
-    i18n: { Messages },
     ContextMenuActions,
     ImageResolver,
-    Flex,
-    Clickable,
-    Tooltip,
-    TextElement,
-    TabBar,
     DiscordConstants: { RelationshipTypes }
 } = DiscordModules;
 
@@ -41,9 +44,13 @@ const classes = {
     ...WebpackModules.getByProps('profileBadge')
 };
 
-const MemberCounts = Flux.connectStores([MemberCountsStore], ({ guild }) =>
-    MemberCountsStore.getMemberCounts(guild.id)
-)(InviteButton.Data);
+function MemberCounts({ guild }) {
+    const { members, membersOnline } = useStateFromStores([MemberCountsStore], () =>
+        MemberCountsStore.getMemberCounts(guild.id)
+    );
+
+    return <InviteButton.Data members={members} membersOnline={membersOnline} />;
+}
 
 export const GuildProfileSections = {
     GUILD_INFO: 'GUILD_INFO',
@@ -78,9 +85,12 @@ export default class GuildProfileModal extends React.PureComponent {
                                 onClick={this.handleGuildIconClick.bind(this)}
                                 onContextMenu={this.handleGuildIconContextMenu.bind(this)}
                             >
-                                <Tooltip position="top" text={Messages.GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL}>
+                                <TooltipContainer
+                                    position="top"
+                                    text={i18n.Messages.GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL}
+                                >
                                     {guildIcon}
-                                </Tooltip>
+                                </TooltipContainer>
                             </Clickable>
                         ) : (
                             guildIcon
@@ -101,9 +111,9 @@ export default class GuildProfileModal extends React.PureComponent {
                                     {features.map(feature => this.renderFeatureBadge(feature))}
                                 </div>
                             )}
-                            <TextElement className={classes.guildDetail}>
+                            <Text className={classes.guildDetail}>
                                 <MemberCounts guild={guild} />
-                            </TextElement>
+                            </Text>
                         </div>
                     </header>
                     <div>
@@ -115,13 +125,13 @@ export default class GuildProfileModal extends React.PureComponent {
                                 onItemSelect={this.handleSectionSelect.bind(this)}
                             >
                                 <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.GUILD_INFO}>
-                                    {Messages.GUILD_PROFILE_GUILD_INFO}
+                                    {i18n.Messages.GUILD_PROFILE_GUILD_INFO}
                                 </TabBar.Item>
                                 <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.FRIENDS}>
-                                    {Messages.GUILD_PROFILE_FRIENDS_IN_GUILD}
+                                    {i18n.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD}
                                 </TabBar.Item>
                                 <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.BLOCKED_USERS}>
-                                    {Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD}
+                                    {i18n.Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD}
                                 </TabBar.Item>
                             </TabBar>
                         </div>
@@ -137,11 +147,11 @@ export default class GuildProfileModal extends React.PureComponent {
 
         return Icon ? (
             <div className={classes.profileBadgeWrapper}>
-                <Tooltip position="top" text={Messages[`GUILD_PROFILE_${feature}`]}>
+                <TooltipContainer position="top" text={i18n.Messages[`GUILD_PROFILE_${feature}`]}>
                     <Clickable role="button" tag="div">
                         <Icon className={`${classes.profileBadge} badge`} />
                     </Clickable>
-                </Tooltip>
+                </TooltipContainer>
             </div>
         ) : null;
     }

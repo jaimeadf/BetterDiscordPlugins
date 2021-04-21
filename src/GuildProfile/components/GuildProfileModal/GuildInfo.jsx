@@ -1,27 +1,30 @@
-/*@license
- * Copyright (c) 2021 NurMarvin (Marvin Witt) & jaimeadf (Jaime Filho)
+/* @license
+ * Copyright (c) 2020 NurMarvin (Marvin Witt)
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
 
 import React, { useEffect } from 'react';
 import { DiscordModules, WebpackModules } from '@zlibrary/api';
 
+import { useStateFromStores } from '@discord/Flux';
+import i18n from '@discord/i18n';
+
+import { FormSection } from '@discord/components/Form';
+import Text from '@discord/components/Text';
+import { ScrollerThin } from '@discord/components/Scroller';
+import Flex from '@discord/components/Flex';
+import Anchor from '@discord/components/Anchor';
+
 const {
-    Flux,
     UserStore,
-    StreamerModeStore,
     GuildChannelsStore,
-    i18n: { Messages },
     Moment,
     Timestamps,
-    FormSection,
-    TextElement,
-    ScrollerThin,
-    Flex,
-    Anchor,
     DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes }
 } = DiscordModules;
 
+const StreamerModeStore = WebpackModules.getByProps('hidePersonalInformation');
 const UserMention = WebpackModules.getByDisplayName('UserMention');
 const UserFetcher = WebpackModules.getByProps('getUser', 'fetchCurrentUser');
 
@@ -40,12 +43,16 @@ const GuildExplicitContentFilterTypesMessages = {
 function Section({ title, children }) {
     return (
         <FormSection className={`${classes.marginBottom8} section`} tag="h5" title={title}>
-            <TextElement selectable={true}>{children}</TextElement>
+            <Text selectable={true}>{children}</Text>
         </FormSection>
     );
 }
 
-function GuildInfo({ guild, owner, hide, channel }) {
+export default function GuildInfo({ guild }) {
+    const owner = useStateFromStores([UserStore], () => UserStore.getUser(guild.ownerId));
+    const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hide);
+    const channel = useStateFromStores([GuildChannelsStore], () => GuildChannelsStore.getDefaultChannel(guild.id));
+
     useEffect(() => {
         if (!owner) {
             UserFetcher.getUser(guild.ownerId);
@@ -56,7 +63,7 @@ function GuildInfo({ guild, owner, hide, channel }) {
         return (
             <div className={classes.empty}>
                 <div className={classes.emptyIconStreamerMode} />
-                <div className={classes.emptyText}>{Messages.STREAMER_MODE_ENABLED}</div>
+                <div className={classes.emptyText}>{i18n.Messages.STREAMER_MODE_ENABLED}</div>
             </div>
         );
     }
@@ -64,45 +71,41 @@ function GuildInfo({ guild, owner, hide, channel }) {
     return (
         <ScrollerThin className={`${classes.infoScroller} guild-info`} fade={true}>
             <Flex justify={Flex.Justify.START} wrap={Flex.Wrap.WRAP}>
-                <Section title={Messages.GUILD_OWNER}>
+                <Section title={i18n.Messages.GUILD_OWNER}>
                     {owner ? (
                         <UserMention className="mention" userId={owner.id} channelId={channel?.id} />
                     ) : (
-                        `${Messages.GUILD_PROFILE_LOADING}...`
+                        `${i18n.Messages.GUILD_PROFILE_LOADING}...`
                     )}
                 </Section>
                 {guild.description && (
-                    <Section title={Messages.FORM_LABEL_SERVER_DESCRIPTION}>{guild.description}</Section>
+                    <Section title={i18n.Messages.FORM_LABEL_SERVER_DESCRIPTION}>{guild.description}</Section>
                 )}
                 {guild.vanityURLCode && (
-                    <Section title={Messages.VANITY_URL}>
+                    <Section title={i18n.Messages.VANITY_URL}>
                         <Anchor href={`https://discord.gg/${guild.vanityURLCode}`}>
                             discord.gg/{guild.vanityURLCode}
                         </Anchor>
                     </Section>
                 )}
-                <Section title={Messages.GUILD_PROFILE_CREATED_AT}>
+                <Section title={i18n.Messages.GUILD_PROFILE_CREATED_AT}>
                     {Moment(Timestamps.extractTimestamp(guild.id)).format('LLL')}
                 </Section>
-                <Section title={Messages.GUILD_PROFILE_JOINED_AT}>{Moment(guild.joinedAt).format('LLL')}</Section>
-                <Section title={Messages.FORM_LABEL_VERIFICATION_LEVEL}>
-                    {Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]}
+                <Section title={i18n.Messages.GUILD_PROFILE_JOINED_AT}>{Moment(guild.joinedAt).format('LLL')}</Section>
+                <Section title={i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL}>
+                    {i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]}
                 </Section>
-                <Section title={Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER}>
-                    {Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]}
+                <Section title={i18n.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER}>
+                    {i18n.Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]}
                 </Section>
-                <Section title={Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT}>
+                <Section title={i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT}>
                     {guild.premiumSubscriberCount}
                 </Section>
-                <Section title={Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER}>{guild.premiumTier}</Section>
-                <Section title={Messages.FORM_LABEL_SERVER_LANGUAGE}>{Messages[guild.preferredLocale]}</Section>
+                <Section title={i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER}>{guild.premiumTier}</Section>
+                <Section title={i18n.Messages.FORM_LABEL_SERVER_LANGUAGE}>
+                    {i18n.Messages[guild.preferredLocale]}
+                </Section>
             </Flex>
         </ScrollerThin>
     );
 }
-
-export default Flux.connectStores([UserStore, StreamerModeStore, GuildChannelsStore], ({ guild }) => ({
-    owner: UserStore.getUser(guild.ownerId),
-    hide: StreamerModeStore.hidePersonalInformation,
-    channel: GuildChannelsStore.getDefaultChannel(guild.id)
-}))(GuildInfo);

@@ -1,12 +1,14 @@
-/*@license
+/* @license
+ * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
 
 import { DiscordModules } from '@zlibrary/api';
 
+import Flux from '@discord/Flux';
+
 const {
-    Flux,
     Dispatcher,
     MemberCountStore,
     DiscordConstants: { ActionTypes }

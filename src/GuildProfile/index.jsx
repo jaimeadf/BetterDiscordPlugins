@@ -1,4 +1,4 @@
-/*@license
+/* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
@@ -8,6 +8,8 @@ import React from 'react';
 import { DiscordModules, WebpackModules, PluginUtilities, Patcher, Utilities, DiscordContextMenu } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
+import i18n from '@discord/i18n';
+
 import GuildProfileModal from './components/GuildProfileModal';
 import GuildProfileIcon from './assets/guild-profile.svg';
 
@@ -16,8 +18,7 @@ import MemberCountsStore from './stores/MemberCountsStore';
 import style from './style.scss';
 import locales from './locales';
 
-const { ModalStack, UserSettingsStore, SelectedGuildStore, GuildStore, i18n } = DiscordModules;
-const { Messages } = i18n;
+const { ModalStack, UserSettingsStore, SelectedGuildStore, GuildStore } = DiscordModules;
 
 export default class GuildProfile extends Plugin {
     onStart() {
@@ -55,7 +56,7 @@ export default class GuildProfile extends Plugin {
                 <Menu.MenuGroup>
                     <Menu.MenuItem
                         id="guild-profile"
-                        label={Messages.GUILD_PROFILE}
+                        label={i18n.Messages.GUILD_PROFILE}
                         icon={GuildProfileIcon}
                         action={() => this.openGuildProfileModal(GuildStore.getGuild(SelectedGuildStore.getGuildId()))}
                     />
@@ -70,7 +71,7 @@ export default class GuildProfile extends Plugin {
         Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
             returnValue.props.children.unshift(
                 DiscordContextMenu.buildMenuItem({
-                    label: Messages.GUILD_PROFILE,
+                    label: i18n.Messages.GUILD_PROFILE,
                     action: () => this.openGuildProfileModal(guild)
                 }),
                 DiscordContextMenu.buildMenuItem({
