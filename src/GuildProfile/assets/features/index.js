@@ -21,7 +21,9 @@ import WelcomeScreenEnabledIcon from './welcome-screen-enabled.svg';
 import MemberVerificationGateEnabledIcon from './member-verification-gate-enabled.svg';
 import PreviewEnabledIcon from './preview-enabled.svg';
 
-const { DiscordConstants: { GuildFeatures } } = DiscordModules;
+const {
+    DiscordConstants: { GuildFeatures }
+} = DiscordModules;
 
 export default {
     [GuildFeatures.INVITE_SPLASH]: InviteSplashIcon,
@@ -38,5 +40,5 @@ export default {
     [GuildFeatures.ENABLED_DISCOVERABLE_BEFORE]: EnabledDiscoverableBeforeIcon,
     [GuildFeatures.WELCOME_SCREEN_ENABLED]: WelcomeScreenEnabledIcon,
     [GuildFeatures.MEMBER_VERIFICATION_GATE_ENABLED]: MemberVerificationGateEnabledIcon,
-    [GuildFeatures.PREVIEW_ENABLED]: PreviewEnabledIcon,
+    [GuildFeatures.PREVIEW_ENABLED]: PreviewEnabledIcon
 };

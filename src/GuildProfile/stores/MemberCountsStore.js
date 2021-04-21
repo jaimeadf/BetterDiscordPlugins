@@ -5,7 +5,12 @@
 
 import { DiscordModules } from '@zlibrary/api';
 
-const { Flux, Dispatcher, MemberCountStore, DiscordConstants: { ActionTypes } } = DiscordModules;
+const {
+    Flux,
+    Dispatcher,
+    MemberCountStore,
+    DiscordConstants: { ActionTypes }
+} = DiscordModules;
 
 const memberCounts = new Map();
 const onlineMemberCounts = new Map();
@@ -30,9 +35,12 @@ function handleGuildMemberListUpdate({ guildId, memberCount, groups }) {
         memberCounts.set(guildId, memberCount);
     }
 
-    onlineMemberCounts.set(guildId, groups.reduce((total, group) => {
-        return group.id !== 'offline' ? total + group.count : total;
-    }, 0));
+    onlineMemberCounts.set(
+        guildId,
+        groups.reduce((total, group) => {
+            return group.id !== 'offline' ? total + group.count : total;
+        }, 0)
+    );
 }
 
 function handleOnlineGuildMemberCountUpdate({ guildId, count }) {

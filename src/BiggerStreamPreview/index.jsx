@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-    DiscordModules,
-    WebpackModules,
-    Patcher,
-    DiscordContextMenu
-} from '@zlibrary/api';
+import { DiscordModules, WebpackModules, Patcher, DiscordContextMenu } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 const { StreamStore, StreamPreviewStore, ModalStack } = DiscordModules;
@@ -23,8 +18,7 @@ export default class BiggerStreamPreview extends Plugin {
     }
 
     patchUserContextMenus() {
-        const UserContextMenus = WebpackModules.findAll(
-            m => m?.default?.displayName?.includes('UserContextMenu'));
+        const UserContextMenus = WebpackModules.findAll(m => m?.default?.displayName?.includes('UserContextMenu'));
 
         const patch = (thisObject, [props], returnValue) => {
             const { user } = props;
@@ -53,18 +47,15 @@ export default class BiggerStreamPreview extends Plugin {
 
     async showImageModal(url) {
         const image = await this.fetchImage(url);
-        ModalStack.push(
-            ImageModal,
-            {
-                src: url,
-                placeholder: url,
-                original: url,
-                width: image.width,
-                height: image.height,
-                onClickUntrusted: e => e.openHref(),
-                renderLinkComponent: props => <MaskedLink {...props} />
-            }
-        )
+        ModalStack.push(ImageModal, {
+            src: url,
+            placeholder: url,
+            original: url,
+            width: image.width,
+            height: image.height,
+            onClickUntrusted: e => e.openHref(),
+            renderLinkComponent: props => <MaskedLink {...props} />
+        });
     }
 
     async fetchImage(url) {

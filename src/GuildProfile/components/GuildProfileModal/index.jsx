@@ -25,9 +25,7 @@ const {
     Tooltip,
     TextElement,
     TabBar,
-    DiscordConstants: {
-        RelationshipTypes
-    }
+    DiscordConstants: { RelationshipTypes }
 } = DiscordModules;
 
 const InviteButton = WebpackModules.getByDisplayName('InviteButton');
@@ -43,9 +41,8 @@ const classes = {
     ...WebpackModules.getByProps('profileBadge')
 };
 
-const MemberCounts = Flux.connectStores(
-    [MemberCountsStore],
-    ({ guild }) => MemberCountsStore.getMemberCounts(guild.id)
+const MemberCounts = Flux.connectStores([MemberCountsStore], ({ guild }) =>
+    MemberCountsStore.getMemberCounts(guild.id)
 )(InviteButton.Data);
 
 export const GuildProfileSections = {
@@ -69,34 +66,25 @@ export default class GuildProfileModal extends React.PureComponent {
         const features = Array.from(guild.features);
 
         const guildIcon = (
-            <GuildIcon
-                className={`icon ${classes.avatar} ${classes.wrapper}`}
-                animate={true}
-                guild={guild}
-            />
+            <GuildIcon className={`icon ${classes.avatar} ${classes.wrapper}`} animate={true} guild={guild} />
         );
 
         return (
             <Flex className={`guild-profile ${classes.root}`} direction={Flex.Direction.VERTICAL}>
                 <div className={classes.topSectionNormal}>
                     <header className={classes.header}>
-                        {guild.icon
-                            ? (
-                                <Clickable
-                                    onClick={this.handleGuildIconClick.bind(this)}
-                                    onContextMenu={this.handleGuildIconContextMenu.bind(this)}
-                                >
-                                    <Tooltip
-                                        position="top"
-                                        text={Messages.GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL}
-                                    >
-                                        {guildIcon}
-                                    </Tooltip>
-                                </Clickable>
-                            )
-                            : (
-                                guildIcon
-                            )}
+                        {guild.icon ? (
+                            <Clickable
+                                onClick={this.handleGuildIconClick.bind(this)}
+                                onContextMenu={this.handleGuildIconContextMenu.bind(this)}
+                            >
+                                <Tooltip position="top" text={Messages.GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL}>
+                                    {guildIcon}
+                                </Tooltip>
+                            </Clickable>
+                        ) : (
+                            guildIcon
+                        )}
                         <div className={classes.headerInfo}>
                             <div className={classes.nameTag}>
                                 <GuildBadge
@@ -126,31 +114,20 @@ export default class GuildProfileModal extends React.PureComponent {
                                 type={TabBar.Types.TOP}
                                 onItemSelect={this.handleSectionSelect.bind(this)}
                             >
-                                <TabBar.Item
-                                    className={classes.tabBarItem}
-                                    id={GuildProfileSections.GUILD_INFO}
-                                >
+                                <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.GUILD_INFO}>
                                     {Messages.GUILD_PROFILE_GUILD_INFO}
                                 </TabBar.Item>
-                                <TabBar.Item
-                                    className={classes.tabBarItem}
-                                    id={GuildProfileSections.FRIENDS}
-                                >
+                                <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.FRIENDS}>
                                     {Messages.GUILD_PROFILE_FRIENDS_IN_GUILD}
                                 </TabBar.Item>
-                                <TabBar.Item
-                                    className={classes.tabBarItem}
-                                    id={GuildProfileSections.BLOCKED_USERS}
-                                >
+                                <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.BLOCKED_USERS}>
                                     {Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD}
                                 </TabBar.Item>
                             </TabBar>
                         </div>
                     </div>
                 </div>
-                <div className={classes.body}>
-                    {this.renderSelectedSection()}
-                </div>
+                <div className={classes.body}>{this.renderSelectedSection()}</div>
             </Flex>
         );
     }
@@ -160,10 +137,7 @@ export default class GuildProfileModal extends React.PureComponent {
 
         return Icon ? (
             <div className={classes.profileBadgeWrapper}>
-                <Tooltip
-                    position="top"
-                    text={Messages[`GUILD_PROFILE_${feature}`]}
-                >
+                <Tooltip position="top" text={Messages[`GUILD_PROFILE_${feature}`]}>
                     <Clickable role="button" tag="div">
                         <Icon className={`${classes.profileBadge} badge`} />
                     </Clickable>
@@ -178,9 +152,9 @@ export default class GuildProfileModal extends React.PureComponent {
 
         switch (selectedSection) {
             case GuildProfileSections.FRIENDS:
-                return <Relationships guild={guild} relationshipType={RelationshipTypes.FRIEND} />
+                return <Relationships guild={guild} relationshipType={RelationshipTypes.FRIEND} />;
             case GuildProfileSections.BLOCKED_USERS:
-                return <Relationships guild={guild} relationshipType={RelationshipTypes.BLOCKED} />
+                return <Relationships guild={guild} relationshipType={RelationshipTypes.BLOCKED} />;
             default:
                 return <GuildInfo guild={guild} />;
         }
@@ -213,5 +187,3 @@ export default class GuildProfileModal extends React.PureComponent {
         });
     }
 }
-
-

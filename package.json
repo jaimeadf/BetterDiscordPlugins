@@ -6,14 +6,22 @@
     "license": "MIT",
     "scripts": {
         "dev": "webpack --config config/webpack.development.js --watch",
-        "build": "webpack --config config/webpack.production.js"
+        "build": "webpack --config config/webpack.production.js",
+        "lint": "eslint . --ext .js,.jsx",
+        "lint:fix": "eslint . --ext .js,.jsx"
     },
     "devDependencies": {
         "@sucrase/webpack-loader": "^2.0.0",
         "@svgr/webpack": "^5.5.0",
         "@types/bandagedbd__bdapi": "^0.3.0",
         "copy-webpack-plugin": "^8.1.1",
+        "eslint": "^7.24.0",
+        "eslint-config-prettier": "^8.2.0",
+        "eslint-loader": "^4.0.2",
+        "eslint-plugin-prettier": "^3.4.0",
+        "eslint-plugin-react": "^7.23.2",
         "node-sass": "^5.0.0",
+        "prettier": "^2.2.1",
         "raw-loader": "^4.0.2",
         "sass-loader": "^11.0.1",
         "sucrase": "^3.18.1",

@@ -19,10 +19,7 @@ const {
     ScrollerThin,
     Flex,
     Anchor,
-    DiscordConstants: {
-        VerificationLevels,
-        GuildExplicitContentFilterTypes
-    }
+    DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes }
 } = DiscordModules;
 
 const UserMention = WebpackModules.getByDisplayName('UserMention');
@@ -42,11 +39,7 @@ const GuildExplicitContentFilterTypesMessages = {
 
 function Section({ title, children }) {
     return (
-        <FormSection
-            className={`${classes.marginBottom8} section`}
-            tag="h5"
-            title={title}
-        >
+        <FormSection className={`${classes.marginBottom8} section`} tag="h5" title={title}>
             <TextElement selectable={true}>{children}</TextElement>
         </FormSection>
     );
@@ -57,15 +50,13 @@ function GuildInfo({ guild, owner, hide, channel }) {
         if (!owner) {
             UserFetcher.getUser(guild.ownerId);
         }
-    }, [guild, owner])
+    }, [guild, owner]);
 
     if (hide) {
         return (
             <div className={classes.empty}>
                 <div className={classes.emptyIconStreamerMode} />
-                <div className={classes.emptyText}>
-                    {Messages.STREAMER_MODE_ENABLED}
-                </div>
+                <div className={classes.emptyText}>{Messages.STREAMER_MODE_ENABLED}</div>
             </div>
         );
     }
@@ -74,14 +65,14 @@ function GuildInfo({ guild, owner, hide, channel }) {
         <ScrollerThin className={`${classes.infoScroller} guild-info`} fade={true}>
             <Flex justify={Flex.Justify.START} wrap={Flex.Wrap.WRAP}>
                 <Section title={Messages.GUILD_OWNER}>
-                    {owner
-                        ? <UserMention className="mention" userId={owner.id} channelId={channel?.id} />
-                        : `${Messages.GUILD_PROFILE_LOADING}...`}
+                    {owner ? (
+                        <UserMention className="mention" userId={owner.id} channelId={channel?.id} />
+                    ) : (
+                        `${Messages.GUILD_PROFILE_LOADING}...`
+                    )}
                 </Section>
                 {guild.description && (
-                    <Section title={Messages.FORM_LABEL_SERVER_DESCRIPTION}>
-                        {guild.description}
-                    </Section>
+                    <Section title={Messages.FORM_LABEL_SERVER_DESCRIPTION}>{guild.description}</Section>
                 )}
                 {guild.vanityURLCode && (
                     <Section title={Messages.VANITY_URL}>
@@ -93,9 +84,7 @@ function GuildInfo({ guild, owner, hide, channel }) {
                 <Section title={Messages.GUILD_PROFILE_CREATED_AT}>
                     {Moment(Timestamps.extractTimestamp(guild.id)).format('LLL')}
                 </Section>
-                <Section title={Messages.GUILD_PROFILE_JOINED_AT}>
-                    {Moment(guild.joinedAt).format('LLL')}
-                </Section>
+                <Section title={Messages.GUILD_PROFILE_JOINED_AT}>{Moment(guild.joinedAt).format('LLL')}</Section>
                 <Section title={Messages.FORM_LABEL_VERIFICATION_LEVEL}>
                     {Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]}
                 </Section>
@@ -105,12 +94,8 @@ function GuildInfo({ guild, owner, hide, channel }) {
                 <Section title={Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT}>
                     {guild.premiumSubscriberCount}
                 </Section>
-                <Section title={Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER}>
-                    {guild.premiumTier}
-                </Section>
-                <Section title={Messages.FORM_LABEL_SERVER_LANGUAGE}>
-                    {Messages[guild.preferredLocale]}
-                </Section>
+                <Section title={Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER}>{guild.premiumTier}</Section>
+                <Section title={Messages.FORM_LABEL_SERVER_LANGUAGE}>{Messages[guild.preferredLocale]}</Section>
             </Flex>
         </ScrollerThin>
     );

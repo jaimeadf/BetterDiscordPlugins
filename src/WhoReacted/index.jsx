@@ -57,32 +57,36 @@ export default class WhoReacted extends Plugin {
 
     buildDisplaySettingsGroup() {
         return new SettingGroup('Display settings')
-            .append(new Textbox(
-                'Max users shown',
-                'The maximum number of users shown for each reaction emoji.',
-                this.settings.maxUsersShown,
-                value => {
-                    if (isNaN(value) || value < 1 || value > 99) {
-                        return Toasts.error('Value must be a number between 1 and 99!');
-                    }
+            .append(
+                new Textbox(
+                    'Max users shown',
+                    'The maximum number of users shown for each reaction emoji.',
+                    this.settings.maxUsersShown,
+                    value => {
+                        if (isNaN(value) || value < 1 || value > 99) {
+                            return Toasts.error('Value must be a number between 1 and 99!');
+                        }
 
-                    this.settings.maxUsersShown = parseInt(value);
-                }
-            ))
-            .append(new Slider(
-                'Avatar size',
-                'Sets the size of the user avatars.',
-                8,
-                32,
-                this.settings.avatarSize,
-                value => this.settings.avatarSize = value,
-                {
-                    defaultValue: this.defaultSettings.avatarSize,
-                    markers: [8, 12, 16, 20, 24, 32],
-                    stickToMarkers: true,
-                    units: 'px'
-                }
-            ));
+                        this.settings.maxUsersShown = parseInt(value);
+                    }
+                )
+            )
+            .append(
+                new Slider(
+                    'Avatar size',
+                    'Sets the size of the user avatars.',
+                    8,
+                    32,
+                    this.settings.avatarSize,
+                    value => (this.settings.avatarSize = value),
+                    {
+                        defaultValue: this.defaultSettings.avatarSize,
+                        markers: [8, 12, 16, 20, 24, 32],
+                        stickToMarkers: true,
+                        units: 'px'
+                    }
+                )
+            );
     }
 
     buildThresholdSettingsGroup() {
@@ -99,57 +103,67 @@ export default class WhoReacted extends Plugin {
         }
 
         return new SettingGroup('Thresholds')
-            .append(new Slider(
-                'Reaction threshold',
-                'Hides the reactors when the number of separate reactions is exceeded on a message.',
-                0,
-                20,
-                this.settings.reactionThreshold,
-                value => this.settings.reactionThreshold = value,
-                {
-                    defaultValue: this.defaultSettings.reactionThreshold,
-                    markers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-                    stickToMarkers: true,
-                    renderMarker
-                }
-            ))
-            .append(new Slider(
-                'User threshold',
-                'Hides the reactors when their count is exceeded on a message.',
-                0,
-                10000,
-                this.settings.userThreshold,
-                value => this.settings.userThreshold = value,
-                {
-                    defaultValue: this.defaultSettings.userThreshold,
-                    markers: [0, 10, 20, 50, 100, 500, 1000, 2000, 3000, 4000, 5000, 10000],
-                    stickToMarkers: true,
-                    equidistant: true,
-                    renderMarker
-                }
-            ))
-            .append(new Switch(
-                'Use highest user count',
-                'Uses the reaction with most reactors of a message for user threshold.',
-                this.settings.useHighestUserCount,
-                value => this.settings.useHighestUserCount = value
-            ));
+            .append(
+                new Slider(
+                    'Reaction threshold',
+                    'Hides the reactors when the number of separate reactions is exceeded on a message.',
+                    0,
+                    20,
+                    this.settings.reactionThreshold,
+                    value => (this.settings.reactionThreshold = value),
+                    {
+                        defaultValue: this.defaultSettings.reactionThreshold,
+                        markers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+                        stickToMarkers: true,
+                        renderMarker
+                    }
+                )
+            )
+            .append(
+                new Slider(
+                    'User threshold',
+                    'Hides the reactors when their count is exceeded on a message.',
+                    0,
+                    10000,
+                    this.settings.userThreshold,
+                    value => (this.settings.userThreshold = value),
+                    {
+                        defaultValue: this.defaultSettings.userThreshold,
+                        markers: [0, 10, 20, 50, 100, 500, 1000, 2000, 3000, 4000, 5000, 10000],
+                        stickToMarkers: true,
+                        equidistant: true,
+                        renderMarker
+                    }
+                )
+            )
+            .append(
+                new Switch(
+                    'Use highest user count',
+                    'Uses the reaction with most reactors of a message for user threshold.',
+                    this.settings.useHighestUserCount,
+                    value => (this.settings.useHighestUserCount = value)
+                )
+            );
     }
 
     buildFilterSettingsGroup() {
         return new SettingGroup('Filters')
-            .append(new Switch(
-                'Show self',
-                'Shows yourself within the reactors.',
-                this.settings.showSelf,
-                value => this.settings.showSelf = value
-            ))
-            .append(new Switch(
-                'Show bots',
-                'Shows bots within the reactors.',
-                this.settings.showBots,
-                value => this.settings.showBots = value
-            ));
+            .append(
+                new Switch(
+                    'Show self',
+                    'Shows yourself within the reactors.',
+                    this.settings.showSelf,
+                    value => (this.settings.showSelf = value)
+                )
+            )
+            .append(
+                new Switch(
+                    'Show bots',
+                    'Shows bots within the reactors.',
+                    this.settings.showBots,
+                    value => (this.settings.showBots = value)
+                )
+            );
     }
 
     getSettingsPanel() {
@@ -185,10 +199,10 @@ export default class WhoReacted extends Plugin {
                     );
 
                     return reactionInner;
-                }
+                };
 
                 return tooltip;
-            }
+            };
         });
 
         this.forceUpdateAllReactions();

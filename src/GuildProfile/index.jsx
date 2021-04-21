@@ -5,14 +5,7 @@
 
 import React from 'react';
 
-import {
-    DiscordModules,
-    WebpackModules,
-    PluginUtilities,
-    Patcher,
-    Utilities,
-    DiscordContextMenu
-} from '@zlibrary/api';
+import { DiscordModules, WebpackModules, PluginUtilities, Patcher, Utilities, DiscordContextMenu } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 import GuildProfileModal from './components/GuildProfileModal';
@@ -23,13 +16,7 @@ import MemberCountsStore from './stores/MemberCountsStore';
 import style from './style.scss';
 import locales from './locales';
 
-const {
-    ModalStack,
-    UserSettingsStore,
-    SelectedGuildStore,
-    GuildStore,
-    i18n
-} = DiscordModules;
+const { ModalStack, UserSettingsStore, SelectedGuildStore, GuildStore, i18n } = DiscordModules;
 const { Messages } = i18n;
 
 export default class GuildProfile extends Plugin {
@@ -42,6 +29,8 @@ export default class GuildProfile extends Plugin {
         this.loadLocale();
         this.patchMenu();
         this.patchContextMenu();
+
+        this.handleUserSettingsChange = this.handleUserSettingsChange.bind(this);
     }
 
     onStop() {
@@ -55,7 +44,10 @@ export default class GuildProfile extends Plugin {
         const Menu = WebpackModules.getByProps('MenuItem');
 
         Patcher.before(Menu, 'default', (thisObject, [{ navId, children }]) => {
-            if (navId !== 'guild-header-popout' || Utilities.findInReactTree(children, c => c?.id === 'guild-profile')) {
+            if (
+                navId !== 'guild-header-popout' ||
+                Utilities.findInReactTree(children, c => c?.id === 'guild-profile')
+            ) {
                 return;
             }
 
@@ -88,7 +80,7 @@ export default class GuildProfile extends Plugin {
         });
     }
 
-    handleUserSettingsChange = async () => {
+    async handleUserSettingsChange() {
         await i18n.loadPromise;
         this.loadLocale();
     }

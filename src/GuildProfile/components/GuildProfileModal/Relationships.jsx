@@ -18,9 +18,7 @@ const {
     ContextMenuActions,
     ScrollerThin,
     Clickable,
-    DiscordConstants: {
-        RelationshipTypes
-    }
+    DiscordConstants: { RelationshipTypes }
 } = DiscordModules;
 
 const GuildChannelUserContextMenu = WebpackModules.getByDisplayName('GuildChannelUserContextMenu');
@@ -47,12 +45,7 @@ function Relationships({ guild, channel, users, relationshipType }) {
 
     function handleContextMenu(event, user) {
         ContextMenuActions.openContextMenu(event, () => (
-            <GuildChannelUserContextMenu
-                {...event}
-                user={user}
-                guildId={guild.id}
-                channelId={channel?.id}
-            />
+            <GuildChannelUserContextMenu {...event} user={user} guildId={guild.id} channelId={channel?.id} />
         ));
     }
 
@@ -60,9 +53,7 @@ function Relationships({ guild, channel, users, relationshipType }) {
         return (
             <div className={classes.empty}>
                 <div className={classes.emptyIconFriends} />
-                <div className={classes.emptyText}>
-                    {Messages[NoRelationshipsOfTypeMessages[relationshipType]]}
-                </div>
+                <div className={classes.emptyText}>{Messages[NoRelationshipsOfTypeMessages[relationshipType]]}</div>
             </div>
         );
     }
@@ -71,16 +62,13 @@ function Relationships({ guild, channel, users, relationshipType }) {
         <ScrollerThin className={classes.listScroller} fade={true}>
             {users.map(user => (
                 <Clickable
+                    key={user.id}
                     className={classes.listRow}
                     onClick={() => handleSelect(user)}
                     onSelect={() => handleSelect(user)}
                     onContextMenu={event => handleContextMenu(event, user)}
                 >
-                    <Avatar
-                        className={classes.listAvatar}
-                        src={user.avatarURL}
-                        size={Avatar.Sizes.SIZE_40}
-                    />
+                    <Avatar className={classes.listAvatar} src={user.avatarURL} size={Avatar.Sizes.SIZE_40} />
                     <DiscordTag
                         user={user}
                         className={classes.listName}

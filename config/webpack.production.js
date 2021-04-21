@@ -19,13 +19,16 @@ module.exports = merge(common, {
         rules: [
             {
                 test: /\.jsx?$/,
-                use: {
-                    loader: '@sucrase/webpack-loader',
-                    options: {
-                        production: true,
-                        transforms: ['jsx']
-                    }
-                }
+                use: [
+                    {
+                        loader: '@sucrase/webpack-loader',
+                        options: {
+                            production: true,
+                            transforms: ['jsx']
+                        }
+                    },
+                    'eslint-loader'
+                ]
             }
         ]
     },

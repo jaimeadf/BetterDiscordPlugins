@@ -39,10 +39,13 @@ module.exports = {
         ]
     },
     plugins: [
-        ...plugins.map(plugin => new BdWrapperPlugin({
-            entryName: plugin.folder,
-            manifest: plugin.manifest
-        }))
+        ...plugins.map(
+            plugin =>
+                new BdWrapperPlugin({
+                    entryName: plugin.folder,
+                    manifest: plugin.manifest
+                })
+        )
     ],
     externals: {
         react: ['global BdApi', 'React'],
