@@ -22,20 +22,20 @@
     ],
     "rules": {
         "prettier/prettier": [
-			"warn",
-			{
-				"printWidth": 120,
+            "warn",
+            {
+                "printWidth": 120,
                 "tabWidth": 4,
-				"semi": true,
-				"singleQuote": true,
+                "semi": true,
+                "singleQuote": true,
                 "jsxSingleQuote": false,
                 "jsxBrackets": true,
                 "bracketSpacing": true,
-				"trailingComma": "none",
-				"arrowParens": "avoid",
+                "trailingComma": "none",
+                "arrowParens": "avoid",
                 "endOfLine": "lf"
-			}
-		],
+            }
+        ],
         "prefer-const": "warn",
         "no-multi-spaces": "error",
         "no-console": "warn",
