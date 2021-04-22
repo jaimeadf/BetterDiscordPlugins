@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
-      "baseUrl": "./",
-      "paths": {
-        "@discord/*": ["src/@discord/*"]
-      }
+        "baseUrl": "./",
+        "paths": {
+            "@discord/*": [
+                "src/@discord/*"
+            ]
+        }
     }
-  }
+}
