@@ -54,8 +54,10 @@ module.exports = {
     ],
     externals: {
         react: ['global BdApi', 'React'],
+        'react-dom': ['global BdApi', 'ReactDOM'],
         electron: 'commonjs2 electron',
         request: 'commonjs2 request',
+        moment: ['assign BoundedLibrary', 'DiscordModules', 'Moment'],
         '@bandagedbd/bdapi': 'assign {BdApi: global.BdApi}',
         '@zlibrary/api': 'assign BoundedLibrary',
         '@zlibrary/plugin': 'assign Plugin'
