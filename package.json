@@ -5,6 +5,7 @@
     "author": "Jaime Daniel <jaimeadanielfilho@hotmail.com>",
     "license": "MIT",
     "scripts": {
+        "prepare": "husky install",
         "dev": "webpack --config config/webpack.development.js --watch",
         "build": "webpack --config config/webpack.production.js",
         "lint": "eslint . --ext .js,.jsx",
@@ -23,6 +24,8 @@
         "eslint-loader": "^4.0.2",
         "eslint-plugin-prettier": "^3.4.0",
         "eslint-plugin-react": "^7.23.2",
+        "husky": "^6.0.0",
+        "lint-staged": "^10.5.4",
         "node-sass": "^5.0.0",
         "prettier": "^2.2.1",
         "raw-loader": "^4.0.2",
