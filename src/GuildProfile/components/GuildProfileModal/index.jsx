@@ -37,6 +37,8 @@ const GuildBadge = WebpackModules.getByDisplayName('GuildBadge');
 const NativeImageContextMenu = WebpackModules.getByDisplayName('NativeImageContextMenu');
 
 const classes = {
+    ...WebpackModules.getByProps('botTagCozy'),
+    ...WebpackModules.getByProps('botTag', 'botTagRegular'),
     ...WebpackModules.getByProps('guildDetail'),
     ...WebpackModules.getByProps('wrapper', 'pointer'),
     ...WebpackModules.getByProps('guildIconContainer'),
@@ -109,6 +111,13 @@ export default class GuildProfileModal extends React.PureComponent {
                                     guild={guild}
                                 />
                                 <span className={classes.username}>{guild.name}</span>
+                                {guild.nsfw && (
+                                    <span
+                                        className={`${classes.botTagCozy} ${classes.botTagRegular} ${classes.rem} nsfw-tag`}
+                                    >
+                                        <span className={classes.botText}>NSFW</span>
+                                    </span>
+                                )}
                             </div>
                             {features.length > 0 && (
                                 <div className={`${classes.container} ${classes.colored} ${classes.profileBadges}`}>
