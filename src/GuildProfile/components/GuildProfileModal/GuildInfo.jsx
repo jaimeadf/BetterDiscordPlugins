@@ -5,6 +5,7 @@
  */
 
 import React, { useEffect } from 'react';
+import moment from 'moment';
 import { DiscordModules, WebpackModules } from '@zlibrary/api';
 
 import { useStateFromStores } from '@discord/Flux';
@@ -19,7 +20,6 @@ import Anchor from '@discord/components/Anchor';
 const {
     UserStore,
     GuildChannelsStore,
-    Moment,
     Timestamps,
     DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes }
 } = DiscordModules;
@@ -89,9 +89,9 @@ export default function GuildInfo({ guild }) {
                     </Section>
                 )}
                 <Section title={i18n.Messages.GUILD_PROFILE_CREATED_AT}>
-                    {Moment(Timestamps.extractTimestamp(guild.id)).format('LLL')}
+                    {moment(Timestamps.extractTimestamp(guild.id)).format('LLL')}
                 </Section>
-                <Section title={i18n.Messages.GUILD_PROFILE_JOINED_AT}>{Moment(guild.joinedAt).format('LLL')}</Section>
+                <Section title={i18n.Messages.GUILD_PROFILE_JOINED_AT}>{moment(guild.joinedAt).format('LLL')}</Section>
                 <Section title={i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL}>
                     {i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]}
                 </Section>
