@@ -89,7 +89,7 @@ export default class GuildProfileModal extends React.PureComponent {
                         {guild.icon ? (
                             <Clickable
                                 onClick={this.handleGuildIconClick}
-                                onContextMenu={this.handleGuildIconContextMenu.bind}
+                                onContextMenu={this.handleGuildIconContextMenu}
                             >
                                 <TooltipContainer
                                     position="top"
