@@ -70,13 +70,17 @@ export default class GuildProfile extends Plugin {
 
         Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
             returnValue.props.children.unshift(
-                DiscordContextMenu.buildMenuItem({
-                    label: i18n.Messages.GUILD_PROFILE,
-                    action: () => this.openGuildProfileModal(guild)
-                }),
-                DiscordContextMenu.buildMenuItem({
-                    type: 'separator'
-                })
+                DiscordContextMenu.buildMenuChildren([
+                    {
+                        type: 'group',
+                        items: [
+                            {
+                                label: i18n.Messages.GUILD_PROFILE,
+                                action: () => this.openGuildProfileModal(guild)
+                            }
+                        ]
+                    }
+                ])
             );
         });
     }
