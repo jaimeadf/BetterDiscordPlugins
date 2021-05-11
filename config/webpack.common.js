@@ -1,7 +1,5 @@
 const path = require('path');
 
-const TerserPlugin = require('terser-webpack-plugin');
-
 const BdWrapperPlugin = require('./BdWrapperPlugin');
 const { findPlugins } = require('./utils');
 
@@ -63,19 +61,6 @@ module.exports = {
         '@zlibrary/plugin': 'assign Plugin'
     },
     optimization: {
-        minimizer: [
-            new TerserPlugin({
-                terserOptions: {
-                    format: {
-                        comments: /^\**!|@license|@cc_on|@end/i
-                    },
-                    mangle: {
-                        keep_fnames: true,
-                        keep_classnames: true
-                    }
-                },
-                extractComments: false
-            })
-        ]
+        minimize: false
     }
 };

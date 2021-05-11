@@ -32,7 +32,6 @@
         "sass-loader": "^11.0.1",
         "sucrase": "^3.18.1",
         "template-file": "^5.1.0",
-        "terser-webpack-plugin": "^5.1.1",
         "url-loader": "^4.1.1",
         "webpack": "^5.36.2",
         "webpack-cli": "^4.7.0",
