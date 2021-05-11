@@ -9,6 +9,7 @@
  * @source https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/SecretRingTone
  * @updateUrl https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/SecretRingTone/SecretRingTone.plugin.js
  */
+
 /*@cc_on
 @if (@_jscript)
     // Offer to self-install for clueless users that try to run this directly.
@@ -30,5 +31,158 @@
     }
     WScript.Quit();
 @else@*/
-const fs=require("fs"),path=require("path"),request=require("request"),electron=require("electron"),config={info:{name:"SecretRingTone",description:"Always plays the secret ring tone when someone calls you.",version:"1.0.0",authors:[{name:"Jaime Filho",discord_id:"289112759948410881"}],github:"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/SecretRingTone",github_raw:"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/SecretRingTone/SecretRingTone.plugin.js"}};function buildPlugin(){const[e,n]=global.ZeresPluginLibrary.buildPlugin(config);var i;return(()=>{"use strict";var r={n:e=>{var n=e&&e.__esModule?()=>e.default:()=>e;return r.d(n,{a:n}),n},d:(e,n)=>{for(var i in n)r.o(n,i)&&!r.o(e,i)&&Object.defineProperty(e,i,{enumerable:!0,get:n[i]})},o:(e,n)=>Object.prototype.hasOwnProperty.call(e,n)},t={};r.d(t,{default:()=>SecretRingTone});const o=n,s=e;var a=r.n(s);const{WebAudioSound:l}=o.WebpackModules.getByProps("WebAudioSound");class SecretRingTone extends(a()){constructor(){super(),this.ringingSounds=[]}onStart(){o.Patcher.before(l.prototype,"_ensureAudio",(e=>{"call_ringing"===e.name&&(e.name="call_ringing_beat",this.ringingSounds.push(e))}))}onStop(){o.Patcher.unpatchAll();for(const e of this.ringingSounds)e.name="call_ringing";this.ringingSounds=[]}}i=t.default})(),i}module.exports=global.ZeresPluginLibrary?buildPlugin():class{constructor(){this._config=config}getName(){return config.info.name}getAuthor(){return config.info.authors.map((e=>e.name)).join(", ")}getDescription(){return config.info.description}getVersion(){return config.info.version}load(){global.BdApi.showConfirmationModal("Library plugin is needed",`The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`,{confirmText:"Download",cancelText:"Cancel",onConfirm(){request.get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",((e,n,i)=>{if(e)return electron.shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");fs.writeFileSync(path.join(global.BdApi.Plugins.folder,"0PluginLibrary.plugin.js"),i)}))}})}start(){}stop(){}};
+
+const fs = require('fs');
+const path = require('path');
+const request = require('request');
+const electron = require('electron');
+
+const config = {"info":{"name":"SecretRingTone","description":"Always plays the secret ring tone when someone calls you.","version":"1.0.0","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/SecretRingTone","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/SecretRingTone/SecretRingTone.plugin.js"}};
+
+function buildPlugin() {
+    const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
+    var plugin;
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ SecretRingTone)
+});
+
+;// CONCATENATED MODULE: external "BoundedLibrary"
+const external_BoundedLibrary_namespaceObject = BoundedLibrary;
+;// CONCATENATED MODULE: external "Plugin"
+const external_Plugin_namespaceObject = Plugin;
+var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
+;// CONCATENATED MODULE: ./src/SecretRingTone/index.js
+
+
+
+const { WebAudioSound } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('WebAudioSound');
+
+class SecretRingTone extends (external_Plugin_default()) {
+    constructor() {
+        super();
+        this.ringingSounds = [];
+    }
+
+    onStart() {
+        external_BoundedLibrary_namespaceObject.Patcher.before(WebAudioSound.prototype, '_ensureAudio', thisObject => {
+            if (thisObject.name === 'call_ringing') {
+                thisObject.name = 'call_ringing_beat';
+                this.ringingSounds.push(thisObject);
+            }
+        });
+    }
+
+    onStop() {
+        external_BoundedLibrary_namespaceObject.Patcher.unpatchAll();
+
+        for (const sound of this.ringingSounds) {
+            sound.name = 'call_ringing';
+        }
+
+        this.ringingSounds = [];
+    }
+}
+
+plugin = __webpack_exports__.default;
+/******/ })()
+;
+
+    return plugin;
+}
+
+module.exports = global.ZeresPluginLibrary
+    ? buildPlugin()
+    : class {
+          constructor() {
+              this._config = config;
+          }
+
+          getName() {
+              return config.info.name;
+          }
+
+          getAuthor() {
+              return config.info.authors.map(a => a.name).join(', ');
+          }
+
+          getDescription() {
+              return config.info.description;
+          }
+
+          getVersion() {
+              return config.info.version;
+          }
+
+          load() {
+              global.BdApi.showConfirmationModal(
+                  'Library plugin is needed',
+                  `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`,
+                  {
+                      confirmText: 'Download',
+                      cancelText: 'Cancel',
+                      onConfirm() {
+                          request.get(
+                              'https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js',
+                              (error, response, body) => {
+                                  if (error) {
+                                      return electron.shell.openExternal(
+                                          'https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js'
+                                      );
+                                  }
+
+                                  fs.writeFileSync(
+                                      path.join(global.BdApi.Plugins.folder, '0PluginLibrary.plugin.js'),
+                                      body
+                                  );
+                              }
+                          );
+                      }
+                  }
+              );
+          }
+
+          start() {}
+
+          stop() {}
+      };
+
 /*@end@*/

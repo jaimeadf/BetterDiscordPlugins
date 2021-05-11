@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.0.1
+ * @version 1.0.2
  * @author Jaime Filho
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -9,6 +9,7 @@
  * @source https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile
  * @updateUrl https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js
  */
+
 /*@cc_on
 @if (@_jscript)
     // Offer to self-install for clueless users that try to run this directly.
@@ -30,25 +31,1375 @@
     }
     WScript.Quit();
 @else@*/
-const fs=require("fs"),path=require("path"),request=require("request"),electron=require("electron"),config={info:{name:"GuildProfile",description:"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.",version:"1.0.1",authors:[{name:"Jaime Filho",discord_id:"289112759948410881"}],github:"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile",github_raw:"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},changelog:[{title:"Additions",items:["Added tag for nsfw guilds."]}]};function buildPlugin(){const[e,t]=global.ZeresPluginLibrary.buildPlugin(config);var r;return(()=>{var n={60:e=>{"use strict";e.exports=JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Click to copy server icon URL","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_RELAY_ENABLED":"Relay Enabled","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}')},927:e=>{"use strict";e.exports=JSON.parse('{"GUILD_PROFILE":"Perfil do Servidor","GUILD_PROFILE_GUILD_INFO":"Informações do Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuários Bloqueados","GUILD_PROFILE_LOADING":"Carregando","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Clique para copiar a URL do ícone do servidor","GUILD_PROFILE_CREATED_AT":"Criado em","GUILD_PROFILE_JOINED_AT":"Entrou em","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantidade de Boosts","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Level de Boost","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nenhum amigo nesse servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nenhum usuário bloqueado nesse servidor","GUILD_PROFILE_INVITE_SPLASH":"Plano de Fundo de Convite","GUILD_PROFILE_VIP_REGIONS":"Regiões VIP","GUILD_PROFILE_VANITY_URL":"URL Personalizado","GUILD_PROFILE_MORE_EMOJI":"Mais Emojis","GUILD_PROFILE_COMMERCE":"Canais de Loja","GUILD_PROFILE_DISCOVERABLE":"Descobrível","GUILD_PROFILE_COMMUNITY":"Comunidade","GUILD_PROFILE_FEATURABLE":"Destacável na Home do Descobrimento","GUILD_PROFILE_NEWS":"Canais de Anúncio","GUILD_PROFILE_ANIMATED_ICON":"Ícone Animado","GUILD_PROFILE_BANNER":"Banner de Servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Descobrimento de Servidores Anteriormente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Tela de Boas-vindas","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Avaliação de Associação","GUILD_PROFILE_RELAY_ENABLED":"Relay Ativado","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Ativado"}')},277:(e,t,r)=>{var n={"./en-US.json":60,"./pt-BR.json":927};function webpackContext(e){var t=webpackContextResolve(e);return r(t)}function webpackContextResolve(e){if(!r.o(n,e)){var t=new Error("Cannot find module '"+e+"'");throw t.code="MODULE_NOT_FOUND",t}return n[e]}webpackContext.keys=function(){return Object.keys(n)},webpackContext.resolve=webpackContextResolve,e.exports=webpackContext,webpackContext.id=277}},o={};function __webpack_require__(e){var t=o[e];if(void 0!==t)return t.exports;var r=o[e]={exports:{}};return n[e](r,r.exports,__webpack_require__),r.exports}__webpack_require__.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return __webpack_require__.d(t,{a:t}),t},__webpack_require__.d=(e,t)=>{for(var r in t)__webpack_require__.o(t,r)&&!__webpack_require__.o(e,r)&&Object.defineProperty(e,r,{enumerable:!0,get:t[r]})},__webpack_require__.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t);var a={};(()=>{"use strict";__webpack_require__.d(a,{default:()=>GuildProfile});const r=global.BdApi.React;var n=__webpack_require__.n(r);const o=t,i=e;var s=__webpack_require__.n(i);const l=o.WebpackModules.getByProps("Messages"),c=require("electron"),{Dispatcher:d,Store:u,BatchedStoreListener:_,useStateFromStores:m,useStateFromStoresArray:p,useStateFromStoresObject:E,default:h}=o.WebpackModules.getByProps("Store","default"),g=h,I=o.WebpackModules.getByDisplayName("Flex"),f=o.WebpackModules.getByDisplayName("Clickable"),{TooltipColors:L,TooltipContainer:v,TooltipLayer:b,TooltipPositions:O,default:R}=o.WebpackModules.getByProps("TooltipContainer"),C=o.WebpackModules.getByDisplayName("Text"),D=o.WebpackModules.getByDisplayName("TabBar"),M=t.DiscordModules.Moment;var P=__webpack_require__.n(M);const{FormDivider:y,FormItem:N,FormNotice:w,FormNoticeTypes:U,FormNoticeImagePositions:S,FormSection:G,FormText:T,FormTextTypes:B,FormTitle:x,FormTitleTags:A}=o.WebpackModules.getByProps("FormSection"),{ScrollerAuto:F,ScrollerThin:k,default:V}=o.WebpackModules.getByProps("ScrollerAuto"),W=o.WebpackModules.getByDisplayName("Anchor");function _optionalChain(e){let t,r=e[0],n=1;for(;n<e.length;){const o=e[n],a=e[n+1];if(n+=2,("optionalAccess"===o||"optionalCall"===o)&&null==r)return;"access"===o||"optionalAccess"===o?(t=r,r=a(r)):"call"!==o&&"optionalCall"!==o||(r=a(((...e)=>r.call(t,...e))),t=void 0)}return r}
-/* @license
+
+const fs = require('fs');
+const path = require('path');
+const request = require('request');
+const electron = require('electron');
+
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.2","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Compatibility issues","items":["Fixed role members menu being inside of the guild profile menu."]}]};
+
+function buildPlugin() {
+    const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
+    var plugin;
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 60:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Click to copy server icon URL","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_RELAY_ENABLED":"Relay Enabled","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}');
+
+/***/ }),
+
+/***/ 927:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Servidor","GUILD_PROFILE_GUILD_INFO":"Informações do Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuários Bloqueados","GUILD_PROFILE_LOADING":"Carregando","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Clique para copiar a URL do ícone do servidor","GUILD_PROFILE_CREATED_AT":"Criado em","GUILD_PROFILE_JOINED_AT":"Entrou em","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantidade de Boosts","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Level de Boost","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nenhum amigo nesse servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nenhum usuário bloqueado nesse servidor","GUILD_PROFILE_INVITE_SPLASH":"Plano de Fundo de Convite","GUILD_PROFILE_VIP_REGIONS":"Regiões VIP","GUILD_PROFILE_VANITY_URL":"URL Personalizado","GUILD_PROFILE_MORE_EMOJI":"Mais Emojis","GUILD_PROFILE_COMMERCE":"Canais de Loja","GUILD_PROFILE_DISCOVERABLE":"Descobrível","GUILD_PROFILE_COMMUNITY":"Comunidade","GUILD_PROFILE_FEATURABLE":"Destacável na Home do Descobrimento","GUILD_PROFILE_NEWS":"Canais de Anúncio","GUILD_PROFILE_ANIMATED_ICON":"Ícone Animado","GUILD_PROFILE_BANNER":"Banner de Servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Descobrimento de Servidores Anteriormente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Tela de Boas-vindas","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Avaliação de Associação","GUILD_PROFILE_RELAY_ENABLED":"Relay Ativado","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Ativado"}');
+
+/***/ }),
+
+/***/ 277:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var map = {
+	"./en-US.json": 60,
+	"./pt-BR.json": 927
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 277;
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ GuildProfile)
+});
+
+;// CONCATENATED MODULE: external ["BdApi","React"]
+const external_BdApi_React_namespaceObject = global["BdApi"]["React"];
+var external_BdApi_React_default = /*#__PURE__*/__webpack_require__.n(external_BdApi_React_namespaceObject);
+;// CONCATENATED MODULE: external "BoundedLibrary"
+const external_BoundedLibrary_namespaceObject = BoundedLibrary;
+;// CONCATENATED MODULE: external "Plugin"
+const external_Plugin_namespaceObject = Plugin;
+var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
+;// CONCATENATED MODULE: ./src/@discord/i18n.js
+
+
+/* harmony default export */ const i18n = (external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Messages'));
+
+;// CONCATENATED MODULE: external "electron"
+const external_electron_namespaceObject = require("electron");;
+;// CONCATENATED MODULE: ./src/@discord/Flux.js
+
+
+const {
+    Dispatcher,
+    Store,
+    BatchedStoreListener,
+    useStateFromStores,
+    useStateFromStoresArray,
+    useStateFromStoresObject,
+    default: Flux
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Store', 'default');
+
+
+
+/* harmony default export */ const _discord_Flux = (Flux);
+
+;// CONCATENATED MODULE: ./src/@discord/components/Flex.js
+
+
+/* harmony default export */ const Flex = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Flex'));
+
+;// CONCATENATED MODULE: ./src/@discord/components/Clickable.js
+
+
+/* harmony default export */ const Clickable = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Clickable'));
+
+;// CONCATENATED MODULE: ./src/@discord/components/Tooltip.js
+
+
+const { TooltipColors, TooltipContainer, TooltipLayer, TooltipPositions, default: Tooltip } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps(
+    'TooltipContainer'
+);
+
+
+
+/* harmony default export */ const components_Tooltip = ((/* unused pure expression or super */ null && (Tooltip)));
+
+;// CONCATENATED MODULE: ./src/@discord/components/Text.js
+
+
+/* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Text'));
+
+;// CONCATENATED MODULE: ./src/@discord/components/TabBar.js
+
+
+/* harmony default export */ const TabBar = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('TabBar'));
+
+;// CONCATENATED MODULE: external ["BoundedLibrary","DiscordModules","Moment"]
+const external_BoundedLibrary_DiscordModules_Moment_namespaceObject = BoundedLibrary.DiscordModules.Moment;
+var external_BoundedLibrary_DiscordModules_Moment_default = /*#__PURE__*/__webpack_require__.n(external_BoundedLibrary_DiscordModules_Moment_namespaceObject);
+;// CONCATENATED MODULE: ./src/@discord/components/Form.js
+
+
+const {
+    FormDivider,
+    FormItem,
+    FormNotice,
+    FormNoticeTypes,
+    FormNoticeImagePositions,
+    FormSection,
+    FormText,
+    FormTextTypes,
+    FormTitle,
+    FormTitleTags
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('FormSection');
+
+
+
+;// CONCATENATED MODULE: ./src/@discord/components/Scroller.js
+
+
+const { ScrollerAuto, ScrollerThin, default: Scroller } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('ScrollerAuto');
+
+
+
+/* harmony default export */ const components_Scroller = ((/* unused pure expression or super */ null && (Scroller)));
+
+;// CONCATENATED MODULE: ./src/@discord/components/Anchor.js
+
+
+/* harmony default export */ const Anchor = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Anchor'));
+
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildInfo.jsx
+ function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
- */const{UserStore:j,GuildChannelsStore:H,Timestamps:z,DiscordConstants:{VerificationLevels:q,GuildExplicitContentFilterTypes:$}}=o.DiscordModules,K=o.WebpackModules.getByProps("hidePersonalInformation"),Y=o.WebpackModules.getByDisplayName("UserMention"),J=o.WebpackModules.getByProps("getUser","fetchCurrentUser"),X={...o.WebpackModules.getByProps("marginBottom8"),...o.WebpackModules.getByProps("body","empty"),...o.WebpackModules.getByProps("emptyIcon")},Z={[$.DISABLED]:"EXPLICIT_CONTENT_FILTER_DISABLED",[$.MEMBERS_WITHOUT_ROLES]:"EXPLICIT_CONTENT_FILTER_MEDIUM",[$.ALL_MEMBERS]:"EXPLICIT_CONTENT_FILTER_HIGH"};function Section({title:e,children:t}){return n().createElement(G,{className:`${X.marginBottom8} section`,tag:"h5",title:e},n().createElement(C,{selectable:!0},t))}function GuildInfo({guild:e}){const t=m([j],(()=>j.getUser(e.ownerId))),o=m([K],(()=>K.hide)),a=m([H],(()=>H.getDefaultChannel(e.id)));return(0,r.useEffect)((()=>{t||J.getUser(e.ownerId)}),[e,t]),o?n().createElement("div",{className:X.empty},n().createElement("div",{className:X.emptyIconStreamerMode}),n().createElement("div",{className:X.emptyText},l.Messages.STREAMER_MODE_ENABLED)):n().createElement(k,{className:`${X.infoScroller} guild-info`,fade:!0},n().createElement(I,{justify:I.Justify.START,wrap:I.Wrap.WRAP},n().createElement(Section,{title:l.Messages.GUILD_OWNER},t?n().createElement(Y,{className:"mention",userId:t.id,channelId:_optionalChain([a,"optionalAccess",e=>e.id])}):`${l.Messages.GUILD_PROFILE_LOADING}...`),e.description&&n().createElement(Section,{title:l.Messages.FORM_LABEL_SERVER_DESCRIPTION},e.description),e.vanityURLCode&&n().createElement(Section,{title:l.Messages.VANITY_URL},n().createElement(W,{href:`https://discord.gg/${e.vanityURLCode}`},"discord.gg/",e.vanityURLCode)),n().createElement(Section,{title:l.Messages.GUILD_PROFILE_CREATED_AT},P()(z.extractTimestamp(e.id)).format("LLL")),n().createElement(Section,{title:l.Messages.GUILD_PROFILE_JOINED_AT},P()(e.joinedAt).format("LLL")),n().createElement(Section,{title:l.Messages.FORM_LABEL_VERIFICATION_LEVEL},l.Messages[`VERIFICATION_LEVEL_${q[e.verificationLevel]}`]),n().createElement(Section,{title:l.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER},l.Messages[Z[e.explicitContentFilter]]),n().createElement(Section,{title:l.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT},e.premiumSubscriberCount),n().createElement(Section,{title:l.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER},e.premiumTier),n().createElement(Section,{title:l.Messages.FORM_LABEL_SERVER_LANGUAGE},l.Messages[e.preferredLocale])))}function Relationships_optionalChain(e){let t,r=e[0],n=1;for(;n<e.length;){const o=e[n],a=e[n+1];if(n+=2,("optionalAccess"===o||"optionalCall"===o)&&null==r)return;"access"===o||"optionalAccess"===o?(t=r,r=a(r)):"call"!==o&&"optionalCall"!==o||(r=a(((...e)=>r.call(t,...e))),t=void 0)}return r}
-/* @license
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const {
+    UserStore,
+    GuildChannelsStore,
+    Timestamps,
+    DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes }
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+const StreamerModeStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('hidePersonalInformation');
+const UserMention = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('UserMention');
+const UserFetcher = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getUser', 'fetchCurrentUser');
+
+const classes = {
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('marginBottom8'),
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('body', 'empty'),
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('emptyIcon')
+};
+
+const GuildExplicitContentFilterTypesMessages = {
+    [GuildExplicitContentFilterTypes.DISABLED]: 'EXPLICIT_CONTENT_FILTER_DISABLED',
+    [GuildExplicitContentFilterTypes.MEMBERS_WITHOUT_ROLES]: 'EXPLICIT_CONTENT_FILTER_MEDIUM',
+    [GuildExplicitContentFilterTypes.ALL_MEMBERS]: 'EXPLICIT_CONTENT_FILTER_HIGH'
+};
+
+function Section({ title, children }) {
+    return (
+        external_BdApi_React_default().createElement(FormSection, { className: `${classes.marginBottom8} section`, tag: "h5", title: title,}
+            , external_BdApi_React_default().createElement(Text, { selectable: true,}, children)
+        )
+    );
+}
+
+function GuildInfo({ guild }) {
+    const owner = useStateFromStores([UserStore], () => UserStore.getUser(guild.ownerId));
+    const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hide);
+    const channel = useStateFromStores([GuildChannelsStore], () => GuildChannelsStore.getDefaultChannel(guild.id));
+
+    (0,external_BdApi_React_namespaceObject.useEffect)(() => {
+        if (!owner) {
+            UserFetcher.getUser(guild.ownerId);
+        }
+    }, [guild, owner]);
+
+    if (hide) {
+        return (
+            external_BdApi_React_default().createElement('div', { className: classes.empty,}
+                , external_BdApi_React_default().createElement('div', { className: classes.emptyIconStreamerMode,} )
+                , external_BdApi_React_default().createElement('div', { className: classes.emptyText,}, i18n.Messages.STREAMER_MODE_ENABLED)
+            )
+        );
+    }
+
+    return (
+        external_BdApi_React_default().createElement(ScrollerThin, { className: `${classes.infoScroller} guild-info`, fade: true,}
+            , external_BdApi_React_default().createElement(Flex, { justify: Flex.Justify.START, wrap: Flex.Wrap.WRAP,}
+                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.GUILD_OWNER,}
+                    , owner ? (
+                        external_BdApi_React_default().createElement(UserMention, { className: "mention", userId: owner.id, channelId: _optionalChain([channel, 'optionalAccess', _ => _.id]),} )
+                    ) : (
+                        `${i18n.Messages.GUILD_PROFILE_LOADING}...`
+                    )
+                )
+                , guild.description && (
+                    external_BdApi_React_default().createElement(Section, { title: i18n.Messages.FORM_LABEL_SERVER_DESCRIPTION,}, guild.description)
+                )
+                , guild.vanityURLCode && (
+                    external_BdApi_React_default().createElement(Section, { title: i18n.Messages.VANITY_URL,}
+                        , external_BdApi_React_default().createElement(Anchor, { href: `https://discord.gg/${guild.vanityURLCode}`,}, "discord.gg/"
+                            , guild.vanityURLCode
+                        )
+                    )
+                )
+                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.GUILD_PROFILE_CREATED_AT,}
+                    , external_BoundedLibrary_DiscordModules_Moment_default()(Timestamps.extractTimestamp(guild.id)).format('LLL')
+                )
+                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.GUILD_PROFILE_JOINED_AT,}, external_BoundedLibrary_DiscordModules_Moment_default()(guild.joinedAt).format('LLL'))
+                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL,}
+                    , i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]
+                )
+                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER,}
+                    , i18n.Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]
+                )
+                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT,}
+                    , guild.premiumSubscriberCount
+                )
+                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER,}, guild.premiumTier)
+                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.FORM_LABEL_SERVER_LANGUAGE,}
+                    , i18n.Messages[guild.preferredLocale]
+                )
+            )
+        )
+    );
+}
+
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/Relationships.jsx
+ function Relationships_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
- */const{RelationshipStore:Q,GuildMemberStore:ee,UserStore:te,GuildChannelsStore:re,ModalStack:ne,UserProfileModals:oe,ContextMenuActions:ae,DiscordConstants:{RelationshipTypes:ie}}=o.DiscordModules,se=o.WebpackModules.getByDisplayName("GuildChannelUserContextMenu"),{Avatar:le}=o.WebpackModules.getByProps("Avatar"),ce=o.WebpackModules.getByDisplayName("DiscordTag"),de={...o.WebpackModules.getByProps("body","empty"),...o.WebpackModules.getByProps("emptyIconFriends"),...o.WebpackModules.getByProps("listRow")},ue={[ie.FRIEND]:"GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD",[ie.BLOCKED]:"GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD"};function Relationships({guild:e,relationshipType:t}){const r=m([re],(()=>re.getDefaultChannel(e.id))),o=m([Q,ee,te],(()=>{const r=[],n=Q.getRelationships();for(const o in n)n[o]===t&&ee.isMember(e.id,o)&&r.push(te.getUser(o));return r}));function handleSelect(e){ne.pop(),oe.open(e.id)}return o.length<=0?n().createElement("div",{className:de.empty},n().createElement("div",{className:de.emptyIconFriends}),n().createElement("div",{className:de.emptyText},l.Messages[ue[t]])):n().createElement(k,{className:de.listScroller,fade:!0},o.map((t=>n().createElement(f,{key:t.id,className:de.listRow,onClick:()=>handleSelect(t),onSelect:()=>handleSelect(t),onContextMenu:o=>function(t,o){ae.openContextMenu(t,(()=>n().createElement(se,{...t,user:o,guildId:e.id,channelId:Relationships_optionalChain([r,"optionalAccess",e=>e.id])})))}(o,t)},n().createElement(le,{className:de.listAvatar,src:t.avatarURL,size:le.Sizes.SIZE_40}),n().createElement(ce,{user:t,className:de.listName,discriminatorClass:de.listDiscriminator})))))}var _e;function _extends(){return(_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const invite_splash=function(e){return r.createElement("svg",_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),_e||(_e=r.createElement("path",{d:"M8.5 13.5l2.5 3 3.5-4.5 4.5 6H5m16 1V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2z",fill:"currentColor"})))};var me;function vip_regions_extends(){return(vip_regions_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const vip_regions=function(e){return r.createElement("svg",vip_regions_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),me||(me=r.createElement("path",{d:"M12 1L9 9l-8 3 8 3 3 8 3-8 8-3-8-3-3-8z",fill:"currentColor"})))};var pe;function vanity_url_extends(){return(vanity_url_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const vanity_url=function(e){return r.createElement("svg",vanity_url_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),pe||(pe=r.createElement("path",{d:"M20 8l-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2z",fill:"currentColor"})))};var Ee;function more_emoji_extends(){return(more_emoji_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const more_emoji=function(e){return r.createElement("svg",more_emoji_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),Ee||(Ee=r.createElement("path",{d:"M5.5 2C3.56 2 2 3.56 2 5.5v13C2 20.44 3.56 22 5.5 22H16l6-6V5.5C22 3.56 20.44 2 18.5 2h-13m.25 2h12.5A1.75 1.75 0 0120 5.75V15h-1.5c-1.94 0-3.5 1.56-3.5 3.5V20H5.75A1.75 1.75 0 014 18.25V5.75A1.75 1.75 0 015.75 4m8.69 2.77c-.16 0-.32.02-.47.06-.94.26-1.47 1.22-1.23 2.17.05.15.12.3.21.44l3.23-.88c0-.17-.02-.34-.06-.51-.21-.75-.9-1.28-1.68-1.28M8.17 8.5c-.17 0-.32 0-.47.05-.93.26-1.48 1.22-1.23 2.15.03.16.12.3.21.46l3.23-.88c0-.17-.02-.34-.06-.5A1.72 1.72 0 008.17 8.5m8.55 2.76l-9.13 2.51a5.266 5.266 0 005.36 1.64 5.273 5.273 0 003.77-4.15z",fill:"currentColor"})))};var he;function commerce_extends(){return(commerce_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const commerce=function(e){return r.createElement("svg",commerce_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),he||(he=r.createElement("path",{d:"M20 4H4c-1.11 0-2 .89-2 2v12a2 2 0 002 2h16c1.11 0 2-.89 2-2V6a2 2 0 00-2-2m-5 6h-4v1h3c.55 0 1 .45 1 1v3c0 .55-.45 1-1 1h-1v1h-2v-1H9v-2h4v-1h-3c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1h1V7h2v1h2v2z",fill:"currentColor"})))};var ge;function discoverable_extends(){return(discoverable_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const discoverable=function(e){return r.createElement("svg",discoverable_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),ge||(ge=r.createElement("path",{d:"M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z",fill:"currentColor"})))};var Ie;function community_extends(){return(community_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const community=function(e){return r.createElement("svg",community_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),Ie||(Ie=r.createElement("path",{d:"M16 17v2H2v-2s0-4 7-4 7 4 7 4m-3.5-9.5A3.5 3.5 0 109 11a3.5 3.5 0 003.5-3.5m3.44 5.5A5.32 5.32 0 0118 17v2h4v-2s0-3.63-6.06-4M15 4a3.39 3.39 0 00-1.93.59 5 5 0 010 5.82A3.39 3.39 0 0015 11a3.5 3.5 0 000-7z",fill:"currentColor"})))};var fe;function featurable_extends(){return(featurable_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const featurable=function(e){return r.createElement("svg",featurable_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),fe||(fe=r.createElement("path",{d:"M2 3h8a2 2 0 012-2 2 2 0 012 2h8v2h-1v11h-5.75L17 22h-2l-1.75-6h-2.5L9 22H7l1.75-6H3V5H2V3m3 2v9h14V5H5z",fill:"currentColor"})))};var Le,ve;function news_extends(){return(news_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const news=function(e){return r.createElement("svg",news_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),Le||(Le=r.createElement("path",{d:"M19.875 3H4.125C2.953 3 2 3.897 2 5v14c0 1.103.953 2 2.125 2h15.75C21.047 21 22 20.103 22 19V5c0-1.103-.953-2-2.125-2zm0 16H4.125c-.057 0-.096-.016-.113-.016-.007 0-.011.002-.012.008L3.988 5.046c.007-.01.052-.046.137-.046h15.75c.079.001.122.028.125.008l.012 13.946c-.007.01-.052.046-.137.046z",fill:"currentColor"})),ve||(ve=r.createElement("path",{d:"M6 7h6v6H6zm7 8H6v2h12v-2h-4zm1-4h4v2h-4zm0-4h4v2h-4z",fill:"currentColor"})))};var be;function animated_icon_extends(){return(animated_icon_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const animated_icon=function(e){return r.createElement("svg",animated_icon_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),be||(be=r.createElement("path",{d:"M11 8h2v8h-2V8M7.67 8H4.33C3.53 8 3 8.67 3 9.33v5.34c0 .66.53 1.33 1.33 1.33h3.34c.8 0 1.33-.67 1.33-1.33V12H7v2H5v-4h4v-.67C9 8.67 8.47 8 7.67 8M21 10V8h-6v8h2v-2h2.5v-2H17v-2h4z",fill:"currentColor"})))};var Oe;function banner_extends(){return(banner_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const banner=function(e){return r.createElement("svg",banner_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),Oe||(Oe=r.createElement("path",{d:"M21 3H3C2 3 1 4 1 5v14a2 2 0 002 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2M5 17l3.5-4.5 2.5 3 3.5-4.5 4.5 6H5z",fill:"currentColor"})))};var Re;function enabled_discoverable_before_extends(){return(enabled_discoverable_before_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const enabled_discoverable_before=function(e){return r.createElement("svg",enabled_discoverable_before_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),Re||(Re=r.createElement("path",{d:"M15.5 14l5 5-1.5 1.5-5-5v-.79l-.27-.28A6.471 6.471 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3 6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.57 4.23l.28.27h.79m-6 0C12 14 14 12 14 9.5S12 5 9.5 5 5 7 5 9.5 7 14 9.5 14m2.5-4h-2v2H9v-2H7V9h2V7h1v2h2v1z",fill:"currentColor"})))};var Ce;function welcome_screen_enabled_extends(){return(welcome_screen_enabled_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const welcome_screen_enabled=function(e){return r.createElement("svg",welcome_screen_enabled_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),Ce||(Ce=r.createElement("path",{d:"M20 4c1.11 0 2 .89 2 2v12c0 1.11-.89 2-2 2H4c-1.11 0-2-.89-2-2V6c0-1.11.89-2 2-2h16M8.5 15V9H7.25v3.5L4.75 9H3.5v6h1.25v-3.5L7.3 15h1.2m5-4.74V9h-4v6h4v-1.25H11v-1.11h2.5v-1.26H11v-1.12h2.5m7 3.74V9h-1.25v4.5h-1.12V10h-1.25v3.5h-1.13V9H14.5v5a1 1 0 001 1h4a1 1 0 001-1z",fill:"currentColor"})))};var De;function member_verification_gate_enabled_extends(){return(member_verification_gate_enabled_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const member_verification_gate_enabled=function(e){return r.createElement("svg",member_verification_gate_enabled_extends({viewBox:"0 0 36 34",fill:"none",xmlns:"http://www.w3.org/2000/svg"},e),De||(De=r.createElement("path",{d:"M35.452 10.85l-5.216-3.28-1.895-1.197-3.78-2.333-1.884-1.236L18.449.142l-.22-.09a.938.938 0 00-.618 0l-.11.05-4.278 2.702-1.885 1.236L7.56 6.373 5.664 7.57.45 10.85a.936.936 0 00-.449.797v21.416A.997.997 0 00.997 34h34.006a.997.997 0 00.997-.937V11.647a.937.937 0 00-.548-.797zM1.885 32.116v-19.94l3.78-2.383v22.323h-3.78zm5.674 0V8.606l3.78-2.382v25.922l-3.78-.03zm5.664-27.079l3.78-2.382v29.46h-3.78V5.038zm5.724 27.079V2.655l3.73 2.382v27.079h-3.73zm5.665 0V6.194l3.78 2.383v23.539h-3.78zm9.453 0h-3.829V9.793l3.78 2.383.05 19.94z",fill:"currentColor"})))};var Me;function preview_enabled_extends(){return(preview_enabled_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const preview_enabled=function(e){return r.createElement("svg",preview_enabled_extends({xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",width:"1em",height:"1em",style:{msTransform:"rotate(360deg)",WebkitTransform:"rotate(360deg)"},viewBox:"0 0 24 24",transform:"rotate(360)"},e),Me||(Me=r.createElement("path",{d:"M12 9a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3m0 8a5 5 0 01-5-5 5 5 0 015-5 5 5 0 015 5 5 5 0 01-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z",fill:"currentColor"})))},{DiscordConstants:{GuildFeatures:Pe}}=o.DiscordModules,ye={[Pe.INVITE_SPLASH]:invite_splash,[Pe.VIP_REGIONS]:vip_regions,[Pe.VANITY_URL]:vanity_url,[Pe.MORE_EMOJI]:more_emoji,[Pe.COMMERCE]:commerce,[Pe.DISCOVERABLE]:discoverable,[Pe.COMMUNITY]:community,[Pe.FEATURABLE]:featurable,[Pe.NEWS]:news,[Pe.ANIMATED_ICON]:animated_icon,[Pe.BANNER]:banner,[Pe.ENABLED_DISCOVERABLE_BEFORE]:enabled_discoverable_before,[Pe.WELCOME_SCREEN_ENABLED]:welcome_screen_enabled,[Pe.MEMBER_VERIFICATION_GATE_ENABLED]:member_verification_gate_enabled,[Pe.PREVIEW_ENABLED]:preview_enabled},{Dispatcher:Ne,MemberCountStore:we,DiscordConstants:{ActionTypes:Ue}}=o.DiscordModules,Se=new Map,Ge=new Map;class MemberCountsStore extends g.Store{initialize(){const e=we.getMemberCounts();for(const t in e)Se.set(t,e[t])}getMemberCounts(e){return{members:Se.get(e),membersOnline:Ge.get(e)}}}const Te=new MemberCountsStore(Ne,{[Ue.CONNECTION_OPEN]:function({guilds:e}){for(const t of e)Se.set(t.id,t.member_count)},[Ue.GUILD_CREATE]:function({guild:e}){Se.set(e.id,e.member_count)},[Ue.GUILD_DELETE]:function({guild:e}){Se.delete(e.id),Ge.delete(e.id)},[Ue.GUILD_MEMBER_LIST_UPDATE]:function({guildId:e,memberCount:t,groups:r}){0!==t&&Se.set(e,t),Ge.set(e,r.reduce(((e,t)=>"offline"!==t.id?e+t.count:e),0))},[Ue.ONLINE_GUILD_MEMBER_COUNT_UPDATE]:function({guildId:e,count:t}){Ge.set(e,t)}});
+ */
+
+
+
+
+
+
+
+
+
+
+const {
+    RelationshipStore,
+    GuildMemberStore,
+    UserStore: Relationships_UserStore,
+    GuildChannelsStore: Relationships_GuildChannelsStore,
+    ModalStack,
+    UserProfileModals,
+    ContextMenuActions,
+    DiscordConstants: { RelationshipTypes }
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+const GuildChannelUserContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('GuildChannelUserContextMenu');
+
+const { Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Avatar');
+const DiscordTag = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('DiscordTag');
+
+const Relationships_classes = {
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('body', 'empty'),
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('emptyIconFriends'),
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('listRow')
+};
+
+const NoRelationshipsOfTypeMessages = {
+    [RelationshipTypes.FRIEND]: 'GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD',
+    [RelationshipTypes.BLOCKED]: 'GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD'
+};
+
+function Relationships({ guild, relationshipType }) {
+    const channel = useStateFromStores([Relationships_GuildChannelsStore], () => Relationships_GuildChannelsStore.getDefaultChannel(guild.id));
+    const users = useStateFromStores([RelationshipStore, GuildMemberStore, Relationships_UserStore], () => {
+        const users = [];
+        const relationships = RelationshipStore.getRelationships();
+
+        for (const userId in relationships) {
+            if (relationships[userId] !== relationshipType || !GuildMemberStore.isMember(guild.id, userId)) {
+                continue;
+            }
+
+            users.push(Relationships_UserStore.getUser(userId));
+        }
+
+        return users;
+    });
+
+    function handleSelect(user) {
+        ModalStack.pop();
+        UserProfileModals.open(user.id);
+    }
+
+    function handleContextMenu(event, user) {
+        ContextMenuActions.openContextMenu(event, () => (
+            external_BdApi_React_default().createElement(GuildChannelUserContextMenu, { ...event, user: user, guildId: guild.id, channelId: Relationships_optionalChain([channel, 'optionalAccess', _ => _.id]),} )
+        ));
+    }
+
+    if (users.length <= 0) {
+        return (
+            external_BdApi_React_default().createElement('div', { className: Relationships_classes.empty,}
+                , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyIconFriends,} )
+                , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyText,}
+                    , i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]
+                )
+            )
+        );
+    }
+
+    return (
+        external_BdApi_React_default().createElement(ScrollerThin, { className: Relationships_classes.listScroller, fade: true,}
+            , users.map(user => (
+                external_BdApi_React_default().createElement(Clickable, {
+                    key: user.id,
+                    className: Relationships_classes.listRow,
+                    onClick: () => handleSelect(user),
+                    onSelect: () => handleSelect(user),
+                    onContextMenu: event => handleContextMenu(event, user),}
+                
+                    , external_BdApi_React_default().createElement(Avatar, { className: Relationships_classes.listAvatar, src: user.avatarURL, size: Avatar.Sizes.SIZE_40,} )
+                    , external_BdApi_React_default().createElement(DiscordTag, {
+                        user: user,
+                        className: Relationships_classes.listName,
+                        discriminatorClass: Relationships_classes.listDiscriminator,}
+                    )
+                )
+            ))
+        )
+    );
+}
+
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/invite-splash.svg
+var _path;
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+function SvgInviteSplash(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), _path || (_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M8.5 13.5l2.5 3 3.5-4.5 4.5 6H5m16 1V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const invite_splash = (SvgInviteSplash);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/vip-regions.svg
+var vip_regions_path;
+
+function vip_regions_extends() { vip_regions_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return vip_regions_extends.apply(this, arguments); }
+
+
+
+function SvgVipRegions(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", vip_regions_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), vip_regions_path || (vip_regions_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M12 1L9 9l-8 3 8 3 3 8 3-8 8-3-8-3-3-8z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const vip_regions = (SvgVipRegions);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/vanity-url.svg
+var vanity_url_path;
+
+function vanity_url_extends() { vanity_url_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return vanity_url_extends.apply(this, arguments); }
+
+
+
+function SvgVanityUrl(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", vanity_url_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), vanity_url_path || (vanity_url_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M20 8l-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const vanity_url = (SvgVanityUrl);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/more-emoji.svg
+var more_emoji_path;
+
+function more_emoji_extends() { more_emoji_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return more_emoji_extends.apply(this, arguments); }
+
+
+
+function SvgMoreEmoji(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", more_emoji_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), more_emoji_path || (more_emoji_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M5.5 2C3.56 2 2 3.56 2 5.5v13C2 20.44 3.56 22 5.5 22H16l6-6V5.5C22 3.56 20.44 2 18.5 2h-13m.25 2h12.5A1.75 1.75 0 0120 5.75V15h-1.5c-1.94 0-3.5 1.56-3.5 3.5V20H5.75A1.75 1.75 0 014 18.25V5.75A1.75 1.75 0 015.75 4m8.69 2.77c-.16 0-.32.02-.47.06-.94.26-1.47 1.22-1.23 2.17.05.15.12.3.21.44l3.23-.88c0-.17-.02-.34-.06-.51-.21-.75-.9-1.28-1.68-1.28M8.17 8.5c-.17 0-.32 0-.47.05-.93.26-1.48 1.22-1.23 2.15.03.16.12.3.21.46l3.23-.88c0-.17-.02-.34-.06-.5A1.72 1.72 0 008.17 8.5m8.55 2.76l-9.13 2.51a5.266 5.266 0 005.36 1.64 5.273 5.273 0 003.77-4.15z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const more_emoji = (SvgMoreEmoji);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/commerce.svg
+var commerce_path;
+
+function commerce_extends() { commerce_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return commerce_extends.apply(this, arguments); }
+
+
+
+function SvgCommerce(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", commerce_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), commerce_path || (commerce_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M20 4H4c-1.11 0-2 .89-2 2v12a2 2 0 002 2h16c1.11 0 2-.89 2-2V6a2 2 0 00-2-2m-5 6h-4v1h3c.55 0 1 .45 1 1v3c0 .55-.45 1-1 1h-1v1h-2v-1H9v-2h4v-1h-3c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1h1V7h2v1h2v2z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const commerce = (SvgCommerce);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/discoverable.svg
+var discoverable_path;
+
+function discoverable_extends() { discoverable_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return discoverable_extends.apply(this, arguments); }
+
+
+
+function SvgDiscoverable(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", discoverable_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), discoverable_path || (discoverable_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const discoverable = (SvgDiscoverable);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/community.svg
+var community_path;
+
+function community_extends() { community_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return community_extends.apply(this, arguments); }
+
+
+
+function SvgCommunity(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", community_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), community_path || (community_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M16 17v2H2v-2s0-4 7-4 7 4 7 4m-3.5-9.5A3.5 3.5 0 109 11a3.5 3.5 0 003.5-3.5m3.44 5.5A5.32 5.32 0 0118 17v2h4v-2s0-3.63-6.06-4M15 4a3.39 3.39 0 00-1.93.59 5 5 0 010 5.82A3.39 3.39 0 0015 11a3.5 3.5 0 000-7z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const community = (SvgCommunity);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/featurable.svg
+var featurable_path;
+
+function featurable_extends() { featurable_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return featurable_extends.apply(this, arguments); }
+
+
+
+function SvgFeaturable(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", featurable_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), featurable_path || (featurable_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M2 3h8a2 2 0 012-2 2 2 0 012 2h8v2h-1v11h-5.75L17 22h-2l-1.75-6h-2.5L9 22H7l1.75-6H3V5H2V3m3 2v9h14V5H5z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const featurable = (SvgFeaturable);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/news.svg
+var news_path, _path2;
+
+function news_extends() { news_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return news_extends.apply(this, arguments); }
+
+
+
+function SvgNews(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", news_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), news_path || (news_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M19.875 3H4.125C2.953 3 2 3.897 2 5v14c0 1.103.953 2 2.125 2h15.75C21.047 21 22 20.103 22 19V5c0-1.103-.953-2-2.125-2zm0 16H4.125c-.057 0-.096-.016-.113-.016-.007 0-.011.002-.012.008L3.988 5.046c.007-.01.052-.046.137-.046h15.75c.079.001.122.028.125.008l.012 13.946c-.007.01-.052.046-.137.046z",
+    fill: "currentColor"
+  })), _path2 || (_path2 = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M6 7h6v6H6zm7 8H6v2h12v-2h-4zm1-4h4v2h-4zm0-4h4v2h-4z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const news = (SvgNews);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/animated-icon.svg
+var animated_icon_path;
+
+function animated_icon_extends() { animated_icon_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return animated_icon_extends.apply(this, arguments); }
+
+
+
+function SvgAnimatedIcon(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", animated_icon_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), animated_icon_path || (animated_icon_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M11 8h2v8h-2V8M7.67 8H4.33C3.53 8 3 8.67 3 9.33v5.34c0 .66.53 1.33 1.33 1.33h3.34c.8 0 1.33-.67 1.33-1.33V12H7v2H5v-4h4v-.67C9 8.67 8.47 8 7.67 8M21 10V8h-6v8h2v-2h2.5v-2H17v-2h4z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const animated_icon = (SvgAnimatedIcon);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/banner.svg
+var banner_path;
+
+function banner_extends() { banner_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return banner_extends.apply(this, arguments); }
+
+
+
+function SvgBanner(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", banner_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), banner_path || (banner_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M21 3H3C2 3 1 4 1 5v14a2 2 0 002 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2M5 17l3.5-4.5 2.5 3 3.5-4.5 4.5 6H5z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const banner = (SvgBanner);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/enabled-discoverable-before.svg
+var enabled_discoverable_before_path;
+
+function enabled_discoverable_before_extends() { enabled_discoverable_before_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return enabled_discoverable_before_extends.apply(this, arguments); }
+
+
+
+function SvgEnabledDiscoverableBefore(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", enabled_discoverable_before_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), enabled_discoverable_before_path || (enabled_discoverable_before_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M15.5 14l5 5-1.5 1.5-5-5v-.79l-.27-.28A6.471 6.471 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3 6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.57 4.23l.28.27h.79m-6 0C12 14 14 12 14 9.5S12 5 9.5 5 5 7 5 9.5 7 14 9.5 14m2.5-4h-2v2H9v-2H7V9h2V7h1v2h2v1z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const enabled_discoverable_before = (SvgEnabledDiscoverableBefore);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/welcome-screen-enabled.svg
+var welcome_screen_enabled_path;
+
+function welcome_screen_enabled_extends() { welcome_screen_enabled_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return welcome_screen_enabled_extends.apply(this, arguments); }
+
+
+
+function SvgWelcomeScreenEnabled(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", welcome_screen_enabled_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), welcome_screen_enabled_path || (welcome_screen_enabled_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M20 4c1.11 0 2 .89 2 2v12c0 1.11-.89 2-2 2H4c-1.11 0-2-.89-2-2V6c0-1.11.89-2 2-2h16M8.5 15V9H7.25v3.5L4.75 9H3.5v6h1.25v-3.5L7.3 15h1.2m5-4.74V9h-4v6h4v-1.25H11v-1.11h2.5v-1.26H11v-1.12h2.5m7 3.74V9h-1.25v4.5h-1.12V10h-1.25v3.5h-1.13V9H14.5v5a1 1 0 001 1h4a1 1 0 001-1z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const welcome_screen_enabled = (SvgWelcomeScreenEnabled);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/member-verification-gate-enabled.svg
+var member_verification_gate_enabled_path;
+
+function member_verification_gate_enabled_extends() { member_verification_gate_enabled_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return member_verification_gate_enabled_extends.apply(this, arguments); }
+
+
+
+function SvgMemberVerificationGateEnabled(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", member_verification_gate_enabled_extends({
+    viewBox: "0 0 36 34",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), member_verification_gate_enabled_path || (member_verification_gate_enabled_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M35.452 10.85l-5.216-3.28-1.895-1.197-3.78-2.333-1.884-1.236L18.449.142l-.22-.09a.938.938 0 00-.618 0l-.11.05-4.278 2.702-1.885 1.236L7.56 6.373 5.664 7.57.45 10.85a.936.936 0 00-.449.797v21.416A.997.997 0 00.997 34h34.006a.997.997 0 00.997-.937V11.647a.937.937 0 00-.548-.797zM1.885 32.116v-19.94l3.78-2.383v22.323h-3.78zm5.674 0V8.606l3.78-2.382v25.922l-3.78-.03zm5.664-27.079l3.78-2.382v29.46h-3.78V5.038zm5.724 27.079V2.655l3.73 2.382v27.079h-3.73zm5.665 0V6.194l3.78 2.383v23.539h-3.78zm9.453 0h-3.829V9.793l3.78 2.383.05 19.94z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const member_verification_gate_enabled = (SvgMemberVerificationGateEnabled);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/preview-enabled.svg
+var preview_enabled_path;
+
+function preview_enabled_extends() { preview_enabled_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return preview_enabled_extends.apply(this, arguments); }
+
+
+
+function SvgPreviewEnabled(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", preview_enabled_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em",
+    style: {
+      msTransform: "rotate(360deg)",
+      WebkitTransform: "rotate(360deg)"
+    },
+    viewBox: "0 0 24 24",
+    transform: "rotate(360)"
+  }, props), preview_enabled_path || (preview_enabled_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M12 9a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3m0 8a5 5 0 01-5-5 5 5 0 015-5 5 5 0 015 5 5 5 0 01-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const preview_enabled = (SvgPreviewEnabled);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/index.js
+/*@license
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const {
+    DiscordConstants: { GuildFeatures }
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+/* harmony default export */ const features = ({
+    [GuildFeatures.INVITE_SPLASH]: invite_splash,
+    [GuildFeatures.VIP_REGIONS]: vip_regions,
+    [GuildFeatures.VANITY_URL]: vanity_url,
+    [GuildFeatures.MORE_EMOJI]: more_emoji,
+    [GuildFeatures.COMMERCE]: commerce,
+    [GuildFeatures.DISCOVERABLE]: discoverable,
+    [GuildFeatures.COMMUNITY]: community,
+    [GuildFeatures.FEATURABLE]: featurable,
+    [GuildFeatures.NEWS]: news,
+    [GuildFeatures.ANIMATED_ICON]: animated_icon,
+    [GuildFeatures.BANNER]: banner,
+    [GuildFeatures.ENABLED_DISCOVERABLE_BEFORE]: enabled_discoverable_before,
+    [GuildFeatures.WELCOME_SCREEN_ENABLED]: welcome_screen_enabled,
+    [GuildFeatures.MEMBER_VERIFICATION_GATE_ENABLED]: member_verification_gate_enabled,
+    [GuildFeatures.PREVIEW_ENABLED]: preview_enabled
+});
+
+;// CONCATENATED MODULE: ./src/GuildProfile/stores/MemberCountsStore.js
 /* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
-const{ContextMenuActions:Be,ImageResolver:xe,DiscordConstants:{RelationshipTypes:Ae}}=o.DiscordModules,Fe=o.WebpackModules.getByDisplayName("InviteButton"),{GuildIcon:ke}=o.WebpackModules.getByProps("GuildIcon"),Ve=o.WebpackModules.getByDisplayName("GuildBadge"),We=o.WebpackModules.getByDisplayName("NativeImageContextMenu"),je={...o.WebpackModules.getByProps("botTagCozy"),...o.WebpackModules.getByProps("botTag","botTagRegular"),...o.WebpackModules.getByProps("guildDetail"),...o.WebpackModules.getByProps("wrapper","pointer"),...o.WebpackModules.getByProps("guildIconContainer"),...o.WebpackModules.getByProps("tabBarContainer"),...o.WebpackModules.getByProps("profileBadge")};function MemberCounts({guild:e}){const{members:t,membersOnline:r}=m([Te],(()=>Te.getMemberCounts(e.id)));return n().createElement(Fe.Data,{members:t,membersOnline:r})}const He="GUILD_INFO",ze="FRIENDS",qe="BLOCKED_USERS";class GuildProfileModal extends n().PureComponent{constructor(e){var t,r;super(e),this.state={selectedSection:(t=e.section,r=()=>He,null!=t?t:r())},this.handleGuildIconClick=this.handleGuildIconClick.bind(this),this.handleGuildIconContextMenu=this.handleGuildIconContextMenu.bind(this),this.handleSectionSelect=this.handleSectionSelect.bind(this)}render(){const{selectedSection:e}=this.state,{guild:t}=this.props,r=Array.from(t.features),o=n().createElement(ke,{className:`icon ${je.avatar} ${je.wrapper}`,animate:!0,guild:t});return n().createElement(I,{className:`guild-profile ${je.root}`,direction:I.Direction.VERTICAL},n().createElement("div",{className:je.topSectionNormal},n().createElement("header",{className:je.header},t.icon?n().createElement(f,{onClick:this.handleGuildIconClick,onContextMenu:this.handleGuildIconContextMenu},n().createElement(v,{position:"top",text:l.Messages.GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL},o)):o,n().createElement("div",{className:je.headerInfo},n().createElement("div",{className:je.nameTag},n().createElement(Ve,{className:je.guildIconContainer,size:20,tooltipColor:"black",tooltipPosition:"top",guild:t}),n().createElement("span",{className:je.username},t.name),t.nsfw&&n().createElement("span",{className:`${je.botTagCozy} ${je.botTagRegular} ${je.rem} nsfw-tag`},n().createElement("span",{className:je.botText},"NSFW"))),r.length>0&&n().createElement("div",{className:`${je.container} ${je.colored} ${je.profileBadges}`},r.map((e=>this.renderFeatureBadge(e)))),n().createElement(C,{className:je.guildDetail},n().createElement(MemberCounts,{guild:t})))),n().createElement("div",null,n().createElement("div",{className:je.tabBarContainer},n().createElement(D,{className:je.tabBar,selectedItem:e,type:D.Types.TOP,onItemSelect:this.handleSectionSelect},n().createElement(D.Item,{className:je.tabBarItem,id:He},l.Messages.GUILD_PROFILE_GUILD_INFO),n().createElement(D.Item,{className:je.tabBarItem,id:ze},l.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD),n().createElement(D.Item,{className:je.tabBarItem,id:qe},l.Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD))))),n().createElement("div",{className:je.body},this.renderSelectedSection()))}renderFeatureBadge(e){const t=ye[e];return t?n().createElement("div",{className:je.profileBadgeWrapper},n().createElement(v,{position:"top",text:l.Messages[`GUILD_PROFILE_${e}`]},n().createElement(f,{role:"button",tag:"div"},n().createElement(t,{className:`${je.profileBadge} badge`})))):null}renderSelectedSection(){const{selectedSection:e}=this.state,{guild:t}=this.props;switch(e){case ze:return n().createElement(Relationships,{guild:t,relationshipType:Ae.FRIEND});case qe:return n().createElement(Relationships,{guild:t,relationshipType:Ae.BLOCKED});default:return n().createElement(GuildInfo,{guild:t})}}handleGuildIconClick(){c.clipboard.writeText(this.getGuildIconURL())}handleGuildIconContextMenu(e){Be.openContextMenu(e,(()=>n().createElement(We,{...e,src:this.getGuildIconURL()})))}handleSectionSelect(e){this.setState({selectedSection:e})}getGuildIconURL(){const{guild:e}=this.props;return xe.getGuildIconURL({id:e.id,icon:e.icon,size:1024,format:xe.hasAnimatedGuildIcon(e.icon)?"gif":"png"})}}var $e;function guild_profile_extends(){return(guild_profile_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(this,arguments)}const guild_profile=function(e){return r.createElement("svg",guild_profile_extends({xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"},e),$e||($e=r.createElement("path",{fillRule:"evenodd",clipRule:"evenodd",d:"M21 3H3v18h18V3zm-3.6 3.6H6.6v1.8h10.8V6.6zM6.6 10.2h10.8V12H6.6v-1.8zm7.2 3.6H6.6v1.8h7.2v-1.8z",fill:"currentColor"})))},Ke=__webpack_require__(277),Ye={};for(const e of Ke.keys()){Ye[e.match(/\.\/(.+)\.json/)[1]]=Ke(e)}const Je=Ye;function GuildProfile_optionalChain(e){let t,r=e[0],n=1;for(;n<e.length;){const o=e[n],a=e[n+1];if(n+=2,("optionalAccess"===o||"optionalCall"===o)&&null==r)return;"access"===o||"optionalAccess"===o?(t=r,r=a(r)):"call"!==o&&"optionalCall"!==o||(r=a(((...e)=>r.call(t,...e))),t=void 0)}return r}
-/* @license
+
+
+
+
+
+const {
+    Dispatcher: MemberCountsStore_Dispatcher,
+    MemberCountStore,
+    DiscordConstants: { ActionTypes }
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+const memberCounts = new Map();
+const onlineMemberCounts = new Map();
+
+function handleConnectionOpen({ guilds }) {
+    for (const guild of guilds) {
+        memberCounts.set(guild.id, guild.member_count);
+    }
+}
+
+function handleGuildCreate({ guild }) {
+    memberCounts.set(guild.id, guild.member_count);
+}
+
+function handleGuildDelete({ guild }) {
+    memberCounts.delete(guild.id);
+    onlineMemberCounts.delete(guild.id);
+}
+
+function handleGuildMemberListUpdate({ guildId, memberCount, groups }) {
+    if (memberCount !== 0) {
+        memberCounts.set(guildId, memberCount);
+    }
+
+    onlineMemberCounts.set(
+        guildId,
+        groups.reduce((total, group) => {
+            return group.id !== 'offline' ? total + group.count : total;
+        }, 0)
+    );
+}
+
+function handleOnlineGuildMemberCountUpdate({ guildId, count }) {
+    onlineMemberCounts.set(guildId, count);
+}
+
+class MemberCountsStore extends _discord_Flux.Store {
+    initialize() {
+        const nativeMemberCounts = MemberCountStore.getMemberCounts();
+        for (const guildId in nativeMemberCounts) {
+            memberCounts.set(guildId, nativeMemberCounts[guildId]);
+        }
+    }
+
+    getMemberCounts(guildId) {
+        return {
+            members: memberCounts.get(guildId),
+            membersOnline: onlineMemberCounts.get(guildId)
+        };
+    }
+}
+
+/* harmony default export */ const stores_MemberCountsStore = (new MemberCountsStore(MemberCountsStore_Dispatcher, {
+    [ActionTypes.CONNECTION_OPEN]: handleConnectionOpen,
+    [ActionTypes.GUILD_CREATE]: handleGuildCreate,
+    [ActionTypes.GUILD_DELETE]: handleGuildDelete,
+    [ActionTypes.GUILD_MEMBER_LIST_UPDATE]: handleGuildMemberListUpdate,
+    [ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE]: handleOnlineGuildMemberCountUpdate
+}));
+
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/index.jsx
+ function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }/* @license
+ * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
- */const{ModalStack:Xe,UserSettingsStore:Ze,SelectedGuildStore:Qe,GuildStore:et}=o.DiscordModules;class GuildProfile extends(s()){onStart(){o.PluginUtilities.addStyle(this.getName(),".guild-profile .icon{width:80px;height:80px;vertical-align:top}.guild-profile .badge{color:var(--header-secondary)}.guild-profile .nsfw-tag{margin-top:auto;margin-bottom:auto}.guild-info{height:100%;padding:20px 10px}.guild-info .section{padding:5px 10px}\n"),Ze.addChangeListener(this.handleUserSettingsChange),Te.initializeIfNeeded(),this.loadLocale(),this.patchMenu(),this.patchContextMenu(),this.handleUserSettingsChange=this.handleUserSettingsChange.bind(this)}onStop(){o.PluginUtilities.removeStyle(this.getName()),Ze.removeChangeListener(this.handleUserSettingsChange),o.Patcher.unpatchAll()}patchMenu(){const e=o.WebpackModules.getByProps("MenuItem");o.Patcher.before(e,"default",((t,[{navId:r,children:a}])=>{"guild-header-popout"!==r||o.Utilities.findInReactTree(a,(e=>"guild-profile"===GuildProfile_optionalChain([e,"optionalAccess",e=>e.id])))||a.unshift(n().createElement(e.MenuGroup,null,n().createElement(e.MenuItem,{id:"guild-profile",label:l.Messages.GUILD_PROFILE,icon:guild_profile,action:()=>this.openGuildProfileModal(et.getGuild(Qe.getGuildId()))})))}))}patchContextMenu(){const e=o.WebpackModules.getModule((e=>"GuildContextMenu"===GuildProfile_optionalChain([e,"optionalAccess",e=>e.default,"optionalAccess",e=>e.displayName])));o.Patcher.after(e,"default",((e,[{guild:t}],r)=>{r.props.children.unshift(o.DiscordContextMenu.buildMenuItem({label:l.Messages.GUILD_PROFILE,action:()=>this.openGuildProfileModal(t)}),o.DiscordContextMenu.buildMenuItem({type:"separator"}))}))}async handleUserSettingsChange(){await l.loadPromise,this.loadLocale()}loadLocale(){Object.assign(l._proxyContext.messages,Je[Ze.locale]),Object.assign(l._proxyContext.defaultMessages,Je["en-US"])}openGuildProfileModal(e){Xe.push((()=>n().createElement(GuildProfileModal,{guild:e})))}}})(),r=a.default})(),r}module.exports=global.ZeresPluginLibrary?buildPlugin():class{constructor(){this._config=config}getName(){return config.info.name}getAuthor(){return config.info.authors.map((e=>e.name)).join(", ")}getDescription(){return config.info.description}getVersion(){return config.info.version}load(){global.BdApi.showConfirmationModal("Library plugin is needed",`The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`,{confirmText:"Download",cancelText:"Cancel",onConfirm(){request.get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",((e,t,r)=>{if(e)return electron.shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");fs.writeFileSync(path.join(global.BdApi.Plugins.folder,"0PluginLibrary.plugin.js"),r)}))}})}start(){}stop(){}};
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const {
+    ContextMenuActions: GuildProfileModal_ContextMenuActions,
+    ImageResolver,
+    DiscordConstants: { RelationshipTypes: GuildProfileModal_RelationshipTypes }
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('InviteButton');
+const { GuildIcon } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('GuildIcon');
+const GuildBadge = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('GuildBadge');
+const NativeImageContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('NativeImageContextMenu');
+
+const GuildProfileModal_classes = {
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('botTagCozy'),
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('botTag', 'botTagRegular'),
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('guildDetail'),
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('wrapper', 'pointer'),
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('guildIconContainer'),
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('tabBarContainer'),
+    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('profileBadge')
+};
+
+function MemberCounts({ guild }) {
+    const { members, membersOnline } = useStateFromStores([stores_MemberCountsStore], () =>
+        stores_MemberCountsStore.getMemberCounts(guild.id)
+    );
+
+    return external_BdApi_React_default().createElement(InviteButton.Data, { members: members, membersOnline: membersOnline,} );
+}
+
+const GuildProfileSections = {
+    GUILD_INFO: 'GUILD_INFO',
+    FRIENDS: 'FRIENDS',
+    BLOCKED_USERS: 'BLOCKED_USERS'
+};
+
+class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedSection: _nullishCoalesce(props.section, () => ( GuildProfileSections.GUILD_INFO))
+        };
+
+        this.handleGuildIconClick = this.handleGuildIconClick.bind(this);
+        this.handleGuildIconContextMenu = this.handleGuildIconContextMenu.bind(this);
+        this.handleSectionSelect = this.handleSectionSelect.bind(this);
+    }
+
+    render() {
+        const { selectedSection } = this.state;
+        const { guild } = this.props;
+
+        const features = Array.from(guild.features);
+
+        const guildIcon = (
+            external_BdApi_React_default().createElement(GuildIcon, { className: `icon ${GuildProfileModal_classes.avatar} ${GuildProfileModal_classes.wrapper}`, animate: true, guild: guild,} )
+        );
+
+        return (
+            external_BdApi_React_default().createElement(Flex, { className: `guild-profile ${GuildProfileModal_classes.root}`, direction: Flex.Direction.VERTICAL,}
+                , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.topSectionNormal,}
+                    , external_BdApi_React_default().createElement('header', { className: GuildProfileModal_classes.header,}
+                        , guild.icon ? (
+                            external_BdApi_React_default().createElement(Clickable, {
+                                onClick: this.handleGuildIconClick,
+                                onContextMenu: this.handleGuildIconContextMenu,}
+                            
+                                , external_BdApi_React_default().createElement(TooltipContainer, {
+                                    position: "top",
+                                    text: i18n.Messages.GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL,}
+                                
+                                    , guildIcon
+                                )
+                            )
+                        ) : (
+                            guildIcon
+                        )
+                        , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.headerInfo,}
+                            , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.nameTag,}
+                                , external_BdApi_React_default().createElement(GuildBadge, {
+                                    className: GuildProfileModal_classes.guildIconContainer,
+                                    size: 20,
+                                    tooltipColor: "black",
+                                    tooltipPosition: "top",
+                                    guild: guild,}
+                                )
+                                , external_BdApi_React_default().createElement('span', { className: GuildProfileModal_classes.username,}, guild.name)
+                                , guild.nsfw && (
+                                    external_BdApi_React_default().createElement('span', {
+                                        className: `${GuildProfileModal_classes.botTagCozy} ${GuildProfileModal_classes.botTagRegular} ${GuildProfileModal_classes.rem} nsfw-tag`,}
+                                    
+                                        , external_BdApi_React_default().createElement('span', { className: GuildProfileModal_classes.botText,}, "NSFW")
+                                    )
+                                )
+                            )
+                            , features.length > 0 && (
+                                external_BdApi_React_default().createElement('div', { className: `${GuildProfileModal_classes.container} ${GuildProfileModal_classes.colored} ${GuildProfileModal_classes.profileBadges}`,}
+                                    , features.map(feature => this.renderFeatureBadge(feature))
+                                )
+                            )
+                            , external_BdApi_React_default().createElement(Text, { className: GuildProfileModal_classes.guildDetail,}
+                                , external_BdApi_React_default().createElement(MemberCounts, { guild: guild,} )
+                            )
+                        )
+                    )
+                    , external_BdApi_React_default().createElement('div', null
+                        , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.tabBarContainer,}
+                            , external_BdApi_React_default().createElement(TabBar, {
+                                className: GuildProfileModal_classes.tabBar,
+                                selectedItem: selectedSection,
+                                type: TabBar.Types.TOP,
+                                onItemSelect: this.handleSectionSelect,}
+                            
+                                , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.GUILD_INFO,}
+                                    , i18n.Messages.GUILD_PROFILE_GUILD_INFO
+                                )
+                                , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.FRIENDS,}
+                                    , i18n.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD
+                                )
+                                , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.BLOCKED_USERS,}
+                                    , i18n.Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD
+                                )
+                            )
+                        )
+                    )
+                )
+                , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.body,}, this.renderSelectedSection())
+            )
+        );
+    }
+
+    renderFeatureBadge(feature) {
+        const Icon = features[feature];
+
+        return Icon ? (
+            external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.profileBadgeWrapper,}
+                , external_BdApi_React_default().createElement(TooltipContainer, { position: "top", text: i18n.Messages[`GUILD_PROFILE_${feature}`],}
+                    , external_BdApi_React_default().createElement(Clickable, { role: "button", tag: "div",}
+                        , external_BdApi_React_default().createElement(Icon, { className: `${GuildProfileModal_classes.profileBadge} badge`,} )
+                    )
+                )
+            )
+        ) : null;
+    }
+
+    renderSelectedSection() {
+        const { selectedSection } = this.state;
+        const { guild } = this.props;
+
+        switch (selectedSection) {
+            case GuildProfileSections.FRIENDS:
+                return external_BdApi_React_default().createElement(Relationships, { guild: guild, relationshipType: GuildProfileModal_RelationshipTypes.FRIEND,} );
+            case GuildProfileSections.BLOCKED_USERS:
+                return external_BdApi_React_default().createElement(Relationships, { guild: guild, relationshipType: GuildProfileModal_RelationshipTypes.BLOCKED,} );
+            default:
+                return external_BdApi_React_default().createElement(GuildInfo, { guild: guild,} );
+        }
+    }
+
+    handleGuildIconClick() {
+        external_electron_namespaceObject.clipboard.writeText(this.getGuildIconURL());
+    }
+
+    handleGuildIconContextMenu(event) {
+        GuildProfileModal_ContextMenuActions.openContextMenu(event, () => (
+            external_BdApi_React_default().createElement(NativeImageContextMenu, { ...event, src: this.getGuildIconURL(),} )
+        ));
+    }
+
+    handleSectionSelect(section) {
+        this.setState({
+            selectedSection: section
+        });
+    }
+
+    getGuildIconURL() {
+        const { guild } = this.props;
+
+        return ImageResolver.getGuildIconURL({
+            id: guild.id,
+            icon: guild.icon,
+            size: 1024,
+            format: ImageResolver.hasAnimatedGuildIcon(guild.icon) ? 'gif' : 'png'
+        });
+    }
+}
+
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/guild-profile.svg
+var guild_profile_path;
+
+function guild_profile_extends() { guild_profile_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return guild_profile_extends.apply(this, arguments); }
+
+
+
+function SvgGuildProfile(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", guild_profile_extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24"
+  }, props), guild_profile_path || (guild_profile_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M21 3H3v18h18V3zm-3.6 3.6H6.6v1.8h10.8V6.6zM6.6 10.2h10.8V12H6.6v-1.8zm7.2 3.6H6.6v1.8h7.2v-1.8z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const guild_profile = (SvgGuildProfile);
+;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
+/* harmony default export */ const style = (".guild-profile .icon{width:80px;height:80px;vertical-align:top}.guild-profile .badge{color:var(--header-secondary)}.guild-profile .nsfw-tag{margin-top:auto;margin-bottom:auto}.guild-info{height:100%;padding:20px 10px}.guild-info .section{padding:5px 10px}\n");
+;// CONCATENATED MODULE: ./src/GuildProfile/locales/index.js
+/*@license
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
+
+const requireContext = __webpack_require__(277);
+
+const locales = {};
+
+for (const localePath of requireContext.keys()) {
+    const language = localePath.match(/\.\/(.+)\.json/)[1];
+    locales[language] = requireContext(localePath);
+}
+
+/* harmony default export */ const GuildProfile_locales = (locales);
+
+;// CONCATENATED MODULE: ./src/GuildProfile/index.jsx
+ function GuildProfile_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const { ModalStack: GuildProfile_ModalStack, UserSettingsStore, SelectedGuildStore, GuildStore } = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+class GuildProfile extends (external_Plugin_default()) {
+    onStart() {
+        external_BoundedLibrary_namespaceObject.PluginUtilities.addStyle(this.getName(), style);
+        UserSettingsStore.addChangeListener(this.handleUserSettingsChange);
+
+        stores_MemberCountsStore.initializeIfNeeded();
+
+        this.loadLocale();
+        this.patchMenu();
+        this.patchContextMenu();
+
+        this.handleUserSettingsChange = this.handleUserSettingsChange.bind(this);
+    }
+
+    onStop() {
+        external_BoundedLibrary_namespaceObject.PluginUtilities.removeStyle(this.getName());
+        UserSettingsStore.removeChangeListener(this.handleUserSettingsChange);
+
+        external_BoundedLibrary_namespaceObject.Patcher.unpatchAll();
+    }
+
+    patchMenu() {
+        const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
+
+        external_BoundedLibrary_namespaceObject.Patcher.before(Menu, 'default', (thisObject, [{ navId, children }]) => {
+            if (
+                navId !== 'guild-header-popout' ||
+                external_BoundedLibrary_namespaceObject.Utilities.findInReactTree(children, c => GuildProfile_optionalChain([c, 'optionalAccess', _ => _.id]) === 'guild-profile')
+            ) {
+                return;
+            }
+
+            children.unshift(
+                external_BdApi_React_default().createElement(Menu.MenuGroup, null
+                    , external_BdApi_React_default().createElement(Menu.MenuItem, {
+                        id: "guild-profile",
+                        label: i18n.Messages.GUILD_PROFILE,
+                        icon: guild_profile,
+                        action: () => this.openGuildProfileModal(GuildStore.getGuild(SelectedGuildStore.getGuildId())),}
+                    )
+                )
+            );
+        });
+    }
+
+    patchContextMenu() {
+        const GuildContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getModule(m => GuildProfile_optionalChain([m, 'optionalAccess', _2 => _2.default, 'optionalAccess', _3 => _3.displayName]) === 'GuildContextMenu');
+
+        external_BoundedLibrary_namespaceObject.Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
+            returnValue.props.children.unshift(
+                external_BoundedLibrary_namespaceObject.DiscordContextMenu.buildMenuChildren([
+                    {
+                        type: 'group',
+                        items: [
+                            {
+                                label: i18n.Messages.GUILD_PROFILE,
+                                action: () => this.openGuildProfileModal(guild)
+                            }
+                        ]
+                    }
+                ])
+            );
+        });
+    }
+
+    async handleUserSettingsChange() {
+        await i18n.loadPromise;
+        this.loadLocale();
+    }
+
+    loadLocale() {
+        Object.assign(i18n._proxyContext.messages, GuildProfile_locales[UserSettingsStore.locale]);
+        Object.assign(i18n._proxyContext.defaultMessages, GuildProfile_locales["en-US"]);
+    }
+
+    openGuildProfileModal(guild) {
+        GuildProfile_ModalStack.push(() => external_BdApi_React_default().createElement(GuildProfileModal, { guild: guild,} ));
+    }
+}
+
+})();
+
+plugin = __webpack_exports__.default;
+/******/ })()
+;
+
+    return plugin;
+}
+
+module.exports = global.ZeresPluginLibrary
+    ? buildPlugin()
+    : class {
+          constructor() {
+              this._config = config;
+          }
+
+          getName() {
+              return config.info.name;
+          }
+
+          getAuthor() {
+              return config.info.authors.map(a => a.name).join(', ');
+          }
+
+          getDescription() {
+              return config.info.description;
+          }
+
+          getVersion() {
+              return config.info.version;
+          }
+
+          load() {
+              global.BdApi.showConfirmationModal(
+                  'Library plugin is needed',
+                  `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`,
+                  {
+                      confirmText: 'Download',
+                      cancelText: 'Cancel',
+                      onConfirm() {
+                          request.get(
+                              'https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js',
+                              (error, response, body) => {
+                                  if (error) {
+                                      return electron.shell.openExternal(
+                                          'https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js'
+                                      );
+                                  }
+
+                                  fs.writeFileSync(
+                                      path.join(global.BdApi.Plugins.folder, '0PluginLibrary.plugin.js'),
+                                      body
+                                  );
+                              }
+                          );
+                      }
+                  }
+              );
+          }
+
+          start() {}
+
+          stop() {}
+      };
+
 /*@end@*/

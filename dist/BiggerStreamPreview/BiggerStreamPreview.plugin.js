@@ -9,6 +9,7 @@
  * @source https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview
  * @updateUrl https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js
  */
+
 /*@cc_on
 @if (@_jscript)
     // Offer to self-install for clueless users that try to run this directly.
@@ -30,5 +31,206 @@
     }
     WScript.Quit();
 @else@*/
-const fs=require("fs"),path=require("path"),request=require("request"),electron=require("electron"),config={info:{name:"BiggerStreamPreview",description:"Adds a button in the context menu to see bigger stream previews.",version:"1.0.5",authors:[{name:"Jaime Filho",discord_id:"289112759948410881"}],github:"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview",github_raw:"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"}};function buildPlugin(){const[e,t]=global.ZeresPluginLibrary.buildPlugin(config);var r;return(()=>{"use strict";var n={n:e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return n.d(t,{a:t}),t},d:(e,t)=>{for(var r in t)n.o(t,r)&&!n.o(e,r)&&Object.defineProperty(e,r,{enumerable:!0,get:t[r]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t)},i={};n.d(i,{default:()=>BiggerStreamPreview});const o=global.BdApi.React;var a=n.n(o);const s=t,l=e;var c=n.n(l);const{StreamStore:u,StreamPreviewStore:d,ModalStack:g}=s.DiscordModules,p=s.WebpackModules.getByDisplayName("ImageModal"),h=s.WebpackModules.getByDisplayName("MaskedLink");class BiggerStreamPreview extends(c()){onStart(){this.patchUserContextMenus()}onStop(){s.Patcher.unpatchAll()}patchUserContextMenus(){const e=s.WebpackModules.findAll((e=>function(e){let t,r=e[0],n=1;for(;n<e.length;){const i=e[n],o=e[n+1];if(n+=2,("optionalAccess"===i||"optionalCall"===i)&&null==r)return;"access"===i||"optionalAccess"===i?(t=r,r=o(r)):"call"!==i&&"optionalCall"!==i||(r=o(((...e)=>r.call(t,...e))),t=void 0)}return r}([e,"optionalAccess",e=>e.default,"optionalAccess",e=>e.displayName,"optionalAccess",e=>e.includes,"call",e=>e("UserContextMenu")]))),patch=(e,[t],r)=>{const{user:n}=t,i=u.getStreamForUser(n.id);if(!i)return;const o=d.getPreviewURL(i.guildId,i.channelId,i.ownerId);r.props.children.props.children.push(s.DiscordContextMenu.buildMenuItem({type:"separator"}),s.DiscordContextMenu.buildMenuItem({label:"View Stream Preview",action:()=>this.showImageModal(o),disabled:null===o}))};for(const t of e)s.Patcher.after(t,"default",patch)}async showImageModal(e){const t=await this.fetchImage(e);g.push(p,{src:e,placeholder:e,original:e,width:t.width,height:t.height,onClickUntrusted:e=>e.openHref(),renderLinkComponent:e=>a().createElement(h,{...e})})}async fetchImage(e){return new Promise(((t,r)=>{const n=new Image;n.src=e,n.addEventListener("load",(()=>{t(n)})),n.addEventListener("error",(()=>{r(new Error("Image not found"))}))}))}}r=i.default})(),r}module.exports=global.ZeresPluginLibrary?buildPlugin():class{constructor(){this._config=config}getName(){return config.info.name}getAuthor(){return config.info.authors.map((e=>e.name)).join(", ")}getDescription(){return config.info.description}getVersion(){return config.info.version}load(){global.BdApi.showConfirmationModal("Library plugin is needed",`The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`,{confirmText:"Download",cancelText:"Cancel",onConfirm(){request.get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",((e,t,r)=>{if(e)return electron.shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");fs.writeFileSync(path.join(global.BdApi.Plugins.folder,"0PluginLibrary.plugin.js"),r)}))}})}start(){}stop(){}};
+
+const fs = require('fs');
+const path = require('path');
+const request = require('request');
+const electron = require('electron');
+
+const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.5","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"}};
+
+function buildPlugin() {
+    const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
+    var plugin;
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ BiggerStreamPreview)
+});
+
+;// CONCATENATED MODULE: external ["BdApi","React"]
+const external_BdApi_React_namespaceObject = global["BdApi"]["React"];
+var external_BdApi_React_default = /*#__PURE__*/__webpack_require__.n(external_BdApi_React_namespaceObject);
+;// CONCATENATED MODULE: external "BoundedLibrary"
+const external_BoundedLibrary_namespaceObject = BoundedLibrary;
+;// CONCATENATED MODULE: external "Plugin"
+const external_Plugin_namespaceObject = Plugin;
+var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
+;// CONCATENATED MODULE: ./src/BiggerStreamPreview/index.jsx
+ function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+
+
+
+const { StreamStore, StreamPreviewStore, ModalStack } = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+const ImageModal = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('ImageModal');
+const MaskedLink = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('MaskedLink');
+
+class BiggerStreamPreview extends (external_Plugin_default()) {
+    onStart() {
+        this.patchUserContextMenus();
+    }
+
+    onStop() {
+        external_BoundedLibrary_namespaceObject.Patcher.unpatchAll();
+    }
+
+    patchUserContextMenus() {
+        const UserContextMenus = external_BoundedLibrary_namespaceObject.WebpackModules.findAll(m => _optionalChain([m, 'optionalAccess', _ => _.default, 'optionalAccess', _2 => _2.displayName, 'optionalAccess', _3 => _3.includes, 'call', _4 => _4('UserContextMenu')]));
+
+        const patch = (thisObject, [props], returnValue) => {
+            const { user } = props;
+
+            const stream = StreamStore.getStreamForUser(user.id);
+            if (!stream) return;
+
+            const previewURL = StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
+
+            returnValue.props.children.props.children.push(
+                external_BoundedLibrary_namespaceObject.DiscordContextMenu.buildMenuItem({
+                    type: 'separator'
+                }),
+                external_BoundedLibrary_namespaceObject.DiscordContextMenu.buildMenuItem({
+                    label: 'View Stream Preview',
+                    action: () => this.showImageModal(previewURL),
+                    disabled: previewURL === null
+                })
+            );
+        };
+
+        for (const UserContextMenu of UserContextMenus) {
+            external_BoundedLibrary_namespaceObject.Patcher.after(UserContextMenu, 'default', patch);
+        }
+    }
+
+    async showImageModal(url) {
+        const image = await this.fetchImage(url);
+        ModalStack.push(ImageModal, {
+            src: url,
+            placeholder: url,
+            original: url,
+            width: image.width,
+            height: image.height,
+            onClickUntrusted: e => e.openHref(),
+            renderLinkComponent: props => external_BdApi_React_default().createElement(MaskedLink, { ...props,} )
+        });
+    }
+
+    async fetchImage(url) {
+        return new Promise((resolve, reject) => {
+            const image = new Image();
+            image.src = url;
+
+            image.addEventListener('load', () => {
+                resolve(image);
+            });
+
+            image.addEventListener('error', () => {
+                reject(new Error('Image not found'));
+            });
+        });
+    }
+}
+
+plugin = __webpack_exports__.default;
+/******/ })()
+;
+
+    return plugin;
+}
+
+module.exports = global.ZeresPluginLibrary
+    ? buildPlugin()
+    : class {
+          constructor() {
+              this._config = config;
+          }
+
+          getName() {
+              return config.info.name;
+          }
+
+          getAuthor() {
+              return config.info.authors.map(a => a.name).join(', ');
+          }
+
+          getDescription() {
+              return config.info.description;
+          }
+
+          getVersion() {
+              return config.info.version;
+          }
+
+          load() {
+              global.BdApi.showConfirmationModal(
+                  'Library plugin is needed',
+                  `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`,
+                  {
+                      confirmText: 'Download',
+                      cancelText: 'Cancel',
+                      onConfirm() {
+                          request.get(
+                              'https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js',
+                              (error, response, body) => {
+                                  if (error) {
+                                      return electron.shell.openExternal(
+                                          'https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js'
+                                      );
+                                  }
+
+                                  fs.writeFileSync(
+                                      path.join(global.BdApi.Plugins.folder, '0PluginLibrary.plugin.js'),
+                                      body
+                                  );
+                              }
+                          );
+                      }
+                  }
+              );
+          }
+
+          start() {}
+
+          stop() {}
+      };
+
 /*@end@*/
