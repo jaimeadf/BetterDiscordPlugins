@@ -1,5 +1,5 @@
 <h1 align="center">BetterDiscordPlugins</h1>
-<p align="center">A collection of plugins for the <a href="https://github.com/BetterDiscord">@BetterDiscord</a> client modification</p>
+<p align="center">A collection of plugins for the <a href="https://github.com/BetterDiscord">@BetterDiscord</a> client modification.</p>
 <p align="center">
     <a href="https://discord.gg/z6Yx9A8VDR"><img src="https://discordapp.com/api/guilds/514185816315265068/widget.png"/></a>
     <a href="https://discord.gg/z6Yx9A8VDR"><img src="https://github.com/jaimeadf/BetterDiscordPlugins/actions/workflows/release.yml/badge.svg"/></a>
