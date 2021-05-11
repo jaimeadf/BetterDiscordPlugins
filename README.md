@@ -37,7 +37,7 @@ Makes the discord Easter Egg ringtone the default one.
 <h2>
     GuildProfile
     <sub>
-        <sup>(<a href="https://cdn.discordapp.com/attachments/835197778098651156/841446996677492767/GuildProfile.plugin.js">download</a> | <a href="/src/GuildProfile">more details</a>)</sup>
+        <sup>(<a href="https://betterdiscord.app/Download?id=220">download</a> | <a href="/src/GuildProfile">more details</a>)</sup>
     </sub>
 </h2>
 
