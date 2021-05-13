@@ -165,7 +165,7 @@ module.exports = global.ZeresPluginLibrary
                               (error, response, body) => {
                                   if (error) {
                                       return electron.shell.openExternal(
-                                          'https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js'
+                                          'betterdiscord.app/Download?id=9'
                                       );
                                   }
 
