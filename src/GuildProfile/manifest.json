@@ -1,7 +1,7 @@
 {
     "name": "GuildProfile",
     "description": "Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": {
         "id": "289112759948410881",
         "name": "Jaime Filho"
@@ -13,8 +13,10 @@
     "changelog": [
         {
             "title": "Compatibility issues",
+            "type": "fixed",
             "items": [
-                "Fixed role members menu being inside of the guild profile menu."
+                "Fixed role members menu being inside of the guild profile menu.",
+                "Fixed permission viewers menu disappearing."
             ]
         }
     ]
