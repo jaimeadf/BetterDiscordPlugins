@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { DiscordModules, WebpackModules, PluginUtilities, Patcher, Utilities, DiscordContextMenu } from '@zlibrary/api';
+import { DiscordModules, WebpackModules, PluginUtilities, Patcher, Utilities } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 import i18n from '@discord/i18n';
@@ -19,6 +19,8 @@ import style from './style.scss';
 import locales from './locales';
 
 const { ModalStack, UserSettingsStore, SelectedGuildStore, GuildStore } = DiscordModules;
+
+const Menu = WebpackModules.getByProps('MenuItem');
 
 export default class GuildProfile extends Plugin {
     onStart() {
@@ -42,8 +44,6 @@ export default class GuildProfile extends Plugin {
     }
 
     patchMenu() {
-        const Menu = WebpackModules.getByProps('MenuItem');
-
         Patcher.before(Menu, 'default', (thisObject, [{ navId, children }]) => {
             if (
                 navId !== 'guild-header-popout' ||
@@ -70,17 +70,14 @@ export default class GuildProfile extends Plugin {
 
         Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
             returnValue.props.children.unshift(
-                DiscordContextMenu.buildMenuChildren([
-                    {
-                        type: 'group',
-                        items: [
-                            {
-                                label: i18n.Messages.GUILD_PROFILE,
-                                action: () => this.openGuildProfileModal(guild)
-                            }
-                        ]
-                    }
-                ])
+                <Menu.MenuGroup>
+                    <Menu.MenuItem
+                        id="guild-profile"
+                        key="guild-profile"
+                        label={i18n.Messages.GUILD_PROFILE}
+                        action={() => this.openGuildProfileModal(guild)}
+                    />
+                </Menu.MenuGroup>
             );
         });
     }
