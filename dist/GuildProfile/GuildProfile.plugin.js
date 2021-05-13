@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.0.2
+ * @version 1.0.3
  * @author Jaime Filho
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.2","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Compatibility issues","items":["Fixed role members menu being inside of the guild profile menu."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.3","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Compatibility issues","type":"fixed","items":["Fixed role members menu being inside of the guild profile menu.","Fixed permission viewers menu disappearing."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -203,9 +203,13 @@ const {
 ;// CONCATENATED MODULE: ./src/@discord/components/Tooltip.js
 
 
-const { TooltipColors, TooltipContainer, TooltipLayer, TooltipPositions, default: Tooltip } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps(
-    'TooltipContainer'
-);
+const {
+    TooltipColors,
+    TooltipContainer,
+    TooltipLayer,
+    TooltipPositions,
+    default: Tooltip
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('TooltipContainer');
 
 
 
@@ -1257,6 +1261,8 @@ for (const localePath of requireContext.keys()) {
 
 const { ModalStack: GuildProfile_ModalStack, UserSettingsStore, SelectedGuildStore, GuildStore } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
+const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
+
 class GuildProfile extends (external_Plugin_default()) {
     onStart() {
         external_BoundedLibrary_namespaceObject.PluginUtilities.addStyle(this.getName(), style);
@@ -1279,8 +1285,6 @@ class GuildProfile extends (external_Plugin_default()) {
     }
 
     patchMenu() {
-        const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
-
         external_BoundedLibrary_namespaceObject.Patcher.before(Menu, 'default', (thisObject, [{ navId, children }]) => {
             if (
                 navId !== 'guild-header-popout' ||
@@ -1307,17 +1311,14 @@ class GuildProfile extends (external_Plugin_default()) {
 
         external_BoundedLibrary_namespaceObject.Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
             returnValue.props.children.unshift(
-                external_BoundedLibrary_namespaceObject.DiscordContextMenu.buildMenuChildren([
-                    {
-                        type: 'group',
-                        items: [
-                            {
-                                label: i18n.Messages.GUILD_PROFILE,
-                                action: () => this.openGuildProfileModal(guild)
-                            }
-                        ]
-                    }
-                ])
+                external_BdApi_React_default().createElement(Menu.MenuGroup, null
+                    , external_BdApi_React_default().createElement(Menu.MenuItem, {
+                        id: "guild-profile",
+                        key: "guild-profile",
+                        label: i18n.Messages.GUILD_PROFILE,
+                        action: () => this.openGuildProfileModal(guild),}
+                    )
+                )
             );
         });
     }
