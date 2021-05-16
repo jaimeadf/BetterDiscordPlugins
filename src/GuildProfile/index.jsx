@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { DiscordModules, WebpackModules, PluginUtilities, Patcher, Utilities } from '@zlibrary/api';
+import { DiscordModules, WebpackModules, PluginUtilities, Patcher, Utilities, Settings } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 import i18n from '@discord/i18n';
@@ -23,6 +23,32 @@ const { ModalStack, UserSettingsStore, SelectedGuildStore, GuildStore } = Discor
 const Menu = WebpackModules.getByProps('MenuItem');
 
 export default class GuildProfile extends Plugin {
+    constructor() {
+        super();
+
+        this.defaultSettings = {
+            position: 'top'
+        };
+    }
+
+    getSettingsPanel() {
+        return new Settings.SettingPanel(
+            () => {
+                this.saveSettings()
+            },
+            new Settings.Dropdown(
+                'Server Profile setting position',
+                'The position of the Server Profile menu option.',
+                this.settings.position,
+                [
+                    {label: 'Top', value: 'top'},
+                    {label: 'Bottom', value: 'bottom'}
+                ],
+                value => this.settings.position = value
+            )
+        ).getElement();
+    }
+
     onStart() {
         PluginUtilities.addStyle(this.getName(), style);
         UserSettingsStore.addChangeListener(this.handleUserSettingsChange);
@@ -69,7 +95,7 @@ export default class GuildProfile extends Plugin {
         const GuildContextMenu = WebpackModules.getModule(m => m?.default?.displayName === 'GuildContextMenu');
 
         Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
-            returnValue.props.children.unshift(
+            returnValue.props.children.splice((this.settings.position === 'top' ? 1 : 5), 0,
                 <Menu.MenuGroup>
                     <Menu.MenuItem
                         id="guild-profile"
