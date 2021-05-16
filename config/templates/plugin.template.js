@@ -72,7 +72,7 @@ module.exports = global.ZeresPluginLibrary
                               (error, response, body) => {
                                   if (error) {
                                       return electron.shell.openExternal(
-                                          'betterdiscord.app/Download?id=9'
+                                          'https://betterdiscord.app/Download?id=9'
                                       );
                                   }
 
