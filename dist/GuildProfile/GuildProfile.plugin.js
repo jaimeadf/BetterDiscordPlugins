@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.0.3
+ * @version 1.0.4
  * @author Jaime Filho
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.3","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Compatibility issues","type":"fixed","items":["Fixed role members menu being inside of the guild profile menu.","Fixed permission viewers menu disappearing."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.4","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Added setting to control the position of the guild profile option on the guild context menu (Thanks @QWERTxD on GitHub)."]},{"title":"Compatibility issues","type":"fixed","items":["Fixed role members menu being inside of the guild profile menu.","Fixed permission viewers menu disappearing."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -1264,6 +1264,14 @@ const { ModalStack: GuildProfile_ModalStack, UserSettingsStore, SelectedGuildSto
 const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
 
 class GuildProfile extends (external_Plugin_default()) {
+    constructor() {
+        super();
+
+        this.defaultSettings = {
+            position: 'top'
+        };
+    }
+
     onStart() {
         external_BoundedLibrary_namespaceObject.PluginUtilities.addStyle(this.getName(), style);
         UserSettingsStore.addChangeListener(this.handleUserSettingsChange);
@@ -1282,6 +1290,26 @@ class GuildProfile extends (external_Plugin_default()) {
         UserSettingsStore.removeChangeListener(this.handleUserSettingsChange);
 
         external_BoundedLibrary_namespaceObject.Patcher.unpatchAll();
+    }
+
+    buildSettingsPanel() {
+        return new external_BoundedLibrary_namespaceObject.Settings.SettingPanel(
+            this.saveSettings.bind(this),
+            new external_BoundedLibrary_namespaceObject.Settings.Dropdown(
+                'Context menu position',
+                'The position of the guild profile item on the context menu, the one opened when you right-click a guild.',
+                this.settings.position,
+                [
+                    { label: 'Top', value: 'top' },
+                    { label: 'Bottom', value: 'bottom' }
+                ],
+                value => (this.settings.position = value)
+            )
+        );
+    }
+
+    getSettingsPanel() {
+        return this.buildSettingsPanel().getElement();
     }
 
     patchMenu() {
@@ -1310,7 +1338,9 @@ class GuildProfile extends (external_Plugin_default()) {
         const GuildContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getModule(m => GuildProfile_optionalChain([m, 'optionalAccess', _2 => _2.default, 'optionalAccess', _3 => _3.displayName]) === 'GuildContextMenu');
 
         external_BoundedLibrary_namespaceObject.Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
-            returnValue.props.children.unshift(
+            returnValue.props.children.splice(
+                this.settings.position === 'top' ? 1 : 5,
+                0,
                 external_BdApi_React_default().createElement(Menu.MenuGroup, null
                     , external_BdApi_React_default().createElement(Menu.MenuItem, {
                         id: "guild-profile",
@@ -1383,7 +1413,7 @@ module.exports = global.ZeresPluginLibrary
                               (error, response, body) => {
                                   if (error) {
                                       return electron.shell.openExternal(
-                                          'betterdiscord.app/Download?id=9'
+                                          'https://betterdiscord.app/Download?id=9'
                                       );
                                   }
 
