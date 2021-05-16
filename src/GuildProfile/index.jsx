@@ -31,22 +31,6 @@ export default class GuildProfile extends Plugin {
         };
     }
 
-    getSettingsPanel() {
-        return new Settings.SettingPanel(
-            this.saveSettings().bind(this),
-            new Settings.Dropdown(
-                'Context menu position',
-                'The position of the guild profile item on the context menu, the one opened when you right-click a guild.',
-                this.settings.position,
-                [
-                    { label: 'Top', value: 'top' },
-                    { label: 'Bottom', value: 'bottom' }
-                ],
-                value => (this.settings.position = value)
-            )
-        ).getElement();
-    }
-
     onStart() {
         PluginUtilities.addStyle(this.getName(), style);
         UserSettingsStore.addChangeListener(this.handleUserSettingsChange);
@@ -65,6 +49,26 @@ export default class GuildProfile extends Plugin {
         UserSettingsStore.removeChangeListener(this.handleUserSettingsChange);
 
         Patcher.unpatchAll();
+    }
+
+    buildSettingsPanel() {
+        return new Settings.SettingPanel(
+            this.saveSettings.bind(this),
+            new Settings.Dropdown(
+                'Context menu position',
+                'The position of the guild profile item on the context menu, the one opened when you right-click a guild.',
+                this.settings.position,
+                [
+                    { label: 'Top', value: 'top' },
+                    { label: 'Bottom', value: 'bottom' }
+                ],
+                value => (this.settings.position = value)
+            )
+        );
+    }
+
+    getSettingsPanel() {
+        return this.buildSettingsPanel().getElement();
     }
 
     patchMenu() {
