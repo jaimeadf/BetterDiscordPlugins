@@ -33,18 +33,16 @@ export default class GuildProfile extends Plugin {
 
     getSettingsPanel() {
         return new Settings.SettingPanel(
-            () => {
-                this.saveSettings()
-            },
+            this.saveSettings().bind(this),
             new Settings.Dropdown(
-                'Server Profile setting position',
-                'The position of the Server Profile menu option.',
+                'Context menu position',
+                'The position of the guild profile item on the context menu, the one opened when you right-click a guild.',
                 this.settings.position,
                 [
-                    {label: 'Top', value: 'top'},
-                    {label: 'Bottom', value: 'bottom'}
+                    { label: 'Top', value: 'top' },
+                    { label: 'Bottom', value: 'bottom' }
                 ],
-                value => this.settings.position = value
+                value => (this.settings.position = value)
             )
         ).getElement();
     }
@@ -95,7 +93,9 @@ export default class GuildProfile extends Plugin {
         const GuildContextMenu = WebpackModules.getModule(m => m?.default?.displayName === 'GuildContextMenu');
 
         Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
-            returnValue.props.children.splice((this.settings.position === 'top' ? 1 : 5), 0,
+            returnValue.props.children.splice(
+                this.settings.position === 'top' ? 1 : 5,
+                0,
                 <Menu.MenuGroup>
                     <Menu.MenuItem
                         id="guild-profile"
