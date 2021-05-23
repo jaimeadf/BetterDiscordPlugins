@@ -159,10 +159,10 @@ export default class GuildProfileModal extends React.PureComponent {
         const Icon = FeatureIcons[feature];
 
         return Icon ? (
-            <div className={classes.profileBadgeWrapper}>
+            <div>
                 <TooltipContainer position="top" text={i18n.Messages[`GUILD_PROFILE_${feature}`]}>
                     <Clickable role="button" tag="div">
-                        <Icon className={`${classes.profileBadge} badge`} />
+                        <Icon className={`${classes.profileBadge24} badge`} />
                     </Clickable>
                 </TooltipContainer>
             </div>
