@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.0.5
+ * @version 1.0.6
  * @author Jaime Filho
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.5","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"More languages","items":["Added French support (Thanks @ZethSelyu on GitHub)."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.6","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"More languages","items":["Added French support (Thanks @ZethSelyu on GitHub).","Added Turkish support (Thanks @Veysinator on GitHub)."]},{"title":"Bugs squashed","type":"fixed","items":["Fixed feature badges not being the correct size."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -69,13 +69,22 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Servidor","GUILD_PROFIL
 
 /***/ }),
 
+/***/ 68:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Sunucu Profili","GUILD_PROFILE_GUILD_INFO":"Sunucu Bilgisi","GUILD_PROFILE_FRIENDS_IN_GUILD":"Arkadaşlar","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Engellenmiş Kullanıcılar","GUILD_PROFILE_LOADING":"Yükleniyor","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Sunucu simgesi URL\'sini kopyalamak için tıkla","GUILD_PROFILE_CREATED_AT":"Oluşturulan Tarih","GUILD_PROFILE_JOINED_AT":"Katılınan Tarih","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Sunucu Takviyeci Sayısı","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Sunucu Takviye Seviyesi","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Sunucuda hiç arkadaşınız yok","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Sunucuda hiç engellenmiş kullanıcı yok","GUILD_PROFILE_INVITE_SPLASH":"Sunucu Davet Arkaplanı","GUILD_PROFILE_VIP_REGIONS":"VIP Bölgeler","GUILD_PROFILE_VANITY_URL":"Özel URL","GUILD_PROFILE_MORE_EMOJI":"Daha Fazla Emoji","GUILD_PROFILE_COMMERCE":"Mağaza Kanalları","GUILD_PROFILE_DISCOVERABLE":"Keşfedilebilir","GUILD_PROFILE_COMMUNITY":"Topluluk","GUILD_PROFILE_FEATURABLE":"Öne Çıkarılabilir","GUILD_PROFILE_NEWS":"Duyuru Kanalları","GUILD_PROFILE_ANIMATED_ICON":"Animasyonlu Sunucu Simgesi","GUILD_PROFILE_BANNER":"Sunucu Afişi","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Keşfedilebilir Önceden Etkinleştirildi","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Hoş Geldin Ekranı Etkin","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Üye Seçimi","GUILD_PROFILE_RELAY_ENABLED":"Yönlendirme Etkin","GUILD_PROFILE_PREVIEW_ENABLED":"Önizleme Etkin"}');
+
+/***/ }),
+
 /***/ 277:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
 	"./en-US.json": 60,
 	"./fr.json": 852,
-	"./pt-BR.json": 927
+	"./pt-BR.json": 927,
+	"./tr.json": 68
 };
 
 
@@ -1156,10 +1165,10 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
         const Icon = features[feature];
 
         return Icon ? (
-            external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.profileBadgeWrapper,}
+            external_BdApi_React_default().createElement('div', null
                 , external_BdApi_React_default().createElement(TooltipContainer, { position: "top", text: i18n.Messages[`GUILD_PROFILE_${feature}`],}
                     , external_BdApi_React_default().createElement(Clickable, { role: "button", tag: "div",}
-                        , external_BdApi_React_default().createElement(Icon, { className: `${GuildProfileModal_classes.profileBadge} badge`,} )
+                        , external_BdApi_React_default().createElement(Icon, { className: `${GuildProfileModal_classes.profileBadge24} badge`,} )
                     )
                 )
             )
@@ -1241,8 +1250,8 @@ const requireContext = __webpack_require__(277);
 const locales = {};
 
 for (const localePath of requireContext.keys()) {
-    const language = localePath.match(/\.\/(.+)\.json/)[1];
-    locales[language] = requireContext(localePath);
+    const locale = localePath.match(/\.\/(.+)\.json/)[1];
+    locales[locale] = requireContext(localePath);
 }
 
 /* harmony default export */ const GuildProfile_locales = (locales);
