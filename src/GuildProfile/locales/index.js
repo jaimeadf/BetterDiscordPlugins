@@ -8,8 +8,8 @@ const requireContext = require.context('./', false, /.json$/);
 const locales = {};
 
 for (const localePath of requireContext.keys()) {
-    const language = localePath.match(/\.\/(.+)\.json/)[1];
-    locales[language] = requireContext(localePath);
+    const locale = localePath.match(/\.\/(.+)\.json/)[1];
+    locales[locale] = requireContext(localePath);
 }
 
 export default locales;
