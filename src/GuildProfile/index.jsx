@@ -29,6 +29,8 @@ export default class GuildProfile extends Plugin {
         this.defaultSettings = {
             position: 'top'
         };
+
+        this.handleUserSettingsChange = this.handleUserSettingsChange.bind(this);
     }
 
     onStart() {
@@ -40,8 +42,6 @@ export default class GuildProfile extends Plugin {
         this.loadLocale();
         this.patchMenu();
         this.patchContextMenu();
-
-        this.handleUserSettingsChange = this.handleUserSettingsChange.bind(this);
     }
 
     onStop() {
