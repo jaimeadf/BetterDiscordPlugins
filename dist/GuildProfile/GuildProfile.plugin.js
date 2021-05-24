@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.0.7
+ * @version 1.0.8
  * @author Jaime Filho
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,13 +37,21 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.7","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"More languages","items":["Added French support (Thanks @ZethSelyu on GitHub).","Added Turkish support (Thanks @Veysinator on GitHub)."]},{"title":"Bugs squashed","type":"fixed","items":["Fixed feature badges not being the correct size.","Fixed language not updating."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.8","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"So many languages","items":["Added French support (Thanks @ZethSelyu on GitHub).","Added Turkish support (Thanks @Veysinator on GitHub).","Added Czech support (Thanks @Fjuro on GitHub)."]},{"title":"Bugs squashed","type":"fixed","items":["Fixed feature badges not being the correct size.","Fixed language not updating."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
     var plugin;
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
+
+/***/ 813:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profil serveru","GUILD_PROFILE_GUILD_INFO":"Informace o serveru","GUILD_PROFILE_FRIENDS_IN_GUILD":"Přátelé","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Zablokovaní uživatelé","GUILD_PROFILE_LOADING":"Načítání","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Klikni pro zkopírování URL ikony serveru","GUILD_PROFILE_CREATED_AT":"Vytvořeno","GUILD_PROFILE_JOINED_AT":"Připojeno","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Počet vylepšovatelů serveru","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Úroveň vylepšení serveru","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Na tomto serveru nemáš žádné přátele","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Na tomto serveru nemáš žádné zablokované uživatele","GUILD_PROFILE_INVITE_SPLASH":"Pozadí pozvánky serveru","GUILD_PROFILE_VIP_REGIONS":"VIP oblasti","GUILD_PROFILE_VANITY_URL":"Vlastní URL","GUILD_PROFILE_MORE_EMOJI":"Více smajlíků","GUILD_PROFILE_COMMERCE":"Obchodní kanály","GUILD_PROFILE_DISCOVERABLE":"Veřejný","GUILD_PROFILE_COMMUNITY":"Komunita","GUILD_PROFILE_FEATURABLE":"Doporučený","GUILD_PROFILE_NEWS":"Kanály oznámení","GUILD_PROFILE_ANIMATED_ICON":"Animovaná ikona serveru","GUILD_PROFILE_BANNER":"Banner serveru","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Dříve veřejný","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Povolena uvítací obrazovka","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Prověřování členství","GUILD_PROFILE_RELAY_ENABLED":"Povoleno vysílání","GUILD_PROFILE_PREVIEW_ENABLED":"Povolen náhled"}');
+
+/***/ }),
 
 /***/ 60:
 /***/ ((module) => {
@@ -81,6 +89,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Sunucu Profili","GUILD_PROFILE_GU
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
+	"./cs.json": 813,
 	"./en-US.json": 60,
 	"./fr.json": 852,
 	"./pt-BR.json": 927,
