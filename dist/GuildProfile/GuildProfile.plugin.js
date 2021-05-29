@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.0.11
+ * @version 1.0.12
  * @author Jaime Filho
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.11","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"So many languages","items":["Added French support (Thanks @ZethSelyu on GitHub).","Added Turkish support (Thanks @Veysinator on GitHub).","Added Czech support (Thanks @Fjuro on GitHub).","Added German support (Thanks @JonaWe on GitHub).","Added Simplified Chinese support (Thanks @sunxyw on GitHub).","Added Traditional Chinese support (Thanks @sunxyw on GitHub)."]},{"title":"Improvements","type":"improved","items":["Added margin on top of member counts."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.12","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"So many languages (OwO)","items":["Added French support (Thanks @ZethSelyu on GitHub).","Added Turkish support (Thanks @Veysinator on GitHub).","Added Czech support (Thanks @Fjuro on GitHub).","Added German support (Thanks @JonaWe on GitHub).","Added Simplified Chinese support (Thanks @sunxyw on GitHub).","Added Traditional Chinese support (Thanks @sunxyw on GitHub).","Added Spanish support (Thanks @LeoCx1000 and @MarcosVLl2 on GitHub).","Added Italian support (Thanks @LeoCx1000 on GitHub)."]},{"title":"Improvements","type":"improved","items":["Added margin on top of member counts.","Matched latest discord changes on avatars."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -69,11 +69,27 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GU
 
 /***/ }),
 
+/***/ 484:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil del Servidor","GUILD_PROFILE_GUILD_INFO":"Información del Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuarios Bloqueados","GUILD_PROFILE_LOADING":"Cargando","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Click para copiar la URL del ícono del servidor","GUILD_PROFILE_CREATED_AT":"Creado el","GUILD_PROFILE_JOINED_AT":"Se unió el","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Cantidad de Mejoras","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nivel de mejoras","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No hay amigos en este servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No hay usuarios bloqueados en este servidor","GUILD_PROFILE_INVITE_SPLASH":"Fondo de invitación","GUILD_PROFILE_VIP_REGIONS":"Regiones VIP","GUILD_PROFILE_VANITY_URL":"URL personalizada","GUILD_PROFILE_MORE_EMOJI":"Más Emojis","GUILD_PROFILE_COMMERCE":"Canales de Tienda","GUILD_PROFILE_DISCOVERABLE":"Descubrible","GUILD_PROFILE_COMMUNITY":"Comunidad","GUILD_PROFILE_FEATURABLE":"Caracterizable","GUILD_PROFILE_NEWS":"Canales de Anuncios","GUILD_PROFILE_ANIMATED_ICON":"Ícono de servidor animado","GUILD_PROFILE_BANNER":"Cartel del servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activó Descubrimiento Antes","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Pantalla de bienvenida activada","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Cribado de miembros","GUILD_PROFILE_RELAY_ENABLED":"Relé habilitado","GUILD_PROFILE_PREVIEW_ENABLED":"Vista previa habilitada"}');
+
+/***/ }),
+
 /***/ 852:
 /***/ ((module) => {
 
 "use strict";
 module.exports = JSON.parse('{"GUILD_PROFILE":"Profil du serveur","GUILD_PROFILE_GUILD_INFO":"Info du serveur","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amis","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Bloqué","GUILD_PROFILE_LOADING":"Chargement","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Cliquez pour copier l\'URL de l\'icône du serveur","GUILD_PROFILE_CREATED_AT":"Créé à","GUILD_PROFILE_JOINED_AT":"Rejoins à","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Nombre de booster de serveur","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Niveau de boost du serveur","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Aucun ami sur ce serveur","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Aucun utilisateur bloqué sur ce serveur","GUILD_PROFILE_INVITE_SPLASH":"Contexte d\'invitation du serveur","GUILD_PROFILE_VIP_REGIONS":"Régions VIP","GUILD_PROFILE_VANITY_URL":"URL personnalisée","GUILD_PROFILE_MORE_EMOJI":"Plus d\'Emoji","GUILD_PROFILE_COMMERCE":"Stocker les chaînes","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Communauté","GUILD_PROFILE_FEATURABLE":"En vedette","GUILD_PROFILE_NEWS":"Canaux d\'annonce","GUILD_PROFILE_ANIMATED_ICON":"Icône de serveur animé","GUILD_PROFILE_BANNER":"Bannière du serveur","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activé détectable avant","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Écran de bienvenue activé","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Vérification des membres","GUILD_PROFILE_RELAY_ENABLED":"Relais activé","GUILD_PROFILE_PREVIEW_ENABLED":"Aperçu activé"}');
+
+/***/ }),
+
+/***/ 306:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profilo del Server","GUILD_PROFILE_GUILD_INFO":"Informazione del Server","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amici","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utenti Bloccati","GUILD_PROFILE_LOADING":"Caricando","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Clicca per copiare la URL dell\'icona del server","GUILD_PROFILE_CREATED_AT":"Creato il","GUILD_PROFILE_JOINED_AT":"Iscritto il","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantità di potenziamenti","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Livello del Potenziamento","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Non ci sono amici in questo server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Non ci sono utenti bloccati in questo server","GUILD_PROFILE_INVITE_SPLASH":"Sfondo di invito","GUILD_PROFILE_VIP_REGIONS":"Regioni VIP","GUILD_PROFILE_VANITY_URL":"URL personalizzata","GUILD_PROFILE_MORE_EMOJI":"Più emoji","GUILD_PROFILE_COMMERCE":"Canali negozio","GUILD_PROFILE_DISCOVERABLE":"Disponibile su \\"Discovery\\"","GUILD_PROFILE_COMMUNITY":"Comunità","GUILD_PROFILE_FEATURABLE":"In Evidenza","GUILD_PROFILE_NEWS":"Canali delle Notizie","GUILD_PROFILE_ANIMATED_ICON":"Icona server animata","GUILD_PROFILE_BANNER":"Banner del server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"\\"Discovery\\" attivato previamente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Schermata di benvenuta attivata","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Verifica dell\'iscrizione","GUILD_PROFILE_RELAY_ENABLED":"Relè attivato","GUILD_PROFILE_PREVIEW_ENABLED":"Anteprima Abilitata"}');
 
 /***/ }),
 
@@ -116,7 +132,9 @@ var map = {
 	"./cs.json": 813,
 	"./de.json": 855,
 	"./en-US.json": 60,
+	"./es-ES.json": 484,
 	"./fr.json": 852,
+	"./it.json": 306,
 	"./pt-BR.json": 927,
 	"./tr.json": 68,
 	"./zh-CN.json": 713,
@@ -456,7 +474,7 @@ const {
 
 const GuildChannelUserContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('GuildChannelUserContextMenu');
 
-const { Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Avatar');
+const { default: Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
 const DiscordTag = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('DiscordTag');
 
 const Relationships_classes = {
@@ -519,7 +537,7 @@ function Relationships({ guild, relationshipType }) {
                     onSelect: () => handleSelect(user),
                     onContextMenu: event => handleContextMenu(event, user),}
                 
-                    , external_BdApi_React_default().createElement(Avatar, { className: Relationships_classes.listAvatar, src: user.avatarURL, size: Avatar.Sizes.SIZE_40,} )
+                    , external_BdApi_React_default().createElement(Avatar, { className: Relationships_classes.listAvatar, src: user.getAvatarURL(), size: Avatar.Sizes.SIZE_40,} )
                     , external_BdApi_React_default().createElement(DiscordTag, {
                         user: user,
                         className: Relationships_classes.listName,
