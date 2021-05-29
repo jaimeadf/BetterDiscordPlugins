@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.0.10
+ * @version 1.0.11
  * @author Jaime Filho
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.10","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"So many languages","items":["Added French support (Thanks @ZethSelyu on GitHub).","Added Turkish support (Thanks @Veysinator on GitHub).","Added Czech support (Thanks @Fjuro on GitHub).","Added German support (Thanks @JonaWe on GitHub).","Added Simplified Chinese support (Thanks @sunxyw on GitHub)."]},{"title":"Bugs squashed","type":"fixed","items":["Fixed feature badges not being the correct size.","Fixed language not updating."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.11","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"So many languages","items":["Added French support (Thanks @ZethSelyu on GitHub).","Added Turkish support (Thanks @Veysinator on GitHub).","Added Czech support (Thanks @Fjuro on GitHub).","Added German support (Thanks @JonaWe on GitHub).","Added Simplified Chinese support (Thanks @sunxyw on GitHub).","Added Traditional Chinese support (Thanks @sunxyw on GitHub)."]},{"title":"Improvements","type":"improved","items":["Added margin on top of member counts."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -101,6 +101,14 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"服务器名片","GUILD_PROFILE_G
 
 /***/ }),
 
+/***/ 601:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"伺服器名片","GUILD_PROFILE_GUILD_INFO":"伺服器資訊","GUILD_PROFILE_FRIENDS_IN_GUILD":"好友","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"已封鎖用戶","GUILD_PROFILE_LOADING":"載入中","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"點按以複製伺服器圖示地址","GUILD_PROFILE_CREATED_AT":"建立於","GUILD_PROFILE_JOINED_AT":"加入於","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"伺服器加成數量","GUILD_PROFILE_GUILD_PREMIUM_TIER":"伺服器加成等級","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"伺服器中沒有您的好友","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"伺服器中沒有您已封鎖的用戶","GUILD_PROFILE_INVITE_SPLASH":"邀請背景","GUILD_PROFILE_VIP_REGIONS":"主要語言","GUILD_PROFILE_VANITY_URL":"個性化網址","GUILD_PROFILE_MORE_EMOJI":"更多表情符號","GUILD_PROFILE_COMMERCE":"商業伺服器","GUILD_PROFILE_DISCOVERABLE":"已加入\\"探索伺服器\\"","GUILD_PROFILE_COMMUNITY":"社區伺服器","GUILD_PROFILE_FEATURABLE":"特色伺服器","GUILD_PROFILE_NEWS":"具有公告頻道","GUILD_PROFILE_ANIMATED_ICON":"動畫伺服器圖示","GUILD_PROFILE_BANNER":"伺服器橫幅","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"此前曾加入\\"探索伺服器\\"","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"已啟用歡迎畫面","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"已啟用會員審查","GUILD_PROFILE_RELAY_ENABLED":"已啟用Relay","GUILD_PROFILE_PREVIEW_ENABLED":"已啟用預覽"}');
+
+/***/ }),
+
 /***/ 277:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -111,7 +119,8 @@ var map = {
 	"./fr.json": 852,
 	"./pt-BR.json": 927,
 	"./tr.json": 68,
-	"./zh-CN.json": 713
+	"./zh-CN.json": 713,
+	"./zh-TW.json": 601
 };
 
 
@@ -1157,7 +1166,7 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
                                     , features.map(feature => this.renderFeatureBadge(feature))
                                 )
                             )
-                            , external_BdApi_React_default().createElement(Text, { className: GuildProfileModal_classes.guildDetail,}
+                            , external_BdApi_React_default().createElement(Text, { className: `member-counts ${GuildProfileModal_classes.guildDetail}`,}
                                 , external_BdApi_React_default().createElement(MemberCounts, { guild: guild,} )
                             )
                         )
@@ -1265,7 +1274,7 @@ function SvgGuildProfile(props) {
 
 /* harmony default export */ const guild_profile = (SvgGuildProfile);
 ;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
-/* harmony default export */ const style = (".guild-profile .icon{width:80px;height:80px;vertical-align:top}.guild-profile .badge{color:var(--header-secondary)}.guild-profile .nsfw-tag{margin-top:auto;margin-bottom:auto}.guild-info{height:100%;padding:20px 10px}.guild-info .section{padding:5px 10px}\n");
+/* harmony default export */ const style = (".guild-profile .icon{width:80px;height:80px;vertical-align:top}.guild-profile .member-counts{margin-top:4px}.guild-profile .badge{color:var(--header-secondary)}.guild-profile .nsfw-tag{margin-top:auto;margin-bottom:auto}.guild-info{height:100%;padding:20px 10px}.guild-info .section{padding:5px 10px}\n");
 ;// CONCATENATED MODULE: ./src/GuildProfile/locales/index.js
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
