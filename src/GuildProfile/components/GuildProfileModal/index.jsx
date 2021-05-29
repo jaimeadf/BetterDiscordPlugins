@@ -124,7 +124,7 @@ export default class GuildProfileModal extends React.PureComponent {
                                     {features.map(feature => this.renderFeatureBadge(feature))}
                                 </div>
                             )}
-                            <Text className={classes.guildDetail}>
+                            <Text className={`member-counts ${classes.guildDetail}`}>
                                 <MemberCounts guild={guild} />
                             </Text>
                         </div>
