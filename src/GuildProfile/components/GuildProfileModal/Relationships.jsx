@@ -26,7 +26,7 @@ const {
 
 const GuildChannelUserContextMenu = WebpackModules.getByDisplayName('GuildChannelUserContextMenu');
 
-const { Avatar } = WebpackModules.getByProps('Avatar');
+const { default: Avatar } = WebpackModules.getByProps('AnimatedAvatar');
 const DiscordTag = WebpackModules.getByDisplayName('DiscordTag');
 
 const classes = {
@@ -89,7 +89,7 @@ export default function Relationships({ guild, relationshipType }) {
                     onSelect={() => handleSelect(user)}
                     onContextMenu={event => handleContextMenu(event, user)}
                 >
-                    <Avatar className={classes.listAvatar} src={user.avatarURL} size={Avatar.Sizes.SIZE_40} />
+                    <Avatar className={classes.listAvatar} src={user.getAvatarURL()} size={Avatar.Sizes.SIZE_40} />
                     <DiscordTag
                         user={user}
                         className={classes.listName}
