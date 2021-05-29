@@ -1,7 +1,7 @@
 {
     "name": "GuildProfile",
     "description": "Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "author": {
         "id": "289112759948410881",
         "name": "Jaime Filho"
@@ -18,15 +18,15 @@
                 "Added Turkish support (Thanks @Veysinator on GitHub).",
                 "Added Czech support (Thanks @Fjuro on GitHub).",
                 "Added German support (Thanks @JonaWe on GitHub).",
-                "Added Simplified Chinese support (Thanks @sunxyw on GitHub)."
+                "Added Simplified Chinese support (Thanks @sunxyw on GitHub).",
+                "Added Traditional Chinese support (Thanks @sunxyw on GitHub)."
             ]
         },
         {
-            "title": "Bugs squashed",
-            "type": "fixed",
+            "title": "Improvements",
+            "type": "improved",
             "items": [
-                "Fixed feature badges not being the correct size.",
-                "Fixed language not updating."
+                "Added margin on top of member counts."
             ]
         }
     ]
