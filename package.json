@@ -6,8 +6,8 @@
     "license": "MIT",
     "scripts": {
         "prepare": "husky install",
-        "dev": "webpack --config config/webpack.development.js --watch",
-        "build": "webpack --config config/webpack.production.js",
+        "dev": "webpack --mode development --config config/webpack.config.js --watch",
+        "build": "webpack --mode production --config config/webpack.config.js",
         "lint": "eslint . --ext .js,.jsx",
         "lint:fix": "eslint . --ext .js,.jsx --fix"
     },
@@ -35,7 +35,6 @@
         "url-loader": "^4.1.1",
         "webpack": "^5.38.1",
         "webpack-cli": "^4.7.0",
-        "webpack-merge": "^5.7.3",
         "webpack-sources": "^2.3.0"
     }
 }
