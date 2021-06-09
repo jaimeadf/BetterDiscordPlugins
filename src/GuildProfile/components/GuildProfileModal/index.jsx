@@ -43,7 +43,8 @@ const classes = {
     ...WebpackModules.getByProps('wrapper', 'pointer'),
     ...WebpackModules.getByProps('guildIconContainer'),
     ...WebpackModules.getByProps('tabBarContainer'),
-    ...WebpackModules.getByProps('profileBadge')
+    ...WebpackModules.getByProps('profileBadge'),
+    ...WebpackModules.getByProps('profileBadges', 'nameTag')
 };
 
 function MemberCounts({ guild }) {
@@ -78,13 +79,11 @@ export default class GuildProfileModal extends React.PureComponent {
 
         const features = Array.from(guild.features);
 
-        const guildIcon = (
-            <GuildIcon className={`icon ${classes.avatar} ${classes.wrapper}`} animate={true} guild={guild} />
-        );
+        const guildIcon = <GuildIcon animate={true} guild={guild} />;
 
         return (
             <Flex className={`guild-profile ${classes.root}`} direction={Flex.Direction.VERTICAL}>
-                <div className={classes.topSectionNormal}>
+                <div className={classes.topSection}>
                     <header className={classes.header}>
                         {guild.icon ? (
                             <Clickable
@@ -92,6 +91,7 @@ export default class GuildProfileModal extends React.PureComponent {
                                 onContextMenu={this.handleGuildIconContextMenu}
                             >
                                 <TooltipContainer
+                                    className={`${classes.avatar} ${classes.wrapper}`}
                                     position="top"
                                     text={i18n.Messages.GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL}
                                 >
