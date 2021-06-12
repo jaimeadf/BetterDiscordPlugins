@@ -5,31 +5,26 @@
  */
 
 .guild-profile {
-    .icon-3o6xvg {
-        width: 80px;
-        height: 80px;
-        vertical-align: top;
+    .header-top {
+        height: 48px;
+        margin-bottom: -16px;
+
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
     }
 
-    .member-counts {
-        margin-top: 4px;
-    }
-
-    .badge {
+    .feature {
         color: var(--header-secondary);
+
     }
 
-    .nsfw-tag {
-        margin-top: auto;
-        margin-bottom: auto;
-    }
-}
+    .guild-info {
+        height: 100%;
+        padding: 20px 10px;
 
-.guild-info {
-    height: 100%;
-    padding: 20px 10px;
-
-    .section {
-        padding: 5px 10px;
+        .section {
+            padding: 5px 10px;
+        }
     }
 }

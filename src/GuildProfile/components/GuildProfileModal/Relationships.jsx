@@ -29,11 +29,7 @@ const GuildChannelUserContextMenu = WebpackModules.getByDisplayName('GuildChanne
 const { default: Avatar } = WebpackModules.getByProps('AnimatedAvatar');
 const DiscordTag = WebpackModules.getByDisplayName('DiscordTag');
 
-const classes = {
-    ...WebpackModules.getByProps('body', 'empty'),
-    ...WebpackModules.getByProps('emptyIconFriends'),
-    ...WebpackModules.getByProps('listRow')
-};
+const classes = WebpackModules.getByProps('listRow');
 
 const NoRelationshipsOfTypeMessages = {
     [RelationshipTypes.FRIEND]: 'GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD',

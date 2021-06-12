@@ -123,6 +123,6 @@ export default class GuildProfile extends Plugin {
     }
 
     openGuildProfileModal(guild) {
-        ModalStack.push(() => <GuildProfileModal guild={guild} />);
+        ModalStack.push(props => <GuildProfileModal {...props} guild={guild} />);
     }
 }
