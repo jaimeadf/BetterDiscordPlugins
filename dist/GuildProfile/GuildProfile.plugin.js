@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.0.14
+ * @version 1.1.0
  * @author Jaime Filho
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.0.14","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixed layout issues","type":"fixed","items":["Work around for the latest discord update."]},{"title":"So many languages (OwO)","items":["Added French support (Thanks @ZethSelyu on GitHub).","Added Turkish support (Thanks @Veysinator on GitHub).","Added Czech support (Thanks @Fjuro and @Justman10000 on GitHub).","Added German support (Thanks @JonaWe on GitHub).","Added Simplified Chinese support (Thanks @sunxyw on GitHub).","Added Traditional Chinese support (Thanks @sunxyw on GitHub).","Added Spanish support (Thanks @LeoCx1000 and @MarcosVLl2 on GitHub).","Added Italian support (Thanks @LeoCx1000 on GitHub).","Added Russian support (Thanks @ReMazil and @andrerio-site on GitHub).","Added Hungarian support (Thanks @saieeshb on GitHub).","Added Portugal Portuguese support (Thanks @Differ812 on GitHub)."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.1.0","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"New layout","type":"improved","items":["Rewritten the entire modal to match the latest discord update."]},{"title":"People really love to translate","items":["Added Romanian support (Thanks @n00bes on GitHub).","Added Greek support (Thanks @down-bad on GitHub).","Added Polish support (Thanks @kamack38 on GitHub)."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -49,7 +49,7 @@ function buildPlugin() {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Profil serveru","GUILD_PROFILE_GUILD_INFO":"Informace o serveru","GUILD_PROFILE_FRIENDS_IN_GUILD":"Přátelé","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Zablokovaní uživatelé","GUILD_PROFILE_LOADING":"Načítání","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Klikni pro zkopírování URL ikony serveru","GUILD_PROFILE_CREATED_AT":"Vytvořeno","GUILD_PROFILE_JOINED_AT":"Připojeno","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Počet vylepšovatelů serveru","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Úroveň vylepšení serveru","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Na tomto serveru nemáš žádné přátele","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Na tomto serveru nemáš žádné zablokované uživatele","GUILD_PROFILE_INVITE_SPLASH":"Pozadí pozvánky serveru","GUILD_PROFILE_VIP_REGIONS":"VIP oblasti","GUILD_PROFILE_VANITY_URL":"Vlastní URL","GUILD_PROFILE_MORE_EMOJI":"Více smajlíků","GUILD_PROFILE_COMMERCE":"Obchodní kanály","GUILD_PROFILE_DISCOVERABLE":"Veřejný","GUILD_PROFILE_COMMUNITY":"Komunita","GUILD_PROFILE_FEATURABLE":"Doporučený","GUILD_PROFILE_NEWS":"Kanály oznámení","GUILD_PROFILE_ANIMATED_ICON":"Animovaná ikona serveru","GUILD_PROFILE_BANNER":"Banner serveru","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Dříve veřejný","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Povolena uvítací obrazovka","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Prověřování členství","GUILD_PROFILE_RELAY_ENABLED":"Povoleno vysílání","GUILD_PROFILE_PREVIEW_ENABLED":"Povolen náhled"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profil serveru","GUILD_PROFILE_GUILD_INFO":"Informace o serveru","GUILD_PROFILE_FRIENDS_IN_GUILD":"Přátelé","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Zablokovaní uživatelé","GUILD_PROFILE_LOADING":"Načítání","GUILD_PROFILE_CREATED_AT":"Vytvořeno","GUILD_PROFILE_JOINED_AT":"Připojeno","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Počet vylepšovatelů serveru","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Úroveň vylepšení serveru","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Na tomto serveru nemáš žádné přátele","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Na tomto serveru nemáš žádné zablokované uživatele","GUILD_PROFILE_INVITE_SPLASH":"Pozadí pozvánky serveru","GUILD_PROFILE_VIP_REGIONS":"VIP oblasti","GUILD_PROFILE_VANITY_URL":"Vlastní URL","GUILD_PROFILE_MORE_EMOJI":"Více smajlíků","GUILD_PROFILE_COMMERCE":"Obchodní kanály","GUILD_PROFILE_DISCOVERABLE":"Veřejný","GUILD_PROFILE_COMMUNITY":"Komunita","GUILD_PROFILE_FEATURABLE":"Doporučený","GUILD_PROFILE_NEWS":"Kanály oznámení","GUILD_PROFILE_ANIMATED_ICON":"Animovaná ikona serveru","GUILD_PROFILE_BANNER":"Banner serveru","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Dříve veřejný","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Povolena uvítací obrazovka","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Prověřování členství","GUILD_PROFILE_PREVIEW_ENABLED":"Povolen náhled"}');
 
 /***/ }),
 
@@ -57,7 +57,15 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Profil serveru","GUILD_PROFILE_GU
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profil","GUILD_PROFILE_GUILD_INFO":"Server Informationen","GUILD_PROFILE_FRIENDS_IN_GUILD":"Freunde","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Geblockte Nutzer","GUILD_PROFILE_LOADING":"Lädt","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Klicke zum kopieren der Server Icon URL","GUILD_PROFILE_CREATED_AT":"Erstellt am","GUILD_PROFILE_JOINED_AT":"Beigetreten am","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Anzahl","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Keine Freunde auf diesem Server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Keine geblockten Nutzer auf diesem Server","GUILD_PROFILE_INVITE_SPLASH":"Server Einladungs-Hintergrund","GUILD_PROFILE_VIP_REGIONS":"VIP Regionen","GUILD_PROFILE_VANITY_URL":"Eigene Server URL","GUILD_PROFILE_MORE_EMOJI":"Mehr Emoji","GUILD_PROFILE_COMMERCE":"Store Kanal","GUILD_PROFILE_DISCOVERABLE":"Suchbar","GUILD_PROFILE_COMMUNITY":"Gemeinschaft","GUILD_PROFILE_FEATURABLE":"Empfehlbar","GUILD_PROFILE_NEWS":"Nachrichten Kanal","GUILD_PROFILE_ANIMATED_ICON":"Animiertes Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Vorher auffindbar aktiviert","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Willkommens Übersicht","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Mitgliedschaftsprüfung","GUILD_PROFILE_RELAY_ENABLED":"Relay aktiviert","GUILD_PROFILE_PREVIEW_ENABLED":"Vorschau aktiviert"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profil","GUILD_PROFILE_GUILD_INFO":"Server Informationen","GUILD_PROFILE_FRIENDS_IN_GUILD":"Freunde","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Geblockte Nutzer","GUILD_PROFILE_LOADING":"Lädt","GUILD_PROFILE_CREATED_AT":"Erstellt am","GUILD_PROFILE_JOINED_AT":"Beigetreten am","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Anzahl","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Keine Freunde auf diesem Server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Keine geblockten Nutzer auf diesem Server","GUILD_PROFILE_INVITE_SPLASH":"Server Einladungs-Hintergrund","GUILD_PROFILE_VIP_REGIONS":"VIP Regionen","GUILD_PROFILE_VANITY_URL":"Eigene Server URL","GUILD_PROFILE_MORE_EMOJI":"Mehr Emoji","GUILD_PROFILE_COMMERCE":"Store Kanal","GUILD_PROFILE_DISCOVERABLE":"Suchbar","GUILD_PROFILE_COMMUNITY":"Gemeinschaft","GUILD_PROFILE_FEATURABLE":"Empfehlbar","GUILD_PROFILE_NEWS":"Nachrichten Kanal","GUILD_PROFILE_ANIMATED_ICON":"Animiertes Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Vorher auffindbar aktiviert","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Willkommens Übersicht","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Mitgliedschaftsprüfung","GUILD_PROFILE_PREVIEW_ENABLED":"Vorschau aktiviert"}');
+
+/***/ }),
+
+/***/ 663:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Προφίλ Διακομιστή","GUILD_PROFILE_GUILD_INFO":"Πληροφορίες Διακομιστή","GUILD_PROFILE_FRIENDS_IN_GUILD":"Φίλοι","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Αποκλεισμένοι Χρήστες","GUILD_PROFILE_LOADING":"Φόρτωση","GUILD_PROFILE_CREATED_AT":"Δημιουργήθηκε στις","GUILD_PROFILE_JOINED_AT":"Συμμετοχή στις","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Πλήθος Ενισχύσεων Διακομιστή","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Επίπεδο Ενίσχυσης Διακομιστή","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Δεν υπάρχουν φίλοι σε αυτόν τον διακομιστή","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Δεν υπάρχουν αποκλεισμένοι χρήστες σε αυτόν τον διακομιστή","GUILD_PROFILE_INVITE_SPLASH":"Φόντο Πρόσκλησης Διακομιστή","GUILD_PROFILE_VIP_REGIONS":"Περιοχές VIP","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"Περισσότερα Emoji","GUILD_PROFILE_COMMERCE":"Κανάλια Καταστήματος","GUILD_PROFILE_DISCOVERABLE":"Ανιχνεύσιμος","GUILD_PROFILE_COMMUNITY":"Κοινότητα","GUILD_PROFILE_FEATURABLE":"Αναδεικνυόμενος","GUILD_PROFILE_NEWS":"Κανάλια Ανακοινώσεων","GUILD_PROFILE_ANIMATED_ICON":"Κινούμενο Εικονίδιο Διακομιστή","GUILD_PROFILE_BANNER":"Πανό Διακομιστή","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Ενεργοποίηση Ανιχνευσιμότητας Παλιότερα","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Οθόνη Καλωσορίσματος Ενεγοποιημένη","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Αξιολόγηση Μελών","GUILD_PROFILE_PREVIEW_ENABLED":"Προεπισκόπηση Ενεργοποιημένη"}');
 
 /***/ }),
 
@@ -65,7 +73,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profil","GUILD_PROFILE_GUI
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Click to copy server icon URL","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_RELAY_ENABLED":"Relay Enabled","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}');
 
 /***/ }),
 
@@ -73,7 +81,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GU
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil del Servidor","GUILD_PROFILE_GUILD_INFO":"Información del Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuarios Bloqueados","GUILD_PROFILE_LOADING":"Cargando","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Click para copiar la URL del ícono del servidor","GUILD_PROFILE_CREATED_AT":"Creado el","GUILD_PROFILE_JOINED_AT":"Se unió el","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Cantidad de Mejoras","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nivel de mejoras","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No hay amigos en este servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No hay usuarios bloqueados en este servidor","GUILD_PROFILE_INVITE_SPLASH":"Fondo de invitación","GUILD_PROFILE_VIP_REGIONS":"Regiones VIP","GUILD_PROFILE_VANITY_URL":"URL personalizada","GUILD_PROFILE_MORE_EMOJI":"Más Emojis","GUILD_PROFILE_COMMERCE":"Canales de Tienda","GUILD_PROFILE_DISCOVERABLE":"Descubrible","GUILD_PROFILE_COMMUNITY":"Comunidad","GUILD_PROFILE_FEATURABLE":"Caracterizable","GUILD_PROFILE_NEWS":"Canales de Anuncios","GUILD_PROFILE_ANIMATED_ICON":"Ícono de servidor animado","GUILD_PROFILE_BANNER":"Cartel del servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activó Descubrimiento Antes","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Pantalla de bienvenida activada","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Cribado de miembros","GUILD_PROFILE_RELAY_ENABLED":"Relé habilitado","GUILD_PROFILE_PREVIEW_ENABLED":"Vista previa habilitada"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil del Servidor","GUILD_PROFILE_GUILD_INFO":"Información del Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuarios Bloqueados","GUILD_PROFILE_LOADING":"Cargando","GUILD_PROFILE_CREATED_AT":"Creado el","GUILD_PROFILE_JOINED_AT":"Se unió el","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Cantidad de Mejoras","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nivel de mejoras","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No hay amigos en este servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No hay usuarios bloqueados en este servidor","GUILD_PROFILE_INVITE_SPLASH":"Fondo de invitación","GUILD_PROFILE_VIP_REGIONS":"Regiones VIP","GUILD_PROFILE_VANITY_URL":"URL personalizada","GUILD_PROFILE_MORE_EMOJI":"Más Emojis","GUILD_PROFILE_COMMERCE":"Canales de Tienda","GUILD_PROFILE_DISCOVERABLE":"Descubrible","GUILD_PROFILE_COMMUNITY":"Comunidad","GUILD_PROFILE_FEATURABLE":"Caracterizable","GUILD_PROFILE_NEWS":"Canales de Anuncios","GUILD_PROFILE_ANIMATED_ICON":"Ícono de servidor animado","GUILD_PROFILE_BANNER":"Cartel del servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activó Descubrimiento Antes","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Pantalla de bienvenida activada","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Cribado de miembros","GUILD_PROFILE_PREVIEW_ENABLED":"Vista previa habilitada"}');
 
 /***/ }),
 
@@ -81,7 +89,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil del Servidor","GUILD_PROFI
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Profil du serveur","GUILD_PROFILE_GUILD_INFO":"Info du serveur","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amis","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Bloqué","GUILD_PROFILE_LOADING":"Chargement","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Cliquez pour copier l\'URL de l\'icône du serveur","GUILD_PROFILE_CREATED_AT":"Créé à","GUILD_PROFILE_JOINED_AT":"Rejoins à","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Nombre de booster de serveur","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Niveau de boost du serveur","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Aucun ami sur ce serveur","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Aucun utilisateur bloqué sur ce serveur","GUILD_PROFILE_INVITE_SPLASH":"Contexte d\'invitation du serveur","GUILD_PROFILE_VIP_REGIONS":"Régions VIP","GUILD_PROFILE_VANITY_URL":"URL personnalisée","GUILD_PROFILE_MORE_EMOJI":"Plus d\'Emoji","GUILD_PROFILE_COMMERCE":"Stocker les chaînes","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Communauté","GUILD_PROFILE_FEATURABLE":"En vedette","GUILD_PROFILE_NEWS":"Canaux d\'annonce","GUILD_PROFILE_ANIMATED_ICON":"Icône de serveur animé","GUILD_PROFILE_BANNER":"Bannière du serveur","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activé détectable avant","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Écran de bienvenue activé","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Vérification des membres","GUILD_PROFILE_RELAY_ENABLED":"Relais activé","GUILD_PROFILE_PREVIEW_ENABLED":"Aperçu activé"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profil du serveur","GUILD_PROFILE_GUILD_INFO":"Info du serveur","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amis","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Bloqué","GUILD_PROFILE_LOADING":"Chargement","GUILD_PROFILE_CREATED_AT":"Créé à","GUILD_PROFILE_JOINED_AT":"Rejoins à","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Nombre de booster de serveur","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Niveau de boost du serveur","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Aucun ami sur ce serveur","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Aucun utilisateur bloqué sur ce serveur","GUILD_PROFILE_INVITE_SPLASH":"Contexte d\'invitation du serveur","GUILD_PROFILE_VIP_REGIONS":"Régions VIP","GUILD_PROFILE_VANITY_URL":"URL personnalisée","GUILD_PROFILE_MORE_EMOJI":"Plus d\'Emoji","GUILD_PROFILE_COMMERCE":"Stocker les chaînes","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Communauté","GUILD_PROFILE_FEATURABLE":"En vedette","GUILD_PROFILE_NEWS":"Canaux d\'annonce","GUILD_PROFILE_ANIMATED_ICON":"Icône de serveur animé","GUILD_PROFILE_BANNER":"Bannière du serveur","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activé détectable avant","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Écran de bienvenue activé","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Vérification des membres","GUILD_PROFILE_PREVIEW_ENABLED":"Aperçu activé"}');
 
 /***/ }),
 
@@ -89,7 +97,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Profil du serveur","GUILD_PROFILE
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"सर्वर का प्रोफैल","GUILD_PROFILE_GUILD_INFO":"सर्वर का समाचार","GUILD_PROFILE_FRIENDS_IN_GUILD":"मित्र","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"ब्लॉक किया हुआ व्यक्तियों","GUILD_PROFILE_LOADING":"लोडिंग","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"सर्वर का आइकॉन का यूआरएल को कॉपी करनेकेलिए दबाइये","GUILD_PROFILE_CREATED_AT":"क्रिएट किया","GUILD_PROFILE_JOINED_AT":"जॉइन हुआ","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"सर्वर बूस्टर का गिनती","GUILD_PROFILE_GUILD_PREMIUM_TIER":"सर्वर बूस्ट का लेवल","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"इस सर्वर में अप्पके मित्र नहीं हैं।","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"इस सर्वर में आपने ब्लॉक किया हुआ व्यक्तियों नहीं है।","GUILD_PROFILE_INVITE_SPLASH":"सर्वर इन्वाइट केलिए बैकग्राउंड है।","GUILD_PROFILE_VIP_REGIONS":"वि.आई.पि. प्रदेशे","GUILD_PROFILE_VANITY_URL":"वैनिटी यूआरएल","GUILD_PROFILE_MORE_EMOJI":"अधिक एमोजिया","GUILD_PROFILE_COMMERCE":"दूकान का चैनल","GUILD_PROFILE_DISCOVERABLE":"डिस्कॉर्ड का \'डिस्कोवेराब्ले\' भाग में ढूंढसकते है।","GUILD_PROFILE_COMMUNITY":"समुदाय","GUILD_PROFILE_FEATURABLE":"फीचरबुल","GUILD_PROFILE_NEWS":"घोषणाओं का लिए चैनलों","GUILD_PROFILE_ANIMATED_ICON":"सर्वर को आइकॉन एनिमेटेड है।","GUILD_PROFILE_BANNER":"सर्वर को बैनर है।","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"डिस्कोवेराबुल ऑप्शन को गत में इनेबल किया गया।","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"वेलकम स्क्रीन इनेबल्ड है।","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"सदस्यता स्क्रीनिंग इनेबल्ड है।","GUILD_PROFILE_RELAY_ENABLED":"रिले इनेबल्ड है।","GUILD_PROFILE_PREVIEW_ENABLED":"प्रीव्यू इनेबल्ड है।"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"सर्वर का प्रोफैल","GUILD_PROFILE_GUILD_INFO":"सर्वर का समाचार","GUILD_PROFILE_FRIENDS_IN_GUILD":"मित्र","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"ब्लॉक किया हुआ व्यक्तियों","GUILD_PROFILE_LOADING":"लोडिंग","GUILD_PROFILE_CREATED_AT":"क्रिएट किया","GUILD_PROFILE_JOINED_AT":"जॉइन हुआ","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"सर्वर बूस्टर का गिनती","GUILD_PROFILE_GUILD_PREMIUM_TIER":"सर्वर बूस्ट का लेवल","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"इस सर्वर में अप्पके मित्र नहीं हैं।","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"इस सर्वर में आपने ब्लॉक किया हुआ व्यक्तियों नहीं है।","GUILD_PROFILE_INVITE_SPLASH":"सर्वर इन्वाइट केलिए बैकग्राउंड है।","GUILD_PROFILE_VIP_REGIONS":"वि.आई.पि. प्रदेशे","GUILD_PROFILE_VANITY_URL":"वैनिटी यूआरएल","GUILD_PROFILE_MORE_EMOJI":"अधिक एमोजिया","GUILD_PROFILE_COMMERCE":"दूकान का चैनल","GUILD_PROFILE_DISCOVERABLE":"डिस्कॉर्ड का \'डिस्कोवेराब्ले\' भाग में ढूंढसकते है।","GUILD_PROFILE_COMMUNITY":"समुदाय","GUILD_PROFILE_FEATURABLE":"फीचरबुल","GUILD_PROFILE_NEWS":"घोषणाओं का लिए चैनलों","GUILD_PROFILE_ANIMATED_ICON":"सर्वर को आइकॉन एनिमेटेड है।","GUILD_PROFILE_BANNER":"सर्वर को बैनर है।","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"डिस्कोवेराबुल ऑप्शन को गत में इनेबल किया गया।","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"वेलकम स्क्रीन इनेबल्ड है।","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"सदस्यता स्क्रीनिंग इनेबल्ड है।","GUILD_PROFILE_PREVIEW_ENABLED":"प्रीव्यू इनेबल्ड है।"}');
 
 /***/ }),
 
@@ -97,7 +105,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"सर्वर का प्र�
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Szerver profil","GUILD_PROFILE_GUILD_INFO":"Szerverinformációk","GUILD_PROFILE_FRIENDS_IN_GUILD":"Barátok","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Tiltott felhasználók","GUILD_PROFILE_LOADING":"Betöltés","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"A szerver ikon URL-jének másolásához kattints ide","GUILD_PROFILE_CREATED_AT":"Létrehozva:","GUILD_PROFILE_JOINED_AT":"Csatlakozva:","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Szervergyorsítók száma","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Szervergyorsítás szintje","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nincsenek barátaid ezen a szerveren","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nincsenek tiltott felhasználók ezen a szerveren","GUILD_PROFILE_INVITE_SPLASH":"Szervermeghívó háttérképe","GUILD_PROFILE_VIP_REGIONS":"VIP régiók","GUILD_PROFILE_VANITY_URL":"Kreatív URL","GUILD_PROFILE_MORE_EMOJI":"Több emotikon","GUILD_PROFILE_COMMERCE":"Kereskedelmi csatornák","GUILD_PROFILE_DISCOVERABLE":"Felfedezhető","GUILD_PROFILE_COMMUNITY":"Közösségi","GUILD_PROFILE_FEATURABLE":"Kiemelhető","GUILD_PROFILE_NEWS":"Hirdetmény csatornák","GUILD_PROFILE_ANIMATED_ICON":"Animált szerver ikon","GUILD_PROFILE_BANNER":"Szerverbanner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Már volt felfedezhető korábban","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Van üdvözlőképernyő","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Tagság szűrése","GUILD_PROFILE_RELAY_ENABLED":"Továbbítás bekapcsolva","GUILD_PROFILE_PREVIEW_ENABLED":"Előnézet bekapcsolva"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Szerver profil","GUILD_PROFILE_GUILD_INFO":"Szerverinformációk","GUILD_PROFILE_FRIENDS_IN_GUILD":"Barátok","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Tiltott felhasználók","GUILD_PROFILE_LOADING":"Betöltés","GUILD_PROFILE_CREATED_AT":"Létrehozva:","GUILD_PROFILE_JOINED_AT":"Csatlakozva:","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Szervergyorsítók száma","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Szervergyorsítás szintje","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nincsenek barátaid ezen a szerveren","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nincsenek tiltott felhasználók ezen a szerveren","GUILD_PROFILE_INVITE_SPLASH":"Szervermeghívó háttérképe","GUILD_PROFILE_VIP_REGIONS":"VIP régiók","GUILD_PROFILE_VANITY_URL":"Kreatív URL","GUILD_PROFILE_MORE_EMOJI":"Több emotikon","GUILD_PROFILE_COMMERCE":"Kereskedelmi csatornák","GUILD_PROFILE_DISCOVERABLE":"Felfedezhető","GUILD_PROFILE_COMMUNITY":"Közösségi","GUILD_PROFILE_FEATURABLE":"Kiemelhető","GUILD_PROFILE_NEWS":"Hirdetmény csatornák","GUILD_PROFILE_ANIMATED_ICON":"Animált szerver ikon","GUILD_PROFILE_BANNER":"Szerverbanner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Már volt felfedezhető korábban","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Van üdvözlőképernyő","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Tagság szűrése","GUILD_PROFILE_PREVIEW_ENABLED":"Előnézet bekapcsolva"}');
 
 /***/ }),
 
@@ -105,7 +113,15 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Szerver profil","GUILD_PROFILE_GU
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Profilo del Server","GUILD_PROFILE_GUILD_INFO":"Informazione del Server","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amici","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utenti Bloccati","GUILD_PROFILE_LOADING":"Caricando","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Clicca per copiare la URL dell\'icona del server","GUILD_PROFILE_CREATED_AT":"Creato il","GUILD_PROFILE_JOINED_AT":"Iscritto il","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantità di potenziamenti","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Livello del Potenziamento","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Non ci sono amici in questo server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Non ci sono utenti bloccati in questo server","GUILD_PROFILE_INVITE_SPLASH":"Sfondo di invito","GUILD_PROFILE_VIP_REGIONS":"Regioni VIP","GUILD_PROFILE_VANITY_URL":"URL personalizzata","GUILD_PROFILE_MORE_EMOJI":"Più emoji","GUILD_PROFILE_COMMERCE":"Canali negozio","GUILD_PROFILE_DISCOVERABLE":"Disponibile su \\"Discovery\\"","GUILD_PROFILE_COMMUNITY":"Comunità","GUILD_PROFILE_FEATURABLE":"In Evidenza","GUILD_PROFILE_NEWS":"Canali delle Notizie","GUILD_PROFILE_ANIMATED_ICON":"Icona server animata","GUILD_PROFILE_BANNER":"Banner del server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"\\"Discovery\\" attivato previamente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Schermata di benvenuta attivata","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Verifica dell\'iscrizione","GUILD_PROFILE_RELAY_ENABLED":"Relè attivato","GUILD_PROFILE_PREVIEW_ENABLED":"Anteprima Abilitata"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profilo del Server","GUILD_PROFILE_GUILD_INFO":"Informazione del Server","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amici","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utenti Bloccati","GUILD_PROFILE_LOADING":"Caricando","GUILD_PROFILE_CREATED_AT":"Creato il","GUILD_PROFILE_JOINED_AT":"Iscritto il","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantità di potenziamenti","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Livello del Potenziamento","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Non ci sono amici in questo server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Non ci sono utenti bloccati in questo server","GUILD_PROFILE_INVITE_SPLASH":"Sfondo di invito","GUILD_PROFILE_VIP_REGIONS":"Regioni VIP","GUILD_PROFILE_VANITY_URL":"URL personalizzata","GUILD_PROFILE_MORE_EMOJI":"Più emoji","GUILD_PROFILE_COMMERCE":"Canali negozio","GUILD_PROFILE_DISCOVERABLE":"Disponibile su \\"Discovery\\"","GUILD_PROFILE_COMMUNITY":"Comunità","GUILD_PROFILE_FEATURABLE":"In Evidenza","GUILD_PROFILE_NEWS":"Canali delle Notizie","GUILD_PROFILE_ANIMATED_ICON":"Icona server animata","GUILD_PROFILE_BANNER":"Banner del server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"\\"Discovery\\" attivato previamente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Schermata di benvenuta attivata","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Verifica dell\'iscrizione","GUILD_PROFILE_PREVIEW_ENABLED":"Anteprima Abilitata"}');
+
+/***/ }),
+
+/***/ 730:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profil Serwera","GUILD_PROFILE_GUILD_INFO":"Informacje o Serwerze","GUILD_PROFILE_FRIENDS_IN_GUILD":"Znajomi","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Zablokowani Użytkownicy","GUILD_PROFILE_LOADING":"Ładowanie","GUILD_PROFILE_CREATED_AT":"Utworzono","GUILD_PROFILE_JOINED_AT":"Dołączono","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Ilość Ulepszeń Serwera","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Poziom Ulepszeń Serwera","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Brak znajomych na tym serwerze","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Brak zablokowanych użytkowników na tym serwerze","GUILD_PROFILE_INVITE_SPLASH":"Tło Zaproszeń Serwera","GUILD_PROFILE_VIP_REGIONS":"Regiony VIP","GUILD_PROFILE_VANITY_URL":"Unikalny adres URL","GUILD_PROFILE_MORE_EMOJI":"Więcej Emoji","GUILD_PROFILE_COMMERCE":"Kanały Sklepowe","GUILD_PROFILE_DISCOVERABLE":"Odkrywalny","GUILD_PROFILE_COMMUNITY":"Społeczność","GUILD_PROFILE_FEATURABLE":"Więcej Funkcji","GUILD_PROFILE_NEWS":"Kanały ogłoszeniowe","GUILD_PROFILE_ANIMATED_ICON":"Animowana Ikona Serwera","GUILD_PROFILE_BANNER":"Baner Serwera","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Wcześniej Włączona Odkrywalność","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Ekran Powitalny Włączony","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Sprawdzanie Członków","GUILD_PROFILE_PREVIEW_ENABLED":"Podgląd Włączony"}');
 
 /***/ }),
 
@@ -113,7 +129,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Profilo del Server","GUILD_PROFIL
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Servidor","GUILD_PROFILE_GUILD_INFO":"Informações do Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuários Bloqueados","GUILD_PROFILE_LOADING":"Carregando","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Clique para copiar a URL do ícone do servidor","GUILD_PROFILE_CREATED_AT":"Criado em","GUILD_PROFILE_JOINED_AT":"Entrou em","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantidade de Impulsos","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nível de Impulsão","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nenhum amigo nesse servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nenhum usuário bloqueado nesse servidor","GUILD_PROFILE_INVITE_SPLASH":"Plano de Fundo de Convite","GUILD_PROFILE_VIP_REGIONS":"Regiões VIP","GUILD_PROFILE_VANITY_URL":"URL Personalizado","GUILD_PROFILE_MORE_EMOJI":"Mais Emojis","GUILD_PROFILE_COMMERCE":"Canais de Loja","GUILD_PROFILE_DISCOVERABLE":"Descobrível","GUILD_PROFILE_COMMUNITY":"Comunidade","GUILD_PROFILE_FEATURABLE":"Destacável na Home do Descobrimento","GUILD_PROFILE_NEWS":"Canais de Anúncio","GUILD_PROFILE_ANIMATED_ICON":"Ícone Animado","GUILD_PROFILE_BANNER":"Banner de Servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Descobrimento de Servidores Anteriormente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Tela de Boas-vindas","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Avaliação de Associação","GUILD_PROFILE_RELAY_ENABLED":"Relay Ativado","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Ativado"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Servidor","GUILD_PROFILE_GUILD_INFO":"Informações do Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuários Bloqueados","GUILD_PROFILE_LOADING":"Carregando","GUILD_PROFILE_CREATED_AT":"Criado em","GUILD_PROFILE_JOINED_AT":"Entrou em","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantidade de Impulsos","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nível de Impulsão","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nenhum amigo nesse servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nenhum usuário bloqueado nesse servidor","GUILD_PROFILE_INVITE_SPLASH":"Plano de Fundo de Convite","GUILD_PROFILE_VIP_REGIONS":"Regiões VIP","GUILD_PROFILE_VANITY_URL":"URL Personalizado","GUILD_PROFILE_MORE_EMOJI":"Mais Emojis","GUILD_PROFILE_COMMERCE":"Canais de Loja","GUILD_PROFILE_DISCOVERABLE":"Descobrível","GUILD_PROFILE_COMMUNITY":"Comunidade","GUILD_PROFILE_FEATURABLE":"Destacável na Home do Descobrimento","GUILD_PROFILE_NEWS":"Canais de Anúncio","GUILD_PROFILE_ANIMATED_ICON":"Ícone Animado","GUILD_PROFILE_BANNER":"Banner de Servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Descobrimento de Servidores Anteriormente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Tela de Boas-vindas","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Avaliação de Associação","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Ativado"}');
 
 /***/ }),
 
@@ -121,7 +137,15 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Servidor","GUILD_PROFIL
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Server","GUILD_PROFILE_GUILD_INFO":"Informações do Server","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utilizadores Bloqueados","GUILD_PROFILE_LOADING":"Carregando","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Clica para copiar o URL do ícone do server","GUILD_PROFILE_CREATED_AT":"Criado a","GUILD_PROFILE_JOINED_AT":"Entrou a","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantidade de Impulsos","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nível dos Impulsos","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nenhum amigo neste server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nenhum utilizador bloqueado neste server","GUILD_PROFILE_INVITE_SPLASH":"Imagem de Fundo de Convite","GUILD_PROFILE_VIP_REGIONS":"Regiões VIP","GUILD_PROFILE_VANITY_URL":"URL Personalizado","GUILD_PROFILE_MORE_EMOJI":"Mais Emojis","GUILD_PROFILE_COMMERCE":"Canal de Loja","GUILD_PROFILE_DISCOVERABLE":"Pesquisável","GUILD_PROFILE_COMMUNITY":"Comunidade","GUILD_PROFILE_FEATURABLE":"Destacável na Página de Descobertas","GUILD_PROFILE_NEWS":"Canal de Anúncios","GUILD_PROFILE_ANIMATED_ICON":"Ícone Animado","GUILD_PROFILE_BANNER":"Banner do Server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Ativado Pesquisável Antes","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Ecrã de Boas-vindas","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Verificação de Membros","GUILD_PROFILE_RELAY_ENABLED":"Relay Ativado","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Ativado"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Server","GUILD_PROFILE_GUILD_INFO":"Informações do Server","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utilizadores Bloqueados","GUILD_PROFILE_LOADING":"Carregando","GUILD_PROFILE_CREATED_AT":"Criado a","GUILD_PROFILE_JOINED_AT":"Entrou a","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantidade de Impulsos","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nível dos Impulsos","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nenhum amigo neste server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nenhum utilizador bloqueado neste server","GUILD_PROFILE_INVITE_SPLASH":"Imagem de Fundo de Convite","GUILD_PROFILE_VIP_REGIONS":"Regiões VIP","GUILD_PROFILE_VANITY_URL":"URL Personalizado","GUILD_PROFILE_MORE_EMOJI":"Mais Emojis","GUILD_PROFILE_COMMERCE":"Canal de Loja","GUILD_PROFILE_DISCOVERABLE":"Pesquisável","GUILD_PROFILE_COMMUNITY":"Comunidade","GUILD_PROFILE_FEATURABLE":"Destacável na Página de Descobertas","GUILD_PROFILE_NEWS":"Canal de Anúncios","GUILD_PROFILE_ANIMATED_ICON":"Ícone Animado","GUILD_PROFILE_BANNER":"Banner do Server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Ativado Pesquisável Antes","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Ecrã de Boas-vindas","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Verificação de Membros","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Ativado"}');
+
+/***/ }),
+
+/***/ 721:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profilul serverului","GUILD_PROFILE_GUILD_INFO":"Informatiile serverului","GUILD_PROFILE_FRIENDS_IN_GUILD":"Prieteni","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utilizatori blocati","GUILD_PROFILE_LOADING":"Se incarca","GUILD_PROFILE_CREATED_AT":"Creat la","GUILD_PROFILE_JOINED_AT":"Alaturat la","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Numarul de Server Booster","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Levelul de Server Boost","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Niciun prieten in acest server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Niciun utilizator blocat in acest server","GUILD_PROFILE_INVITE_SPLASH":"Fundal de invitare server","GUILD_PROFILE_VIP_REGIONS":"Regiuni VIP","GUILD_PROFILE_VANITY_URL":"Vanitate URL","GUILD_PROFILE_MORE_EMOJI":"Mai multe emoji-uri","GUILD_PROFILE_COMMERCE":"Canale de comert","GUILD_PROFILE_DISCOVERABLE":"Descoperibil","GUILD_PROFILE_COMMUNITY":"Comunitate","GUILD_PROFILE_FEATURABLE":"Caracteristic","GUILD_PROFILE_NEWS":"Canale anunturi","GUILD_PROFILE_ANIMATED_ICON":"Iconita Server Animata","GUILD_PROFILE_BANNER":"Banner Server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Descoperabilitate Activata Inainte","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Ecran de intampinare activat","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Evaluarea calitatii de membru","GUILD_PROFILE_PREVIEW_ENABLED":"Previzualizare activata"}');
 
 /***/ }),
 
@@ -129,7 +153,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Server","GUILD_PROFILE_
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Профиль сервера","GUILD_PROFILE_GUILD_INFO":"Информация о сервере","GUILD_PROFILE_FRIENDS_IN_GUILD":"Друзья","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Заблокированные пользователи","GUILD_PROFILE_LOADING":"Загрузка","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Нажмите, чтобы скопировать URL иконки","GUILD_PROFILE_CREATED_AT":"Сервер создан","GUILD_PROFILE_JOINED_AT":"Вы присоединились","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Количество Бустов сервера","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Уровень Бустов сервера","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Нету друзей на этом сервере","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Нету заблокированых вами пользователей на этом сервере","GUILD_PROFILE_INVITE_SPLASH":"Изображение в приглашении","GUILD_PROFILE_VIP_REGIONS":"VIP регионы","GUILD_PROFILE_VANITY_URL":"Красивый URL","GUILD_PROFILE_MORE_EMOJI":"Свои Эмодзи","GUILD_PROFILE_COMMERCE":"Магазин","GUILD_PROFILE_DISCOVERABLE":"Публичный сервер","GUILD_PROFILE_COMMUNITY":"Комьюнити","GUILD_PROFILE_FEATURABLE":"Фишечки","GUILD_PROFILE_NEWS":"Каналы с объявлениями","GUILD_PROFILE_ANIMATED_ICON":"Анимированая иконка сервера","GUILD_PROFILE_BANNER":"Баннер сервера","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Включен обнаруживаемый ранее","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Включен экран приветствия","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Проверка членства","GUILD_PROFILE_RELAY_ENABLED":"Мультисерверность включена","GUILD_PROFILE_PREVIEW_ENABLED":"Включен предпросмотр"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Профиль сервера","GUILD_PROFILE_GUILD_INFO":"Информация о сервере","GUILD_PROFILE_FRIENDS_IN_GUILD":"Друзья","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Заблокированные пользователи","GUILD_PROFILE_LOADING":"Загрузка","GUILD_PROFILE_CREATED_AT":"Сервер создан","GUILD_PROFILE_JOINED_AT":"Вы присоединились","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Количество Бустов сервера","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Уровень Бустов сервера","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Нету друзей на этом сервере","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Нету заблокированых вами пользователей на этом сервере","GUILD_PROFILE_INVITE_SPLASH":"Изображение в приглашении","GUILD_PROFILE_VIP_REGIONS":"VIP регионы","GUILD_PROFILE_VANITY_URL":"Красивый URL","GUILD_PROFILE_MORE_EMOJI":"Свои Эмодзи","GUILD_PROFILE_COMMERCE":"Магазин","GUILD_PROFILE_DISCOVERABLE":"Публичный сервер","GUILD_PROFILE_COMMUNITY":"Комьюнити","GUILD_PROFILE_FEATURABLE":"Фишечки","GUILD_PROFILE_NEWS":"Каналы с объявлениями","GUILD_PROFILE_ANIMATED_ICON":"Анимированая иконка сервера","GUILD_PROFILE_BANNER":"Баннер сервера","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Включен обнаруживаемый ранее","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Включен экран приветствия","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Проверка членства","GUILD_PROFILE_PREVIEW_ENABLED":"Включен предпросмотр"}');
 
 /***/ }),
 
@@ -137,7 +161,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Профиль сервера","G
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Sunucu Profili","GUILD_PROFILE_GUILD_INFO":"Sunucu Bilgisi","GUILD_PROFILE_FRIENDS_IN_GUILD":"Arkadaşlar","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Engellenmiş Kullanıcılar","GUILD_PROFILE_LOADING":"Yükleniyor","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"Sunucu simgesi URL\'sini kopyalamak için tıkla","GUILD_PROFILE_CREATED_AT":"Oluşturulan Tarih","GUILD_PROFILE_JOINED_AT":"Katılınan Tarih","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Sunucu Takviyeci Sayısı","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Sunucu Takviye Seviyesi","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Sunucuda hiç arkadaşınız yok","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Sunucuda hiç engellenmiş kullanıcı yok","GUILD_PROFILE_INVITE_SPLASH":"Sunucu Davet Arkaplanı","GUILD_PROFILE_VIP_REGIONS":"VIP Bölgeler","GUILD_PROFILE_VANITY_URL":"Özel URL","GUILD_PROFILE_MORE_EMOJI":"Daha Fazla Emoji","GUILD_PROFILE_COMMERCE":"Mağaza Kanalları","GUILD_PROFILE_DISCOVERABLE":"Keşfedilebilir","GUILD_PROFILE_COMMUNITY":"Topluluk","GUILD_PROFILE_FEATURABLE":"Öne Çıkarılabilir","GUILD_PROFILE_NEWS":"Duyuru Kanalları","GUILD_PROFILE_ANIMATED_ICON":"Animasyonlu Sunucu Simgesi","GUILD_PROFILE_BANNER":"Sunucu Afişi","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Keşfedilebilir Önceden Etkinleştirildi","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Hoş Geldin Ekranı Etkin","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Üye Seçimi","GUILD_PROFILE_RELAY_ENABLED":"Yönlendirme Etkin","GUILD_PROFILE_PREVIEW_ENABLED":"Önizleme Etkin"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Sunucu Profili","GUILD_PROFILE_GUILD_INFO":"Sunucu Bilgisi","GUILD_PROFILE_FRIENDS_IN_GUILD":"Arkadaşlar","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Engellenmiş Kullanıcılar","GUILD_PROFILE_LOADING":"Yükleniyor","GUILD_PROFILE_CREATED_AT":"Oluşturulan Tarih","GUILD_PROFILE_JOINED_AT":"Katılınan Tarih","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Sunucu Takviyeci Sayısı","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Sunucu Takviye Seviyesi","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Sunucuda hiç arkadaşınız yok","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Sunucuda hiç engellenmiş kullanıcı yok","GUILD_PROFILE_INVITE_SPLASH":"Sunucu Davet Arkaplanı","GUILD_PROFILE_VIP_REGIONS":"VIP Bölgeler","GUILD_PROFILE_VANITY_URL":"Özel URL","GUILD_PROFILE_MORE_EMOJI":"Daha Fazla Emoji","GUILD_PROFILE_COMMERCE":"Mağaza Kanalları","GUILD_PROFILE_DISCOVERABLE":"Keşfedilebilir","GUILD_PROFILE_COMMUNITY":"Topluluk","GUILD_PROFILE_FEATURABLE":"Öne Çıkarılabilir","GUILD_PROFILE_NEWS":"Duyuru Kanalları","GUILD_PROFILE_ANIMATED_ICON":"Animasyonlu Sunucu Simgesi","GUILD_PROFILE_BANNER":"Sunucu Afişi","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Keşfedilebilir Önceden Etkinleştirildi","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Hoş Geldin Ekranı Etkin","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Üye Seçimi","GUILD_PROFILE_PREVIEW_ENABLED":"Önizleme Etkin"}');
 
 /***/ }),
 
@@ -145,7 +169,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Sunucu Profili","GUILD_PROFILE_GU
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"服务器名片","GUILD_PROFILE_GUILD_INFO":"服务器信息","GUILD_PROFILE_FRIENDS_IN_GUILD":"好友","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"已屏蔽用户","GUILD_PROFILE_LOADING":"加载中","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"点击以复制服务器图标地址","GUILD_PROFILE_CREATED_AT":"创建于","GUILD_PROFILE_JOINED_AT":"加入于","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"服务器助力数量","GUILD_PROFILE_GUILD_PREMIUM_TIER":"服务器助力等级","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"此服务器中没有您的好友","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"此服务器中没有您屏蔽的用户","GUILD_PROFILE_INVITE_SPLASH":"邀请背景","GUILD_PROFILE_VIP_REGIONS":"主要语言","GUILD_PROFILE_VANITY_URL":"个性化网址","GUILD_PROFILE_MORE_EMOJI":"更多表情符号","GUILD_PROFILE_COMMERCE":"商业服务器","GUILD_PROFILE_DISCOVERABLE":"已登录\\"发现服务器\\"","GUILD_PROFILE_COMMUNITY":"社区服务器","GUILD_PROFILE_FEATURABLE":"特色服务器","GUILD_PROFILE_NEWS":"具有公告频道","GUILD_PROFILE_ANIMATED_ICON":"动画服务器图标","GUILD_PROFILE_BANNER":"服务器横幅","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"此前曾登录\\"发现服务器\\"","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"已启用欢迎界面","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"已启用成员筛选","GUILD_PROFILE_RELAY_ENABLED":"已启用Relay","GUILD_PROFILE_PREVIEW_ENABLED":"已启用预览"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"服务器名片","GUILD_PROFILE_GUILD_INFO":"服务器信息","GUILD_PROFILE_FRIENDS_IN_GUILD":"好友","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"已屏蔽用户","GUILD_PROFILE_LOADING":"加载中","GUILD_PROFILE_CREATED_AT":"创建于","GUILD_PROFILE_JOINED_AT":"加入于","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"服务器助力数量","GUILD_PROFILE_GUILD_PREMIUM_TIER":"服务器助力等级","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"此服务器中没有您的好友","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"此服务器中没有您屏蔽的用户","GUILD_PROFILE_INVITE_SPLASH":"邀请背景","GUILD_PROFILE_VIP_REGIONS":"主要语言","GUILD_PROFILE_VANITY_URL":"个性化网址","GUILD_PROFILE_MORE_EMOJI":"更多表情符号","GUILD_PROFILE_COMMERCE":"商业服务器","GUILD_PROFILE_DISCOVERABLE":"已登录\\"发现服务器\\"","GUILD_PROFILE_COMMUNITY":"社区服务器","GUILD_PROFILE_FEATURABLE":"特色服务器","GUILD_PROFILE_NEWS":"具有公告频道","GUILD_PROFILE_ANIMATED_ICON":"动画服务器图标","GUILD_PROFILE_BANNER":"服务器横幅","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"此前曾登录\\"发现服务器\\"","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"已启用欢迎界面","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"已启用成员筛选","GUILD_PROFILE_PREVIEW_ENABLED":"已启用预览"}');
 
 /***/ }),
 
@@ -153,7 +177,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"服务器名片","GUILD_PROFILE_G
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"伺服器名片","GUILD_PROFILE_GUILD_INFO":"伺服器資訊","GUILD_PROFILE_FRIENDS_IN_GUILD":"好友","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"已封鎖用戶","GUILD_PROFILE_LOADING":"載入中","GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL":"點按以複製伺服器圖示地址","GUILD_PROFILE_CREATED_AT":"建立於","GUILD_PROFILE_JOINED_AT":"加入於","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"伺服器加成數量","GUILD_PROFILE_GUILD_PREMIUM_TIER":"伺服器加成等級","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"伺服器中沒有您的好友","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"伺服器中沒有您已封鎖的用戶","GUILD_PROFILE_INVITE_SPLASH":"邀請背景","GUILD_PROFILE_VIP_REGIONS":"主要語言","GUILD_PROFILE_VANITY_URL":"個性化網址","GUILD_PROFILE_MORE_EMOJI":"更多表情符號","GUILD_PROFILE_COMMERCE":"商業伺服器","GUILD_PROFILE_DISCOVERABLE":"已加入\\"探索伺服器\\"","GUILD_PROFILE_COMMUNITY":"社區伺服器","GUILD_PROFILE_FEATURABLE":"特色伺服器","GUILD_PROFILE_NEWS":"具有公告頻道","GUILD_PROFILE_ANIMATED_ICON":"動畫伺服器圖示","GUILD_PROFILE_BANNER":"伺服器橫幅","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"此前曾加入\\"探索伺服器\\"","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"已啟用歡迎畫面","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"已啟用會員審查","GUILD_PROFILE_RELAY_ENABLED":"已啟用Relay","GUILD_PROFILE_PREVIEW_ENABLED":"已啟用預覽"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"伺服器名片","GUILD_PROFILE_GUILD_INFO":"伺服器資訊","GUILD_PROFILE_FRIENDS_IN_GUILD":"好友","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"已封鎖用戶","GUILD_PROFILE_LOADING":"載入中","GUILD_PROFILE_CREATED_AT":"建立於","GUILD_PROFILE_JOINED_AT":"加入於","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"伺服器加成數量","GUILD_PROFILE_GUILD_PREMIUM_TIER":"伺服器加成等級","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"伺服器中沒有您的好友","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"伺服器中沒有您已封鎖的用戶","GUILD_PROFILE_INVITE_SPLASH":"邀請背景","GUILD_PROFILE_VIP_REGIONS":"主要語言","GUILD_PROFILE_VANITY_URL":"個性化網址","GUILD_PROFILE_MORE_EMOJI":"更多表情符號","GUILD_PROFILE_COMMERCE":"商業伺服器","GUILD_PROFILE_DISCOVERABLE":"已加入\\"探索伺服器\\"","GUILD_PROFILE_COMMUNITY":"社區伺服器","GUILD_PROFILE_FEATURABLE":"特色伺服器","GUILD_PROFILE_NEWS":"具有公告頻道","GUILD_PROFILE_ANIMATED_ICON":"動畫伺服器圖示","GUILD_PROFILE_BANNER":"伺服器橫幅","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"此前曾加入\\"探索伺服器\\"","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"已啟用歡迎畫面","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"已啟用會員審查","GUILD_PROFILE_PREVIEW_ENABLED":"已啟用預覽"}');
 
 /***/ }),
 
@@ -163,14 +187,17 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"伺服器名片","GUILD_PROFILE_G
 var map = {
 	"./cs.json": 813,
 	"./de.json": 855,
+	"./el.json": 663,
 	"./en-US.json": 60,
 	"./es-ES.json": 484,
 	"./fr.json": 852,
 	"./hi.json": 2,
 	"./hu.json": 745,
 	"./it.json": 306,
+	"./pl.json": 730,
 	"./pt-BR.json": 927,
 	"./pt-PT.json": 469,
+	"./ro.json": 721,
 	"./ru.json": 111,
 	"./tr.json": 68,
 	"./zh-CN.json": 713,
@@ -279,8 +306,11 @@ var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin
 
 /* harmony default export */ const i18n = (external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Messages'));
 
-;// CONCATENATED MODULE: external "electron"
-const external_electron_namespaceObject = require("electron");;
+;// CONCATENATED MODULE: ./src/@discord/components/TabBar.js
+
+
+/* harmony default export */ const TabBar = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('TabBar'));
+
 ;// CONCATENATED MODULE: ./src/@discord/Flux.js
 
 
@@ -298,15 +328,115 @@ const {
 
 /* harmony default export */ const _discord_Flux = (Flux);
 
-;// CONCATENATED MODULE: ./src/@discord/components/Flex.js
+;// CONCATENATED MODULE: ./src/GuildProfile/stores/MemberCountsStore.js
+/* @license
+ * Copyright (c) 2020 NurMarvin (Marvin Witt)
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
 
 
-/* harmony default export */ const Flex = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Flex'));
-
-;// CONCATENATED MODULE: ./src/@discord/components/Clickable.js
 
 
-/* harmony default export */ const Clickable = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Clickable'));
+
+const {
+    Dispatcher: MemberCountsStore_Dispatcher,
+    MemberCountStore,
+    DiscordConstants: { ActionTypes }
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+const memberCounts = new Map();
+const onlineMemberCounts = new Map();
+
+function handleConnectionOpen({ guilds }) {
+    for (const guild of guilds) {
+        memberCounts.set(guild.id, guild.member_count);
+    }
+}
+
+function handleGuildCreate({ guild }) {
+    memberCounts.set(guild.id, guild.member_count);
+}
+
+function handleGuildDelete({ guild }) {
+    memberCounts.delete(guild.id);
+    onlineMemberCounts.delete(guild.id);
+}
+
+function handleGuildMemberListUpdate({ guildId, memberCount, groups }) {
+    if (memberCount !== 0) {
+        memberCounts.set(guildId, memberCount);
+    }
+
+    onlineMemberCounts.set(
+        guildId,
+        groups.reduce((total, group) => {
+            return group.id !== 'offline' ? total + group.count : total;
+        }, 0)
+    );
+}
+
+function handleOnlineGuildMemberCountUpdate({ guildId, count }) {
+    onlineMemberCounts.set(guildId, count);
+}
+
+class MemberCountsStore extends _discord_Flux.Store {
+    initialize() {
+        const nativeMemberCounts = MemberCountStore.getMemberCounts();
+        for (const guildId in nativeMemberCounts) {
+            memberCounts.set(guildId, nativeMemberCounts[guildId]);
+        }
+    }
+
+    getMemberCounts(guildId) {
+        return {
+            members: memberCounts.get(guildId),
+            membersOnline: onlineMemberCounts.get(guildId)
+        };
+    }
+}
+
+/* harmony default export */ const stores_MemberCountsStore = (new MemberCountsStore(MemberCountsStore_Dispatcher, {
+    [ActionTypes.CONNECTION_OPEN]: handleConnectionOpen,
+    [ActionTypes.GUILD_CREATE]: handleGuildCreate,
+    [ActionTypes.GUILD_DELETE]: handleGuildDelete,
+    [ActionTypes.GUILD_MEMBER_LIST_UPDATE]: handleGuildMemberListUpdate,
+    [ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE]: handleOnlineGuildMemberCountUpdate
+}));
+
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildBanner.jsx
+/* @license
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
+
+
+
+
+const {
+    ImageResolver,
+    DiscordConstants: { Colors }
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+const { default: useDominantColor } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('maybeFetchColor');
+
+const classes = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('banner', 'profileBanner', 'profileBannerPremium');
+
+function GuildBanner({ guild }) {
+    const dominantColor = useDominantColor(guild.getIconURL(), Colors.TRANSPARENT);
+
+    return (
+        external_BdApi_React_default().createElement('div', {
+            className: `${classes.banner.banner} ${
+                guild.banner ? classes.profileBannerPremium : classes.profileBanner
+            }`,
+            style: {
+                backgroundColor: dominantColor,
+                backgroundImage: `url(${ImageResolver.getGuildBannerURL({ id: guild.id, banner: guild.banner })})`
+            },}
+        )
+    );
+}
 
 ;// CONCATENATED MODULE: ./src/@discord/components/Tooltip.js
 
@@ -323,267 +453,10 @@ const {
 
 /* harmony default export */ const components_Tooltip = ((/* unused pure expression or super */ null && (Tooltip)));
 
-;// CONCATENATED MODULE: ./src/@discord/components/Text.js
+;// CONCATENATED MODULE: ./src/@discord/components/Clickable.js
 
 
-/* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Text'));
-
-;// CONCATENATED MODULE: ./src/@discord/components/TabBar.js
-
-
-/* harmony default export */ const TabBar = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('TabBar'));
-
-;// CONCATENATED MODULE: external ["BoundedLibrary","DiscordModules","Moment"]
-const external_BoundedLibrary_DiscordModules_Moment_namespaceObject = BoundedLibrary.DiscordModules.Moment;
-var external_BoundedLibrary_DiscordModules_Moment_default = /*#__PURE__*/__webpack_require__.n(external_BoundedLibrary_DiscordModules_Moment_namespaceObject);
-;// CONCATENATED MODULE: ./src/@discord/components/Form.js
-
-
-const {
-    FormDivider,
-    FormItem,
-    FormNotice,
-    FormNoticeTypes,
-    FormNoticeImagePositions,
-    FormSection,
-    FormText,
-    FormTextTypes,
-    FormTitle,
-    FormTitleTags
-} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('FormSection');
-
-
-
-;// CONCATENATED MODULE: ./src/@discord/components/Scroller.js
-
-
-const { ScrollerAuto, ScrollerThin, default: Scroller } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('ScrollerAuto');
-
-
-
-/* harmony default export */ const components_Scroller = ((/* unused pure expression or super */ null && (Scroller)));
-
-;// CONCATENATED MODULE: ./src/@discord/components/Anchor.js
-
-
-/* harmony default export */ const Anchor = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Anchor'));
-
-;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildInfo.jsx
- function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
- * Copyright (c) 2020 NurMarvin (Marvin Witt)
- * Copyright (c) 2021 jaimeadf (Jaime Filho)
- * Licensed under the Open Software License version 3.0
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const {
-    UserStore,
-    GuildChannelsStore,
-    Timestamps,
-    DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes }
-} = external_BoundedLibrary_namespaceObject.DiscordModules;
-
-const StreamerModeStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('hidePersonalInformation');
-const UserMention = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('UserMention');
-const UserFetcher = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getUser', 'fetchCurrentUser');
-
-const classes = {
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('marginBottom8'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('body', 'empty'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('emptyIcon')
-};
-
-const GuildExplicitContentFilterTypesMessages = {
-    [GuildExplicitContentFilterTypes.DISABLED]: 'EXPLICIT_CONTENT_FILTER_DISABLED',
-    [GuildExplicitContentFilterTypes.MEMBERS_WITHOUT_ROLES]: 'EXPLICIT_CONTENT_FILTER_MEDIUM',
-    [GuildExplicitContentFilterTypes.ALL_MEMBERS]: 'EXPLICIT_CONTENT_FILTER_HIGH'
-};
-
-function Section({ title, children }) {
-    return (
-        external_BdApi_React_default().createElement(FormSection, { className: `${classes.marginBottom8} section`, tag: "h5", title: title,}
-            , external_BdApi_React_default().createElement(Text, { selectable: true,}, children)
-        )
-    );
-}
-
-function GuildInfo({ guild }) {
-    const owner = useStateFromStores([UserStore], () => UserStore.getUser(guild.ownerId));
-    const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hide);
-    const channel = useStateFromStores([GuildChannelsStore], () => GuildChannelsStore.getDefaultChannel(guild.id));
-
-    (0,external_BdApi_React_namespaceObject.useEffect)(() => {
-        if (!owner) {
-            UserFetcher.getUser(guild.ownerId);
-        }
-    }, [guild, owner]);
-
-    if (hide) {
-        return (
-            external_BdApi_React_default().createElement('div', { className: classes.empty,}
-                , external_BdApi_React_default().createElement('div', { className: classes.emptyIconStreamerMode,} )
-                , external_BdApi_React_default().createElement('div', { className: classes.emptyText,}, i18n.Messages.STREAMER_MODE_ENABLED)
-            )
-        );
-    }
-
-    return (
-        external_BdApi_React_default().createElement(ScrollerThin, { className: `${classes.infoScroller} guild-info`, fade: true,}
-            , external_BdApi_React_default().createElement(Flex, { justify: Flex.Justify.START, wrap: Flex.Wrap.WRAP,}
-                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.GUILD_OWNER,}
-                    , owner ? (
-                        external_BdApi_React_default().createElement(UserMention, { className: "mention", userId: owner.id, channelId: _optionalChain([channel, 'optionalAccess', _ => _.id]),} )
-                    ) : (
-                        `${i18n.Messages.GUILD_PROFILE_LOADING}...`
-                    )
-                )
-                , guild.description && (
-                    external_BdApi_React_default().createElement(Section, { title: i18n.Messages.FORM_LABEL_SERVER_DESCRIPTION,}, guild.description)
-                )
-                , guild.vanityURLCode && (
-                    external_BdApi_React_default().createElement(Section, { title: i18n.Messages.VANITY_URL,}
-                        , external_BdApi_React_default().createElement(Anchor, { href: `https://discord.gg/${guild.vanityURLCode}`,}, "discord.gg/"
-                            , guild.vanityURLCode
-                        )
-                    )
-                )
-                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.GUILD_PROFILE_CREATED_AT,}
-                    , external_BoundedLibrary_DiscordModules_Moment_default()(Timestamps.extractTimestamp(guild.id)).format('LLL')
-                )
-                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.GUILD_PROFILE_JOINED_AT,}, external_BoundedLibrary_DiscordModules_Moment_default()(guild.joinedAt).format('LLL'))
-                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL,}
-                    , i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]
-                )
-                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER,}
-                    , i18n.Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]
-                )
-                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT,}
-                    , guild.premiumSubscriberCount
-                )
-                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER,}, guild.premiumTier)
-                , external_BdApi_React_default().createElement(Section, { title: i18n.Messages.FORM_LABEL_SERVER_LANGUAGE,}
-                    , i18n.Messages[guild.preferredLocale]
-                )
-            )
-        )
-    );
-}
-
-;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/Relationships.jsx
- function Relationships_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
- * Copyright (c) 2020 NurMarvin (Marvin Witt)
- * Copyright (c) 2021 jaimeadf (Jaime Filho)
- * Licensed under the Open Software License version 3.0
- */
-
-
-
-
-
-
-
-
-
-
-const {
-    RelationshipStore,
-    GuildMemberStore,
-    UserStore: Relationships_UserStore,
-    GuildChannelsStore: Relationships_GuildChannelsStore,
-    ModalStack,
-    UserProfileModals,
-    ContextMenuActions,
-    DiscordConstants: { RelationshipTypes }
-} = external_BoundedLibrary_namespaceObject.DiscordModules;
-
-const GuildChannelUserContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('GuildChannelUserContextMenu');
-
-const { default: Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
-const DiscordTag = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('DiscordTag');
-
-const Relationships_classes = {
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('body', 'empty'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('emptyIconFriends'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('listRow')
-};
-
-const NoRelationshipsOfTypeMessages = {
-    [RelationshipTypes.FRIEND]: 'GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD',
-    [RelationshipTypes.BLOCKED]: 'GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD'
-};
-
-function Relationships({ guild, relationshipType }) {
-    const channel = useStateFromStores([Relationships_GuildChannelsStore], () => Relationships_GuildChannelsStore.getDefaultChannel(guild.id));
-    const users = useStateFromStores([RelationshipStore, GuildMemberStore, Relationships_UserStore], () => {
-        const users = [];
-        const relationships = RelationshipStore.getRelationships();
-
-        for (const userId in relationships) {
-            if (relationships[userId] !== relationshipType || !GuildMemberStore.isMember(guild.id, userId)) {
-                continue;
-            }
-
-            users.push(Relationships_UserStore.getUser(userId));
-        }
-
-        return users;
-    });
-
-    function handleSelect(user) {
-        ModalStack.pop();
-        UserProfileModals.open(user.id);
-    }
-
-    function handleContextMenu(event, user) {
-        ContextMenuActions.openContextMenu(event, () => (
-            external_BdApi_React_default().createElement(GuildChannelUserContextMenu, { ...event, user: user, guildId: guild.id, channelId: Relationships_optionalChain([channel, 'optionalAccess', _ => _.id]),} )
-        ));
-    }
-
-    if (users.length <= 0) {
-        return (
-            external_BdApi_React_default().createElement('div', { className: Relationships_classes.empty,}
-                , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyIconFriends,} )
-                , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyText,}
-                    , i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]
-                )
-            )
-        );
-    }
-
-    return (
-        external_BdApi_React_default().createElement(ScrollerThin, { className: Relationships_classes.listScroller, fade: true,}
-            , users.map(user => (
-                external_BdApi_React_default().createElement(Clickable, {
-                    key: user.id,
-                    className: Relationships_classes.listRow,
-                    onClick: () => handleSelect(user),
-                    onSelect: () => handleSelect(user),
-                    onContextMenu: event => handleContextMenu(event, user),}
-                
-                    , external_BdApi_React_default().createElement(Avatar, { className: Relationships_classes.listAvatar, src: user.getAvatarURL(), size: Avatar.Sizes.SIZE_40,} )
-                    , external_BdApi_React_default().createElement(DiscordTag, {
-                        user: user,
-                        className: Relationships_classes.listName,
-                        discriminatorClass: Relationships_classes.listDiscriminator,}
-                    )
-                )
-            ))
-        )
-    );
-}
+/* harmony default export */ const Clickable = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Clickable'));
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/invite-splash.svg
 var _path;
@@ -999,7 +872,7 @@ const {
     DiscordConstants: { GuildFeatures }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-/* harmony default export */ const features = ({
+/* harmony default export */ const assets_features = ({
     [GuildFeatures.INVITE_SPLASH]: invite_splash,
     [GuildFeatures.VIP_REGIONS]: vip_regions,
     [GuildFeatures.VANITY_URL]: vanity_url,
@@ -1017,8 +890,172 @@ const {
     [GuildFeatures.PREVIEW_ENABLED]: preview_enabled
 });
 
-;// CONCATENATED MODULE: ./src/GuildProfile/stores/MemberCountsStore.js
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildFeatures.jsx
 /* @license
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
+
+
+
+
+
+
+
+
+
+
+
+const GuildFeatures_classes = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('container', 'profileBadge24');
+
+function GuildFeatures_GuildFeatures({ className, guild }) {
+    const features = Array.from(guild.features);
+
+    return (
+        external_BdApi_React_default().createElement('div', { className: `${className} ${GuildFeatures_classes.container}`,}
+            , features.map(feature => {
+                const Icon = assets_features[feature];
+
+                if (!Icon) {
+                    return null;
+                }
+
+                return (
+                    external_BdApi_React_default().createElement(TooltipContainer, { key: feature, text: i18n.Messages[`GUILD_PROFILE_${feature}`],}
+                        , external_BdApi_React_default().createElement(Clickable, null
+                            , external_BdApi_React_default().createElement(Icon, { className: `${GuildFeatures_classes.profileBadge24} feature`,} )
+                        )
+                    )
+                );
+            })
+        )
+    );
+}
+
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildTag.jsx
+/* @license
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
+
+
+
+
+const GuildBadge = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('GuildBadge');
+
+const GuildTag_classes = {
+    nameTag: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('nameTag', 'username', 'bot'),
+    guildHeader: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('guildIconContainer', 'guildBadge'),
+    botTag: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('botTag', 'botTagRegular', 'px', 'botText')
+};
+
+function GuildTag({ className, usernameClass, guild }) {
+    return (
+        external_BdApi_React_default().createElement('div', { className: `${GuildTag_classes.nameTag.nameTag} ${className}`,}
+            , external_BdApi_React_default().createElement('div', { className: GuildTag_classes.guildHeader.guildIconContainer,}
+                , external_BdApi_React_default().createElement(GuildBadge, { className: GuildTag_classes.guildHeader.guildBadge, guild: guild, size: 20,} )
+            )
+            , external_BdApi_React_default().createElement('span', { className: `${GuildTag_classes.nameTag.username} ${usernameClass}`,}, guild.name)
+        )
+    );
+}
+
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildProfileModalHeader.jsx
+/* @license
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+const { ContextMenuActions, ImageResolver: GuildProfileModalHeader_ImageResolver } = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('InviteButton');
+const { default: Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
+const NativeImageContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('NativeImageContextMenu');
+
+const GuildProfileModalHeader_classes = {
+    profileHeader: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps(
+        'header',
+        'avatar',
+        'headerTop',
+        'badgeList',
+        'nameTagNoCustomStatus',
+        'username'
+    ),
+    invite: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('guildDetail')
+};
+
+function MemberCounts({ guild }) {
+    const { members, membersOnline } = useStateFromStores([stores_MemberCountsStore], () =>
+        stores_MemberCountsStore.getMemberCounts(guild.id)
+    );
+
+    return (
+        external_BdApi_React_default().createElement('div', { className: GuildProfileModalHeader_classes.invite.guildDetail,}
+            , external_BdApi_React_default().createElement(InviteButton.Data, { members: members, membersOnline: membersOnline,} )
+        )
+    );
+}
+
+function GuildProfileModalHeader({ guild }) {
+    const fullSizeIconURL = GuildProfileModalHeader_ImageResolver.getGuildIconURL({
+        id: guild.id,
+        icon: guild.icon,
+        size: 1024,
+        canAnimate: true
+    });
+
+    function handleIconContextMenu(event) {
+        ContextMenuActions.openContextMenu(event, () => external_BdApi_React_default().createElement(NativeImageContextMenu, { ...event, src: fullSizeIconURL,} ));
+    }
+
+    return (
+        external_BdApi_React_default().createElement('header', null
+            , external_BdApi_React_default().createElement(GuildBanner, { guild: guild,} )
+            , external_BdApi_React_default().createElement('div', { className: GuildProfileModalHeader_classes.profileHeader.header,}
+                , external_BdApi_React_default().createElement(Avatar, {
+                    className: GuildProfileModalHeader_classes.profileHeader.avatar,
+                    src: guild.getIconURL(true),
+                    size: Avatar.Sizes.SIZE_120,
+                    onContextMenu: handleIconContextMenu,}
+                )
+                , external_BdApi_React_default().createElement('div', { className: `${GuildProfileModalHeader_classes.profileHeader.headerTop} header-top`,}
+                    , guild.features.size > 0 && (
+                        external_BdApi_React_default().createElement(GuildFeatures_GuildFeatures, { className: GuildProfileModalHeader_classes.profileHeader.badgeList, guild: guild,} )
+                    )
+                    , external_BdApi_React_default().createElement(MemberCounts, { guild: guild,} )
+                )
+                , external_BdApi_React_default().createElement(GuildTag, {
+                    className: GuildProfileModalHeader_classes.profileHeader.nameTagNoCustomStatus,
+                    usernameClass: GuildProfileModalHeader_classes.profileHeader.username,
+                    guild: guild,}
+                )
+            )
+        )
+    );
+}
+
+;// CONCATENATED MODULE: ./src/@discord/components/Scroller.js
+
+
+const { ScrollerAuto, ScrollerThin, default: Scroller } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('ScrollerAuto');
+
+
+
+/* harmony default export */ const components_Scroller = ((/* unused pure expression or super */ null && (Scroller)));
+
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/Relationships.jsx
+ function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
@@ -1028,70 +1065,246 @@ const {
 
 
 
+
+
+
+
+
 const {
-    Dispatcher: MemberCountsStore_Dispatcher,
-    MemberCountStore,
-    DiscordConstants: { ActionTypes }
+    RelationshipStore,
+    GuildMemberStore,
+    UserStore,
+    GuildChannelsStore,
+    ModalStack,
+    UserProfileModals,
+    ContextMenuActions: Relationships_ContextMenuActions,
+    DiscordConstants: { RelationshipTypes }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-const memberCounts = new Map();
-const onlineMemberCounts = new Map();
+const GuildChannelUserContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('GuildChannelUserContextMenu');
 
-function handleConnectionOpen({ guilds }) {
-    for (const guild of guilds) {
-        memberCounts.set(guild.id, guild.member_count);
+const { default: Relationships_Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
+const DiscordTag = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('DiscordTag');
+
+const Relationships_classes = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('listRow');
+
+const NoRelationshipsOfTypeMessages = {
+    [RelationshipTypes.FRIEND]: 'GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD',
+    [RelationshipTypes.BLOCKED]: 'GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD'
+};
+
+function Relationships({ guild, relationshipType }) {
+    const channel = useStateFromStores([GuildChannelsStore], () => GuildChannelsStore.getDefaultChannel(guild.id));
+    const users = useStateFromStores([RelationshipStore, GuildMemberStore, UserStore], () => {
+        const users = [];
+        const relationships = RelationshipStore.getRelationships();
+
+        for (const userId in relationships) {
+            if (relationships[userId] !== relationshipType || !GuildMemberStore.isMember(guild.id, userId)) {
+                continue;
+            }
+
+            users.push(UserStore.getUser(userId));
+        }
+
+        return users;
+    });
+
+    function handleSelect(user) {
+        ModalStack.pop();
+        UserProfileModals.open(user.id);
     }
-}
 
-function handleGuildCreate({ guild }) {
-    memberCounts.set(guild.id, guild.member_count);
-}
-
-function handleGuildDelete({ guild }) {
-    memberCounts.delete(guild.id);
-    onlineMemberCounts.delete(guild.id);
-}
-
-function handleGuildMemberListUpdate({ guildId, memberCount, groups }) {
-    if (memberCount !== 0) {
-        memberCounts.set(guildId, memberCount);
+    function handleContextMenu(event, user) {
+        Relationships_ContextMenuActions.openContextMenu(event, () => (
+            external_BdApi_React_default().createElement(GuildChannelUserContextMenu, { ...event, user: user, guildId: guild.id, channelId: _optionalChain([channel, 'optionalAccess', _ => _.id]),} )
+        ));
     }
 
-    onlineMemberCounts.set(
-        guildId,
-        groups.reduce((total, group) => {
-            return group.id !== 'offline' ? total + group.count : total;
-        }, 0)
+    if (users.length <= 0) {
+        return (
+            external_BdApi_React_default().createElement('div', { className: Relationships_classes.empty,}
+                , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyIconFriends,} )
+                , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyText,}
+                    , i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]
+                )
+            )
+        );
+    }
+
+    return (
+        external_BdApi_React_default().createElement(ScrollerThin, { className: Relationships_classes.listScroller, fade: true,}
+            , users.map(user => (
+                external_BdApi_React_default().createElement(Clickable, {
+                    key: user.id,
+                    className: Relationships_classes.listRow,
+                    onClick: () => handleSelect(user),
+                    onSelect: () => handleSelect(user),
+                    onContextMenu: event => handleContextMenu(event, user),}
+                
+                    , external_BdApi_React_default().createElement(Relationships_Avatar, { className: Relationships_classes.listAvatar, src: user.getAvatarURL(), size: Relationships_Avatar.Sizes.SIZE_40,} )
+                    , external_BdApi_React_default().createElement(DiscordTag, {
+                        user: user,
+                        className: Relationships_classes.listName,
+                        discriminatorClass: Relationships_classes.listDiscriminator,}
+                    )
+                )
+            ))
+        )
     );
 }
 
-function handleOnlineGuildMemberCountUpdate({ guildId, count }) {
-    onlineMemberCounts.set(guildId, count);
+;// CONCATENATED MODULE: external ["BoundedLibrary","DiscordModules","Moment"]
+const external_BoundedLibrary_DiscordModules_Moment_namespaceObject = BoundedLibrary.DiscordModules.Moment;
+var external_BoundedLibrary_DiscordModules_Moment_default = /*#__PURE__*/__webpack_require__.n(external_BoundedLibrary_DiscordModules_Moment_namespaceObject);
+;// CONCATENATED MODULE: ./src/@discord/components/Form.js
+
+
+const {
+    FormDivider,
+    FormItem,
+    FormNotice,
+    FormNoticeTypes,
+    FormNoticeImagePositions,
+    FormSection,
+    FormText,
+    FormTextTypes,
+    FormTitle,
+    FormTitleTags
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('FormSection');
+
+
+
+;// CONCATENATED MODULE: ./src/@discord/components/Text.js
+
+
+/* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Text'));
+
+;// CONCATENATED MODULE: ./src/@discord/components/Flex.js
+
+
+/* harmony default export */ const Flex = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Flex'));
+
+;// CONCATENATED MODULE: ./src/@discord/components/Anchor.js
+
+
+/* harmony default export */ const Anchor = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Anchor'));
+
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildInfo.jsx
+ function GuildInfo_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
+ * Copyright (c) 2020 NurMarvin (Marvin Witt)
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const {
+    UserStore: GuildInfo_UserStore,
+    GuildChannelsStore: GuildInfo_GuildChannelsStore,
+    Timestamps,
+    DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes }
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+const StreamerModeStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('hidePersonalInformation');
+const UserMention = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('UserMention');
+const UserFetcher = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getUser', 'fetchCurrentUser');
+
+const GuildInfo_classes = {
+    margins: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('marginBottom8'),
+    list: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('empty', 'emptyIconStreamerMode', 'emptyText'),
+    infoSection: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('infoScroller')
+};
+
+const GuildExplicitContentFilterTypesMessages = {
+    [GuildExplicitContentFilterTypes.DISABLED]: 'EXPLICIT_CONTENT_FILTER_DISABLED',
+    [GuildExplicitContentFilterTypes.MEMBERS_WITHOUT_ROLES]: 'EXPLICIT_CONTENT_FILTER_MEDIUM',
+    [GuildExplicitContentFilterTypes.ALL_MEMBERS]: 'EXPLICIT_CONTENT_FILTER_HIGH'
+};
+
+function InfoSection({ title, children }) {
+    return (
+        external_BdApi_React_default().createElement(FormSection, { className: `${GuildInfo_classes.margins.marginBottom8} section`, tag: "h5", title: title,}
+            , external_BdApi_React_default().createElement(Text, { selectable: true,}, children)
+        )
+    );
 }
 
-class MemberCountsStore extends _discord_Flux.Store {
-    initialize() {
-        const nativeMemberCounts = MemberCountStore.getMemberCounts();
-        for (const guildId in nativeMemberCounts) {
-            memberCounts.set(guildId, nativeMemberCounts[guildId]);
+function GuildInfo({ guild }) {
+    const owner = useStateFromStores([GuildInfo_UserStore], () => GuildInfo_UserStore.getUser(guild.ownerId));
+    const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hide);
+    const channel = useStateFromStores([GuildInfo_GuildChannelsStore], () => GuildInfo_GuildChannelsStore.getDefaultChannel(guild.id));
+
+    (0,external_BdApi_React_namespaceObject.useEffect)(() => {
+        if (!owner) {
+            UserFetcher.getUser(guild.ownerId);
         }
+    }, [guild, owner]);
+
+    if (hide) {
+        return (
+            external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.empty,}
+                , external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.emptyIconStreamerMode,} )
+                , external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.emptyText,}, i18n.Messages.STREAMER_MODE_ENABLED)
+            )
+        );
     }
 
-    getMemberCounts(guildId) {
-        return {
-            members: memberCounts.get(guildId),
-            membersOnline: onlineMemberCounts.get(guildId)
-        };
-    }
+    return (
+        external_BdApi_React_default().createElement(ScrollerThin, { className: `${GuildInfo_classes.infoSection.infoScroller} guild-info`, fade: true,}
+            , external_BdApi_React_default().createElement(Flex, { justify: Flex.Justify.START, wrap: Flex.Wrap.WRAP,}
+                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_OWNER,}
+                    , owner ? (
+                        external_BdApi_React_default().createElement(UserMention, { className: "mention", userId: owner.id, channelId: GuildInfo_optionalChain([channel, 'optionalAccess', _ => _.id]),} )
+                    ) : (
+                        `${i18n.Messages.GUILD_PROFILE_LOADING}...`
+                    )
+                )
+                , guild.description && (
+                    external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_SERVER_DESCRIPTION,}, guild.description)
+                )
+                , guild.vanityURLCode && (
+                    external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.VANITY_URL,}
+                        , external_BdApi_React_default().createElement(Anchor, { href: `https://discord.gg/${guild.vanityURLCode}`,}, "discord.gg/"
+                            , guild.vanityURLCode
+                        )
+                    )
+                )
+                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_CREATED_AT,}
+                    , external_BoundedLibrary_DiscordModules_Moment_default()(Timestamps.extractTimestamp(guild.id)).format('LLL')
+                )
+                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_JOINED_AT,}
+                    , external_BoundedLibrary_DiscordModules_Moment_default()(guild.joinedAt).format('LLL')
+                )
+                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL,}
+                    , i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]
+                )
+                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER,}
+                    , i18n.Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]
+                )
+                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT,}
+                    , guild.premiumSubscriberCount
+                )
+                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER,}, guild.premiumTier)
+                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_SERVER_LANGUAGE,}
+                    , i18n.Messages[guild.preferredLocale]
+                )
+            )
+        )
+    );
 }
-
-/* harmony default export */ const stores_MemberCountsStore = (new MemberCountsStore(MemberCountsStore_Dispatcher, {
-    [ActionTypes.CONNECTION_OPEN]: handleConnectionOpen,
-    [ActionTypes.GUILD_CREATE]: handleGuildCreate,
-    [ActionTypes.GUILD_DELETE]: handleGuildDelete,
-    [ActionTypes.GUILD_MEMBER_LIST_UPDATE]: handleGuildMemberListUpdate,
-    [ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE]: handleOnlineGuildMemberCountUpdate
-}));
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/index.jsx
  function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }/* @license
@@ -1110,46 +1323,13 @@ class MemberCountsStore extends _discord_Flux.Store {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 const {
-    ContextMenuActions: GuildProfileModal_ContextMenuActions,
-    ImageResolver,
     DiscordConstants: { RelationshipTypes: GuildProfileModal_RelationshipTypes }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('InviteButton');
-const { GuildIcon } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('GuildIcon');
-const GuildBadge = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('GuildBadge');
-const NativeImageContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('NativeImageContextMenu');
+const { ModalRoot } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('ModalRoot');
 
-const GuildProfileModal_classes = {
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('botTagCozy'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('botTag', 'botTagRegular'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('guildDetail'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('wrapper', 'pointer'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('guildIconContainer'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('tabBarContainer'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('profileBadge'),
-    ...external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('profileBadges', 'nameTag')
-};
-
-function MemberCounts({ guild }) {
-    const { members, membersOnline } = useStateFromStores([stores_MemberCountsStore], () =>
-        stores_MemberCountsStore.getMemberCounts(guild.id)
-    );
-
-    return external_BdApi_React_default().createElement(InviteButton.Data, { members: members, membersOnline: membersOnline,} );
-}
+const GuildProfileModal_classes = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('root', 'topSection', 'body');
 
 const GuildProfileSections = {
     GUILD_INFO: 'GUILD_INFO',
@@ -1160,12 +1340,11 @@ const GuildProfileSections = {
 class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
     constructor(props) {
         super(props);
+
         this.state = {
             selectedSection: _nullishCoalesce(props.section, () => ( GuildProfileSections.GUILD_INFO))
         };
 
-        this.handleGuildIconClick = this.handleGuildIconClick.bind(this);
-        this.handleGuildIconContextMenu = this.handleGuildIconContextMenu.bind(this);
         this.handleSectionSelect = this.handleSectionSelect.bind(this);
     }
 
@@ -1173,96 +1352,32 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
         const { selectedSection } = this.state;
         const { guild } = this.props;
 
-        const features = Array.from(guild.features);
-
-        const guildIcon = external_BdApi_React_default().createElement(GuildIcon, { animate: true, guild: guild,} );
-
         return (
-            external_BdApi_React_default().createElement(Flex, { className: `guild-profile ${GuildProfileModal_classes.root}`, direction: Flex.Direction.VERTICAL,}
+            external_BdApi_React_default().createElement(ModalRoot, { className: `${GuildProfileModal_classes.root} guild-profile`, transitionState: 1,}
                 , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.topSection,}
-                    , external_BdApi_React_default().createElement('header', { className: GuildProfileModal_classes.header,}
-                        , guild.icon ? (
-                            external_BdApi_React_default().createElement(Clickable, {
-                                onClick: this.handleGuildIconClick,
-                                onContextMenu: this.handleGuildIconContextMenu,}
-                            
-                                , external_BdApi_React_default().createElement(TooltipContainer, {
-                                    className: `${GuildProfileModal_classes.avatar} ${GuildProfileModal_classes.wrapper}`,
-                                    position: "top",
-                                    text: i18n.Messages.GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL,}
-                                
-                                    , guildIcon
-                                )
+                    , external_BdApi_React_default().createElement(GuildProfileModalHeader, { guild: guild,} )
+                    , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.tabBarContainer,}
+                        , external_BdApi_React_default().createElement(TabBar, {
+                            className: GuildProfileModal_classes.tabBar,
+                            type: TabBar.Types.TOP,
+                            selectedItem: selectedSection,
+                            onItemSelect: this.handleSectionSelect,}
+                        
+                            , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.GUILD_INFO,}
+                                , i18n.Messages.GUILD_PROFILE_GUILD_INFO
                             )
-                        ) : (
-                            guildIcon
-                        )
-                        , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.headerInfo,}
-                            , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.nameTag,}
-                                , external_BdApi_React_default().createElement(GuildBadge, {
-                                    className: GuildProfileModal_classes.guildIconContainer,
-                                    size: 20,
-                                    tooltipColor: "black",
-                                    tooltipPosition: "top",
-                                    guild: guild,}
-                                )
-                                , external_BdApi_React_default().createElement('span', { className: GuildProfileModal_classes.username,}, guild.name)
-                                , guild.nsfw && (
-                                    external_BdApi_React_default().createElement('span', {
-                                        className: `${GuildProfileModal_classes.botTagCozy} ${GuildProfileModal_classes.botTagRegular} ${GuildProfileModal_classes.rem} nsfw-tag`,}
-                                    
-                                        , external_BdApi_React_default().createElement('span', { className: GuildProfileModal_classes.botText,}, "NSFW")
-                                    )
-                                )
+                            , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.FRIENDS,}
+                                , i18n.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD
                             )
-                            , features.length > 0 && (
-                                external_BdApi_React_default().createElement('div', { className: `${GuildProfileModal_classes.container} ${GuildProfileModal_classes.colored} ${GuildProfileModal_classes.profileBadges}`,}
-                                    , features.map(feature => this.renderFeatureBadge(feature))
-                                )
-                            )
-                            , external_BdApi_React_default().createElement(Text, { className: `member-counts ${GuildProfileModal_classes.guildDetail}`,}
-                                , external_BdApi_React_default().createElement(MemberCounts, { guild: guild,} )
+                            , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.BLOCKED_USERS,}
+                                , i18n.Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD
                             )
                         )
                     )
-                    , external_BdApi_React_default().createElement('div', null
-                        , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.tabBarContainer,}
-                            , external_BdApi_React_default().createElement(TabBar, {
-                                className: GuildProfileModal_classes.tabBar,
-                                selectedItem: selectedSection,
-                                type: TabBar.Types.TOP,
-                                onItemSelect: this.handleSectionSelect,}
-                            
-                                , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.GUILD_INFO,}
-                                    , i18n.Messages.GUILD_PROFILE_GUILD_INFO
-                                )
-                                , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.FRIENDS,}
-                                    , i18n.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD
-                                )
-                                , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.BLOCKED_USERS,}
-                                    , i18n.Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD
-                                )
-                            )
-                        )
-                    )
+                    , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.body,}, this.renderSelectedSection())
                 )
-                , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.body,}, this.renderSelectedSection())
             )
         );
-    }
-
-    renderFeatureBadge(feature) {
-        const Icon = features[feature];
-
-        return Icon ? (
-            external_BdApi_React_default().createElement('div', null
-                , external_BdApi_React_default().createElement(TooltipContainer, { position: "top", text: i18n.Messages[`GUILD_PROFILE_${feature}`],}
-                    , external_BdApi_React_default().createElement(Clickable, { role: "button", tag: "div",}
-                        , external_BdApi_React_default().createElement(Icon, { className: `${GuildProfileModal_classes.profileBadge24} badge`,} )
-                    )
-                )
-            )
-        ) : null;
     }
 
     renderSelectedSection() {
@@ -1279,31 +1394,8 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
         }
     }
 
-    handleGuildIconClick() {
-        external_electron_namespaceObject.clipboard.writeText(this.getGuildIconURL());
-    }
-
-    handleGuildIconContextMenu(event) {
-        GuildProfileModal_ContextMenuActions.openContextMenu(event, () => (
-            external_BdApi_React_default().createElement(NativeImageContextMenu, { ...event, src: this.getGuildIconURL(),} )
-        ));
-    }
-
     handleSectionSelect(section) {
-        this.setState({
-            selectedSection: section
-        });
-    }
-
-    getGuildIconURL() {
-        const { guild } = this.props;
-
-        return ImageResolver.getGuildIconURL({
-            id: guild.id,
-            icon: guild.icon,
-            size: 1024,
-            format: ImageResolver.hasAnimatedGuildIcon(guild.icon) ? 'gif' : 'png'
-        });
+        this.setState({ selectedSection: section });
     }
 }
 
@@ -1328,7 +1420,7 @@ function SvgGuildProfile(props) {
 
 /* harmony default export */ const guild_profile = (SvgGuildProfile);
 ;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
-/* harmony default export */ const style = (".guild-profile .icon-3o6xvg{width:80px;height:80px;vertical-align:top}.guild-profile .member-counts{margin-top:4px}.guild-profile .badge{color:var(--header-secondary)}.guild-profile .nsfw-tag{margin-top:auto;margin-bottom:auto}.guild-info{height:100%;padding:20px 10px}.guild-info .section{padding:5px 10px}\n");
+/* harmony default export */ const style = (".guild-profile .header-top{height:48px;margin-bottom:-16px;flex-direction:column;align-items:flex-start;justify-content:space-between}.guild-profile .feature{color:var(--header-secondary)}.guild-profile .guild-info{height:100%;padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}\n");
 ;// CONCATENATED MODULE: ./src/GuildProfile/locales/index.js
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
@@ -1472,7 +1564,7 @@ class GuildProfile extends (external_Plugin_default()) {
     }
 
     openGuildProfileModal(guild) {
-        GuildProfile_ModalStack.push(() => external_BdApi_React_default().createElement(GuildProfileModal, { guild: guild,} ));
+        GuildProfile_ModalStack.push(props => external_BdApi_React_default().createElement(GuildProfileModal, { ...props, guild: guild,} ));
     }
 }
 
