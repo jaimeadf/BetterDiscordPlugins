@@ -4,7 +4,6 @@
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Amigos",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "Utilizadores Bloqueados",
     "GUILD_PROFILE_LOADING": "Carregando",
-    "GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL": "Clica para copiar o URL do ícone do server",
     "GUILD_PROFILE_CREATED_AT": "Criado a",
     "GUILD_PROFILE_JOINED_AT": "Entrou a",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "Quantidade de Impulsos",
@@ -25,6 +24,5 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Ativado Pesquisável Antes",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Ecrã de Boas-vindas",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Verificação de Membros",
-    "GUILD_PROFILE_RELAY_ENABLED": "Relay Ativado",
     "GUILD_PROFILE_PREVIEW_ENABLED": "Preview Ativado"
 }

@@ -4,7 +4,6 @@
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "मित्र",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "ब्लॉक किया हुआ व्यक्तियों",
     "GUILD_PROFILE_LOADING": "लोडिंग",
-    "GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL": "सर्वर का आइकॉन का यूआरएल को कॉपी करनेकेलिए दबाइये",
     "GUILD_PROFILE_CREATED_AT": "क्रिएट किया",
     "GUILD_PROFILE_JOINED_AT": "जॉइन हुआ",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "सर्वर बूस्टर का गिनती",
@@ -25,6 +24,5 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "डिस्कोवेराबुल ऑप्शन को गत में इनेबल किया गया।",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "वेलकम स्क्रीन इनेबल्ड है।",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "सदस्यता स्क्रीनिंग इनेबल्ड है।",
-    "GUILD_PROFILE_RELAY_ENABLED": "रिले इनेबल्ड है।",
     "GUILD_PROFILE_PREVIEW_ENABLED": "प्रीव्यू इनेबल्ड है।"
 }

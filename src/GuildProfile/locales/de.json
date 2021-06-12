@@ -4,7 +4,6 @@
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Freunde",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "Geblockte Nutzer",
     "GUILD_PROFILE_LOADING": "Lädt",
-    "GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL": "Klicke zum kopieren der Server Icon URL",
     "GUILD_PROFILE_CREATED_AT": "Erstellt am",
     "GUILD_PROFILE_JOINED_AT": "Beigetreten am",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "Server Booster Anzahl",
@@ -25,6 +24,5 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Vorher auffindbar aktiviert",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Willkommens Übersicht",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Mitgliedschaftsprüfung",
-    "GUILD_PROFILE_RELAY_ENABLED": "Relay aktiviert",
     "GUILD_PROFILE_PREVIEW_ENABLED": "Vorschau aktiviert"
 }

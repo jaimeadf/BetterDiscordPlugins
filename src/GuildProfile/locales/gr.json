@@ -4,7 +4,6 @@
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Φίλοι",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "Αποκλεισμένοι Χρήστες",
     "GUILD_PROFILE_LOADING": "Φόρτωση",
-    "GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL": "Κλικ για αντιγραφή συνδέσμου εικόνας διακομιστή",
     "GUILD_PROFILE_CREATED_AT": "Δημιουργήθηκε στις",
     "GUILD_PROFILE_JOINED_AT": "Συμμετοχή στις",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "Πλήθος Ενισχύσεων Διακομιστή",
@@ -25,6 +24,5 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Ενεργοποίηση Ανιχνευσιμότητας Παλιότερα",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Οθόνη Καλωσορίσματος Ενεγοποιημένη",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Αξιολόγηση Μελών",
-    "GUILD_PROFILE_RELAY_ENABLED": "Relay Ενεργοποιημένο",
     "GUILD_PROFILE_PREVIEW_ENABLED": "Προεπισκόπηση Ενεργοποιημένη"
 }

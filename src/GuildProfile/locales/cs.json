@@ -4,7 +4,6 @@
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Přátelé",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "Zablokovaní uživatelé",
     "GUILD_PROFILE_LOADING": "Načítání",
-    "GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL": "Klikni pro zkopírování URL ikony serveru",
     "GUILD_PROFILE_CREATED_AT": "Vytvořeno",
     "GUILD_PROFILE_JOINED_AT": "Připojeno",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "Počet vylepšovatelů serveru",
@@ -25,6 +24,5 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Dříve veřejný",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Povolena uvítací obrazovka",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Prověřování členství",
-    "GUILD_PROFILE_RELAY_ENABLED": "Povoleno vysílání",
     "GUILD_PROFILE_PREVIEW_ENABLED": "Povolen náhled"
 }

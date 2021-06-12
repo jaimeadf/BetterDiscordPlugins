@@ -4,7 +4,6 @@
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Prieteni",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "Utilizatori blocati",
     "GUILD_PROFILE_LOADING": "Se incarca",
-    "GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL": "Click sa copii URL-ul iconitei serverului",
     "GUILD_PROFILE_CREATED_AT": "Creat la",
     "GUILD_PROFILE_JOINED_AT": "Alaturat la",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "Numarul de Server Booster",
@@ -25,6 +24,5 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Descoperabilitate Activata Inainte",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Ecran de intampinare activat",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Evaluarea calitatii de membru",
-    "GUILD_PROFILE_RELAY_ENABLED": "Releu Activat",
     "GUILD_PROFILE_PREVIEW_ENABLED": "Previzualizare activata"
 }

@@ -4,7 +4,6 @@
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Znajomi",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "Zablokowani Użytkownicy",
     "GUILD_PROFILE_LOADING": "Ładowanie",
-    "GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL": "Kliknij, by skopiować adres URL serwera",
     "GUILD_PROFILE_CREATED_AT": "Utworzono",
     "GUILD_PROFILE_JOINED_AT": "Dołączono",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "Ilość Ulepszeń Serwera",
@@ -25,6 +24,5 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Wcześniej Włączona Odkrywalność",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Ekran Powitalny Włączony",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Sprawdzanie Członków",
-    "GUILD_PROFILE_RELAY_ENABLED": "Przekazywanie Włączone",
     "GUILD_PROFILE_PREVIEW_ENABLED": "Podgląd Włączony"
 }

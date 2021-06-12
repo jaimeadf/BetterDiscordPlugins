@@ -4,7 +4,6 @@
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Amici",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "Utenti Bloccati",
     "GUILD_PROFILE_LOADING": "Caricando",
-    "GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL": "Clicca per copiare la URL dell'icona del server",
     "GUILD_PROFILE_CREATED_AT": "Creato il",
     "GUILD_PROFILE_JOINED_AT": "Iscritto il",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "Quantità di potenziamenti",
@@ -25,6 +24,5 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "\"Discovery\" attivato previamente",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Schermata di benvenuta attivata",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Verifica dell'iscrizione",
-    "GUILD_PROFILE_RELAY_ENABLED": "Relè attivato",
     "GUILD_PROFILE_PREVIEW_ENABLED": "Anteprima Abilitata"
 }

@@ -4,7 +4,6 @@
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Arkadaşlar",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "Engellenmiş Kullanıcılar",
     "GUILD_PROFILE_LOADING": "Yükleniyor",
-    "GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL": "Sunucu simgesi URL'sini kopyalamak için tıkla",
     "GUILD_PROFILE_CREATED_AT": "Oluşturulan Tarih",
     "GUILD_PROFILE_JOINED_AT": "Katılınan Tarih",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "Sunucu Takviyeci Sayısı",
@@ -25,6 +24,5 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Keşfedilebilir Önceden Etkinleştirildi",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Hoş Geldin Ekranı Etkin",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Üye Seçimi",
-    "GUILD_PROFILE_RELAY_ENABLED": "Yönlendirme Etkin",
     "GUILD_PROFILE_PREVIEW_ENABLED": "Önizleme Etkin"
 }

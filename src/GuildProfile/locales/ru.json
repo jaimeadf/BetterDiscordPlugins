@@ -4,7 +4,6 @@
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Друзья",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "Заблокированные пользователи",
     "GUILD_PROFILE_LOADING": "Загрузка",
-    "GUILD_PROFILE_CLICK_TO_COPY_SERVER_ICON_URL": "Нажмите, чтобы скопировать URL иконки",
     "GUILD_PROFILE_CREATED_AT": "Сервер создан",
     "GUILD_PROFILE_JOINED_AT": "Вы присоединились",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "Количество Бустов сервера",
@@ -25,6 +24,5 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Включен обнаруживаемый ранее",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Включен экран приветствия",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Проверка членства",
-    "GUILD_PROFILE_RELAY_ENABLED": "Мультисерверность включена",
     "GUILD_PROFILE_PREVIEW_ENABLED": "Включен предпросмотр"
 }
