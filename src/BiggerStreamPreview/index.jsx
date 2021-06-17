@@ -3,6 +3,8 @@ import React from 'react';
 import { DiscordModules, WebpackModules, Patcher, DiscordContextMenu } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
+import { useStateFromStores } from '@discord/Flux';
+
 const { StreamStore, StreamPreviewStore, ModalStack } = DiscordModules;
 
 const ImageModal = WebpackModules.getByDisplayName('ImageModal');
@@ -20,24 +22,21 @@ export default class BiggerStreamPreview extends Plugin {
     patchUserContextMenus() {
         const UserContextMenus = WebpackModules.findAll(m => m?.default?.displayName?.includes('UserContextMenu'));
 
-        const patch = (thisObject, [props], returnValue) => {
-            const { user } = props;
+        const patch = (thisObject, [{ user }], returnValue) => {
+            const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
+                const stream = StreamStore.getStreamForUser(user.id);
+                const previewURL = stream
+                    ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
+                    : null;
 
-            const stream = StreamStore.getStreamForUser(user.id);
-            if (!stream) return;
+                return [stream, previewURL];
+            });
 
-            const previewURL = StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
+            if (!stream) {
+                return;
+            }
 
-            returnValue.props.children.props.children.push(
-                DiscordContextMenu.buildMenuItem({
-                    type: 'separator'
-                }),
-                DiscordContextMenu.buildMenuItem({
-                    label: 'View Stream Preview',
-                    action: () => this.showImageModal(previewURL),
-                    disabled: previewURL === null
-                })
-            );
+            this.pushStreamPreviewMenuItems(returnValue, previewURL);
         };
 
         for (const UserContextMenu of UserContextMenus) {
@@ -45,17 +44,29 @@ export default class BiggerStreamPreview extends Plugin {
         }
     }
 
-    async showImageModal(url) {
+    pushStreamPreviewMenuItems(menuWrapper, previewURL) {
+        menuWrapper.props.children.props.children.push(
+            DiscordContextMenu.buildMenuItem({ type: 'separator' }),
+            DiscordContextMenu.buildMenuItem({
+                label: 'View Stream Preview',
+                action: () => this.openImageModal(previewURL),
+                disabled: previewURL === null
+            })
+        );
+    }
+
+    async openImageModal(url) {
         const image = await this.fetchImage(url);
-        ModalStack.push(ImageModal, {
-            src: url,
-            placeholder: url,
-            original: url,
-            width: image.width,
-            height: image.height,
-            onClickUntrusted: e => e.openHref(),
-            renderLinkComponent: props => <MaskedLink {...props} />
-        });
+
+        ModalStack.push(() => (
+            <ImageModal
+                src={url}
+                original={url}
+                width={image.width}
+                height={image.height}
+                renderLinkComponent={props => <MaskedLink {...props} />}
+            />
+        ));
     }
 
     async fetchImage(url) {
@@ -63,13 +74,8 @@ export default class BiggerStreamPreview extends Plugin {
             const image = new Image();
             image.src = url;
 
-            image.addEventListener('load', () => {
-                resolve(image);
-            });
-
-            image.addEventListener('error', () => {
-                reject(new Error('Image not found'));
-            });
+            image.addEventListener('load', () => resolve(image));
+            image.addEventListener('error', () => reject('Unable to fetch image.'));
         });
     }
 }
