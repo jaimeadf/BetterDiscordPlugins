@@ -13,6 +13,7 @@ const MaskedLink = WebpackModules.getByDisplayName('MaskedLink');
 export default class BiggerStreamPreview extends Plugin {
     onStart() {
         this.patchUserContextMenus();
+        this.patchStreamContextMenu();
     }
 
     onStop() {
@@ -42,6 +43,18 @@ export default class BiggerStreamPreview extends Plugin {
         for (const UserContextMenu of UserContextMenus) {
             Patcher.after(UserContextMenu, 'default', patch);
         }
+    }
+
+    patchStreamContextMenu() {
+        const StreamContextMenu = WebpackModules.find(m => m?.default?.displayName === 'StreamContextMenu');
+
+        Patcher.after(StreamContextMenu, 'default', (thisObject, [{ stream }], returnValue) => {
+            const previewURL = useStateFromStores([StreamPreviewStore], () => {
+                return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
+            });
+
+            this.pushStreamPreviewMenuItems(returnValue, previewURL);
+        });
     }
 
     pushStreamPreviewMenuItems(menuWrapper, previewURL) {
