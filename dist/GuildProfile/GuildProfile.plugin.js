@@ -2,7 +2,7 @@
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
  * @version 1.1.0
- * @author Jaime Filho
+ * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
  * @website https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.1.0","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"New layout","type":"improved","items":["Rewritten the entire modal to match the latest discord update."]},{"title":"People really love to translate","items":["Added Romanian support (Thanks @n00bes on GitHub).","Added Greek support (Thanks @down-bad on GitHub).","Added Polish support (Thanks @kamack38 on GitHub)."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.1.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"New layout","type":"improved","items":["Rewritten the entire modal to match the latest discord update."]},{"title":"People really love to translate","items":["Added Romanian support (Thanks @n00bes on GitHub).","Added Greek support (Thanks @down-bad on GitHub).","Added Polish support (Thanks @kamack38 on GitHub)."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);

@@ -1,8 +1,8 @@
 /**!
  * @name BiggerStreamPreview
  * @description Adds a button in the context menu to see bigger stream previews.
- * @version 1.0.5
- * @author Jaime Filho
+ * @version 1.0.6
+ * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
  * @website https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.5","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"}};
+const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.6","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Open from anywhere","items":["Added preview buttons to the stream context menu."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -93,8 +93,27 @@ const external_BoundedLibrary_namespaceObject = BoundedLibrary;
 ;// CONCATENATED MODULE: external "Plugin"
 const external_Plugin_namespaceObject = Plugin;
 var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
+;// CONCATENATED MODULE: ./src/@discord/Flux.js
+
+
+const {
+    Dispatcher,
+    Store,
+    BatchedStoreListener,
+    useStateFromStores,
+    useStateFromStoresArray,
+    useStateFromStoresObject,
+    default: Flux
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Store', 'default');
+
+
+
+/* harmony default export */ const _discord_Flux = ((/* unused pure expression or super */ null && (Flux)));
+
 ;// CONCATENATED MODULE: ./src/BiggerStreamPreview/index.jsx
  function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+
 
 
 
@@ -107,6 +126,7 @@ const MaskedLink = external_BoundedLibrary_namespaceObject.WebpackModules.getByD
 class BiggerStreamPreview extends (external_Plugin_default()) {
     onStart() {
         this.patchUserContextMenus();
+        this.patchStreamContextMenu();
     }
 
     onStop() {
@@ -116,24 +136,21 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
     patchUserContextMenus() {
         const UserContextMenus = external_BoundedLibrary_namespaceObject.WebpackModules.findAll(m => _optionalChain([m, 'optionalAccess', _ => _.default, 'optionalAccess', _2 => _2.displayName, 'optionalAccess', _3 => _3.includes, 'call', _4 => _4('UserContextMenu')]));
 
-        const patch = (thisObject, [props], returnValue) => {
-            const { user } = props;
+        const patch = (thisObject, [{ user }], returnValue) => {
+            const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
+                const stream = StreamStore.getStreamForUser(user.id);
+                const previewURL = stream
+                    ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
+                    : null;
 
-            const stream = StreamStore.getStreamForUser(user.id);
-            if (!stream) return;
+                return [stream, previewURL];
+            });
 
-            const previewURL = StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
+            if (!stream) {
+                return;
+            }
 
-            returnValue.props.children.props.children.push(
-                external_BoundedLibrary_namespaceObject.DiscordContextMenu.buildMenuItem({
-                    type: 'separator'
-                }),
-                external_BoundedLibrary_namespaceObject.DiscordContextMenu.buildMenuItem({
-                    label: 'View Stream Preview',
-                    action: () => this.showImageModal(previewURL),
-                    disabled: previewURL === null
-                })
-            );
+            this.pushStreamPreviewMenuItems(returnValue, previewURL);
         };
 
         for (const UserContextMenu of UserContextMenus) {
@@ -141,17 +158,41 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
         }
     }
 
-    async showImageModal(url) {
-        const image = await this.fetchImage(url);
-        ModalStack.push(ImageModal, {
-            src: url,
-            placeholder: url,
-            original: url,
-            width: image.width,
-            height: image.height,
-            onClickUntrusted: e => e.openHref(),
-            renderLinkComponent: props => external_BdApi_React_default().createElement(MaskedLink, { ...props,} )
+    patchStreamContextMenu() {
+        const StreamContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => _optionalChain([m, 'optionalAccess', _5 => _5.default, 'optionalAccess', _6 => _6.displayName]) === 'StreamContextMenu');
+
+        external_BoundedLibrary_namespaceObject.Patcher.after(StreamContextMenu, 'default', (thisObject, [{ stream }], returnValue) => {
+            const previewURL = useStateFromStores([StreamPreviewStore], () => {
+                return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
+            });
+
+            this.pushStreamPreviewMenuItems(returnValue, previewURL);
         });
+    }
+
+    pushStreamPreviewMenuItems(menuWrapper, previewURL) {
+        menuWrapper.props.children.props.children.push(
+            external_BoundedLibrary_namespaceObject.DiscordContextMenu.buildMenuItem({ type: 'separator' }),
+            external_BoundedLibrary_namespaceObject.DiscordContextMenu.buildMenuItem({
+                label: 'View Stream Preview',
+                action: () => this.openImageModal(previewURL),
+                disabled: previewURL === null
+            })
+        );
+    }
+
+    async openImageModal(url) {
+        const image = await this.fetchImage(url);
+
+        ModalStack.push(() => (
+            external_BdApi_React_default().createElement(ImageModal, {
+                src: url,
+                original: url,
+                width: image.width,
+                height: image.height,
+                renderLinkComponent: props => external_BdApi_React_default().createElement(MaskedLink, { ...props,} ),}
+            )
+        ));
     }
 
     async fetchImage(url) {
@@ -159,13 +200,8 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
             const image = new Image();
             image.src = url;
 
-            image.addEventListener('load', () => {
-                resolve(image);
-            });
-
-            image.addEventListener('error', () => {
-                reject(new Error('Image not found'));
-            });
+            image.addEventListener('load', () => resolve(image));
+            image.addEventListener('error', () => reject('Unable to fetch image.'));
         });
     }
 }

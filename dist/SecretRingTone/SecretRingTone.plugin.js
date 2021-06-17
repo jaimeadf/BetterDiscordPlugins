@@ -2,7 +2,7 @@
  * @name SecretRingTone
  * @description Always plays the secret ring tone when someone calls you.
  * @version 1.0.0
- * @author Jaime Filho
+ * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
  * @website https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/SecretRingTone
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"SecretRingTone","description":"Always plays the secret ring tone when someone calls you.","version":"1.0.0","authors":[{"name":"Jaime Filho","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/SecretRingTone","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/SecretRingTone/SecretRingTone.plugin.js"}};
+const config = {"info":{"name":"SecretRingTone","description":"Always plays the secret ring tone when someone calls you.","version":"1.0.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/SecretRingTone","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/SecretRingTone/SecretRingTone.plugin.js"}};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
