@@ -30,7 +30,7 @@
         "prettier": "^2.3.1",
         "raw-loader": "^4.0.2",
         "sass-loader": "^12.1.0",
-        "sucrase": "^3.18.2",
+        "sucrase": "^3.19.0",
         "template-file": "^5.1.0",
         "url-loader": "^4.1.1",
         "webpack": "^5.39.1",
