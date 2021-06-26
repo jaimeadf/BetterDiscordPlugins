@@ -60,55 +60,57 @@ export default function GuildInfo({ guild }) {
         }
     }, [guild, owner]);
 
-    if (hide) {
-        return (
-            <div className={classes.list.empty}>
-                <div className={classes.list.emptyIconStreamerMode} />
-                <div className={classes.list.emptyText}>{i18n.Messages.STREAMER_MODE_ENABLED}</div>
-            </div>
-        );
-    }
-
     return (
         <ScrollerThin className={`${classes.infoSection.infoScroller} guild-info`} fade={true}>
-            <Flex justify={Flex.Justify.START} wrap={Flex.Wrap.WRAP}>
-                <InfoSection title={i18n.Messages.GUILD_OWNER}>
-                    {owner ? (
-                        <UserMention className="mention" userId={owner.id} channelId={channel?.id} />
-                    ) : (
-                        `${i18n.Messages.GUILD_PROFILE_LOADING}...`
-                    )}
-                </InfoSection>
-                {guild.description && (
-                    <InfoSection title={i18n.Messages.FORM_LABEL_SERVER_DESCRIPTION}>{guild.description}</InfoSection>
-                )}
-                {guild.vanityURLCode && (
-                    <InfoSection title={i18n.Messages.VANITY_URL}>
-                        <Anchor href={`https://discord.gg/${guild.vanityURLCode}`}>
-                            discord.gg/{guild.vanityURLCode}
-                        </Anchor>
+            {hide ? (
+                <div className={classes.list.empty}>
+                    <div className={classes.list.emptyIconStreamerMode} />
+                    <div className={classes.list.emptyText}>{i18n.Messages.STREAMER_MODE_ENABLED}</div>
+                </div>
+            ) : (
+                <Flex justify={Flex.Justify.START} wrap={Flex.Wrap.WRAP}>
+                    <InfoSection title={i18n.Messages.GUILD_OWNER}>
+                        {owner ? (
+                            <UserMention className="mention" userId={owner.id} channelId={channel?.id} />
+                        ) : (
+                            `${i18n.Messages.GUILD_PROFILE_LOADING}...`
+                        )}
                     </InfoSection>
-                )}
-                <InfoSection title={i18n.Messages.GUILD_PROFILE_CREATED_AT}>
-                    {moment(Timestamps.extractTimestamp(guild.id)).format('LLL')}
-                </InfoSection>
-                <InfoSection title={i18n.Messages.GUILD_PROFILE_JOINED_AT}>
-                    {moment(guild.joinedAt).format('LLL')}
-                </InfoSection>
-                <InfoSection title={i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL}>
-                    {i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]}
-                </InfoSection>
-                <InfoSection title={i18n.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER}>
-                    {i18n.Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]}
-                </InfoSection>
-                <InfoSection title={i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT}>
-                    {guild.premiumSubscriberCount}
-                </InfoSection>
-                <InfoSection title={i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER}>{guild.premiumTier}</InfoSection>
-                <InfoSection title={i18n.Messages.FORM_LABEL_SERVER_LANGUAGE}>
-                    {i18n.Messages[guild.preferredLocale]}
-                </InfoSection>
-            </Flex>
+                    {guild.description && (
+                        <InfoSection title={i18n.Messages.FORM_LABEL_SERVER_DESCRIPTION}>
+                            {guild.description}
+                        </InfoSection>
+                    )}
+                    {guild.vanityURLCode && (
+                        <InfoSection title={i18n.Messages.VANITY_URL}>
+                            <Anchor href={`https://discord.gg/${guild.vanityURLCode}`}>
+                                discord.gg/{guild.vanityURLCode}
+                            </Anchor>
+                        </InfoSection>
+                    )}
+                    <InfoSection title={i18n.Messages.GUILD_PROFILE_CREATED_AT}>
+                        {moment(Timestamps.extractTimestamp(guild.id)).format('LLL')}
+                    </InfoSection>
+                    <InfoSection title={i18n.Messages.GUILD_PROFILE_JOINED_AT}>
+                        {moment(guild.joinedAt).format('LLL')}
+                    </InfoSection>
+                    <InfoSection title={i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL}>
+                        {i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]}
+                    </InfoSection>
+                    <InfoSection title={i18n.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER}>
+                        {i18n.Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]}
+                    </InfoSection>
+                    <InfoSection title={i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT}>
+                        {guild.premiumSubscriberCount}
+                    </InfoSection>
+                    <InfoSection title={i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER}>
+                        {guild.premiumTier}
+                    </InfoSection>
+                    <InfoSection title={i18n.Messages.FORM_LABEL_SERVER_LANGUAGE}>
+                        {i18n.Messages[guild.preferredLocale]}
+                    </InfoSection>
+                </Flex>
+            )}
         </ScrollerThin>
     );
 }

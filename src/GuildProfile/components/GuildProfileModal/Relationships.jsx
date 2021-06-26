@@ -64,35 +64,33 @@ export default function Relationships({ guild, relationshipType }) {
         ));
     }
 
-    if (users.length <= 0) {
-        return (
-            <div className={classes.empty}>
-                <div className={classes.emptyIconFriends} />
-                <div className={classes.emptyText}>
-                    {i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]}
-                </div>
-            </div>
-        );
-    }
-
     return (
         <ScrollerThin className={classes.listScroller} fade={true}>
-            {users.map(user => (
-                <Clickable
-                    key={user.id}
-                    className={classes.listRow}
-                    onClick={() => handleSelect(user)}
-                    onSelect={() => handleSelect(user)}
-                    onContextMenu={event => handleContextMenu(event, user)}
-                >
-                    <Avatar className={classes.listAvatar} src={user.getAvatarURL()} size={Avatar.Sizes.SIZE_40} />
-                    <DiscordTag
-                        user={user}
-                        className={classes.listName}
-                        discriminatorClass={classes.listDiscriminator}
-                    />
-                </Clickable>
-            ))}
+            {users.length <= 0 ? (
+                <div className={classes.empty}>
+                    <div className={classes.emptyIconFriends} />
+                    <div className={classes.emptyText}>
+                        {i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]}
+                    </div>
+                </div>
+            ) : (
+                users.map(user => (
+                    <Clickable
+                        key={user.id}
+                        className={classes.listRow}
+                        onClick={() => handleSelect(user)}
+                        onSelect={() => handleSelect(user)}
+                        onContextMenu={event => handleContextMenu(event, user)}
+                    >
+                        <Avatar className={classes.listAvatar} src={user.getAvatarURL()} size={Avatar.Sizes.SIZE_40} />
+                        <DiscordTag
+                            user={user}
+                            className={classes.listName}
+                            discriminatorClass={classes.listDiscriminator}
+                        />
+                    </Clickable>
+                ))
+            )}
         </ScrollerThin>
     );
 }

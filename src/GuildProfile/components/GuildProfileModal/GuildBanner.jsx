@@ -20,9 +20,7 @@ export default function GuildBanner({ guild }) {
 
     return (
         <div
-            className={`${classes.banner.banner} ${
-                guild.banner ? classes.profileBannerPremium : classes.profileBanner
-            }`}
+            className={`${classes.banner} ${guild.banner ? classes.profileBannerPremium : classes.profileBanner}`}
             style={{
                 backgroundColor: dominantColor,
                 backgroundImage: `url(${ImageResolver.getGuildBannerURL({ id: guild.id, banner: guild.banner })})`

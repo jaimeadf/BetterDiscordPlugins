@@ -72,12 +72,12 @@ export default function GuildProfileModalHeader({ guild }) {
                     )}
                     <MemberCounts guild={guild} />
                 </div>
-                <GuildTag
-                    className={classes.profileHeader.nameTagNoCustomStatus}
-                    usernameClass={classes.profileHeader.username}
-                    guild={guild}
-                />
             </div>
+            <GuildTag
+                className={classes.profileHeader.nameTagNoCustomStatus}
+                usernameClass={classes.profileHeader.username}
+                guild={guild}
+            />
         </header>
     );
 }
