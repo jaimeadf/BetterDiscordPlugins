@@ -1,7 +1,7 @@
 {
     "name": "GuildProfile",
     "description": "Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "author": {
         "id": "289112759948410881",
         "name": "Marmota (Jaime Filho)"
@@ -12,18 +12,10 @@
     "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js",
     "changelog": [
         {
-            "title": "New layout",
-            "type": "improved",
+            "title": "It broke again",
+            "type": "fixed",
             "items": [
-                "Rewritten the entire modal to match the latest discord update."
-            ]
-        },
-        {
-            "title": "People really love to translate",
-            "items": [
-                "Added Romanian support (Thanks @n00bes on GitHub).",
-                "Added Greek support (Thanks @down-bad on GitHub).",
-                "Added Polish support (Thanks @kamack38 on GitHub)."
+                "Fixed broken layout due to discord latest update."
             ]
         }
     ]
