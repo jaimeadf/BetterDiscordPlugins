@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.1.0
+ * @version 1.1.1
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.1.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"New layout","type":"improved","items":["Rewritten the entire modal to match the latest discord update."]},{"title":"People really love to translate","items":["Added Romanian support (Thanks @n00bes on GitHub).","Added Greek support (Thanks @down-bad on GitHub).","Added Polish support (Thanks @kamack38 on GitHub)."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.1.1","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"It broke again","type":"fixed","items":["Fixed broken layout due to discord latest update."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -427,9 +427,7 @@ function GuildBanner({ guild }) {
 
     return (
         external_BdApi_React_default().createElement('div', {
-            className: `${classes.banner.banner} ${
-                guild.banner ? classes.profileBannerPremium : classes.profileBanner
-            }`,
+            className: `${classes.banner} ${guild.banner ? classes.profileBannerPremium : classes.profileBanner}`,
             style: {
                 backgroundColor: dominantColor,
                 backgroundImage: `url(${ImageResolver.getGuildBannerURL({ id: guild.id, banner: guild.banner })})`
@@ -951,7 +949,7 @@ const GuildTag_classes = {
 
 function GuildTag({ className, usernameClass, guild }) {
     return (
-        external_BdApi_React_default().createElement('div', { className: `${GuildTag_classes.nameTag.nameTag} ${className}`,}
+        external_BdApi_React_default().createElement('div', { className: `${className} ${GuildTag_classes.nameTag.nameTag}`,}
             , external_BdApi_React_default().createElement('div', { className: GuildTag_classes.guildHeader.guildIconContainer,}
                 , external_BdApi_React_default().createElement(GuildBadge, { className: GuildTag_classes.guildHeader.guildBadge, guild: guild, size: 20,} )
             )
@@ -1035,11 +1033,11 @@ function GuildProfileModalHeader({ guild }) {
                     )
                     , external_BdApi_React_default().createElement(MemberCounts, { guild: guild,} )
                 )
-                , external_BdApi_React_default().createElement(GuildTag, {
-                    className: GuildProfileModalHeader_classes.profileHeader.nameTagNoCustomStatus,
-                    usernameClass: GuildProfileModalHeader_classes.profileHeader.username,
-                    guild: guild,}
-                )
+            )
+            , external_BdApi_React_default().createElement(GuildTag, {
+                className: GuildProfileModalHeader_classes.profileHeader.nameTagNoCustomStatus,
+                usernameClass: GuildProfileModalHeader_classes.profileHeader.username,
+                guild: guild,}
             )
         )
     );
@@ -1121,35 +1119,33 @@ function Relationships({ guild, relationshipType }) {
         ));
     }
 
-    if (users.length <= 0) {
-        return (
-            external_BdApi_React_default().createElement('div', { className: Relationships_classes.empty,}
-                , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyIconFriends,} )
-                , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyText,}
-                    , i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]
-                )
-            )
-        );
-    }
-
     return (
         external_BdApi_React_default().createElement(ScrollerThin, { className: Relationships_classes.listScroller, fade: true,}
-            , users.map(user => (
-                external_BdApi_React_default().createElement(Clickable, {
-                    key: user.id,
-                    className: Relationships_classes.listRow,
-                    onClick: () => handleSelect(user),
-                    onSelect: () => handleSelect(user),
-                    onContextMenu: event => handleContextMenu(event, user),}
-                
-                    , external_BdApi_React_default().createElement(Relationships_Avatar, { className: Relationships_classes.listAvatar, src: user.getAvatarURL(), size: Relationships_Avatar.Sizes.SIZE_40,} )
-                    , external_BdApi_React_default().createElement(DiscordTag, {
-                        user: user,
-                        className: Relationships_classes.listName,
-                        discriminatorClass: Relationships_classes.listDiscriminator,}
+            , users.length <= 0 ? (
+                external_BdApi_React_default().createElement('div', { className: Relationships_classes.empty,}
+                    , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyIconFriends,} )
+                    , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyText,}
+                        , i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]
                     )
                 )
-            ))
+            ) : (
+                users.map(user => (
+                    external_BdApi_React_default().createElement(Clickable, {
+                        key: user.id,
+                        className: Relationships_classes.listRow,
+                        onClick: () => handleSelect(user),
+                        onSelect: () => handleSelect(user),
+                        onContextMenu: event => handleContextMenu(event, user),}
+                    
+                        , external_BdApi_React_default().createElement(Relationships_Avatar, { className: Relationships_classes.listAvatar, src: user.getAvatarURL(), size: Relationships_Avatar.Sizes.SIZE_40,} )
+                        , external_BdApi_React_default().createElement(DiscordTag, {
+                            user: user,
+                            className: Relationships_classes.listName,
+                            discriminatorClass: Relationships_classes.listDiscriminator,}
+                        )
+                    )
+                ))
+            )
         )
     );
 }
@@ -1253,53 +1249,55 @@ function GuildInfo({ guild }) {
         }
     }, [guild, owner]);
 
-    if (hide) {
-        return (
-            external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.empty,}
-                , external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.emptyIconStreamerMode,} )
-                , external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.emptyText,}, i18n.Messages.STREAMER_MODE_ENABLED)
-            )
-        );
-    }
-
     return (
         external_BdApi_React_default().createElement(ScrollerThin, { className: `${GuildInfo_classes.infoSection.infoScroller} guild-info`, fade: true,}
-            , external_BdApi_React_default().createElement(Flex, { justify: Flex.Justify.START, wrap: Flex.Wrap.WRAP,}
-                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_OWNER,}
-                    , owner ? (
-                        external_BdApi_React_default().createElement(UserMention, { className: "mention", userId: owner.id, channelId: GuildInfo_optionalChain([channel, 'optionalAccess', _ => _.id]),} )
-                    ) : (
-                        `${i18n.Messages.GUILD_PROFILE_LOADING}...`
-                    )
+            , hide ? (
+                external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.empty,}
+                    , external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.emptyIconStreamerMode,} )
+                    , external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.emptyText,}, i18n.Messages.STREAMER_MODE_ENABLED)
                 )
-                , guild.description && (
-                    external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_SERVER_DESCRIPTION,}, guild.description)
-                )
-                , guild.vanityURLCode && (
-                    external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.VANITY_URL,}
-                        , external_BdApi_React_default().createElement(Anchor, { href: `https://discord.gg/${guild.vanityURLCode}`,}, "discord.gg/"
-                            , guild.vanityURLCode
+            ) : (
+                external_BdApi_React_default().createElement(Flex, { justify: Flex.Justify.START, wrap: Flex.Wrap.WRAP,}
+                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_OWNER,}
+                        , owner ? (
+                            external_BdApi_React_default().createElement(UserMention, { className: "mention", userId: owner.id, channelId: GuildInfo_optionalChain([channel, 'optionalAccess', _ => _.id]),} )
+                        ) : (
+                            `${i18n.Messages.GUILD_PROFILE_LOADING}...`
                         )
                     )
-                )
-                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_CREATED_AT,}
-                    , external_BoundedLibrary_DiscordModules_Moment_default()(Timestamps.extractTimestamp(guild.id)).format('LLL')
-                )
-                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_JOINED_AT,}
-                    , external_BoundedLibrary_DiscordModules_Moment_default()(guild.joinedAt).format('LLL')
-                )
-                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL,}
-                    , i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]
-                )
-                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER,}
-                    , i18n.Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]
-                )
-                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT,}
-                    , guild.premiumSubscriberCount
-                )
-                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER,}, guild.premiumTier)
-                , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_SERVER_LANGUAGE,}
-                    , i18n.Messages[guild.preferredLocale]
+                    , guild.description && (
+                        external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_SERVER_DESCRIPTION,}
+                            , guild.description
+                        )
+                    )
+                    , guild.vanityURLCode && (
+                        external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.VANITY_URL,}
+                            , external_BdApi_React_default().createElement(Anchor, { href: `https://discord.gg/${guild.vanityURLCode}`,}, "discord.gg/"
+                                , guild.vanityURLCode
+                            )
+                        )
+                    )
+                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_CREATED_AT,}
+                        , external_BoundedLibrary_DiscordModules_Moment_default()(Timestamps.extractTimestamp(guild.id)).format('LLL')
+                    )
+                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_JOINED_AT,}
+                        , external_BoundedLibrary_DiscordModules_Moment_default()(guild.joinedAt).format('LLL')
+                    )
+                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL,}
+                        , i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]
+                    )
+                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER,}
+                        , i18n.Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]
+                    )
+                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT,}
+                        , guild.premiumSubscriberCount
+                    )
+                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER,}
+                        , guild.premiumTier
+                    )
+                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_SERVER_LANGUAGE,}
+                        , i18n.Messages[guild.preferredLocale]
+                    )
                 )
             )
         )
@@ -1420,7 +1418,7 @@ function SvgGuildProfile(props) {
 
 /* harmony default export */ const guild_profile = (SvgGuildProfile);
 ;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
-/* harmony default export */ const style = (".guild-profile .header-top{height:48px;margin-bottom:-16px;flex-direction:column;align-items:flex-start;justify-content:space-between}.guild-profile .feature{color:var(--header-secondary)}.guild-profile .guild-info{height:100%;padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}\n");
+/* harmony default export */ const style = (".guild-profile .header-top{height:48px;margin-bottom:-16px;flex-direction:column;align-items:flex-start;justify-content:space-between}.guild-profile .feature{color:var(--header-secondary)}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}\n");
 ;// CONCATENATED MODULE: ./src/GuildProfile/locales/index.js
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
