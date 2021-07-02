@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.1.1
+ * @version 1.2.0
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.1.1","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"It broke again","type":"fixed","items":["Fixed broken layout due to discord latest update."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.2.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"New features","items":["Added NSFW level information (new strings available for translation)."]},{"title":"Compatibility issues","type":"fixed","items":["Fixed displaying problems when being used with some themes."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -73,7 +73,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Προφίλ Διακομιστή
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NSFW_LEVEL":"NSFW Level","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Default","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explicit","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Safe","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Age Restricted","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}');
 
 /***/ }),
 
@@ -921,7 +921,7 @@ function GuildFeatures_GuildFeatures({ className, guild }) {
                 return (
                     external_BdApi_React_default().createElement(TooltipContainer, { key: feature, text: i18n.Messages[`GUILD_PROFILE_${feature}`],}
                         , external_BdApi_React_default().createElement(Clickable, null
-                            , external_BdApi_React_default().createElement(Icon, { className: `${GuildFeatures_classes.profileBadge24} feature`,} )
+                            , external_BdApi_React_default().createElement(Icon, { className: `${GuildFeatures_classes.profileBadge24}`,} )
                         )
                     )
                 );
@@ -1211,7 +1211,7 @@ const {
     UserStore: GuildInfo_UserStore,
     GuildChannelsStore: GuildInfo_GuildChannelsStore,
     Timestamps,
-    DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes }
+    DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes, GuildNSFWContentLevel }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const StreamerModeStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('hidePersonalInformation');
@@ -1298,6 +1298,9 @@ function GuildInfo({ guild }) {
                     , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_SERVER_LANGUAGE,}
                         , i18n.Messages[guild.preferredLocale]
                     )
+                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_NSFW_LEVEL,}
+                        , i18n.Messages[`GUILD_PROFILE_NSFW_LEVEL_${GuildNSFWContentLevel[guild.nsfwLevel]}`]
+                    )
                 )
             )
         )
@@ -1372,8 +1375,8 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
                             )
                         )
                     )
-                    , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.body,}, this.renderSelectedSection())
                 )
+                , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.body,}, this.renderSelectedSection())
             )
         );
     }
@@ -1418,7 +1421,7 @@ function SvgGuildProfile(props) {
 
 /* harmony default export */ const guild_profile = (SvgGuildProfile);
 ;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
-/* harmony default export */ const style = (".guild-profile .header-top{height:48px;margin-bottom:-16px;flex-direction:column;align-items:flex-start;justify-content:space-between}.guild-profile .feature{color:var(--header-secondary)}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}\n");
+/* harmony default export */ const style = (".guild-profile .guildDetail-1nRKNE{flex-shrink:0;align-self:start}.guild-profile .profileBadge-2niAfJ{color:var(--header-secondary)}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}\n");
 ;// CONCATENATED MODULE: ./src/GuildProfile/locales/index.js
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
