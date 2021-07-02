@@ -65,8 +65,8 @@ export default class GuildProfileModal extends React.PureComponent {
                             </TabBar.Item>
                         </TabBar>
                     </div>
-                    <div className={classes.body}>{this.renderSelectedSection()}</div>
                 </div>
+                <div className={classes.body}>{this.renderSelectedSection()}</div>
             </ModalRoot>
         );
     }
