@@ -22,7 +22,7 @@ const {
     UserStore,
     GuildChannelsStore,
     Timestamps,
-    DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes }
+    DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes, GuildNSFWContentLevel }
 } = DiscordModules;
 
 const StreamerModeStore = WebpackModules.getByProps('hidePersonalInformation');
@@ -108,6 +108,9 @@ export default function GuildInfo({ guild }) {
                     </InfoSection>
                     <InfoSection title={i18n.Messages.FORM_LABEL_SERVER_LANGUAGE}>
                         {i18n.Messages[guild.preferredLocale]}
+                    </InfoSection>
+                    <InfoSection title={i18n.Messages.GUILD_PROFILE_NSFW_LEVEL}>
+                        {i18n.Messages[`GUILD_PROFILE_NSFW_LEVEL_${GuildNSFWContentLevel[guild.nsfwLevel]}`]}
                     </InfoSection>
                 </Flex>
             )}
