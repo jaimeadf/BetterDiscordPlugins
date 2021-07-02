@@ -30,7 +30,7 @@ export default function GuildFeatures({ className, guild }) {
                 return (
                     <TooltipContainer key={feature} text={i18n.Messages[`GUILD_PROFILE_${feature}`]}>
                         <Clickable>
-                            <Icon className={`${classes.profileBadge24} feature`} />
+                            <Icon className={`${classes.profileBadge24}`} />
                         </Clickable>
                     </TooltipContainer>
                 );
