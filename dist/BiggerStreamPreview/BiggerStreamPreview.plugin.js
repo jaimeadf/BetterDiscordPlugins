@@ -1,7 +1,7 @@
 /**!
  * @name BiggerStreamPreview
  * @description Adds a button in the context menu to see bigger stream previews.
- * @version 1.0.6
+ * @version 1.0.7
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.6","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Open from anywhere","items":["Added preview buttons to the stream context menu."]}]};
+const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.7","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Compatibility issues","type":"fixed","items":["Fixed ImageUtilities' lens not working on stream previews."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -184,15 +184,13 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
     async openImageModal(url) {
         const image = await this.fetchImage(url);
 
-        ModalStack.push(() => (
-            external_BdApi_React_default().createElement(ImageModal, {
-                src: url,
-                original: url,
-                width: image.width,
-                height: image.height,
-                renderLinkComponent: props => external_BdApi_React_default().createElement(MaskedLink, { ...props,} ),}
-            )
-        ));
+        ModalStack.push(ImageModal, {
+            src: url,
+            original: url,
+            width: image.width,
+            height: image.height,
+            renderLinkComponent: props => external_BdApi_React_default().createElement(MaskedLink, { ...props,} )
+        });
     }
 
     async fetchImage(url) {
