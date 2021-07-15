@@ -118,8 +118,8 @@ export default class GuildProfile extends Plugin {
     }
 
     loadLocale() {
-        Object.assign(i18n._proxyContext.messages, locales[UserSettingsStore.locale]);
-        Object.assign(i18n._proxyContext.defaultMessages, locales['en-US']);
+        Object.assign(i18n._provider._context.messages, locales[UserSettingsStore.locale]);
+        Object.assign(i18n._provider._context.defaultMessages, locales['en-US']);
     }
 
     openGuildProfileModal(guild) {
