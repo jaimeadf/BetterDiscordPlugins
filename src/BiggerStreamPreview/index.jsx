@@ -71,15 +71,13 @@ export default class BiggerStreamPreview extends Plugin {
     async openImageModal(url) {
         const image = await this.fetchImage(url);
 
-        ModalStack.push(() => (
-            <ImageModal
-                src={url}
-                original={url}
-                width={image.width}
-                height={image.height}
-                renderLinkComponent={props => <MaskedLink {...props} />}
-            />
-        ));
+        ModalStack.push(ImageModal, {
+            src: url,
+            original: url,
+            width: image.width,
+            height: image.height,
+            renderLinkComponent: props => <MaskedLink {...props} />
+        });
     }
 
     async fetchImage(url) {
