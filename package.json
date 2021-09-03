@@ -33,7 +33,7 @@
         "sucrase": "^3.20.0",
         "template-file": "^5.1.0",
         "url-loader": "^4.1.1",
-        "webpack": "^5.44.0",
+        "webpack": "^5.52.0",
         "webpack-cli": "^4.7.2",
         "webpack-sources": "^2.3.0"
     }
