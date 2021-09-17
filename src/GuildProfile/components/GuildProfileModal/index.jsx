@@ -13,6 +13,7 @@ import TabBar from '@discord/components/TabBar';
 import GuildProfileModalHeader from './GuildProfileModalHeader';
 import Relationships from './Relationships';
 import GuildInfo from './GuildInfo';
+import GuildRoles from './GuildRoles';
 
 const {
     DiscordConstants: { RelationshipTypes }
@@ -24,6 +25,7 @@ const classes = WebpackModules.getByProps('root', 'topSection', 'body');
 
 export const GuildProfileSections = {
     GUILD_INFO: 'GUILD_INFO',
+    GUILD_ROLES: 'GUILD_ROLES',
     FRIENDS: 'FRIENDS',
     BLOCKED_USERS: 'BLOCKED_USERS'
 };
@@ -57,6 +59,9 @@ export default class GuildProfileModal extends React.PureComponent {
                             <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.GUILD_INFO}>
                                 {i18n.Messages.GUILD_PROFILE_GUILD_INFO}
                             </TabBar.Item>
+                            <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.GUILD_ROLES}>
+                                {i18n.Messages.GUILD_PROFILE_ROLES_IN_GUILD}
+                            </TabBar.Item>
                             <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.FRIENDS}>
                                 {i18n.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD}
                             </TabBar.Item>
@@ -76,6 +81,8 @@ export default class GuildProfileModal extends React.PureComponent {
         const { guild } = this.props;
 
         switch (selectedSection) {
+            case GuildProfileSections.GUILD_ROLES:
+                return <GuildRoles guild={guild} />;
             case GuildProfileSections.FRIENDS:
                 return <Relationships guild={guild} relationshipType={RelationshipTypes.FRIEND} />;
             case GuildProfileSections.BLOCKED_USERS:
