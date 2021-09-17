@@ -18,23 +18,28 @@ import { ScrollerThin } from '@discord/components/Scroller';
 const StreamerModeStore = WebpackModules.getByProps('hidePersonalInformation');
 
 const classes = {
-    roleHeight: WebpackModules.getByProps('height8'),
-    roleWidth: WebpackModules.getByProps('width8'),
-    margins: WebpackModules.getByProps('marginBottom8'),
+    margins: {
+        ...WebpackModules.getByProps('marginBottom8')
+    },
     list: WebpackModules.getByProps('empty', 'emptyIconStreamerMode', 'emptyText'),
     infoSection: WebpackModules.getByProps('infoScroller'),
-    row: WebpackModules.getByProps('listRow')
+    row: WebpackModules.getByProps('listRow'),
+    roleTag: WebpackModules.getByProps('roleTag'),
+    role: WebpackModules.getByProps('role')
 };
-
+const baseRoleColor = '#fff';
 function RoleSection({ key, role }) {
     return (
-        <Flex align={Flex.Align.Center} key={key} className={classes.row.listRow}>
+        <div key={key} className={`${classes.role.flex} ${classes.roleTag.roleTag} ${classes.margins.marginBottom8}`}>
             <div
-                className={[classes.roleHeight, classes.roleWidth]}
-                style={{ backgroundColor: role.colorString }}
-            ></div>{' '}
+                className={`${classes.roleTag.roleDot}`}
+                style={{
+                    backgroundColor: role.colorString || baseRoleColor,
+                    marginRight: 8
+                }}
+            ></div>
             <Text selectable={false}>{role.name}</Text>
-        </Flex>
+        </div>
     );
 }
 export default function GuildRoles({ guild }) {
@@ -49,9 +54,11 @@ export default function GuildRoles({ guild }) {
         );
     return (
         <ScrollerThin className={`${classes.infoSection.infoScroller} guild-roles`} fade={true}>
-            {roles.map(r => {
-                return <RoleSection key={r.id} role={r}></RoleSection>;
-            })}
+            <Flex justify={Flex.Justify.START} wrap={Flex.Wrap.WRAP}>
+                {roles.map(role => {
+                    return <RoleSection key={role.id} role={role}></RoleSection>;
+                })}
+            </Flex>
         </ScrollerThin>
     );
 }
