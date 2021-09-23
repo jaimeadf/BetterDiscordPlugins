@@ -27,7 +27,7 @@
         "husky": "^7.0.2",
         "lint-staged": "^11.0.1",
         "node-sass": "^6.0.1",
-        "prettier": "^2.3.2",
+        "prettier": "^2.4.1",
         "raw-loader": "^4.0.2",
         "sass-loader": "^12.1.0",
         "sucrase": "^3.20.1",
