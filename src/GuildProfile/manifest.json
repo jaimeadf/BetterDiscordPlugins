@@ -1,7 +1,7 @@
 {
     "name": "GuildProfile",
     "description": "Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "author": {
         "id": "289112759948410881",
         "name": "Marmota (Jaime Filho)"
@@ -12,17 +12,16 @@
     "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js",
     "changelog": [
         {
-            "title": "It works again",
+            "title": "New Features",
             "items": [
-                "Fixed the problem when injecting strings that broke the plugin."
+                "Added roles tab (Thanks @Venipa on GitHub)"
             ]
         },
         {
             "title": "Internationalization",
             "items": [
-                "Added Portugal Portuguese support for NSFW level information (Thanks @Differ812 on GitHub).",
-                "Added Simplified Chinese support for NSFW level information (Thanks @sunxyw on GitHub).",
-                "Added Traditional Chinese support for NSFW level information (Thanks @sunxyw on GitHub)."
+                "Added Greek support for NSFW level information (Thanks @andreri0 on GitHub).",
+                "Added Russian support for NSFW level information (Thanks @down-bad on GitHub)."
             ]
         }
     ]
