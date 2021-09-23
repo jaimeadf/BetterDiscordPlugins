@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.3.0
+ * @version 1.4.0
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.3.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"It works again","items":["Fixed the problem when injecting strings that broke the plugin."]},{"title":"Internationalization","items":["Added Portugal Portuguese support for NSFW level information (Thanks @Differ812 on GitHub).","Added Simplified Chinese support for NSFW level information (Thanks @sunxyw on GitHub).","Added Traditional Chinese support for NSFW level information (Thanks @sunxyw on GitHub)."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.4.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"New Features","items":["Added roles tab (Thanks @Venipa on GitHub)"]},{"title":"Internationalization","items":["Added Greek support for NSFW level information (Thanks @andreri0 on GitHub).","Added Russian support for NSFW level information (Thanks @down-bad on GitHub)."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -57,7 +57,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Profil serveru","GUILD_PROFILE_GU
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profil","GUILD_PROFILE_GUILD_INFO":"Server Informationen","GUILD_PROFILE_FRIENDS_IN_GUILD":"Freunde","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Geblockte Nutzer","GUILD_PROFILE_LOADING":"Lädt","GUILD_PROFILE_CREATED_AT":"Erstellt am","GUILD_PROFILE_JOINED_AT":"Beigetreten am","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Anzahl","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Keine Freunde auf diesem Server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Keine geblockten Nutzer auf diesem Server","GUILD_PROFILE_INVITE_SPLASH":"Server Einladungs-Hintergrund","GUILD_PROFILE_VIP_REGIONS":"VIP Regionen","GUILD_PROFILE_VANITY_URL":"Eigene Server URL","GUILD_PROFILE_MORE_EMOJI":"Mehr Emoji","GUILD_PROFILE_COMMERCE":"Store Kanal","GUILD_PROFILE_DISCOVERABLE":"Suchbar","GUILD_PROFILE_COMMUNITY":"Gemeinschaft","GUILD_PROFILE_FEATURABLE":"Empfehlbar","GUILD_PROFILE_NEWS":"Nachrichten Kanal","GUILD_PROFILE_ANIMATED_ICON":"Animiertes Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Vorher auffindbar aktiviert","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Willkommens Übersicht","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Mitgliedschaftsprüfung","GUILD_PROFILE_PREVIEW_ENABLED":"Vorschau aktiviert"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profil","GUILD_PROFILE_GUILD_INFO":"Server Informationen","GUILD_PROFILE_FRIENDS_IN_GUILD":"Freunde","GUILD_PROFILE_ROLES_IN_GUILD":"Rollen","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Geblockte Nutzer","GUILD_PROFILE_LOADING":"Lädt","GUILD_PROFILE_CREATED_AT":"Erstellt am","GUILD_PROFILE_JOINED_AT":"Beigetreten am","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Anzahl","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Keine Freunde auf diesem Server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Keine geblockten Nutzer auf diesem Server","GUILD_PROFILE_INVITE_SPLASH":"Server Einladungs-Hintergrund","GUILD_PROFILE_VIP_REGIONS":"VIP Regionen","GUILD_PROFILE_VANITY_URL":"Eigene Server URL","GUILD_PROFILE_MORE_EMOJI":"Mehr Emoji","GUILD_PROFILE_COMMERCE":"Store Kanal","GUILD_PROFILE_DISCOVERABLE":"Suchbar","GUILD_PROFILE_COMMUNITY":"Gemeinschaft","GUILD_PROFILE_FEATURABLE":"Empfehlbar","GUILD_PROFILE_NEWS":"Nachrichten Kanal","GUILD_PROFILE_ANIMATED_ICON":"Animiertes Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Vorher auffindbar aktiviert","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Willkommens Übersicht","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Mitgliedschaftsprüfung","GUILD_PROFILE_PREVIEW_ENABLED":"Vorschau aktiviert"}');
 
 /***/ }),
 
@@ -73,7 +73,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Προφίλ Διακομιστή
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NSFW_LEVEL":"NSFW Level","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Default","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explicit","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Safe","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Age Restricted","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_ROLES_IN_GUILD":"Roles","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NSFW_LEVEL":"NSFW Level","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Default","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explicit","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Safe","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Age Restricted","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}');
 
 /***/ }),
 
@@ -1307,12 +1307,78 @@ function GuildInfo({ guild }) {
     );
 }
 
-;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/index.jsx
- function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }/* @license
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildRoles.jsx
+ function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } } function GuildRoles_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
+
+
+
+
+
+
+
+
+
+
+
+const {
+    DiscordConstants: { HEXColors }
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+const GuildRoles_StreamerModeStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('hidePersonalInformation');
+
+const GuildRoles_classes = {
+    margins: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('marginBottom8'),
+    list: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('empty', 'emptyIconStreamerMode', 'emptyText'),
+    infoSection: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('infoScroller'),
+    roleTag: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('roleTag'),
+    role: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('role')
+};
+
+function GuildRoles({ guild }) {
+    const hide = useStateFromStores([GuildRoles_StreamerModeStore], () => GuildRoles_StreamerModeStore.hide);
+    const roles = GuildRoles_optionalChain([Object, 'access', _ => _.values, 'call', _2 => _2(guild.roles), 'optionalAccess', _3 => _3.sort, 'call', _4 => _4((b, a) => a.position - b.position)]);
+
+    if (hide) {
+        return (
+            external_BdApi_React_default().createElement('div', { className: GuildRoles_classes.list.empty,}
+                , external_BdApi_React_default().createElement('div', { className: GuildRoles_classes.list.emptyIconStreamerMode,} )
+                , external_BdApi_React_default().createElement('div', { className: GuildRoles_classes.list.emptyText,}, i18n.Messages.STREAMER_MODE_ENABLED)
+            )
+        );
+    }
+
+    return (
+        external_BdApi_React_default().createElement(ScrollerThin, { className: `${GuildRoles_classes.infoSection.infoScroller} guild-roles`, fade: true,}
+            , external_BdApi_React_default().createElement('div', { className: GuildRoles_classes.role.root,}
+                , roles.map(role => {
+                    return (
+                        external_BdApi_React_default().createElement('div', { key: role.id, className: GuildRoles_classes.role.role,}
+                            , external_BdApi_React_default().createElement('div', {
+                                className: GuildRoles_classes.role.roleCircle,
+                                style: { backgroundColor: _nullishCoalesce(role.colorString, () => ( HEXColors.PRIMARY_DARK_300)) },}
+                            )
+                            , external_BdApi_React_default().createElement(Text, { selectable: false, className: GuildRoles_classes.role.roleName,}
+                                , role.name
+                            )
+                        )
+                    );
+                })
+            )
+        )
+    );
+}
+
+;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/index.jsx
+ function GuildProfileModal_nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }/* @license
+ * Copyright (c) 2020 NurMarvin (Marvin Witt)
+ * Copyright (c) 2021 jaimeadf (Jaime Filho)
+ * Licensed under the Open Software License version 3.0
+ */
+
 
 
 
@@ -1334,6 +1400,7 @@ const GuildProfileModal_classes = external_BoundedLibrary_namespaceObject.Webpac
 
 const GuildProfileSections = {
     GUILD_INFO: 'GUILD_INFO',
+    GUILD_ROLES: 'GUILD_ROLES',
     FRIENDS: 'FRIENDS',
     BLOCKED_USERS: 'BLOCKED_USERS'
 };
@@ -1343,7 +1410,7 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
         super(props);
 
         this.state = {
-            selectedSection: _nullishCoalesce(props.section, () => ( GuildProfileSections.GUILD_INFO))
+            selectedSection: GuildProfileModal_nullishCoalesce(props.section, () => ( GuildProfileSections.GUILD_INFO))
         };
 
         this.handleSectionSelect = this.handleSectionSelect.bind(this);
@@ -1367,6 +1434,9 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
                             , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.GUILD_INFO,}
                                 , i18n.Messages.GUILD_PROFILE_GUILD_INFO
                             )
+                            , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.GUILD_ROLES,}
+                                , i18n.Messages.GUILD_PROFILE_ROLES_IN_GUILD
+                            )
                             , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.FRIENDS,}
                                 , i18n.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD
                             )
@@ -1386,6 +1456,8 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
         const { guild } = this.props;
 
         switch (selectedSection) {
+            case GuildProfileSections.GUILD_ROLES:
+                return external_BdApi_React_default().createElement(GuildRoles, { guild: guild,} );
             case GuildProfileSections.FRIENDS:
                 return external_BdApi_React_default().createElement(Relationships, { guild: guild, relationshipType: GuildProfileModal_RelationshipTypes.FRIEND,} );
             case GuildProfileSections.BLOCKED_USERS:
@@ -1421,7 +1493,7 @@ function SvgGuildProfile(props) {
 
 /* harmony default export */ const guild_profile = (SvgGuildProfile);
 ;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
-/* harmony default export */ const style = (".guild-profile .guildDetail-1nRKNE{flex-shrink:0;align-self:start}.guild-profile .profileBadge-2niAfJ{color:var(--header-secondary)}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}\n");
+/* harmony default export */ const style = (".guild-profile .guildDetail-1nRKNE{flex-shrink:0;align-self:start}.guild-profile .profileBadge-2niAfJ{color:var(--header-secondary)}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}.guild-profile .guild-roles{padding:10px 12px}\n");
 ;// CONCATENATED MODULE: ./src/GuildProfile/locales/index.js
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
