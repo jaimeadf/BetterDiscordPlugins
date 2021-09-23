@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-import { WebpackModules } from '@zlibrary/api';
+import { WebpackModules, DiscordModules } from '@zlibrary/api';
 
 import { useStateFromStores } from '@discord/Flux';
 import i18n from '@discord/i18n';
@@ -15,19 +15,22 @@ import Flex from '@discord/components/Flex';
 
 import { ScrollerThin } from '@discord/components/Scroller';
 
+const {
+    DiscordConstants: { HEXColors: Colors }
+} = DiscordModules;
+
 const StreamerModeStore = WebpackModules.getByProps('hidePersonalInformation');
 
 const classes = {
-    margins: {
-        ...WebpackModules.getByProps('marginBottom8')
-    },
+    margins: WebpackModules.getByProps('marginBottom8'),
     list: WebpackModules.getByProps('empty', 'emptyIconStreamerMode', 'emptyText'),
     infoSection: WebpackModules.getByProps('infoScroller'),
     row: WebpackModules.getByProps('listRow'),
     roleTag: WebpackModules.getByProps('roleTag'),
     role: WebpackModules.getByProps('role')
 };
-const baseRoleColor = '#fff';
+const baseRoleColor = Colors.PRIMARY_DARK_300;
+
 function RoleSection({ key, role }) {
     return (
         <div key={key} className={`${classes.role.flex} ${classes.roleTag.roleTag} ${classes.margins.marginBottom8}`}>
