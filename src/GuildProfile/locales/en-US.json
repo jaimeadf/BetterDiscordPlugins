@@ -2,6 +2,7 @@
     "GUILD_PROFILE": "Server Profile",
     "GUILD_PROFILE_GUILD_INFO": "Server Info",
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Friends",
+    "GUILD_PROFILE_ROLES_IN_GUILD": "Roles",
     "GUILD_PROFILE_BLOCKED_USERS_IN_GUILD": "Blocked Users",
     "GUILD_PROFILE_LOADING": "Loading",
     "GUILD_PROFILE_CREATED_AT": "Created at",
