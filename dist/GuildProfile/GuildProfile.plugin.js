@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.4.0
+ * @version 1.4.1
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.4.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"New Features","items":["Added roles tab (Thanks @Venipa on GitHub)"]},{"title":"Internationalization","items":["Added Greek support for NSFW level information (Thanks @andreri0 on GitHub).","Added Russian support for NSFW level information (Thanks @down-bad on GitHub)."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.4.1","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Bug Fixes","type":"fixed","items":["Fixed icon being displayed in the wrong resolution and without the animation.","Fixed tag line being broken when there was a badge."]},{"title":"Internationalization","items":["Added Simplified Chinese support for the roles tab (Thanks @sunxyw on GitHub).","Added Traditional Chinese support for the roles tab (Thanks @sunxyw on GitHub)."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -45,163 +45,27 @@ function buildPlugin() {
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 813:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Profil serveru","GUILD_PROFILE_GUILD_INFO":"Informace o serveru","GUILD_PROFILE_FRIENDS_IN_GUILD":"Přátelé","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Zablokovaní uživatelé","GUILD_PROFILE_LOADING":"Načítání","GUILD_PROFILE_CREATED_AT":"Vytvořeno","GUILD_PROFILE_JOINED_AT":"Připojeno","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Počet vylepšovatelů serveru","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Úroveň vylepšení serveru","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Na tomto serveru nemáš žádné přátele","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Na tomto serveru nemáš žádné zablokované uživatele","GUILD_PROFILE_INVITE_SPLASH":"Pozadí pozvánky serveru","GUILD_PROFILE_VIP_REGIONS":"VIP oblasti","GUILD_PROFILE_VANITY_URL":"Vlastní URL","GUILD_PROFILE_MORE_EMOJI":"Více smajlíků","GUILD_PROFILE_COMMERCE":"Obchodní kanály","GUILD_PROFILE_DISCOVERABLE":"Veřejný","GUILD_PROFILE_COMMUNITY":"Komunita","GUILD_PROFILE_FEATURABLE":"Doporučený","GUILD_PROFILE_NEWS":"Kanály oznámení","GUILD_PROFILE_ANIMATED_ICON":"Animovaná ikona serveru","GUILD_PROFILE_BANNER":"Banner serveru","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Dříve veřejný","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Povolena uvítací obrazovka","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Prověřování členství","GUILD_PROFILE_PREVIEW_ENABLED":"Povolen náhled"}');
-
-/***/ }),
-
-/***/ 855:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profil","GUILD_PROFILE_GUILD_INFO":"Server Informationen","GUILD_PROFILE_FRIENDS_IN_GUILD":"Freunde","GUILD_PROFILE_ROLES_IN_GUILD":"Rollen","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Geblockte Nutzer","GUILD_PROFILE_LOADING":"Lädt","GUILD_PROFILE_CREATED_AT":"Erstellt am","GUILD_PROFILE_JOINED_AT":"Beigetreten am","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Anzahl","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Keine Freunde auf diesem Server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Keine geblockten Nutzer auf diesem Server","GUILD_PROFILE_INVITE_SPLASH":"Server Einladungs-Hintergrund","GUILD_PROFILE_VIP_REGIONS":"VIP Regionen","GUILD_PROFILE_VANITY_URL":"Eigene Server URL","GUILD_PROFILE_MORE_EMOJI":"Mehr Emoji","GUILD_PROFILE_COMMERCE":"Store Kanal","GUILD_PROFILE_DISCOVERABLE":"Suchbar","GUILD_PROFILE_COMMUNITY":"Gemeinschaft","GUILD_PROFILE_FEATURABLE":"Empfehlbar","GUILD_PROFILE_NEWS":"Nachrichten Kanal","GUILD_PROFILE_ANIMATED_ICON":"Animiertes Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Vorher auffindbar aktiviert","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Willkommens Übersicht","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Mitgliedschaftsprüfung","GUILD_PROFILE_PREVIEW_ENABLED":"Vorschau aktiviert"}');
-
-/***/ }),
-
-/***/ 663:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Προφίλ Διακομιστή","GUILD_PROFILE_GUILD_INFO":"Πληροφορίες Διακομιστή","GUILD_PROFILE_FRIENDS_IN_GUILD":"Φίλοι","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Αποκλεισμένοι Χρήστες","GUILD_PROFILE_LOADING":"Φόρτωση","GUILD_PROFILE_CREATED_AT":"Δημιουργήθηκε στις","GUILD_PROFILE_JOINED_AT":"Συμμετοχή στις","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Πλήθος Ενισχύσεων Διακομιστή","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Επίπεδο Ενίσχυσης Διακομιστή","GUILD_PROFILE_NSFW_LEVEL":"Επίπεδο NSFW","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Κανονικός","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Άσμενος","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Ασφαλής","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Με Περιορισμούς Ηλικίας","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Δεν υπάρχουν φίλοι σε αυτόν τον διακομιστή","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Δεν υπάρχουν αποκλεισμένοι χρήστες σε αυτόν τον διακομιστή","GUILD_PROFILE_INVITE_SPLASH":"Φόντο Πρόσκλησης Διακομιστή","GUILD_PROFILE_VIP_REGIONS":"Περιοχές VIP","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"Περισσότερα Emoji","GUILD_PROFILE_COMMERCE":"Κανάλια Καταστήματος","GUILD_PROFILE_DISCOVERABLE":"Ανιχνεύσιμος","GUILD_PROFILE_COMMUNITY":"Κοινότητα","GUILD_PROFILE_FEATURABLE":"Αναδεικνυόμενος","GUILD_PROFILE_NEWS":"Κανάλια Ανακοινώσεων","GUILD_PROFILE_ANIMATED_ICON":"Κινούμενο Εικονίδιο Διακομιστή","GUILD_PROFILE_BANNER":"Πανό Διακομιστή","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Ενεργοποίηση Ανιχνευσιμότητας Παλιότερα","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Οθόνη Καλωσορίσματος Ενεγοποιημένη","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Αξιολόγηση Μελών","GUILD_PROFILE_PREVIEW_ENABLED":"Προεπισκόπηση Ενεργοποιημένη"}');
-
-/***/ }),
-
-/***/ 60:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_ROLES_IN_GUILD":"Roles","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NSFW_LEVEL":"NSFW Level","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Default","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explicit","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Safe","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Age Restricted","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}');
-
-/***/ }),
-
-/***/ 484:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil del Servidor","GUILD_PROFILE_GUILD_INFO":"Información del Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuarios Bloqueados","GUILD_PROFILE_LOADING":"Cargando","GUILD_PROFILE_CREATED_AT":"Creado el","GUILD_PROFILE_JOINED_AT":"Se unió el","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Cantidad de Mejoras","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nivel de mejoras","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No hay amigos en este servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No hay usuarios bloqueados en este servidor","GUILD_PROFILE_INVITE_SPLASH":"Fondo de invitación","GUILD_PROFILE_VIP_REGIONS":"Regiones VIP","GUILD_PROFILE_VANITY_URL":"URL personalizada","GUILD_PROFILE_MORE_EMOJI":"Más Emojis","GUILD_PROFILE_COMMERCE":"Canales de Tienda","GUILD_PROFILE_DISCOVERABLE":"Descubrible","GUILD_PROFILE_COMMUNITY":"Comunidad","GUILD_PROFILE_FEATURABLE":"Caracterizable","GUILD_PROFILE_NEWS":"Canales de Anuncios","GUILD_PROFILE_ANIMATED_ICON":"Ícono de servidor animado","GUILD_PROFILE_BANNER":"Cartel del servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activó Descubrimiento Antes","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Pantalla de bienvenida activada","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Cribado de miembros","GUILD_PROFILE_PREVIEW_ENABLED":"Vista previa habilitada"}');
-
-/***/ }),
-
-/***/ 852:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Profil du serveur","GUILD_PROFILE_GUILD_INFO":"Info du serveur","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amis","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Bloqué","GUILD_PROFILE_LOADING":"Chargement","GUILD_PROFILE_CREATED_AT":"Créé à","GUILD_PROFILE_JOINED_AT":"Rejoins à","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Nombre de booster de serveur","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Niveau de boost du serveur","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Aucun ami sur ce serveur","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Aucun utilisateur bloqué sur ce serveur","GUILD_PROFILE_INVITE_SPLASH":"Contexte d\'invitation du serveur","GUILD_PROFILE_VIP_REGIONS":"Régions VIP","GUILD_PROFILE_VANITY_URL":"URL personnalisée","GUILD_PROFILE_MORE_EMOJI":"Plus d\'Emoji","GUILD_PROFILE_COMMERCE":"Stocker les chaînes","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Communauté","GUILD_PROFILE_FEATURABLE":"En vedette","GUILD_PROFILE_NEWS":"Canaux d\'annonce","GUILD_PROFILE_ANIMATED_ICON":"Icône de serveur animé","GUILD_PROFILE_BANNER":"Bannière du serveur","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activé détectable avant","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Écran de bienvenue activé","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Vérification des membres","GUILD_PROFILE_PREVIEW_ENABLED":"Aperçu activé"}');
-
-/***/ }),
-
-/***/ 2:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"सर्वर का प्रोफैल","GUILD_PROFILE_GUILD_INFO":"सर्वर का समाचार","GUILD_PROFILE_FRIENDS_IN_GUILD":"मित्र","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"ब्लॉक किया हुआ व्यक्तियों","GUILD_PROFILE_LOADING":"लोडिंग","GUILD_PROFILE_CREATED_AT":"क्रिएट किया","GUILD_PROFILE_JOINED_AT":"जॉइन हुआ","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"सर्वर बूस्टर का गिनती","GUILD_PROFILE_GUILD_PREMIUM_TIER":"सर्वर बूस्ट का लेवल","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"इस सर्वर में अप्पके मित्र नहीं हैं।","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"इस सर्वर में आपने ब्लॉक किया हुआ व्यक्तियों नहीं है।","GUILD_PROFILE_INVITE_SPLASH":"सर्वर इन्वाइट केलिए बैकग्राउंड है।","GUILD_PROFILE_VIP_REGIONS":"वि.आई.पि. प्रदेशे","GUILD_PROFILE_VANITY_URL":"वैनिटी यूआरएल","GUILD_PROFILE_MORE_EMOJI":"अधिक एमोजिया","GUILD_PROFILE_COMMERCE":"दूकान का चैनल","GUILD_PROFILE_DISCOVERABLE":"डिस्कॉर्ड का \'डिस्कोवेराब्ले\' भाग में ढूंढसकते है।","GUILD_PROFILE_COMMUNITY":"समुदाय","GUILD_PROFILE_FEATURABLE":"फीचरबुल","GUILD_PROFILE_NEWS":"घोषणाओं का लिए चैनलों","GUILD_PROFILE_ANIMATED_ICON":"सर्वर को आइकॉन एनिमेटेड है।","GUILD_PROFILE_BANNER":"सर्वर को बैनर है।","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"डिस्कोवेराबुल ऑप्शन को गत में इनेबल किया गया।","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"वेलकम स्क्रीन इनेबल्ड है।","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"सदस्यता स्क्रीनिंग इनेबल्ड है।","GUILD_PROFILE_PREVIEW_ENABLED":"प्रीव्यू इनेबल्ड है।"}');
-
-/***/ }),
-
-/***/ 745:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Szerver profil","GUILD_PROFILE_GUILD_INFO":"Szerverinformációk","GUILD_PROFILE_FRIENDS_IN_GUILD":"Barátok","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Tiltott felhasználók","GUILD_PROFILE_LOADING":"Betöltés","GUILD_PROFILE_CREATED_AT":"Létrehozva:","GUILD_PROFILE_JOINED_AT":"Csatlakozva:","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Szervergyorsítók száma","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Szervergyorsítás szintje","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nincsenek barátaid ezen a szerveren","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nincsenek tiltott felhasználók ezen a szerveren","GUILD_PROFILE_INVITE_SPLASH":"Szervermeghívó háttérképe","GUILD_PROFILE_VIP_REGIONS":"VIP régiók","GUILD_PROFILE_VANITY_URL":"Kreatív URL","GUILD_PROFILE_MORE_EMOJI":"Több emotikon","GUILD_PROFILE_COMMERCE":"Kereskedelmi csatornák","GUILD_PROFILE_DISCOVERABLE":"Felfedezhető","GUILD_PROFILE_COMMUNITY":"Közösségi","GUILD_PROFILE_FEATURABLE":"Kiemelhető","GUILD_PROFILE_NEWS":"Hirdetmény csatornák","GUILD_PROFILE_ANIMATED_ICON":"Animált szerver ikon","GUILD_PROFILE_BANNER":"Szerverbanner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Már volt felfedezhető korábban","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Van üdvözlőképernyő","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Tagság szűrése","GUILD_PROFILE_PREVIEW_ENABLED":"Előnézet bekapcsolva"}');
-
-/***/ }),
-
-/***/ 306:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Profilo del Server","GUILD_PROFILE_GUILD_INFO":"Informazione del Server","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amici","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utenti Bloccati","GUILD_PROFILE_LOADING":"Caricando","GUILD_PROFILE_CREATED_AT":"Creato il","GUILD_PROFILE_JOINED_AT":"Iscritto il","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantità di potenziamenti","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Livello del Potenziamento","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Non ci sono amici in questo server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Non ci sono utenti bloccati in questo server","GUILD_PROFILE_INVITE_SPLASH":"Sfondo di invito","GUILD_PROFILE_VIP_REGIONS":"Regioni VIP","GUILD_PROFILE_VANITY_URL":"URL personalizzata","GUILD_PROFILE_MORE_EMOJI":"Più emoji","GUILD_PROFILE_COMMERCE":"Canali negozio","GUILD_PROFILE_DISCOVERABLE":"Disponibile su \\"Discovery\\"","GUILD_PROFILE_COMMUNITY":"Comunità","GUILD_PROFILE_FEATURABLE":"In Evidenza","GUILD_PROFILE_NEWS":"Canali delle Notizie","GUILD_PROFILE_ANIMATED_ICON":"Icona server animata","GUILD_PROFILE_BANNER":"Banner del server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"\\"Discovery\\" attivato previamente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Schermata di benvenuta attivata","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Verifica dell\'iscrizione","GUILD_PROFILE_PREVIEW_ENABLED":"Anteprima Abilitata"}');
-
-/***/ }),
-
-/***/ 730:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Profil Serwera","GUILD_PROFILE_GUILD_INFO":"Informacje o Serwerze","GUILD_PROFILE_FRIENDS_IN_GUILD":"Znajomi","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Zablokowani Użytkownicy","GUILD_PROFILE_LOADING":"Ładowanie","GUILD_PROFILE_CREATED_AT":"Utworzono","GUILD_PROFILE_JOINED_AT":"Dołączono","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Ilość Ulepszeń Serwera","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Poziom Ulepszeń Serwera","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Brak znajomych na tym serwerze","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Brak zablokowanych użytkowników na tym serwerze","GUILD_PROFILE_INVITE_SPLASH":"Tło Zaproszeń Serwera","GUILD_PROFILE_VIP_REGIONS":"Regiony VIP","GUILD_PROFILE_VANITY_URL":"Unikalny adres URL","GUILD_PROFILE_MORE_EMOJI":"Więcej Emoji","GUILD_PROFILE_COMMERCE":"Kanały Sklepowe","GUILD_PROFILE_DISCOVERABLE":"Odkrywalny","GUILD_PROFILE_COMMUNITY":"Społeczność","GUILD_PROFILE_FEATURABLE":"Więcej Funkcji","GUILD_PROFILE_NEWS":"Kanały ogłoszeniowe","GUILD_PROFILE_ANIMATED_ICON":"Animowana Ikona Serwera","GUILD_PROFILE_BANNER":"Baner Serwera","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Wcześniej Włączona Odkrywalność","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Ekran Powitalny Włączony","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Sprawdzanie Członków","GUILD_PROFILE_PREVIEW_ENABLED":"Podgląd Włączony"}');
-
-/***/ }),
-
-/***/ 927:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Servidor","GUILD_PROFILE_GUILD_INFO":"Informações do Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuários Bloqueados","GUILD_PROFILE_LOADING":"Carregando","GUILD_PROFILE_CREATED_AT":"Criado em","GUILD_PROFILE_JOINED_AT":"Entrou em","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantidade de Impulsos","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nível de Impulsão","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nenhum amigo nesse servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nenhum usuário bloqueado nesse servidor","GUILD_PROFILE_INVITE_SPLASH":"Plano de Fundo de Convite","GUILD_PROFILE_VIP_REGIONS":"Regiões VIP","GUILD_PROFILE_VANITY_URL":"URL Personalizado","GUILD_PROFILE_MORE_EMOJI":"Mais Emojis","GUILD_PROFILE_COMMERCE":"Canais de Loja","GUILD_PROFILE_DISCOVERABLE":"Descobrível","GUILD_PROFILE_COMMUNITY":"Comunidade","GUILD_PROFILE_FEATURABLE":"Destacável na Home do Descobrimento","GUILD_PROFILE_NEWS":"Canais de Anúncio","GUILD_PROFILE_ANIMATED_ICON":"Ícone Animado","GUILD_PROFILE_BANNER":"Banner de Servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Descobrimento de Servidores Anteriormente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Tela de Boas-vindas","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Avaliação de Associação","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Ativado"}');
-
-/***/ }),
-
-/***/ 469:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Server","GUILD_PROFILE_GUILD_INFO":"Informações do Server","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utilizadores Bloqueados","GUILD_PROFILE_LOADING":"Carregando","GUILD_PROFILE_CREATED_AT":"Criado a","GUILD_PROFILE_JOINED_AT":"Entrou a","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantidade de Impulsos","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nível dos Impulsos","GUILD_PROFILE_NSFW_LEVEL":"Nível NSFW","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Padrão","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explícito","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Seguro","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Idade Restrita","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nenhum amigo neste server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nenhum utilizador bloqueado neste server","GUILD_PROFILE_INVITE_SPLASH":"Imagem de Fundo de Convite","GUILD_PROFILE_VIP_REGIONS":"Regiões VIP","GUILD_PROFILE_VANITY_URL":"URL Personalizado","GUILD_PROFILE_MORE_EMOJI":"Mais Emojis","GUILD_PROFILE_COMMERCE":"Canal de Loja","GUILD_PROFILE_DISCOVERABLE":"Pesquisável","GUILD_PROFILE_COMMUNITY":"Comunidade","GUILD_PROFILE_FEATURABLE":"Destacável na Página de Descobertas","GUILD_PROFILE_NEWS":"Canal de Anúncios","GUILD_PROFILE_ANIMATED_ICON":"Ícone Animado","GUILD_PROFILE_BANNER":"Banner do Server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Ativado Pesquisável Antes","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Ecrã de Boas-vindas","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Verificação de Membros","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Ativado"}');
-
-/***/ }),
-
-/***/ 721:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Profilul serverului","GUILD_PROFILE_GUILD_INFO":"Informatiile serverului","GUILD_PROFILE_FRIENDS_IN_GUILD":"Prieteni","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utilizatori blocati","GUILD_PROFILE_LOADING":"Se incarca","GUILD_PROFILE_CREATED_AT":"Creat la","GUILD_PROFILE_JOINED_AT":"Alaturat la","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Numarul de Server Booster","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Levelul de Server Boost","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Niciun prieten in acest server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Niciun utilizator blocat in acest server","GUILD_PROFILE_INVITE_SPLASH":"Fundal de invitare server","GUILD_PROFILE_VIP_REGIONS":"Regiuni VIP","GUILD_PROFILE_VANITY_URL":"Vanitate URL","GUILD_PROFILE_MORE_EMOJI":"Mai multe emoji-uri","GUILD_PROFILE_COMMERCE":"Canale de comert","GUILD_PROFILE_DISCOVERABLE":"Descoperibil","GUILD_PROFILE_COMMUNITY":"Comunitate","GUILD_PROFILE_FEATURABLE":"Caracteristic","GUILD_PROFILE_NEWS":"Canale anunturi","GUILD_PROFILE_ANIMATED_ICON":"Iconita Server Animata","GUILD_PROFILE_BANNER":"Banner Server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Descoperabilitate Activata Inainte","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Ecran de intampinare activat","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Evaluarea calitatii de membru","GUILD_PROFILE_PREVIEW_ENABLED":"Previzualizare activata"}');
-
-/***/ }),
-
-/***/ 111:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Профиль сервера","GUILD_PROFILE_GUILD_INFO":"Информация о сервере","GUILD_PROFILE_FRIENDS_IN_GUILD":"Друзья","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Заблокированные пользователи","GUILD_PROFILE_LOADING":"Загрузка","GUILD_PROFILE_CREATED_AT":"Сервер создан","GUILD_PROFILE_JOINED_AT":"Вы присоединились","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Количество Бустов сервера","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Уровень Бустов сервера","GUILD_PROFILE_NSFW_LEVEL":"Уровень NSFW","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"По умолчанию","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Откровенный контент","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Безопасный","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Нету друзей на этом сервере","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Нету заблокированых вами пользователей на этом сервере","GUILD_PROFILE_INVITE_SPLASH":"Изображение в приглашении","GUILD_PROFILE_VIP_REGIONS":"VIP регионы","GUILD_PROFILE_VANITY_URL":"Красивый URL","GUILD_PROFILE_MORE_EMOJI":"Свои Эмодзи","GUILD_PROFILE_COMMERCE":"Магазин","GUILD_PROFILE_DISCOVERABLE":"Публичный сервер","GUILD_PROFILE_COMMUNITY":"Комьюнити","GUILD_PROFILE_FEATURABLE":"Фишечки","GUILD_PROFILE_NEWS":"Каналы с объявлениями","GUILD_PROFILE_ANIMATED_ICON":"Анимированая иконка сервера","GUILD_PROFILE_BANNER":"Баннер сервера","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Включен обнаруживаемый ранее","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Включен экран приветствия","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Проверка членства","GUILD_PROFILE_PREVIEW_ENABLED":"Включен предпросмотр"}');
-
-/***/ }),
-
-/***/ 68:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Sunucu Profili","GUILD_PROFILE_GUILD_INFO":"Sunucu Bilgisi","GUILD_PROFILE_FRIENDS_IN_GUILD":"Arkadaşlar","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Engellenmiş Kullanıcılar","GUILD_PROFILE_LOADING":"Yükleniyor","GUILD_PROFILE_CREATED_AT":"Oluşturulan Tarih","GUILD_PROFILE_JOINED_AT":"Katılınan Tarih","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Sunucu Takviyeci Sayısı","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Sunucu Takviye Seviyesi","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Sunucuda hiç arkadaşınız yok","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Sunucuda hiç engellenmiş kullanıcı yok","GUILD_PROFILE_INVITE_SPLASH":"Sunucu Davet Arkaplanı","GUILD_PROFILE_VIP_REGIONS":"VIP Bölgeler","GUILD_PROFILE_VANITY_URL":"Özel URL","GUILD_PROFILE_MORE_EMOJI":"Daha Fazla Emoji","GUILD_PROFILE_COMMERCE":"Mağaza Kanalları","GUILD_PROFILE_DISCOVERABLE":"Keşfedilebilir","GUILD_PROFILE_COMMUNITY":"Topluluk","GUILD_PROFILE_FEATURABLE":"Öne Çıkarılabilir","GUILD_PROFILE_NEWS":"Duyuru Kanalları","GUILD_PROFILE_ANIMATED_ICON":"Animasyonlu Sunucu Simgesi","GUILD_PROFILE_BANNER":"Sunucu Afişi","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Keşfedilebilir Önceden Etkinleştirildi","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Hoş Geldin Ekranı Etkin","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Üye Seçimi","GUILD_PROFILE_PREVIEW_ENABLED":"Önizleme Etkin"}');
-
-/***/ }),
-
-/***/ 713:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"服务器名片","GUILD_PROFILE_GUILD_INFO":"服务器信息","GUILD_PROFILE_FRIENDS_IN_GUILD":"好友","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"已屏蔽用户","GUILD_PROFILE_LOADING":"加载中","GUILD_PROFILE_CREATED_AT":"创建于","GUILD_PROFILE_JOINED_AT":"加入于","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"服务器助力数量","GUILD_PROFILE_GUILD_PREMIUM_TIER":"服务器助力等级","GUILD_PROFILE_NSFW_LEVEL":"少儿不宜级别","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"正常","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"高","GUILD_PROFILE_NSFW_LEVEL_SAFE":"低","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"年龄限制","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"此服务器中没有您的好友","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"此服务器中没有您屏蔽的用户","GUILD_PROFILE_INVITE_SPLASH":"邀请背景","GUILD_PROFILE_VIP_REGIONS":"主要语言","GUILD_PROFILE_VANITY_URL":"个性化网址","GUILD_PROFILE_MORE_EMOJI":"更多表情符号","GUILD_PROFILE_COMMERCE":"商业服务器","GUILD_PROFILE_DISCOVERABLE":"已登录\\"发现服务器\\"","GUILD_PROFILE_COMMUNITY":"社区服务器","GUILD_PROFILE_FEATURABLE":"特色服务器","GUILD_PROFILE_NEWS":"具有公告频道","GUILD_PROFILE_ANIMATED_ICON":"动画服务器图标","GUILD_PROFILE_BANNER":"服务器横幅","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"此前曾登录\\"发现服务器\\"","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"已启用欢迎界面","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"已启用成员筛选","GUILD_PROFILE_PREVIEW_ENABLED":"已启用预览"}');
-
-/***/ }),
-
-/***/ 601:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"伺服器名片","GUILD_PROFILE_GUILD_INFO":"伺服器資訊","GUILD_PROFILE_FRIENDS_IN_GUILD":"好友","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"已封鎖用戶","GUILD_PROFILE_LOADING":"載入中","GUILD_PROFILE_CREATED_AT":"建立於","GUILD_PROFILE_JOINED_AT":"加入於","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"伺服器加成數量","GUILD_PROFILE_GUILD_PREMIUM_TIER":"伺服器加成等級","GUILD_PROFILE_NSFW_LEVEL":"NSFW 級別","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"正常","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"高","GUILD_PROFILE_NSFW_LEVEL_SAFE":"低","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"年齡限制","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"伺服器中沒有您的好友","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"伺服器中沒有您已封鎖的用戶","GUILD_PROFILE_INVITE_SPLASH":"邀請背景","GUILD_PROFILE_VIP_REGIONS":"主要語言","GUILD_PROFILE_VANITY_URL":"個性化網址","GUILD_PROFILE_MORE_EMOJI":"更多表情符號","GUILD_PROFILE_COMMERCE":"商業伺服器","GUILD_PROFILE_DISCOVERABLE":"已加入\\"探索伺服器\\"","GUILD_PROFILE_COMMUNITY":"社區伺服器","GUILD_PROFILE_FEATURABLE":"特色伺服器","GUILD_PROFILE_NEWS":"具有公告頻道","GUILD_PROFILE_ANIMATED_ICON":"動畫伺服器圖示","GUILD_PROFILE_BANNER":"伺服器橫幅","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"此前曾加入\\"探索伺服器\\"","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"已啟用歡迎畫面","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"已啟用會員審查","GUILD_PROFILE_PREVIEW_ENABLED":"已啟用預覽"}');
-
-/***/ }),
-
 /***/ 277:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
-	"./cs.json": 813,
-	"./de.json": 855,
-	"./el.json": 663,
-	"./en-US.json": 60,
-	"./es-ES.json": 484,
-	"./fr.json": 852,
-	"./hi.json": 2,
-	"./hu.json": 745,
-	"./it.json": 306,
-	"./pl.json": 730,
-	"./pt-BR.json": 927,
-	"./pt-PT.json": 469,
-	"./ro.json": 721,
-	"./ru.json": 111,
-	"./tr.json": 68,
-	"./zh-CN.json": 713,
-	"./zh-TW.json": 601
+	"./cs.json": 99,
+	"./de.json": 899,
+	"./el.json": 628,
+	"./en-US.json": 284,
+	"./es-ES.json": 490,
+	"./fr.json": 409,
+	"./hi.json": 293,
+	"./hu.json": 372,
+	"./it.json": 775,
+	"./pl.json": 909,
+	"./pt-BR.json": 174,
+	"./pt-PT.json": 658,
+	"./ro.json": 900,
+	"./ru.json": 187,
+	"./tr.json": 210,
+	"./zh-CN.json": 165,
+	"./zh-TW.json": 930
 };
 
 
@@ -223,6 +87,142 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = 277;
+
+/***/ }),
+
+/***/ 99:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profil serveru","GUILD_PROFILE_GUILD_INFO":"Informace o serveru","GUILD_PROFILE_FRIENDS_IN_GUILD":"Přátelé","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Zablokovaní uživatelé","GUILD_PROFILE_LOADING":"Načítání","GUILD_PROFILE_CREATED_AT":"Vytvořeno","GUILD_PROFILE_JOINED_AT":"Připojeno","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Počet vylepšovatelů serveru","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Úroveň vylepšení serveru","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Na tomto serveru nemáš žádné přátele","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Na tomto serveru nemáš žádné zablokované uživatele","GUILD_PROFILE_INVITE_SPLASH":"Pozadí pozvánky serveru","GUILD_PROFILE_VIP_REGIONS":"VIP oblasti","GUILD_PROFILE_VANITY_URL":"Vlastní URL","GUILD_PROFILE_MORE_EMOJI":"Více smajlíků","GUILD_PROFILE_COMMERCE":"Obchodní kanály","GUILD_PROFILE_DISCOVERABLE":"Veřejný","GUILD_PROFILE_COMMUNITY":"Komunita","GUILD_PROFILE_FEATURABLE":"Doporučený","GUILD_PROFILE_NEWS":"Kanály oznámení","GUILD_PROFILE_ANIMATED_ICON":"Animovaná ikona serveru","GUILD_PROFILE_BANNER":"Banner serveru","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Dříve veřejný","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Povolena uvítací obrazovka","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Prověřování členství","GUILD_PROFILE_PREVIEW_ENABLED":"Povolen náhled"}');
+
+/***/ }),
+
+/***/ 899:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profil","GUILD_PROFILE_GUILD_INFO":"Server Informationen","GUILD_PROFILE_FRIENDS_IN_GUILD":"Freunde","GUILD_PROFILE_ROLES_IN_GUILD":"Rollen","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Geblockte Nutzer","GUILD_PROFILE_LOADING":"Lädt","GUILD_PROFILE_CREATED_AT":"Erstellt am","GUILD_PROFILE_JOINED_AT":"Beigetreten am","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Anzahl","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Keine Freunde auf diesem Server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Keine geblockten Nutzer auf diesem Server","GUILD_PROFILE_INVITE_SPLASH":"Server Einladungs-Hintergrund","GUILD_PROFILE_VIP_REGIONS":"VIP Regionen","GUILD_PROFILE_VANITY_URL":"Eigene Server URL","GUILD_PROFILE_MORE_EMOJI":"Mehr Emoji","GUILD_PROFILE_COMMERCE":"Store Kanal","GUILD_PROFILE_DISCOVERABLE":"Suchbar","GUILD_PROFILE_COMMUNITY":"Gemeinschaft","GUILD_PROFILE_FEATURABLE":"Empfehlbar","GUILD_PROFILE_NEWS":"Nachrichten Kanal","GUILD_PROFILE_ANIMATED_ICON":"Animiertes Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Vorher auffindbar aktiviert","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Willkommens Übersicht","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Mitgliedschaftsprüfung","GUILD_PROFILE_PREVIEW_ENABLED":"Vorschau aktiviert"}');
+
+/***/ }),
+
+/***/ 628:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Προφίλ Διακομιστή","GUILD_PROFILE_GUILD_INFO":"Πληροφορίες Διακομιστή","GUILD_PROFILE_FRIENDS_IN_GUILD":"Φίλοι","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Αποκλεισμένοι Χρήστες","GUILD_PROFILE_LOADING":"Φόρτωση","GUILD_PROFILE_CREATED_AT":"Δημιουργήθηκε στις","GUILD_PROFILE_JOINED_AT":"Συμμετοχή στις","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Πλήθος Ενισχύσεων Διακομιστή","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Επίπεδο Ενίσχυσης Διακομιστή","GUILD_PROFILE_NSFW_LEVEL":"Επίπεδο NSFW","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Κανονικός","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Άσμενος","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Ασφαλής","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Με Περιορισμούς Ηλικίας","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Δεν υπάρχουν φίλοι σε αυτόν τον διακομιστή","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Δεν υπάρχουν αποκλεισμένοι χρήστες σε αυτόν τον διακομιστή","GUILD_PROFILE_INVITE_SPLASH":"Φόντο Πρόσκλησης Διακομιστή","GUILD_PROFILE_VIP_REGIONS":"Περιοχές VIP","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"Περισσότερα Emoji","GUILD_PROFILE_COMMERCE":"Κανάλια Καταστήματος","GUILD_PROFILE_DISCOVERABLE":"Ανιχνεύσιμος","GUILD_PROFILE_COMMUNITY":"Κοινότητα","GUILD_PROFILE_FEATURABLE":"Αναδεικνυόμενος","GUILD_PROFILE_NEWS":"Κανάλια Ανακοινώσεων","GUILD_PROFILE_ANIMATED_ICON":"Κινούμενο Εικονίδιο Διακομιστή","GUILD_PROFILE_BANNER":"Πανό Διακομιστή","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Ενεργοποίηση Ανιχνευσιμότητας Παλιότερα","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Οθόνη Καλωσορίσματος Ενεγοποιημένη","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Αξιολόγηση Μελών","GUILD_PROFILE_PREVIEW_ENABLED":"Προεπισκόπηση Ενεργοποιημένη"}');
+
+/***/ }),
+
+/***/ 284:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_ROLES_IN_GUILD":"Roles","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NSFW_LEVEL":"NSFW Level","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Default","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explicit","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Safe","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Age Restricted","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}');
+
+/***/ }),
+
+/***/ 490:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil del Servidor","GUILD_PROFILE_GUILD_INFO":"Información del Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuarios Bloqueados","GUILD_PROFILE_LOADING":"Cargando","GUILD_PROFILE_CREATED_AT":"Creado el","GUILD_PROFILE_JOINED_AT":"Se unió el","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Cantidad de Mejoras","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nivel de mejoras","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No hay amigos en este servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No hay usuarios bloqueados en este servidor","GUILD_PROFILE_INVITE_SPLASH":"Fondo de invitación","GUILD_PROFILE_VIP_REGIONS":"Regiones VIP","GUILD_PROFILE_VANITY_URL":"URL personalizada","GUILD_PROFILE_MORE_EMOJI":"Más Emojis","GUILD_PROFILE_COMMERCE":"Canales de Tienda","GUILD_PROFILE_DISCOVERABLE":"Descubrible","GUILD_PROFILE_COMMUNITY":"Comunidad","GUILD_PROFILE_FEATURABLE":"Caracterizable","GUILD_PROFILE_NEWS":"Canales de Anuncios","GUILD_PROFILE_ANIMATED_ICON":"Ícono de servidor animado","GUILD_PROFILE_BANNER":"Cartel del servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activó Descubrimiento Antes","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Pantalla de bienvenida activada","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Cribado de miembros","GUILD_PROFILE_PREVIEW_ENABLED":"Vista previa habilitada"}');
+
+/***/ }),
+
+/***/ 409:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profil du serveur","GUILD_PROFILE_GUILD_INFO":"Info du serveur","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amis","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Bloqué","GUILD_PROFILE_LOADING":"Chargement","GUILD_PROFILE_CREATED_AT":"Créé à","GUILD_PROFILE_JOINED_AT":"Rejoins à","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Nombre de booster de serveur","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Niveau de boost du serveur","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Aucun ami sur ce serveur","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Aucun utilisateur bloqué sur ce serveur","GUILD_PROFILE_INVITE_SPLASH":"Contexte d\'invitation du serveur","GUILD_PROFILE_VIP_REGIONS":"Régions VIP","GUILD_PROFILE_VANITY_URL":"URL personnalisée","GUILD_PROFILE_MORE_EMOJI":"Plus d\'Emoji","GUILD_PROFILE_COMMERCE":"Stocker les chaînes","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Communauté","GUILD_PROFILE_FEATURABLE":"En vedette","GUILD_PROFILE_NEWS":"Canaux d\'annonce","GUILD_PROFILE_ANIMATED_ICON":"Icône de serveur animé","GUILD_PROFILE_BANNER":"Bannière du serveur","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activé détectable avant","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Écran de bienvenue activé","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Vérification des membres","GUILD_PROFILE_PREVIEW_ENABLED":"Aperçu activé"}');
+
+/***/ }),
+
+/***/ 293:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"सर्वर का प्रोफैल","GUILD_PROFILE_GUILD_INFO":"सर्वर का समाचार","GUILD_PROFILE_FRIENDS_IN_GUILD":"मित्र","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"ब्लॉक किया हुआ व्यक्तियों","GUILD_PROFILE_LOADING":"लोडिंग","GUILD_PROFILE_CREATED_AT":"क्रिएट किया","GUILD_PROFILE_JOINED_AT":"जॉइन हुआ","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"सर्वर बूस्टर का गिनती","GUILD_PROFILE_GUILD_PREMIUM_TIER":"सर्वर बूस्ट का लेवल","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"इस सर्वर में अप्पके मित्र नहीं हैं।","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"इस सर्वर में आपने ब्लॉक किया हुआ व्यक्तियों नहीं है।","GUILD_PROFILE_INVITE_SPLASH":"सर्वर इन्वाइट केलिए बैकग्राउंड है।","GUILD_PROFILE_VIP_REGIONS":"वि.आई.पि. प्रदेशे","GUILD_PROFILE_VANITY_URL":"वैनिटी यूआरएल","GUILD_PROFILE_MORE_EMOJI":"अधिक एमोजिया","GUILD_PROFILE_COMMERCE":"दूकान का चैनल","GUILD_PROFILE_DISCOVERABLE":"डिस्कॉर्ड का \'डिस्कोवेराब्ले\' भाग में ढूंढसकते है।","GUILD_PROFILE_COMMUNITY":"समुदाय","GUILD_PROFILE_FEATURABLE":"फीचरबुल","GUILD_PROFILE_NEWS":"घोषणाओं का लिए चैनलों","GUILD_PROFILE_ANIMATED_ICON":"सर्वर को आइकॉन एनिमेटेड है।","GUILD_PROFILE_BANNER":"सर्वर को बैनर है।","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"डिस्कोवेराबुल ऑप्शन को गत में इनेबल किया गया।","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"वेलकम स्क्रीन इनेबल्ड है।","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"सदस्यता स्क्रीनिंग इनेबल्ड है।","GUILD_PROFILE_PREVIEW_ENABLED":"प्रीव्यू इनेबल्ड है।"}');
+
+/***/ }),
+
+/***/ 372:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Szerver profil","GUILD_PROFILE_GUILD_INFO":"Szerverinformációk","GUILD_PROFILE_FRIENDS_IN_GUILD":"Barátok","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Tiltott felhasználók","GUILD_PROFILE_LOADING":"Betöltés","GUILD_PROFILE_CREATED_AT":"Létrehozva:","GUILD_PROFILE_JOINED_AT":"Csatlakozva:","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Szervergyorsítók száma","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Szervergyorsítás szintje","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nincsenek barátaid ezen a szerveren","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nincsenek tiltott felhasználók ezen a szerveren","GUILD_PROFILE_INVITE_SPLASH":"Szervermeghívó háttérképe","GUILD_PROFILE_VIP_REGIONS":"VIP régiók","GUILD_PROFILE_VANITY_URL":"Kreatív URL","GUILD_PROFILE_MORE_EMOJI":"Több emotikon","GUILD_PROFILE_COMMERCE":"Kereskedelmi csatornák","GUILD_PROFILE_DISCOVERABLE":"Felfedezhető","GUILD_PROFILE_COMMUNITY":"Közösségi","GUILD_PROFILE_FEATURABLE":"Kiemelhető","GUILD_PROFILE_NEWS":"Hirdetmény csatornák","GUILD_PROFILE_ANIMATED_ICON":"Animált szerver ikon","GUILD_PROFILE_BANNER":"Szerverbanner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Már volt felfedezhető korábban","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Van üdvözlőképernyő","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Tagság szűrése","GUILD_PROFILE_PREVIEW_ENABLED":"Előnézet bekapcsolva"}');
+
+/***/ }),
+
+/***/ 775:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profilo del Server","GUILD_PROFILE_GUILD_INFO":"Informazione del Server","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amici","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utenti Bloccati","GUILD_PROFILE_LOADING":"Caricando","GUILD_PROFILE_CREATED_AT":"Creato il","GUILD_PROFILE_JOINED_AT":"Iscritto il","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantità di potenziamenti","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Livello del Potenziamento","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Non ci sono amici in questo server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Non ci sono utenti bloccati in questo server","GUILD_PROFILE_INVITE_SPLASH":"Sfondo di invito","GUILD_PROFILE_VIP_REGIONS":"Regioni VIP","GUILD_PROFILE_VANITY_URL":"URL personalizzata","GUILD_PROFILE_MORE_EMOJI":"Più emoji","GUILD_PROFILE_COMMERCE":"Canali negozio","GUILD_PROFILE_DISCOVERABLE":"Disponibile su \\"Discovery\\"","GUILD_PROFILE_COMMUNITY":"Comunità","GUILD_PROFILE_FEATURABLE":"In Evidenza","GUILD_PROFILE_NEWS":"Canali delle Notizie","GUILD_PROFILE_ANIMATED_ICON":"Icona server animata","GUILD_PROFILE_BANNER":"Banner del server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"\\"Discovery\\" attivato previamente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Schermata di benvenuta attivata","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Verifica dell\'iscrizione","GUILD_PROFILE_PREVIEW_ENABLED":"Anteprima Abilitata"}');
+
+/***/ }),
+
+/***/ 909:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profil Serwera","GUILD_PROFILE_GUILD_INFO":"Informacje o Serwerze","GUILD_PROFILE_FRIENDS_IN_GUILD":"Znajomi","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Zablokowani Użytkownicy","GUILD_PROFILE_LOADING":"Ładowanie","GUILD_PROFILE_CREATED_AT":"Utworzono","GUILD_PROFILE_JOINED_AT":"Dołączono","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Ilość Ulepszeń Serwera","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Poziom Ulepszeń Serwera","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Brak znajomych na tym serwerze","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Brak zablokowanych użytkowników na tym serwerze","GUILD_PROFILE_INVITE_SPLASH":"Tło Zaproszeń Serwera","GUILD_PROFILE_VIP_REGIONS":"Regiony VIP","GUILD_PROFILE_VANITY_URL":"Unikalny adres URL","GUILD_PROFILE_MORE_EMOJI":"Więcej Emoji","GUILD_PROFILE_COMMERCE":"Kanały Sklepowe","GUILD_PROFILE_DISCOVERABLE":"Odkrywalny","GUILD_PROFILE_COMMUNITY":"Społeczność","GUILD_PROFILE_FEATURABLE":"Więcej Funkcji","GUILD_PROFILE_NEWS":"Kanały ogłoszeniowe","GUILD_PROFILE_ANIMATED_ICON":"Animowana Ikona Serwera","GUILD_PROFILE_BANNER":"Baner Serwera","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Wcześniej Włączona Odkrywalność","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Ekran Powitalny Włączony","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Sprawdzanie Członków","GUILD_PROFILE_PREVIEW_ENABLED":"Podgląd Włączony"}');
+
+/***/ }),
+
+/***/ 174:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Servidor","GUILD_PROFILE_GUILD_INFO":"Informações do Servidor","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Usuários Bloqueados","GUILD_PROFILE_LOADING":"Carregando","GUILD_PROFILE_CREATED_AT":"Criado em","GUILD_PROFILE_JOINED_AT":"Entrou em","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantidade de Impulsos","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nível de Impulsão","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nenhum amigo nesse servidor","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nenhum usuário bloqueado nesse servidor","GUILD_PROFILE_INVITE_SPLASH":"Plano de Fundo de Convite","GUILD_PROFILE_VIP_REGIONS":"Regiões VIP","GUILD_PROFILE_VANITY_URL":"URL Personalizado","GUILD_PROFILE_MORE_EMOJI":"Mais Emojis","GUILD_PROFILE_COMMERCE":"Canais de Loja","GUILD_PROFILE_DISCOVERABLE":"Descobrível","GUILD_PROFILE_COMMUNITY":"Comunidade","GUILD_PROFILE_FEATURABLE":"Destacável na Home do Descobrimento","GUILD_PROFILE_NEWS":"Canais de Anúncio","GUILD_PROFILE_ANIMATED_ICON":"Ícone Animado","GUILD_PROFILE_BANNER":"Banner de Servidor","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Descobrimento de Servidores Anteriormente","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Tela de Boas-vindas","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Avaliação de Associação","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Ativado"}');
+
+/***/ }),
+
+/***/ 658:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil do Server","GUILD_PROFILE_GUILD_INFO":"Informações do Server","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amigos","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utilizadores Bloqueados","GUILD_PROFILE_LOADING":"Carregando","GUILD_PROFILE_CREATED_AT":"Criado a","GUILD_PROFILE_JOINED_AT":"Entrou a","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Quantidade de Impulsos","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Nível dos Impulsos","GUILD_PROFILE_NSFW_LEVEL":"Nível NSFW","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Padrão","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explícito","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Seguro","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Idade Restrita","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Nenhum amigo neste server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Nenhum utilizador bloqueado neste server","GUILD_PROFILE_INVITE_SPLASH":"Imagem de Fundo de Convite","GUILD_PROFILE_VIP_REGIONS":"Regiões VIP","GUILD_PROFILE_VANITY_URL":"URL Personalizado","GUILD_PROFILE_MORE_EMOJI":"Mais Emojis","GUILD_PROFILE_COMMERCE":"Canal de Loja","GUILD_PROFILE_DISCOVERABLE":"Pesquisável","GUILD_PROFILE_COMMUNITY":"Comunidade","GUILD_PROFILE_FEATURABLE":"Destacável na Página de Descobertas","GUILD_PROFILE_NEWS":"Canal de Anúncios","GUILD_PROFILE_ANIMATED_ICON":"Ícone Animado","GUILD_PROFILE_BANNER":"Banner do Server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Ativado Pesquisável Antes","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Ecrã de Boas-vindas","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Verificação de Membros","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Ativado"}');
+
+/***/ }),
+
+/***/ 900:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profilul serverului","GUILD_PROFILE_GUILD_INFO":"Informatiile serverului","GUILD_PROFILE_FRIENDS_IN_GUILD":"Prieteni","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Utilizatori blocati","GUILD_PROFILE_LOADING":"Se incarca","GUILD_PROFILE_CREATED_AT":"Creat la","GUILD_PROFILE_JOINED_AT":"Alaturat la","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Numarul de Server Booster","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Levelul de Server Boost","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Niciun prieten in acest server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Niciun utilizator blocat in acest server","GUILD_PROFILE_INVITE_SPLASH":"Fundal de invitare server","GUILD_PROFILE_VIP_REGIONS":"Regiuni VIP","GUILD_PROFILE_VANITY_URL":"Vanitate URL","GUILD_PROFILE_MORE_EMOJI":"Mai multe emoji-uri","GUILD_PROFILE_COMMERCE":"Canale de comert","GUILD_PROFILE_DISCOVERABLE":"Descoperibil","GUILD_PROFILE_COMMUNITY":"Comunitate","GUILD_PROFILE_FEATURABLE":"Caracteristic","GUILD_PROFILE_NEWS":"Canale anunturi","GUILD_PROFILE_ANIMATED_ICON":"Iconita Server Animata","GUILD_PROFILE_BANNER":"Banner Server","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Descoperabilitate Activata Inainte","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Ecran de intampinare activat","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Evaluarea calitatii de membru","GUILD_PROFILE_PREVIEW_ENABLED":"Previzualizare activata"}');
+
+/***/ }),
+
+/***/ 187:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Профиль сервера","GUILD_PROFILE_GUILD_INFO":"Информация о сервере","GUILD_PROFILE_FRIENDS_IN_GUILD":"Друзья","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Заблокированные пользователи","GUILD_PROFILE_LOADING":"Загрузка","GUILD_PROFILE_CREATED_AT":"Сервер создан","GUILD_PROFILE_JOINED_AT":"Вы присоединились","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Количество Бустов сервера","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Уровень Бустов сервера","GUILD_PROFILE_NSFW_LEVEL":"Уровень NSFW","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"По умолчанию","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Откровенный контент","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Безопасный","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Нету друзей на этом сервере","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Нету заблокированых вами пользователей на этом сервере","GUILD_PROFILE_INVITE_SPLASH":"Изображение в приглашении","GUILD_PROFILE_VIP_REGIONS":"VIP регионы","GUILD_PROFILE_VANITY_URL":"Красивый URL","GUILD_PROFILE_MORE_EMOJI":"Свои Эмодзи","GUILD_PROFILE_COMMERCE":"Магазин","GUILD_PROFILE_DISCOVERABLE":"Публичный сервер","GUILD_PROFILE_COMMUNITY":"Комьюнити","GUILD_PROFILE_FEATURABLE":"Фишечки","GUILD_PROFILE_NEWS":"Каналы с объявлениями","GUILD_PROFILE_ANIMATED_ICON":"Анимированая иконка сервера","GUILD_PROFILE_BANNER":"Баннер сервера","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Включен обнаруживаемый ранее","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Включен экран приветствия","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Проверка членства","GUILD_PROFILE_PREVIEW_ENABLED":"Включен предпросмотр"}');
+
+/***/ }),
+
+/***/ 210:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"Sunucu Profili","GUILD_PROFILE_GUILD_INFO":"Sunucu Bilgisi","GUILD_PROFILE_FRIENDS_IN_GUILD":"Arkadaşlar","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Engellenmiş Kullanıcılar","GUILD_PROFILE_LOADING":"Yükleniyor","GUILD_PROFILE_CREATED_AT":"Oluşturulan Tarih","GUILD_PROFILE_JOINED_AT":"Katılınan Tarih","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Sunucu Takviyeci Sayısı","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Sunucu Takviye Seviyesi","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Sunucuda hiç arkadaşınız yok","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Sunucuda hiç engellenmiş kullanıcı yok","GUILD_PROFILE_INVITE_SPLASH":"Sunucu Davet Arkaplanı","GUILD_PROFILE_VIP_REGIONS":"VIP Bölgeler","GUILD_PROFILE_VANITY_URL":"Özel URL","GUILD_PROFILE_MORE_EMOJI":"Daha Fazla Emoji","GUILD_PROFILE_COMMERCE":"Mağaza Kanalları","GUILD_PROFILE_DISCOVERABLE":"Keşfedilebilir","GUILD_PROFILE_COMMUNITY":"Topluluk","GUILD_PROFILE_FEATURABLE":"Öne Çıkarılabilir","GUILD_PROFILE_NEWS":"Duyuru Kanalları","GUILD_PROFILE_ANIMATED_ICON":"Animasyonlu Sunucu Simgesi","GUILD_PROFILE_BANNER":"Sunucu Afişi","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Keşfedilebilir Önceden Etkinleştirildi","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Hoş Geldin Ekranı Etkin","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Üye Seçimi","GUILD_PROFILE_PREVIEW_ENABLED":"Önizleme Etkin"}');
+
+/***/ }),
+
+/***/ 165:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"服务器名片","GUILD_PROFILE_GUILD_INFO":"服务器信息","GUILD_PROFILE_FRIENDS_IN_GUILD":"好友","GUILD_PROFILE_ROLES_IN_GUILD":"身份组","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"已屏蔽用户","GUILD_PROFILE_LOADING":"加载中","GUILD_PROFILE_CREATED_AT":"创建于","GUILD_PROFILE_JOINED_AT":"加入于","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"服务器助力数量","GUILD_PROFILE_GUILD_PREMIUM_TIER":"服务器助力等级","GUILD_PROFILE_NSFW_LEVEL":"少儿不宜级别","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"正常","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"高","GUILD_PROFILE_NSFW_LEVEL_SAFE":"低","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"年龄限制","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"此服务器中没有您的好友","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"此服务器中没有您屏蔽的用户","GUILD_PROFILE_INVITE_SPLASH":"邀请背景","GUILD_PROFILE_VIP_REGIONS":"主要语言","GUILD_PROFILE_VANITY_URL":"个性化网址","GUILD_PROFILE_MORE_EMOJI":"更多表情符号","GUILD_PROFILE_COMMERCE":"商业服务器","GUILD_PROFILE_DISCOVERABLE":"已登录\\"发现服务器\\"","GUILD_PROFILE_COMMUNITY":"社区服务器","GUILD_PROFILE_FEATURABLE":"特色服务器","GUILD_PROFILE_NEWS":"具有公告频道","GUILD_PROFILE_ANIMATED_ICON":"动画服务器图标","GUILD_PROFILE_BANNER":"服务器横幅","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"此前曾登录\\"发现服务器\\"","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"已启用欢迎界面","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"已启用成员筛选","GUILD_PROFILE_PREVIEW_ENABLED":"已启用预览"}');
+
+/***/ }),
+
+/***/ 930:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"GUILD_PROFILE":"伺服器名片","GUILD_PROFILE_GUILD_INFO":"伺服器資訊","GUILD_PROFILE_FRIENDS_IN_GUILD":"好友","GUILD_PROFILE_ROLES_IN_GUILD":"身份組","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"已封鎖用戶","GUILD_PROFILE_LOADING":"載入中","GUILD_PROFILE_CREATED_AT":"建立於","GUILD_PROFILE_JOINED_AT":"加入於","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"伺服器加成數量","GUILD_PROFILE_GUILD_PREMIUM_TIER":"伺服器加成等級","GUILD_PROFILE_NSFW_LEVEL":"NSFW 級別","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"正常","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"高","GUILD_PROFILE_NSFW_LEVEL_SAFE":"低","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"年齡限制","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"伺服器中沒有您的好友","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"伺服器中沒有您已封鎖的用戶","GUILD_PROFILE_INVITE_SPLASH":"邀請背景","GUILD_PROFILE_VIP_REGIONS":"主要語言","GUILD_PROFILE_VANITY_URL":"個性化網址","GUILD_PROFILE_MORE_EMOJI":"更多表情符號","GUILD_PROFILE_COMMERCE":"商業伺服器","GUILD_PROFILE_DISCOVERABLE":"已加入\\"探索伺服器\\"","GUILD_PROFILE_COMMUNITY":"社區伺服器","GUILD_PROFILE_FEATURABLE":"特色伺服器","GUILD_PROFILE_NEWS":"具有公告頻道","GUILD_PROFILE_ANIMATED_ICON":"動畫伺服器圖示","GUILD_PROFILE_BANNER":"伺服器橫幅","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"此前曾加入\\"探索伺服器\\"","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"已啟用歡迎畫面","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"已啟用會員審查","GUILD_PROFILE_PREVIEW_ENABLED":"已啟用預覽"}');
 
 /***/ })
 
@@ -949,7 +949,7 @@ const GuildTag_classes = {
 
 function GuildTag({ className, usernameClass, guild }) {
     return (
-        external_BdApi_React_default().createElement('div', { className: `${className} ${GuildTag_classes.nameTag.nameTag}`,}
+        external_BdApi_React_default().createElement('div', { className: `${className} ${GuildTag_classes.nameTag.nameTag} guild-tag`,}
             , external_BdApi_React_default().createElement('div', { className: GuildTag_classes.guildHeader.guildIconContainer,}
                 , external_BdApi_React_default().createElement(GuildBadge, { className: GuildTag_classes.guildHeader.guildBadge, guild: guild, size: 20,} )
             )
@@ -975,7 +975,7 @@ function GuildTag({ className, usernameClass, guild }) {
 
 
 
-const { ContextMenuActions, ImageResolver: GuildProfileModalHeader_ImageResolver } = external_BoundedLibrary_namespaceObject.DiscordModules;
+const { ContextMenuActions } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('InviteButton');
 const { default: Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
@@ -1006,15 +1006,10 @@ function MemberCounts({ guild }) {
 }
 
 function GuildProfileModalHeader({ guild }) {
-    const fullSizeIconURL = GuildProfileModalHeader_ImageResolver.getGuildIconURL({
-        id: guild.id,
-        icon: guild.icon,
-        size: 1024,
-        canAnimate: true
-    });
-
     function handleIconContextMenu(event) {
-        ContextMenuActions.openContextMenu(event, () => external_BdApi_React_default().createElement(NativeImageContextMenu, { ...event, src: fullSizeIconURL,} ));
+        ContextMenuActions.openContextMenu(event, () => (
+            external_BdApi_React_default().createElement(NativeImageContextMenu, { ...event, src: guild.getIconURL(1024, true),} )
+        ));
     }
 
     return (
@@ -1023,7 +1018,7 @@ function GuildProfileModalHeader({ guild }) {
             , external_BdApi_React_default().createElement('div', { className: GuildProfileModalHeader_classes.profileHeader.header,}
                 , external_BdApi_React_default().createElement(Avatar, {
                     className: GuildProfileModalHeader_classes.profileHeader.avatar,
-                    src: guild.getIconURL(true),
+                    src: guild.getIconURL(256, true),
                     size: Avatar.Sizes.SIZE_120,
                     onContextMenu: handleIconContextMenu,}
                 )
@@ -1493,7 +1488,7 @@ function SvgGuildProfile(props) {
 
 /* harmony default export */ const guild_profile = (SvgGuildProfile);
 ;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
-/* harmony default export */ const style = (".guild-profile .guildDetail-1nRKNE{flex-shrink:0;align-self:start}.guild-profile .profileBadge-2niAfJ{color:var(--header-secondary)}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}.guild-profile .guild-roles{padding:10px 12px}\n");
+/* harmony default export */ const style = (".guild-profile .guildDetail-1nRKNE{flex-shrink:0;align-self:start}.guild-profile .profileBadge-2niAfJ{color:var(--header-secondary)}.guild-profile .guild-tag{display:flex;align-items:center}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}.guild-profile .guild-roles{padding:10px 12px}\n");
 ;// CONCATENATED MODULE: ./src/GuildProfile/locales/index.js
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
@@ -1643,7 +1638,7 @@ class GuildProfile extends (external_Plugin_default()) {
 
 })();
 
-plugin = __webpack_exports__.default;
+plugin = __webpack_exports__["default"];
 /******/ })()
 ;
 

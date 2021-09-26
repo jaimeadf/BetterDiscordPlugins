@@ -122,7 +122,7 @@ class SecretRingTone extends (external_Plugin_default()) {
     }
 }
 
-plugin = __webpack_exports__.default;
+plugin = __webpack_exports__["default"];
 /******/ })()
 ;
 
