@@ -14,7 +14,7 @@ import GuildBanner from './GuildBanner';
 import GuildFeatures from './GuildFeatures';
 import GuildTag from './GuildTag';
 
-const { ContextMenuActions, ImageResolver } = DiscordModules;
+const { ContextMenuActions } = DiscordModules;
 
 const InviteButton = WebpackModules.getByDisplayName('InviteButton');
 const { default: Avatar } = WebpackModules.getByProps('AnimatedAvatar');
@@ -45,15 +45,10 @@ function MemberCounts({ guild }) {
 }
 
 export default function GuildProfileModalHeader({ guild }) {
-    const fullSizeIconURL = ImageResolver.getGuildIconURL({
-        id: guild.id,
-        icon: guild.icon,
-        size: 1024,
-        canAnimate: true
-    });
-
     function handleIconContextMenu(event) {
-        ContextMenuActions.openContextMenu(event, () => <NativeImageContextMenu {...event} src={fullSizeIconURL} />);
+        ContextMenuActions.openContextMenu(event, () => (
+            <NativeImageContextMenu {...event} src={guild.getIconURL(1024, true)} />
+        ));
     }
 
     return (
@@ -62,7 +57,7 @@ export default function GuildProfileModalHeader({ guild }) {
             <div className={classes.profileHeader.header}>
                 <Avatar
                     className={classes.profileHeader.avatar}
-                    src={guild.getIconURL(true)}
+                    src={guild.getIconURL(256, true)}
                     size={Avatar.Sizes.SIZE_120}
                     onContextMenu={handleIconContextMenu}
                 />
