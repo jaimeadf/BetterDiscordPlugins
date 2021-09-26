@@ -16,7 +16,7 @@ const classes = {
 
 export default function GuildTag({ className, usernameClass, guild }) {
     return (
-        <div className={`${className} ${classes.nameTag.nameTag}`}>
+        <div className={`${className} ${classes.nameTag.nameTag} guild-tag`}>
             <div className={classes.guildHeader.guildIconContainer}>
                 <GuildBadge className={classes.guildHeader.guildBadge} guild={guild} size={20} />
             </div>
