@@ -30,4 +30,9 @@
     .guild-roles {
         padding: 10px 12px;
     }
+
+    .guild-profile-body {
+        flex: 1;
+        min-height: 0;
+    }
 }
