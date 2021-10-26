@@ -968,7 +968,7 @@ function GuildTag({ className, usernameClass, guild }) {
 
 const { ContextMenuActions } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getModule((m) => m.displayName === 'InviteButton' && m.Header);
+const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('InviteButton');
 const { default: Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
 const NativeImageContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('NativeImageContextMenu');
 
