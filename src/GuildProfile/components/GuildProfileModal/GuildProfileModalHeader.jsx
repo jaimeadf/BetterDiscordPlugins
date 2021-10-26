@@ -16,7 +16,7 @@ import GuildTag from './GuildTag';
 
 const { ContextMenuActions } = DiscordModules;
 
-const InviteButton = WebpackModules.getModule((m) => m.displayName === 'InviteButton' && m.Header);
+const InviteButton = WebpackModules.getModule(m => m.displayName === 'InviteButton' && m.Header);
 const { default: Avatar } = WebpackModules.getByProps('AnimatedAvatar');
 const NativeImageContextMenu = WebpackModules.getByDisplayName('NativeImageContextMenu');
 
