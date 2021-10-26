@@ -1,7 +1,7 @@
 {
     "name": "SecretRingTone",
     "description": "Always plays the secret ring tone when someone calls you.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": {
         "id": "289112759948410881",
         "name": "Marmota (Jaime Filho)"
@@ -9,5 +9,14 @@
     "invite": "z6Yx9A8VDR",
     "website": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/SecretRingTone",
     "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/SecretRingTone",
-    "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/SecretRingTone/SecretRingTone.plugin.js"
+    "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/SecretRingTone/SecretRingTone.plugin.js",
+    "changelog": [
+        {
+            "title": "Bugs Squashed",
+            "type": "fixed",
+            "items": [
+                "Fixed latest update issues."
+            ]
+        }
+    ]
 }
