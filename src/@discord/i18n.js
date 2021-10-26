@@ -1,3 +1,3 @@
 import { WebpackModules } from '@zlibrary/api';
 
-export default WebpackModules.getByProps('Messages');
+export default WebpackModules.find(m => m?.Messages?.ACCOUNT);
