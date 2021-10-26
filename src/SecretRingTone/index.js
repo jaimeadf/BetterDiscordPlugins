@@ -1,7 +1,7 @@
 import { WebpackModules, Patcher } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
-const { WebAudioSound } = WebpackModules.getByProps('WebAudioSound');
+const { j: WebAudioSound } = WebpackModules.find(m => m?.j?.prototype._ensureAudio);
 
 export default class SecretRingTone extends Plugin {
     constructor() {
