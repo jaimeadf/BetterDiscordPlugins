@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.4.2
+ * @version 1.4.3
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.4.2","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Bug Fixes","type":"fixed","items":["Fixed body overflow (Thanks @698969 on GitHub)"]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.4.3","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed latest update issues (Thanks @DenvenCoder1 on GitHub)."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -293,9 +293,9 @@ const external_BoundedLibrary_namespaceObject = BoundedLibrary;
 const external_Plugin_namespaceObject = Plugin;
 var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
 ;// CONCATENATED MODULE: ./src/@discord/i18n.js
+ function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
-
-/* harmony default export */ const i18n = (external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Messages'));
+/* harmony default export */ const i18n = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => _optionalChain([m, 'optionalAccess', _ => _.Messages, 'optionalAccess', _2 => _2.ACCOUNT])));
 
 ;// CONCATENATED MODULE: ./src/@discord/components/TabBar.js
 
@@ -968,7 +968,7 @@ function GuildTag({ className, usernameClass, guild }) {
 
 const { ContextMenuActions } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('InviteButton');
+const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getModule(m => m.displayName === 'InviteButton' && m.Header);
 const { default: Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
 const NativeImageContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('NativeImageContextMenu');
 
@@ -1039,7 +1039,7 @@ const { ScrollerAuto, ScrollerThin, default: Scroller } = external_BoundedLibrar
 /* harmony default export */ const components_Scroller = ((/* unused pure expression or super */ null && (Scroller)));
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/Relationships.jsx
- function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
+ function Relationships_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
@@ -1101,7 +1101,7 @@ function Relationships({ guild, relationshipType }) {
 
     function handleContextMenu(event, user) {
         Relationships_ContextMenuActions.openContextMenu(event, () => (
-            external_BdApi_React_default().createElement(GuildChannelUserContextMenu, { ...event, user: user, guildId: guild.id, channelId: _optionalChain([channel, 'optionalAccess', _ => _.id]),} )
+            external_BdApi_React_default().createElement(GuildChannelUserContextMenu, { ...event, user: user, guildId: guild.id, channelId: Relationships_optionalChain([channel, 'optionalAccess', _ => _.id]),} )
         ));
     }
 

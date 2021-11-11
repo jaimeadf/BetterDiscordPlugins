@@ -1,7 +1,7 @@
 /**!
  * @name SecretRingTone
  * @description Always plays the secret ring tone when someone calls you.
- * @version 1.0.0
+ * @version 1.0.1
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"SecretRingTone","description":"Always plays the secret ring tone when someone calls you.","version":"1.0.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/SecretRingTone","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/SecretRingTone/SecretRingTone.plugin.js"}};
+const config = {"info":{"name":"SecretRingTone","description":"Always plays the secret ring tone when someone calls you.","version":"1.0.1","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/SecretRingTone","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/SecretRingTone/SecretRingTone.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed latest update issues."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -91,10 +91,10 @@ const external_BoundedLibrary_namespaceObject = BoundedLibrary;
 const external_Plugin_namespaceObject = Plugin;
 var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
 ;// CONCATENATED MODULE: ./src/SecretRingTone/index.js
+ function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
 
-
-const { WebAudioSound } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('WebAudioSound');
+const { j: WebAudioSound } = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => _optionalChain([m, 'optionalAccess', _ => _.j, 'optionalAccess', _2 => _2.prototype, 'access', _3 => _3._ensureAudio]));
 
 class SecretRingTone extends (external_Plugin_default()) {
     constructor() {
