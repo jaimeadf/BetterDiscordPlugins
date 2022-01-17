@@ -10,7 +10,7 @@ const GuildBadge = WebpackModules.getByDisplayName('GuildBadge');
 
 export default function GuildTag({ className, usernameClass, guild }) {
     return (
-        <div className={`${className} botTag-7aX5WZ guild-tag`}>
+        <div className={`${className} nameTag-H6kSJ0 guild-tag`}>
             <div className="guildIconContainer-3QvE6w">
                 <GuildBadge className="guildBadge-3_UK6z" guild={guild} size={20} />
             </div>
