@@ -1,7 +1,7 @@
 {
     "name": "GuildProfile",
     "description": "Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.",
-    "version": "1.4.4",
+    "version": "1.4.5",
     "author": {
         "id": "289112759948410881",
         "name": "Marmota (Jaime Filho)"
@@ -15,7 +15,8 @@
             "title": "Bugs Squashed",
             "type": "fixed",
             "items": [
-                "Fixed all the issues related to the new discord update that started to lazy load a bunch of modules."
+                "Fixed all the issues related to the new discord update that started to lazy load a bunch of modules.",
+                "Fixed styling issues."
             ]
         }
     ]
