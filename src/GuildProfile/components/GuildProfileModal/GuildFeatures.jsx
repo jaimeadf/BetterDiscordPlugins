@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import { WebpackModules } from '@zlibrary/api';
 
 import i18n from '@discord/i18n';
 
@@ -13,13 +12,11 @@ import Clickable from '@discord/components/Clickable';
 
 import FeatureIcons from '../../assets/features';
 
-const classes = WebpackModules.getByProps('container', 'profileBadge24');
-
 export default function GuildFeatures({ className, guild }) {
     const features = Array.from(guild.features);
 
     return (
-        <div className={`${className} ${classes.container}`}>
+        <div className={`${className} container-1gYwHN`}>
             {features.map(feature => {
                 const Icon = FeatureIcons[feature];
 
@@ -30,7 +27,7 @@ export default function GuildFeatures({ className, guild }) {
                 return (
                     <TooltipContainer key={feature} text={i18n.Messages[`GUILD_PROFILE_${feature}`]}>
                         <Clickable>
-                            <Icon className={`${classes.profileBadge24}`} />
+                            <Icon className="profileBadge24-sH1efV profileBadge-12r2Nm desaturate-_Twf3u" />
                         </Clickable>
                     </TooltipContainer>
                 );

@@ -29,12 +29,6 @@ const StreamerModeStore = WebpackModules.getByProps('hidePersonalInformation');
 const UserMention = WebpackModules.getByDisplayName('UserMention');
 const UserFetcher = WebpackModules.getByProps('getUser', 'fetchCurrentUser');
 
-const classes = {
-    margins: WebpackModules.getByProps('marginBottom8'),
-    list: WebpackModules.getByProps('empty', 'emptyIconStreamerMode', 'emptyText'),
-    infoSection: WebpackModules.getByProps('infoScroller')
-};
-
 const GuildExplicitContentFilterTypesMessages = {
     [GuildExplicitContentFilterTypes.DISABLED]: 'EXPLICIT_CONTENT_FILTER_DISABLED',
     [GuildExplicitContentFilterTypes.MEMBERS_WITHOUT_ROLES]: 'EXPLICIT_CONTENT_FILTER_MEDIUM',
@@ -43,7 +37,7 @@ const GuildExplicitContentFilterTypesMessages = {
 
 function InfoSection({ title, children }) {
     return (
-        <FormSection className={`${classes.margins.marginBottom8} section`} tag="h5" title={title}>
+        <FormSection className="marginBottom8-emkd0_ section" tag="h5" title={title}>
             <Text selectable={true}>{children}</Text>
         </FormSection>
     );
@@ -61,11 +55,11 @@ export default function GuildInfo({ guild }) {
     }, [guild, owner]);
 
     return (
-        <ScrollerThin className={`${classes.infoSection.infoScroller} guild-info`} fade={true}>
+        <ScrollerThin className="infoScroller-1QMpon guild-info" fade={true}>
             {hide ? (
-                <div className={classes.list.empty}>
-                    <div className={classes.list.emptyIconStreamerMode} />
-                    <div className={classes.list.emptyText}>{i18n.Messages.STREAMER_MODE_ENABLED}</div>
+                <div className="empty-2zcusz">
+                    <div className="emptyIconStreamerMode-3P4I-V emptyIcon-uKVxYR" />
+                    <div className="emptyText-mZZyQk">{i18n.Messages.STREAMER_MODE_ENABLED}</div>
                 </div>
             ) : (
                 <Flex justify={Flex.Justify.START} wrap={Flex.Wrap.WRAP}>

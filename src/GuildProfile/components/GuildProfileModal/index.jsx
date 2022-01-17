@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { DiscordModules, WebpackModules } from '@zlibrary/api';
+import { DiscordModules } from '@zlibrary/api';
 
 import i18n from '@discord/i18n';
 import TabBar from '@discord/components/TabBar';
@@ -18,10 +18,6 @@ import GuildRoles from './GuildRoles';
 const {
     DiscordConstants: { RelationshipTypes }
 } = DiscordModules;
-
-const { ModalRoot } = WebpackModules.getByProps('ModalRoot');
-
-const classes = WebpackModules.getByProps('root', 'topSection', 'body');
 
 export const GuildProfileSections = {
     GUILD_INFO: 'GUILD_INFO',
@@ -46,33 +42,33 @@ export default class GuildProfileModal extends React.PureComponent {
         const { guild } = this.props;
 
         return (
-            <ModalRoot className={`${classes.root} guild-profile`} transitionState={1}>
-                <div className={classes.topSection}>
+            <>
+                <div className="topSection-13QKHs">
                     <GuildProfileModalHeader guild={guild} />
-                    <div className={classes.tabBarContainer}>
+                    <div className="tabBarContainer-sCZC4w">
                         <TabBar
-                            className={classes.tabBar}
+                            className="tabBar-2hXqzU"
                             type={TabBar.Types.TOP}
                             selectedItem={selectedSection}
                             onItemSelect={this.handleSectionSelect}
                         >
-                            <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.GUILD_INFO}>
+                            <TabBar.Item className="tabBarItem-30Te4-" id={GuildProfileSections.GUILD_INFO}>
                                 {i18n.Messages.GUILD_PROFILE_GUILD_INFO}
                             </TabBar.Item>
-                            <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.GUILD_ROLES}>
+                            <TabBar.Item className="tabBarItem-30Te4-" id={GuildProfileSections.GUILD_ROLES}>
                                 {i18n.Messages.GUILD_PROFILE_ROLES_IN_GUILD}
                             </TabBar.Item>
-                            <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.FRIENDS}>
+                            <TabBar.Item className="tabBarItem-30Te4-" id={GuildProfileSections.FRIENDS}>
                                 {i18n.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD}
                             </TabBar.Item>
-                            <TabBar.Item className={classes.tabBarItem} id={GuildProfileSections.BLOCKED_USERS}>
+                            <TabBar.Item className="tabBarItem-30Te4-" id={GuildProfileSections.BLOCKED_USERS}>
                                 {i18n.Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD}
                             </TabBar.Item>
                         </TabBar>
                     </div>
                 </div>
-                <div className={`${classes.body} guild-profile-body`}>{this.renderSelectedSection()}</div>
-            </ModalRoot>
+                <div className="body-1Ukv50 guild-profile-body">{this.renderSelectedSection()}</div>
+            </>
         );
     }
 

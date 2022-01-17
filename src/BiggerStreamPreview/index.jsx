@@ -4,8 +4,11 @@ import { DiscordModules, WebpackModules, Patcher, DiscordContextMenu } from '@zl
 import Plugin from '@zlibrary/plugin';
 
 import { useStateFromStores } from '@discord/Flux';
+import { ModalRoot, ModalSize } from '@discord/components/modal';
 
-const { StreamStore, StreamPreviewStore, ModalStack } = DiscordModules;
+import { patchContextMenus } from '@utils';
+
+const { StreamStore, StreamPreviewStore, ModalActions } = DiscordModules;
 
 const ImageModal = WebpackModules.getByDisplayName('ImageModal');
 const MaskedLink = WebpackModules.getByDisplayName('MaskedLink');
@@ -21,9 +24,7 @@ export default class BiggerStreamPreview extends Plugin {
     }
 
     patchUserContextMenus() {
-        const UserContextMenus = WebpackModules.findAll(m => m?.default?.displayName?.includes('UserContextMenu'));
-
-        const patch = (thisObject, [{ user }], returnValue) => {
+        patchContextMenus(/UserContextMenu$/, (thisObject, [{ user }], returnValue) => {
             const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
                 const stream = StreamStore.getStreamForUser(user.id);
                 const previewURL = stream
@@ -38,17 +39,11 @@ export default class BiggerStreamPreview extends Plugin {
             }
 
             this.pushStreamPreviewMenuItems(returnValue, previewURL);
-        };
-
-        for (const UserContextMenu of UserContextMenus) {
-            Patcher.after(UserContextMenu, 'default', patch);
-        }
+        });
     }
 
     patchStreamContextMenu() {
-        const StreamContextMenu = WebpackModules.find(m => m?.default?.displayName === 'StreamContextMenu');
-
-        Patcher.after(StreamContextMenu, 'default', (thisObject, [{ stream }], returnValue) => {
+        patchContextMenus('StreamContextMenu', (thisObject, [{ stream }], returnValue) => {
             const previewURL = useStateFromStores([StreamPreviewStore], () => {
                 return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
             });
@@ -71,13 +66,19 @@ export default class BiggerStreamPreview extends Plugin {
     async openImageModal(url) {
         const image = await this.fetchImage(url);
 
-        ModalStack.push(ImageModal, {
-            src: url,
-            original: url,
-            width: image.width,
-            height: image.height,
-            renderLinkComponent: props => <MaskedLink {...props} />
-        });
+        ModalActions.openModal(props => (
+            <ModalRoot className="modal-3Crloo" size={ModalSize.DYNAMIC} {...props}>
+                <ImageModal
+                    className="image-36HiZc"
+                    src={url}
+                    original={url}
+                    width={image.width}
+                    height={image.height}
+                    renderLinkComponent={props => <MaskedLink {...props} />}
+                    shouldAnimate={true}
+                />
+            </ModalRoot>
+        ));
     }
 
     async fetchImage(url) {

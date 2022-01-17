@@ -20,38 +20,30 @@ const {
 
 const StreamerModeStore = WebpackModules.getByProps('hidePersonalInformation');
 
-const classes = {
-    margins: WebpackModules.getByProps('marginBottom8'),
-    list: WebpackModules.getByProps('empty', 'emptyIconStreamerMode', 'emptyText'),
-    infoSection: WebpackModules.getByProps('infoScroller'),
-    roleTag: WebpackModules.getByProps('roleTag'),
-    role: WebpackModules.getByProps('role')
-};
-
 export default function GuildRoles({ guild }) {
     const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hide);
     const roles = Object.values(guild.roles)?.sort((b, a) => a.position - b.position);
 
     if (hide) {
         return (
-            <div className={classes.list.empty}>
-                <div className={classes.list.emptyIconStreamerMode} />
-                <div className={classes.list.emptyText}>{i18n.Messages.STREAMER_MODE_ENABLED}</div>
+            <div className="empty-2zcusz">
+                <div className="emptyIconStreamerMode-3P4I-V emptyIcon-uKVxYR" />
+                <div className="emptyText-mZZyQk">{i18n.Messages.STREAMER_MODE_ENABLED}</div>
             </div>
         );
     }
 
     return (
-        <ScrollerThin className={`${classes.infoSection.infoScroller} guild-roles`} fade={true}>
-            <div className={classes.role.root}>
+        <ScrollerThin className="infoScroller-1QMpon guild-roles" fade={true}>
+            <div className="root-jbEB5E flex-3BkGQD wrap-7NZuTn">
                 {roles.map(role => {
                     return (
-                        <div key={role.id} className={classes.role.role}>
+                        <div key={role.id} className="role-2TIOKu flex-3BkGQD alignCenter-14kD11">
                             <div
-                                className={classes.role.roleCircle}
+                                className="roleCircle-1EgnFN flex-3BkGQD alignCenter-14kD11 justifyCenter-rrurWZ desaturateUserColors-1O-G89"
                                 style={{ backgroundColor: role.colorString ?? HEXColors.PRIMARY_DARK_300 }}
                             />
-                            <Text selectable={false} className={classes.role.roleName}>
+                            <Text selectable={false} className="roleName-2ZJJYR">
                                 {role.name}
                             </Text>
                         </div>

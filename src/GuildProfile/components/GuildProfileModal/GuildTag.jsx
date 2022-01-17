@@ -8,19 +8,13 @@ import { WebpackModules } from '@zlibrary/api';
 
 const GuildBadge = WebpackModules.getByDisplayName('GuildBadge');
 
-const classes = {
-    nameTag: WebpackModules.getByProps('nameTag', 'username', 'bot'),
-    guildHeader: WebpackModules.getByProps('guildIconContainer', 'guildBadge'),
-    botTag: WebpackModules.getByProps('botTag', 'botTagRegular', 'px', 'botText')
-};
-
 export default function GuildTag({ className, usernameClass, guild }) {
     return (
-        <div className={`${className} ${classes.nameTag.nameTag} guild-tag`}>
-            <div className={classes.guildHeader.guildIconContainer}>
-                <GuildBadge className={classes.guildHeader.guildBadge} guild={guild} size={20} />
+        <div className={`${className} botTag-7aX5WZ guild-tag`}>
+            <div className="guildIconContainer-3QvE6w">
+                <GuildBadge className="guildBadge-3_UK6z" guild={guild} size={20} />
             </div>
-            <span className={`${classes.nameTag.username} ${usernameClass}`}>{guild.name}</span>
+            <span className={`username-3JLfHz ${usernameClass}`}>{guild.name}</span>
         </div>
     );
 }

@@ -29,8 +29,6 @@ const GuildChannelUserContextMenu = WebpackModules.getByDisplayName('GuildChanne
 const { default: Avatar } = WebpackModules.getByProps('AnimatedAvatar');
 const DiscordTag = WebpackModules.getByDisplayName('DiscordTag');
 
-const classes = WebpackModules.getByProps('listRow');
-
 const NoRelationshipsOfTypeMessages = {
     [RelationshipTypes.FRIEND]: 'GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD',
     [RelationshipTypes.BLOCKED]: 'GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD'
@@ -65,11 +63,11 @@ export default function Relationships({ guild, relationshipType }) {
     }
 
     return (
-        <ScrollerThin className={classes.listScroller} fade={true}>
+        <ScrollerThin className="listScroller-entkMk" fade={true}>
             {users.length <= 0 ? (
-                <div className={classes.empty}>
-                    <div className={classes.emptyIconFriends} />
-                    <div className={classes.emptyText}>
+                <div className="empty-2zcusz">
+                    <div className="emptyIconFriends-2LNxTX emptyIcon-uKVxYR" />
+                    <div className="emptyText-mZZyQk">
                         {i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]}
                     </div>
                 </div>
@@ -77,16 +75,16 @@ export default function Relationships({ guild, relationshipType }) {
                 users.map(user => (
                     <Clickable
                         key={user.id}
-                        className={classes.listRow}
+                        className="listRow-2nO1T6"
                         onClick={() => handleSelect(user)}
                         onSelect={() => handleSelect(user)}
                         onContextMenu={event => handleContextMenu(event, user)}
                     >
-                        <Avatar className={classes.listAvatar} src={user.getAvatarURL()} size={Avatar.Sizes.SIZE_40} />
+                        <Avatar className="listAvatar-2bU5Uh" src={user.getAvatarURL()} size={Avatar.Sizes.SIZE_40} />
                         <DiscordTag
                             user={user}
-                            className={classes.listName}
-                            discriminatorClass={classes.listDiscriminator}
+                            className="listName-PwbeHL"
+                            discriminatorClass="listDiscriminator-1HAKWY"
                         />
                     </Clickable>
                 ))

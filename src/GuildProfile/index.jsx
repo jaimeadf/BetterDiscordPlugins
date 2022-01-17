@@ -9,6 +9,9 @@ import { DiscordModules, WebpackModules, PluginUtilities, Patcher, Utilities, Se
 import Plugin from '@zlibrary/plugin';
 
 import i18n from '@discord/i18n';
+import { ModalRoot } from '@discord/components/Modal';
+
+import { patchContextMenus } from '@utils';
 
 import GuildProfileModal from './components/GuildProfileModal';
 import GuildProfileIcon from './assets/guild-profile.svg';
@@ -18,7 +21,7 @@ import MemberCountsStore from './stores/MemberCountsStore';
 import style from './style.scss';
 import locales from './locales';
 
-const { ModalStack, UserSettingsStore, SelectedGuildStore, GuildStore } = DiscordModules;
+const { ModalActions, UserSettingsStore, SelectedGuildStore, GuildStore } = DiscordModules;
 
 const Menu = WebpackModules.getByProps('MenuItem');
 
@@ -41,7 +44,7 @@ export default class GuildProfile extends Plugin {
 
         this.loadLocale();
         this.patchMenu();
-        this.patchContextMenu();
+        this.patchGuildContextMenu();
     }
 
     onStop() {
@@ -93,10 +96,8 @@ export default class GuildProfile extends Plugin {
         });
     }
 
-    patchContextMenu() {
-        const GuildContextMenu = WebpackModules.getModule(m => m?.default?.displayName === 'GuildContextMenu');
-
-        Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
+    patchGuildContextMenu() {
+        patchContextMenus('GuildContextMenu', (thisObject, [{ guild }], returnValue) => {
             returnValue.props.children.splice(
                 this.settings.position === 'top' ? 1 : 5,
                 0,
@@ -123,6 +124,10 @@ export default class GuildProfile extends Plugin {
     }
 
     openGuildProfileModal(guild) {
-        ModalStack.push(props => <GuildProfileModal {...props} guild={guild} />);
+        ModalActions.openModal(props => (
+            <ModalRoot className="root-8LYsGj guild-profile" {...props}>
+                <GuildProfileModal guild={guild} />
+            </ModalRoot>
+        ));
     }
 }

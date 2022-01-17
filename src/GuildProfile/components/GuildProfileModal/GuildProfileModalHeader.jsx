@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { DiscordModules, WebpackModules } from '@zlibrary/api';
+import { WebpackModules } from '@zlibrary/api';
 
 import { useStateFromStores } from '@discord/Flux';
 
@@ -14,23 +14,8 @@ import GuildBanner from './GuildBanner';
 import GuildFeatures from './GuildFeatures';
 import GuildTag from './GuildTag';
 
-const { ContextMenuActions } = DiscordModules;
-
 const InviteButton = WebpackModules.getModule(m => m.displayName === 'InviteButton' && m.Header);
 const { default: Avatar } = WebpackModules.getByProps('AnimatedAvatar');
-const NativeImageContextMenu = WebpackModules.getByDisplayName('NativeImageContextMenu');
-
-const classes = {
-    profileHeader: WebpackModules.getByProps(
-        'header',
-        'avatar',
-        'headerTop',
-        'badgeList',
-        'nameTagNoCustomStatus',
-        'username'
-    ),
-    invite: WebpackModules.getByProps('guildDetail')
-};
 
 function MemberCounts({ guild }) {
     const { members, membersOnline } = useStateFromStores([MemberCountsStore], () =>
@@ -38,39 +23,26 @@ function MemberCounts({ guild }) {
     );
 
     return (
-        <div className={classes.invite.guildDetail}>
+        <div className="guildDetail-3EJhW_">
             <InviteButton.Data members={members} membersOnline={membersOnline} />
         </div>
     );
 }
 
 export default function GuildProfileModalHeader({ guild }) {
-    function handleIconContextMenu(event) {
-        ContextMenuActions.openContextMenu(event, () => (
-            <NativeImageContextMenu {...event} src={guild.getIconURL(1024, true)} />
-        ));
-    }
-
     return (
         <header>
             <GuildBanner guild={guild} />
-            <div className={classes.profileHeader.header}>
-                <Avatar
-                    className={classes.profileHeader.avatar}
-                    src={guild.getIconURL(256, true)}
-                    size={Avatar.Sizes.SIZE_120}
-                    onContextMenu={handleIconContextMenu}
-                />
-                <div className={`${classes.profileHeader.headerTop} header-top`}>
-                    {guild.features.size > 0 && (
-                        <GuildFeatures className={classes.profileHeader.badgeList} guild={guild} />
-                    )}
+            <div className="header-S26rhB">
+                <Avatar className="avatar-3QF_VA" src={guild.getIconURL(256, true)} size={Avatar.Sizes.SIZE_120} />
+                <div className="headerTop-1PNKck header-top">
+                    {guild.features.size > 0 && <GuildFeatures className="badgeList-2aoHPw" guild={guild} />}
                     <MemberCounts guild={guild} />
                 </div>
             </div>
             <GuildTag
-                className={classes.profileHeader.nameTagNoCustomStatus}
-                usernameClass={classes.profileHeader.username}
+                className="nameTagNoCustomStatus-3ocqoK nameTag-2Nlmsy"
+                usernameClass="username-1g6Iq1"
                 guild={guild}
             />
         </header>
