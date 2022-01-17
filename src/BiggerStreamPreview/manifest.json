@@ -1,7 +1,7 @@
 {
     "name": "BiggerStreamPreview",
     "description": "Adds a button in the context menu to see bigger stream previews.",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "author": {
         "id": "289112759948410881",
         "name": "Marmota (Jaime Filho)"
@@ -12,10 +12,10 @@
     "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js",
     "changelog": [
         {
-            "title": "Compatibility issues",
+            "title": "Bugs Squashed",
             "type": "fixed",
             "items": [
-                "Fixed ImageUtilities' lens not working on stream previews."
+                "Fixed all the issues related to the new discord update that started to lazy load a bunch of modules."
             ]
         }
     ]
