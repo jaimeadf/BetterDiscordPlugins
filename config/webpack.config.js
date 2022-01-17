@@ -27,7 +27,8 @@ module.exports = (env, argv) => {
         resolve: {
             extensions: ['.js', '.jsx'],
             alias: {
-                '@discord': path.resolve(__dirname, '..', 'src', '@discord')
+                '@discord': path.resolve(__dirname, '..', 'src', '@discord'),
+                '@utils': path.resolve(__dirname, '..', 'src', '@utils')
             }
         },
         module: {

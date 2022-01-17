@@ -4,6 +4,9 @@
         "paths": {
             "@discord/*": [
                 "src/@discord/*"
+            ],
+            "@utils/*": [
+                "src/@utils/*"
             ]
         }
     }
