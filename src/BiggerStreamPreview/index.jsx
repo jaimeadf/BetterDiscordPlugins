@@ -4,7 +4,7 @@ import { DiscordModules, WebpackModules, Patcher, DiscordContextMenu } from '@zl
 import Plugin from '@zlibrary/plugin';
 
 import { useStateFromStores } from '@discord/Flux';
-import { ModalRoot, ModalSize } from '@discord/components/modal';
+import { ModalRoot, ModalSize } from '@discord/components/Modal';
 
 import { patchContextMenus } from '@utils';
 
