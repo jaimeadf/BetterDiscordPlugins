@@ -6,7 +6,7 @@ function patchContextMenus(criteria, patch) {
         const matcher = criteria;
 
         criteria = ContextMenu => {
-            return ContextMenu.displayName.match(matcher);
+            return ContextMenu.displayName?.match(matcher);
         };
     }
 
