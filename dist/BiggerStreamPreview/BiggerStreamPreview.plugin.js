@@ -1,7 +1,7 @@
 /**!
  * @name BiggerStreamPreview
  * @description Adds a button in the context menu to see bigger stream previews.
- * @version 1.0.8
+ * @version 1.0.9
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.8","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed all the issues related to the new discord update that started to lazy load a bunch of modules."]}]};
+const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.9","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed all the issues related to the new discord update that started to lazy load a bunch of modules."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -154,7 +154,7 @@ function listenContextMenuOpening(callback) {
 /* harmony default export */ const _utils_listenContextMenuOpening = (listenContextMenuOpening);
 
 ;// CONCATENATED MODULE: ./src/@utils/patchContextMenus.js
-
+ function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
 
 function patchContextMenus(criteria, patch) {
@@ -162,7 +162,7 @@ function patchContextMenus(criteria, patch) {
         const matcher = criteria;
 
         criteria = ContextMenu => {
-            return ContextMenu.displayName.match(matcher);
+            return _optionalChain([ContextMenu, 'access', _ => _.displayName, 'optionalAccess', _2 => _2.match, 'call', _3 => _3(matcher)]);
         };
     }
 
