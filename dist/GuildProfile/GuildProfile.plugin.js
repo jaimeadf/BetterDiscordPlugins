@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.4.3
+ * @version 1.4.4
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.4.3","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed latest update issues (Thanks @DenvenCoder1 on GitHub)."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.4.4","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed all the issues related to the new discord update that started to lazy load a bunch of modules."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -297,6 +297,77 @@ var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin
 
 /* harmony default export */ const i18n = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => _optionalChain([m, 'optionalAccess', _ => _.Messages, 'optionalAccess', _2 => _2.ACCOUNT])));
 
+;// CONCATENATED MODULE: ./src/@discord/components/Modal.js
+
+
+const {
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalListContent,
+    ModalRoot,
+    ModalSize,
+    default: Modal
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('ModalRoot');
+
+
+
+/* harmony default export */ const components_Modal = ((/* unused pure expression or super */ null && (Modal)));
+
+;// CONCATENATED MODULE: ./src/@utils/listenContextMenuOpening.js
+
+
+const ContextMenuActions = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('openContextMenuLazy');
+
+function listenContextMenuOpening(callback) {
+    return external_BoundedLibrary_namespaceObject.Patcher.before(ContextMenuActions, 'openContextMenuLazy', (thisObject, args) => {
+        const importComponent = args[1];
+
+        args[1] = async () => {
+            const wrapperComponent = await importComponent(...arguments);
+
+            return props => {
+                const wrapper = wrapperComponent(props);
+
+                callback(wrapper);
+
+                return wrapper;
+            };
+        };
+    });
+}
+
+/* harmony default export */ const _utils_listenContextMenuOpening = (listenContextMenuOpening);
+
+;// CONCATENATED MODULE: ./src/@utils/patchContextMenus.js
+
+
+
+function patchContextMenus(criteria, patch) {
+    if (typeof criteria !== 'function') {
+        const matcher = criteria;
+
+        criteria = ContextMenu => {
+            return ContextMenu.displayName.match(matcher);
+        };
+    }
+
+    return _utils_listenContextMenuOpening(wrapper => {
+        const { type: ContextMenu } = wrapper;
+
+        if (criteria(ContextMenu)) {
+            return external_BoundedLibrary_namespaceObject.Patcher.after(wrapper, 'type', patch);
+        }
+    });
+}
+
+/* harmony default export */ const _utils_patchContextMenus = (patchContextMenus);
+
+;// CONCATENATED MODULE: ./src/@utils/index.js
+
+
+
 ;// CONCATENATED MODULE: ./src/@discord/components/TabBar.js
 
 
@@ -411,14 +482,14 @@ const {
 
 const { default: useDominantColor } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('maybeFetchColor');
 
-const classes = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('banner', 'profileBanner', 'profileBannerPremium');
-
 function GuildBanner({ guild }) {
     const dominantColor = useDominantColor(guild.getIconURL(), Colors.TRANSPARENT);
 
     return (
         external_BdApi_React_default().createElement('div', {
-            className: `${classes.banner} ${guild.banner ? classes.profileBannerPremium : classes.profileBanner}`,
+            className: `banner-1YaD3N ${
+                guild.banner ? 'profileBannerPremium-KD60EB bannerPremium-kkSkPv' : 'profileBanner-1owKI5'
+            }`,
             style: {
                 backgroundColor: dominantColor,
                 backgroundImage: `url(${ImageResolver.getGuildBannerURL({ id: guild.id, banner: guild.banner })})`
@@ -894,14 +965,11 @@ const {
 
 
 
-
-const GuildFeatures_classes = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('container', 'profileBadge24');
-
 function GuildFeatures_GuildFeatures({ className, guild }) {
     const features = Array.from(guild.features);
 
     return (
-        external_BdApi_React_default().createElement('div', { className: `${className} ${GuildFeatures_classes.container}`,}
+        external_BdApi_React_default().createElement('div', { className: `${className} container-1gYwHN`,}
             , features.map(feature => {
                 const Icon = assets_features[feature];
 
@@ -912,7 +980,7 @@ function GuildFeatures_GuildFeatures({ className, guild }) {
                 return (
                     external_BdApi_React_default().createElement(TooltipContainer, { key: feature, text: i18n.Messages[`GUILD_PROFILE_${feature}`],}
                         , external_BdApi_React_default().createElement(Clickable, null
-                            , external_BdApi_React_default().createElement(Icon, { className: `${GuildFeatures_classes.profileBadge24}`,} )
+                            , external_BdApi_React_default().createElement(Icon, { className: "profileBadge24-sH1efV profileBadge-12r2Nm desaturate-_Twf3u"  ,} )
                         )
                     )
                 );
@@ -932,19 +1000,13 @@ function GuildFeatures_GuildFeatures({ className, guild }) {
 
 const GuildBadge = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('GuildBadge');
 
-const GuildTag_classes = {
-    nameTag: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('nameTag', 'username', 'bot'),
-    guildHeader: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('guildIconContainer', 'guildBadge'),
-    botTag: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('botTag', 'botTagRegular', 'px', 'botText')
-};
-
 function GuildTag({ className, usernameClass, guild }) {
     return (
-        external_BdApi_React_default().createElement('div', { className: `${className} ${GuildTag_classes.nameTag.nameTag} guild-tag`,}
-            , external_BdApi_React_default().createElement('div', { className: GuildTag_classes.guildHeader.guildIconContainer,}
-                , external_BdApi_React_default().createElement(GuildBadge, { className: GuildTag_classes.guildHeader.guildBadge, guild: guild, size: 20,} )
+        external_BdApi_React_default().createElement('div', { className: `${className} botTag-7aX5WZ guild-tag`,}
+            , external_BdApi_React_default().createElement('div', { className: "guildIconContainer-3QvE6w",}
+                , external_BdApi_React_default().createElement(GuildBadge, { className: "guildBadge-3_UK6z", guild: guild, size: 20,} )
             )
-            , external_BdApi_React_default().createElement('span', { className: `${GuildTag_classes.nameTag.username} ${usernameClass}`,}, guild.name)
+            , external_BdApi_React_default().createElement('span', { className: `username-3JLfHz ${usernameClass}`,}, guild.name)
         )
     );
 }
@@ -966,23 +1028,8 @@ function GuildTag({ className, usernameClass, guild }) {
 
 
 
-const { ContextMenuActions } = external_BoundedLibrary_namespaceObject.DiscordModules;
-
 const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getModule(m => m.displayName === 'InviteButton' && m.Header);
 const { default: Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
-const NativeImageContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('NativeImageContextMenu');
-
-const GuildProfileModalHeader_classes = {
-    profileHeader: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps(
-        'header',
-        'avatar',
-        'headerTop',
-        'badgeList',
-        'nameTagNoCustomStatus',
-        'username'
-    ),
-    invite: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('guildDetail')
-};
 
 function MemberCounts({ guild }) {
     const { members, membersOnline } = useStateFromStores([stores_MemberCountsStore], () =>
@@ -990,39 +1037,26 @@ function MemberCounts({ guild }) {
     );
 
     return (
-        external_BdApi_React_default().createElement('div', { className: GuildProfileModalHeader_classes.invite.guildDetail,}
+        external_BdApi_React_default().createElement('div', { className: "guildDetail-3EJhW_",}
             , external_BdApi_React_default().createElement(InviteButton.Data, { members: members, membersOnline: membersOnline,} )
         )
     );
 }
 
 function GuildProfileModalHeader({ guild }) {
-    function handleIconContextMenu(event) {
-        ContextMenuActions.openContextMenu(event, () => (
-            external_BdApi_React_default().createElement(NativeImageContextMenu, { ...event, src: guild.getIconURL(1024, true),} )
-        ));
-    }
-
     return (
         external_BdApi_React_default().createElement('header', null
             , external_BdApi_React_default().createElement(GuildBanner, { guild: guild,} )
-            , external_BdApi_React_default().createElement('div', { className: GuildProfileModalHeader_classes.profileHeader.header,}
-                , external_BdApi_React_default().createElement(Avatar, {
-                    className: GuildProfileModalHeader_classes.profileHeader.avatar,
-                    src: guild.getIconURL(256, true),
-                    size: Avatar.Sizes.SIZE_120,
-                    onContextMenu: handleIconContextMenu,}
-                )
-                , external_BdApi_React_default().createElement('div', { className: `${GuildProfileModalHeader_classes.profileHeader.headerTop} header-top`,}
-                    , guild.features.size > 0 && (
-                        external_BdApi_React_default().createElement(GuildFeatures_GuildFeatures, { className: GuildProfileModalHeader_classes.profileHeader.badgeList, guild: guild,} )
-                    )
+            , external_BdApi_React_default().createElement('div', { className: "header-S26rhB",}
+                , external_BdApi_React_default().createElement(Avatar, { className: "avatar-3QF_VA", src: guild.getIconURL(256, true), size: Avatar.Sizes.SIZE_120,} )
+                , external_BdApi_React_default().createElement('div', { className: "headerTop-1PNKck header-top" ,}
+                    , guild.features.size > 0 && external_BdApi_React_default().createElement(GuildFeatures_GuildFeatures, { className: "badgeList-2aoHPw", guild: guild,} )
                     , external_BdApi_React_default().createElement(MemberCounts, { guild: guild,} )
                 )
             )
             , external_BdApi_React_default().createElement(GuildTag, {
-                className: GuildProfileModalHeader_classes.profileHeader.nameTagNoCustomStatus,
-                usernameClass: GuildProfileModalHeader_classes.profileHeader.username,
+                className: "nameTagNoCustomStatus-3ocqoK nameTag-2Nlmsy" ,
+                usernameClass: "username-1g6Iq1",
                 guild: guild,}
             )
         )
@@ -1070,8 +1104,6 @@ const GuildChannelUserContextMenu = external_BoundedLibrary_namespaceObject.Webp
 const { default: Relationships_Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
 const DiscordTag = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('DiscordTag');
 
-const Relationships_classes = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('listRow');
-
 const NoRelationshipsOfTypeMessages = {
     [RelationshipTypes.FRIEND]: 'GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD',
     [RelationshipTypes.BLOCKED]: 'GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD'
@@ -1106,11 +1138,11 @@ function Relationships({ guild, relationshipType }) {
     }
 
     return (
-        external_BdApi_React_default().createElement(ScrollerThin, { className: Relationships_classes.listScroller, fade: true,}
+        external_BdApi_React_default().createElement(ScrollerThin, { className: "listScroller-entkMk", fade: true,}
             , users.length <= 0 ? (
-                external_BdApi_React_default().createElement('div', { className: Relationships_classes.empty,}
-                    , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyIconFriends,} )
-                    , external_BdApi_React_default().createElement('div', { className: Relationships_classes.emptyText,}
+                external_BdApi_React_default().createElement('div', { className: "empty-2zcusz",}
+                    , external_BdApi_React_default().createElement('div', { className: "emptyIconFriends-2LNxTX emptyIcon-uKVxYR" ,} )
+                    , external_BdApi_React_default().createElement('div', { className: "emptyText-mZZyQk",}
                         , i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]
                     )
                 )
@@ -1118,16 +1150,16 @@ function Relationships({ guild, relationshipType }) {
                 users.map(user => (
                     external_BdApi_React_default().createElement(Clickable, {
                         key: user.id,
-                        className: Relationships_classes.listRow,
+                        className: "listRow-2nO1T6",
                         onClick: () => handleSelect(user),
                         onSelect: () => handleSelect(user),
                         onContextMenu: event => handleContextMenu(event, user),}
                     
-                        , external_BdApi_React_default().createElement(Relationships_Avatar, { className: Relationships_classes.listAvatar, src: user.getAvatarURL(), size: Relationships_Avatar.Sizes.SIZE_40,} )
+                        , external_BdApi_React_default().createElement(Relationships_Avatar, { className: "listAvatar-2bU5Uh", src: user.getAvatarURL(), size: Relationships_Avatar.Sizes.SIZE_40,} )
                         , external_BdApi_React_default().createElement(DiscordTag, {
                             user: user,
-                            className: Relationships_classes.listName,
-                            discriminatorClass: Relationships_classes.listDiscriminator,}
+                            className: "listName-PwbeHL",
+                            discriminatorClass: "listDiscriminator-1HAKWY",}
                         )
                     )
                 ))
@@ -1204,12 +1236,6 @@ const StreamerModeStore = external_BoundedLibrary_namespaceObject.WebpackModules
 const UserMention = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('UserMention');
 const UserFetcher = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getUser', 'fetchCurrentUser');
 
-const GuildInfo_classes = {
-    margins: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('marginBottom8'),
-    list: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('empty', 'emptyIconStreamerMode', 'emptyText'),
-    infoSection: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('infoScroller')
-};
-
 const GuildExplicitContentFilterTypesMessages = {
     [GuildExplicitContentFilterTypes.DISABLED]: 'EXPLICIT_CONTENT_FILTER_DISABLED',
     [GuildExplicitContentFilterTypes.MEMBERS_WITHOUT_ROLES]: 'EXPLICIT_CONTENT_FILTER_MEDIUM',
@@ -1218,7 +1244,7 @@ const GuildExplicitContentFilterTypesMessages = {
 
 function InfoSection({ title, children }) {
     return (
-        external_BdApi_React_default().createElement(FormSection, { className: `${GuildInfo_classes.margins.marginBottom8} section`, tag: "h5", title: title,}
+        external_BdApi_React_default().createElement(FormSection, { className: "marginBottom8-emkd0_ section" , tag: "h5", title: title,}
             , external_BdApi_React_default().createElement(Text, { selectable: true,}, children)
         )
     );
@@ -1236,11 +1262,11 @@ function GuildInfo({ guild }) {
     }, [guild, owner]);
 
     return (
-        external_BdApi_React_default().createElement(ScrollerThin, { className: `${GuildInfo_classes.infoSection.infoScroller} guild-info`, fade: true,}
+        external_BdApi_React_default().createElement(ScrollerThin, { className: "infoScroller-1QMpon guild-info" , fade: true,}
             , hide ? (
-                external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.empty,}
-                    , external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.emptyIconStreamerMode,} )
-                    , external_BdApi_React_default().createElement('div', { className: GuildInfo_classes.list.emptyText,}, i18n.Messages.STREAMER_MODE_ENABLED)
+                external_BdApi_React_default().createElement('div', { className: "empty-2zcusz",}
+                    , external_BdApi_React_default().createElement('div', { className: "emptyIconStreamerMode-3P4I-V emptyIcon-uKVxYR" ,} )
+                    , external_BdApi_React_default().createElement('div', { className: "emptyText-mZZyQk",}, i18n.Messages.STREAMER_MODE_ENABLED)
                 )
             ) : (
                 external_BdApi_React_default().createElement(Flex, { justify: Flex.Justify.START, wrap: Flex.Wrap.WRAP,}
@@ -1316,38 +1342,30 @@ const {
 
 const GuildRoles_StreamerModeStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('hidePersonalInformation');
 
-const GuildRoles_classes = {
-    margins: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('marginBottom8'),
-    list: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('empty', 'emptyIconStreamerMode', 'emptyText'),
-    infoSection: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('infoScroller'),
-    roleTag: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('roleTag'),
-    role: external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('role')
-};
-
 function GuildRoles({ guild }) {
     const hide = useStateFromStores([GuildRoles_StreamerModeStore], () => GuildRoles_StreamerModeStore.hide);
     const roles = GuildRoles_optionalChain([Object, 'access', _ => _.values, 'call', _2 => _2(guild.roles), 'optionalAccess', _3 => _3.sort, 'call', _4 => _4((b, a) => a.position - b.position)]);
 
     if (hide) {
         return (
-            external_BdApi_React_default().createElement('div', { className: GuildRoles_classes.list.empty,}
-                , external_BdApi_React_default().createElement('div', { className: GuildRoles_classes.list.emptyIconStreamerMode,} )
-                , external_BdApi_React_default().createElement('div', { className: GuildRoles_classes.list.emptyText,}, i18n.Messages.STREAMER_MODE_ENABLED)
+            external_BdApi_React_default().createElement('div', { className: "empty-2zcusz",}
+                , external_BdApi_React_default().createElement('div', { className: "emptyIconStreamerMode-3P4I-V emptyIcon-uKVxYR" ,} )
+                , external_BdApi_React_default().createElement('div', { className: "emptyText-mZZyQk",}, i18n.Messages.STREAMER_MODE_ENABLED)
             )
         );
     }
 
     return (
-        external_BdApi_React_default().createElement(ScrollerThin, { className: `${GuildRoles_classes.infoSection.infoScroller} guild-roles`, fade: true,}
-            , external_BdApi_React_default().createElement('div', { className: GuildRoles_classes.role.root,}
+        external_BdApi_React_default().createElement(ScrollerThin, { className: "infoScroller-1QMpon guild-roles" , fade: true,}
+            , external_BdApi_React_default().createElement('div', { className: "root-jbEB5E flex-3BkGQD wrap-7NZuTn"  ,}
                 , roles.map(role => {
                     return (
-                        external_BdApi_React_default().createElement('div', { key: role.id, className: GuildRoles_classes.role.role,}
+                        external_BdApi_React_default().createElement('div', { key: role.id, className: "role-2TIOKu flex-3BkGQD alignCenter-14kD11"  ,}
                             , external_BdApi_React_default().createElement('div', {
-                                className: GuildRoles_classes.role.roleCircle,
+                                className: "roleCircle-1EgnFN flex-3BkGQD alignCenter-14kD11 justifyCenter-rrurWZ desaturateUserColors-1O-G89"    ,
                                 style: { backgroundColor: _nullishCoalesce(role.colorString, () => ( HEXColors.PRIMARY_DARK_300)) },}
                             )
-                            , external_BdApi_React_default().createElement(Text, { selectable: false, className: GuildRoles_classes.role.roleName,}
+                            , external_BdApi_React_default().createElement(Text, { selectable: false, className: "roleName-2ZJJYR",}
                                 , role.name
                             )
                         )
@@ -1380,10 +1398,6 @@ const {
     DiscordConstants: { RelationshipTypes: GuildProfileModal_RelationshipTypes }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-const { ModalRoot } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('ModalRoot');
-
-const GuildProfileModal_classes = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('root', 'topSection', 'body');
-
 const GuildProfileSections = {
     GUILD_INFO: 'GUILD_INFO',
     GUILD_ROLES: 'GUILD_ROLES',
@@ -1407,32 +1421,32 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
         const { guild } = this.props;
 
         return (
-            external_BdApi_React_default().createElement(ModalRoot, { className: `${GuildProfileModal_classes.root} guild-profile`, transitionState: 1,}
-                , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.topSection,}
+            external_BdApi_React_default().createElement((external_BdApi_React_default()).Fragment, null
+                , external_BdApi_React_default().createElement('div', { className: "topSection-13QKHs",}
                     , external_BdApi_React_default().createElement(GuildProfileModalHeader, { guild: guild,} )
-                    , external_BdApi_React_default().createElement('div', { className: GuildProfileModal_classes.tabBarContainer,}
+                    , external_BdApi_React_default().createElement('div', { className: "tabBarContainer-sCZC4w",}
                         , external_BdApi_React_default().createElement(TabBar, {
-                            className: GuildProfileModal_classes.tabBar,
+                            className: "tabBar-2hXqzU",
                             type: TabBar.Types.TOP,
                             selectedItem: selectedSection,
                             onItemSelect: this.handleSectionSelect,}
                         
-                            , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.GUILD_INFO,}
+                            , external_BdApi_React_default().createElement(TabBar.Item, { className: "tabBarItem-30Te4-", id: GuildProfileSections.GUILD_INFO,}
                                 , i18n.Messages.GUILD_PROFILE_GUILD_INFO
                             )
-                            , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.GUILD_ROLES,}
+                            , external_BdApi_React_default().createElement(TabBar.Item, { className: "tabBarItem-30Te4-", id: GuildProfileSections.GUILD_ROLES,}
                                 , i18n.Messages.GUILD_PROFILE_ROLES_IN_GUILD
                             )
-                            , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.FRIENDS,}
+                            , external_BdApi_React_default().createElement(TabBar.Item, { className: "tabBarItem-30Te4-", id: GuildProfileSections.FRIENDS,}
                                 , i18n.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD
                             )
-                            , external_BdApi_React_default().createElement(TabBar.Item, { className: GuildProfileModal_classes.tabBarItem, id: GuildProfileSections.BLOCKED_USERS,}
+                            , external_BdApi_React_default().createElement(TabBar.Item, { className: "tabBarItem-30Te4-", id: GuildProfileSections.BLOCKED_USERS,}
                                 , i18n.Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD
                             )
                         )
                     )
                 )
-                , external_BdApi_React_default().createElement('div', { className: `${GuildProfileModal_classes.body} guild-profile-body`,}, this.renderSelectedSection())
+                , external_BdApi_React_default().createElement('div', { className: "body-1Ukv50 guild-profile-body" ,}, this.renderSelectedSection())
             )
         );
     }
@@ -1479,7 +1493,7 @@ function SvgGuildProfile(props) {
 
 /* harmony default export */ const guild_profile = (SvgGuildProfile);
 ;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
-/* harmony default export */ const style = (".guild-profile .guildDetail-1nRKNE{flex-shrink:0;align-self:start}.guild-profile .profileBadge-2niAfJ{color:var(--header-secondary)}.guild-profile .guild-tag{display:flex;align-items:center}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}.guild-profile .guild-roles{padding:10px 12px}.guild-profile .guild-profile-body{flex:1;min-height:0}\n");
+/* harmony default export */ const style = (".guild-profile .guildDetail-3EJhW_{flex-shrink:0;align-self:start}.guild-profile .profileBadge-12r2Nm{color:var(--header-secondary)}.guild-profile .guild-tag{display:flex;align-items:center}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}.guild-profile .guild-roles{padding:10px 12px}.guild-profile .guild-profile-body{flex:1;min-height:0}\n");
 ;// CONCATENATED MODULE: ./src/GuildProfile/locales/index.js
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
@@ -1518,7 +1532,10 @@ for (const localePath of requireContext.keys()) {
 
 
 
-const { ModalStack: GuildProfile_ModalStack, UserSettingsStore, SelectedGuildStore, GuildStore } = external_BoundedLibrary_namespaceObject.DiscordModules;
+
+
+
+const { ModalActions, UserSettingsStore, SelectedGuildStore, GuildStore } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
 
@@ -1541,7 +1558,7 @@ class GuildProfile extends (external_Plugin_default()) {
 
         this.loadLocale();
         this.patchMenu();
-        this.patchContextMenu();
+        this.patchGuildContextMenu();
     }
 
     onStop() {
@@ -1593,10 +1610,8 @@ class GuildProfile extends (external_Plugin_default()) {
         });
     }
 
-    patchContextMenu() {
-        const GuildContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getModule(m => GuildProfile_optionalChain([m, 'optionalAccess', _2 => _2.default, 'optionalAccess', _3 => _3.displayName]) === 'GuildContextMenu');
-
-        external_BoundedLibrary_namespaceObject.Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
+    patchGuildContextMenu() {
+        _utils_patchContextMenus('GuildContextMenu', (thisObject, [{ guild }], returnValue) => {
             returnValue.props.children.splice(
                 this.settings.position === 'top' ? 1 : 5,
                 0,
@@ -1623,7 +1638,11 @@ class GuildProfile extends (external_Plugin_default()) {
     }
 
     openGuildProfileModal(guild) {
-        GuildProfile_ModalStack.push(props => external_BdApi_React_default().createElement(GuildProfileModal, { ...props, guild: guild,} ));
+        ModalActions.openModal(props => (
+            external_BdApi_React_default().createElement(ModalRoot, { className: "root-8LYsGj guild-profile" , ...props,}
+                , external_BdApi_React_default().createElement(GuildProfileModal, { guild: guild,} )
+            )
+        ));
     }
 }
 
