@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.4.6
+ * @version 1.5.0
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.4.6","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed all the issues related to the new discord update that started to lazy load a bunch of modules.","Fixed styling issues."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Added role icons (Thanks @acendvgnt on GitHub)."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -1320,7 +1320,7 @@ function GuildInfo({ guild }) {
 }
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildRoles.jsx
- function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } } function GuildRoles_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
+ function GuildRoles_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
@@ -1335,12 +1335,8 @@ function GuildInfo({ guild }) {
 
 
 
-
-const {
-    DiscordConstants: { HEXColors }
-} = external_BoundedLibrary_namespaceObject.DiscordModules;
-
 const GuildRoles_StreamerModeStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('hidePersonalInformation');
+const { MemberRole } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MemberRole');
 
 function GuildRoles({ guild }) {
     const hide = useStateFromStores([GuildRoles_StreamerModeStore], () => GuildRoles_StreamerModeStore.hide);
@@ -1358,26 +1354,16 @@ function GuildRoles({ guild }) {
     return (
         external_BdApi_React_default().createElement(ScrollerThin, { className: "infoScroller-1QMpon guild-roles" , fade: true,}
             , external_BdApi_React_default().createElement('div', { className: "root-jbEB5E flex-3BkGQD wrap-7NZuTn"  ,}
-                , roles.map(role => {
-                    return (
-                        external_BdApi_React_default().createElement('div', { key: role.id, className: "role-2TIOKu flex-3BkGQD alignCenter-14kD11"  ,}
-                            , external_BdApi_React_default().createElement('div', {
-                                className: "roleCircle-1EgnFN flex-3BkGQD alignCenter-14kD11 justifyCenter-rrurWZ desaturateUserColors-1O-G89"    ,
-                                style: { backgroundColor: _nullishCoalesce(role.colorString, () => ( HEXColors.PRIMARY_DARK_300)) },}
-                            )
-                            , external_BdApi_React_default().createElement(Text, { selectable: false, className: "roleName-2ZJJYR",}
-                                , role.name
-                            )
-                        )
-                    );
-                })
+                , roles.map(role => (
+                    external_BdApi_React_default().createElement(MemberRole, { key: role.id, guildId: guild.id, role: role, canRemove: false,} )
+                ))
             )
         )
     );
 }
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/index.jsx
- function GuildProfileModal_nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }/* @license
+ function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
@@ -1410,7 +1396,7 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
         super(props);
 
         this.state = {
-            selectedSection: GuildProfileModal_nullishCoalesce(props.section, () => ( GuildProfileSections.GUILD_INFO))
+            selectedSection: _nullishCoalesce(props.section, () => ( GuildProfileSections.GUILD_INFO))
         };
 
         this.handleSectionSelect = this.handleSectionSelect.bind(this);
@@ -1493,7 +1479,7 @@ function SvgGuildProfile(props) {
 
 /* harmony default export */ const guild_profile = (SvgGuildProfile);
 ;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
-/* harmony default export */ const style = (".guild-profile .guildDetail-3EJhW_{flex-shrink:0;align-self:start}.guild-profile .profileBadge-12r2Nm{color:var(--header-secondary)}.guild-profile .guild-tag{display:flex;align-items:center}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}.guild-profile .guild-roles{padding:10px 12px}.guild-profile .guild-profile-body{flex:1;min-height:0}\n");
+/* harmony default export */ const style = (".guild-profile .guildDetail-3EJhW_{flex-shrink:0;align-self:start}.guild-profile .profileBadge-12r2Nm{color:var(--header-secondary)}.guild-profile .guild-tag{display:flex;align-items:center}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}.guild-profile .guild-roles{color:var(--interactive-active);padding:10px 12px}.guild-profile .guild-profile-body{flex:1;min-height:0}\n");
 ;// CONCATENATED MODULE: ./src/GuildProfile/locales/index.js
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
