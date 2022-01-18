@@ -43,12 +43,12 @@ export default function GuildRoles({ guild }) {
                                 className="roleCircle-1EgnFN flex-3BkGQD alignCenter-14kD11 justifyCenter-rrurWZ desaturateUserColors-1O-G89"
                                 style={{ backgroundColor: role.colorString ?? HEXColors.PRIMARY_DARK_300 }}
                             />
-                            <img
+                            {role.icon && (<img
                                 className="roleIcon-3-WL_I roleIcon-29epUq"
                                 width="16"
                                 height="16"
                                 src={`https://cdn.discordapp.com/role-icons/${role.id}/${role.icon}.webp?size=20&quality=lossless`}
-                            />
+                            />)}
                             <Text selectable={false} className="roleName-2ZJJYR">
                                 {role.name}
                             </Text>
