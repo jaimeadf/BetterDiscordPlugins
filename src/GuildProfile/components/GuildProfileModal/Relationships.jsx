@@ -17,14 +17,10 @@ const {
     RelationshipStore,
     GuildMemberStore,
     UserStore,
-    GuildChannelsStore,
     ModalStack,
     UserProfileModals,
-    ContextMenuActions,
     DiscordConstants: { RelationshipTypes }
 } = DiscordModules;
-
-const GuildChannelUserContextMenu = WebpackModules.getByDisplayName('GuildChannelUserContextMenu');
 
 const { default: Avatar } = WebpackModules.getByProps('AnimatedAvatar');
 const DiscordTag = WebpackModules.getByDisplayName('DiscordTag');
@@ -35,7 +31,6 @@ const NoRelationshipsOfTypeMessages = {
 };
 
 export default function Relationships({ guild, relationshipType }) {
-    const channel = useStateFromStores([GuildChannelsStore], () => GuildChannelsStore.getDefaultChannel(guild.id));
     const users = useStateFromStores([RelationshipStore, GuildMemberStore, UserStore], () => {
         const users = [];
         const relationships = RelationshipStore.getRelationships();
@@ -56,12 +51,6 @@ export default function Relationships({ guild, relationshipType }) {
         UserProfileModals.open(user.id);
     }
 
-    function handleContextMenu(event, user) {
-        ContextMenuActions.openContextMenu(event, () => (
-            <GuildChannelUserContextMenu {...event} user={user} guildId={guild.id} channelId={channel?.id} />
-        ));
-    }
-
     return (
         <ScrollerThin className="listScroller-entkMk" fade={true}>
             {users.length <= 0 ? (
@@ -78,7 +67,6 @@ export default function Relationships({ guild, relationshipType }) {
                         className="listRow-2nO1T6"
                         onClick={() => handleSelect(user)}
                         onSelect={() => handleSelect(user)}
-                        onContextMenu={event => handleContextMenu(event, user)}
                     >
                         <Avatar className="listAvatar-2bU5Uh" src={user.getAvatarURL()} size={Avatar.Sizes.SIZE_40} />
                         <DiscordTag
