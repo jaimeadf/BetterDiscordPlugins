@@ -12,10 +12,10 @@
     "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js",
     "changelog": [
         {
-            "title": "Fixed",
-            "type": "fix",
+            "title": "Fixes",
+            "type": "fixed",
             "items": [
-                "Remove relationship context menu to avoid crashes."
+                "Removed relationship context menu to avoid crashes."
             ]
         }
     ]
