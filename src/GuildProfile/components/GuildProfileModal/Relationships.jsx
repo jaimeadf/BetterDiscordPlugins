@@ -17,13 +17,13 @@ const {
     RelationshipStore,
     GuildMemberStore,
     UserStore,
-    ModalStack,
-    UserProfileModals,
     DiscordConstants: { RelationshipTypes }
 } = DiscordModules;
 
 const { default: Avatar } = WebpackModules.getByProps('AnimatedAvatar');
 const DiscordTag = WebpackModules.getByDisplayName('DiscordTag');
+
+const UserProfileModalActions = WebpackModules.getByProps('openUserProfileModal');
 
 const NoRelationshipsOfTypeMessages = {
     [RelationshipTypes.FRIEND]: 'GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD',
@@ -47,8 +47,7 @@ export default function Relationships({ guild, relationshipType }) {
     });
 
     function handleSelect(user) {
-        ModalStack.pop();
-        UserProfileModals.open(user.id);
+        UserProfileModalActions.openUserProfileModal({ userId: user.id, guildId: guild.id });
     }
 
     return (
