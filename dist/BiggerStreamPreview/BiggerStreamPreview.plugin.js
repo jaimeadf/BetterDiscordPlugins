@@ -1,7 +1,7 @@
 /**!
  * @name BiggerStreamPreview
  * @description Adds a button in the context menu to see bigger stream previews.
- * @version 1.0.9
+ * @version 1.0.10
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.9","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed all the issues related to the new discord update that started to lazy load a bunch of modules."]}]};
+const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.10","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed context menu again."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -197,6 +197,8 @@ const { StreamStore, StreamPreviewStore, ModalActions } = external_BoundedLibrar
 const ImageModal = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('ImageModal');
 const MaskedLink = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('MaskedLink');
 
+const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
+
 class BiggerStreamPreview extends (external_Plugin_default()) {
     onStart() {
         this.patchUserContextMenus();
@@ -238,12 +240,15 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
 
     pushStreamPreviewMenuItems(menuWrapper, previewURL) {
         menuWrapper.props.children.props.children.push(
-            external_BoundedLibrary_namespaceObject.DiscordContextMenu.buildMenuItem({ type: 'separator' }),
-            external_BoundedLibrary_namespaceObject.DiscordContextMenu.buildMenuItem({
-                label: 'View Stream Preview',
-                action: () => this.openImageModal(previewURL),
-                disabled: previewURL === null
-            })
+            external_BdApi_React_default().createElement(Menu.MenuGroup, null
+                , external_BdApi_React_default().createElement(Menu.MenuItem, {
+                    id: "stream-preview",
+                    key: "stream-preview",
+                    label: "View Stream Preview"  ,
+                    action: () => this.openImageModal(previewURL),
+                    disabled: previewURL === null,}
+                )
+            )
         );
     }
 

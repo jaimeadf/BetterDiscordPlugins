@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.5.0
+ * @version 1.5.1
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Added role icons (Thanks @acendvgnt on GitHub)."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.1","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixed","type":"fix","items":["Remove relationship context menu to avoid crashes."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -1073,7 +1073,7 @@ const { ScrollerAuto, ScrollerThin, default: Scroller } = external_BoundedLibrar
 /* harmony default export */ const components_Scroller = ((/* unused pure expression or super */ null && (Scroller)));
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/Relationships.jsx
- function Relationships_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
+/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
@@ -1092,14 +1092,10 @@ const {
     RelationshipStore,
     GuildMemberStore,
     UserStore,
-    GuildChannelsStore,
     ModalStack,
     UserProfileModals,
-    ContextMenuActions: Relationships_ContextMenuActions,
     DiscordConstants: { RelationshipTypes }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
-
-const GuildChannelUserContextMenu = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('GuildChannelUserContextMenu');
 
 const { default: Relationships_Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
 const DiscordTag = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('DiscordTag');
@@ -1110,7 +1106,6 @@ const NoRelationshipsOfTypeMessages = {
 };
 
 function Relationships({ guild, relationshipType }) {
-    const channel = useStateFromStores([GuildChannelsStore], () => GuildChannelsStore.getDefaultChannel(guild.id));
     const users = useStateFromStores([RelationshipStore, GuildMemberStore, UserStore], () => {
         const users = [];
         const relationships = RelationshipStore.getRelationships();
@@ -1131,12 +1126,6 @@ function Relationships({ guild, relationshipType }) {
         UserProfileModals.open(user.id);
     }
 
-    function handleContextMenu(event, user) {
-        Relationships_ContextMenuActions.openContextMenu(event, () => (
-            external_BdApi_React_default().createElement(GuildChannelUserContextMenu, { ...event, user: user, guildId: guild.id, channelId: Relationships_optionalChain([channel, 'optionalAccess', _ => _.id]),} )
-        ));
-    }
-
     return (
         external_BdApi_React_default().createElement(ScrollerThin, { className: "listScroller-entkMk", fade: true,}
             , users.length <= 0 ? (
@@ -1152,8 +1141,7 @@ function Relationships({ guild, relationshipType }) {
                         key: user.id,
                         className: "listRow-2nO1T6",
                         onClick: () => handleSelect(user),
-                        onSelect: () => handleSelect(user),
-                        onContextMenu: event => handleContextMenu(event, user),}
+                        onSelect: () => handleSelect(user),}
                     
                         , external_BdApi_React_default().createElement(Relationships_Avatar, { className: "listAvatar-2bU5Uh", src: user.getAvatarURL(), size: Relationships_Avatar.Sizes.SIZE_40,} )
                         , external_BdApi_React_default().createElement(DiscordTag, {
@@ -1227,7 +1215,7 @@ const {
 
 const {
     UserStore: GuildInfo_UserStore,
-    GuildChannelsStore: GuildInfo_GuildChannelsStore,
+    GuildChannelsStore,
     Timestamps,
     DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes, GuildNSFWContentLevel }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
@@ -1253,7 +1241,7 @@ function InfoSection({ title, children }) {
 function GuildInfo({ guild }) {
     const owner = useStateFromStores([GuildInfo_UserStore], () => GuildInfo_UserStore.getUser(guild.ownerId));
     const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hide);
-    const channel = useStateFromStores([GuildInfo_GuildChannelsStore], () => GuildInfo_GuildChannelsStore.getDefaultChannel(guild.id));
+    const channel = useStateFromStores([GuildChannelsStore], () => GuildChannelsStore.getDefaultChannel(guild.id));
 
     (0,external_BdApi_React_namespaceObject.useEffect)(() => {
         if (!owner) {
