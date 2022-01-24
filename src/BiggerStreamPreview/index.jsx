@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DiscordModules, WebpackModules, Patcher, DiscordContextMenu } from '@zlibrary/api';
+import { DiscordModules, WebpackModules, Patcher } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 import { useStateFromStores } from '@discord/Flux';
@@ -12,6 +12,8 @@ const { StreamStore, StreamPreviewStore, ModalActions } = DiscordModules;
 
 const ImageModal = WebpackModules.getByDisplayName('ImageModal');
 const MaskedLink = WebpackModules.getByDisplayName('MaskedLink');
+
+const Menu = WebpackModules.getByProps('MenuItem');
 
 export default class BiggerStreamPreview extends Plugin {
     onStart() {
@@ -54,12 +56,15 @@ export default class BiggerStreamPreview extends Plugin {
 
     pushStreamPreviewMenuItems(menuWrapper, previewURL) {
         menuWrapper.props.children.props.children.push(
-            DiscordContextMenu.buildMenuItem({ type: 'separator' }),
-            DiscordContextMenu.buildMenuItem({
-                label: 'View Stream Preview',
-                action: () => this.openImageModal(previewURL),
-                disabled: previewURL === null
-            })
+            <Menu.MenuGroup>
+                <Menu.MenuItem
+                    id="stream-preview"
+                    key="stream-preview"
+                    label="View Stream Preview"
+                    action={() => this.openImageModal(previewURL)}
+                    disabled={previewURL === null}
+                />
+            </Menu.MenuGroup>
         );
     }
 
