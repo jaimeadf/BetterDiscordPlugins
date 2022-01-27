@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.5.2
+ * @version 1.5.3
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.2","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixes","type":"fixed","items":["Removed relationship context menu to avoid crashes.","Fixed user profile modal not opening when clicking in a relationship."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.3","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Use methods from ZLibrary to get the lazy loaded context menus."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -314,59 +314,6 @@ const {
 
 
 /* harmony default export */ const components_Modal = ((/* unused pure expression or super */ null && (Modal)));
-
-;// CONCATENATED MODULE: ./src/@utils/listenContextMenuOpening.js
-
-
-const ContextMenuActions = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('openContextMenuLazy');
-
-function listenContextMenuOpening(callback) {
-    return external_BoundedLibrary_namespaceObject.Patcher.before(ContextMenuActions, 'openContextMenuLazy', (thisObject, args) => {
-        const importComponent = args[1];
-
-        args[1] = async () => {
-            const wrapperComponent = await importComponent(...arguments);
-
-            return props => {
-                const wrapper = wrapperComponent(props);
-
-                callback(wrapper);
-
-                return wrapper;
-            };
-        };
-    });
-}
-
-/* harmony default export */ const _utils_listenContextMenuOpening = (listenContextMenuOpening);
-
-;// CONCATENATED MODULE: ./src/@utils/patchContextMenus.js
- function patchContextMenus_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-
-function patchContextMenus(criteria, patch) {
-    if (typeof criteria !== 'function') {
-        const matcher = criteria;
-
-        criteria = ContextMenu => {
-            return patchContextMenus_optionalChain([ContextMenu, 'access', _ => _.displayName, 'optionalAccess', _2 => _2.match, 'call', _3 => _3(matcher)]);
-        };
-    }
-
-    return _utils_listenContextMenuOpening(wrapper => {
-        const { type: ContextMenu } = wrapper;
-
-        if (criteria(ContextMenu)) {
-            return external_BoundedLibrary_namespaceObject.Patcher.after(wrapper, 'type', patch);
-        }
-    });
-}
-
-/* harmony default export */ const _utils_patchContextMenus = (patchContextMenus);
-
-;// CONCATENATED MODULE: ./src/@utils/index.js
-
-
 
 ;// CONCATENATED MODULE: ./src/@discord/components/TabBar.js
 
@@ -1506,8 +1453,6 @@ for (const localePath of requireContext.keys()) {
 
 
 
-
-
 const { ModalActions, UserSettingsStore, SelectedGuildStore, GuildStore } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
@@ -1583,8 +1528,10 @@ class GuildProfile extends (external_Plugin_default()) {
         });
     }
 
-    patchGuildContextMenu() {
-        _utils_patchContextMenus('GuildContextMenu', (thisObject, [{ guild }], returnValue) => {
+    async patchGuildContextMenu() {
+        const GuildContextMenu = await external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('GuildContextMenu');
+
+        external_BoundedLibrary_namespaceObject.Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
             returnValue.props.children.splice(
                 this.settings.position === 'top' ? 1 : 5,
                 0,

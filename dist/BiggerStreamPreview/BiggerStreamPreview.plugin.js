@@ -1,7 +1,7 @@
 /**!
  * @name BiggerStreamPreview
  * @description Adds a button in the context menu to see bigger stream previews.
- * @version 1.0.10
+ * @version 1.0.11
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.10","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Bugs Squashed","type":"fixed","items":["Fixed context menu again."]}]};
+const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.11","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Use methods from ZLibrary to get the lazy loaded context menus."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -128,62 +128,7 @@ const {
 
 /* harmony default export */ const components_Modal = ((/* unused pure expression or super */ null && (Modal)));
 
-;// CONCATENATED MODULE: ./src/@utils/listenContextMenuOpening.js
-
-
-const ContextMenuActions = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('openContextMenuLazy');
-
-function listenContextMenuOpening(callback) {
-    return external_BoundedLibrary_namespaceObject.Patcher.before(ContextMenuActions, 'openContextMenuLazy', (thisObject, args) => {
-        const importComponent = args[1];
-
-        args[1] = async () => {
-            const wrapperComponent = await importComponent(...arguments);
-
-            return props => {
-                const wrapper = wrapperComponent(props);
-
-                callback(wrapper);
-
-                return wrapper;
-            };
-        };
-    });
-}
-
-/* harmony default export */ const _utils_listenContextMenuOpening = (listenContextMenuOpening);
-
-;// CONCATENATED MODULE: ./src/@utils/patchContextMenus.js
- function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-
-function patchContextMenus(criteria, patch) {
-    if (typeof criteria !== 'function') {
-        const matcher = criteria;
-
-        criteria = ContextMenu => {
-            return _optionalChain([ContextMenu, 'access', _ => _.displayName, 'optionalAccess', _2 => _2.match, 'call', _3 => _3(matcher)]);
-        };
-    }
-
-    return _utils_listenContextMenuOpening(wrapper => {
-        const { type: ContextMenu } = wrapper;
-
-        if (criteria(ContextMenu)) {
-            return external_BoundedLibrary_namespaceObject.Patcher.after(wrapper, 'type', patch);
-        }
-    });
-}
-
-/* harmony default export */ const _utils_patchContextMenus = (patchContextMenus);
-
-;// CONCATENATED MODULE: ./src/@utils/index.js
-
-
-
 ;// CONCATENATED MODULE: ./src/BiggerStreamPreview/index.jsx
-
-
 
 
 
@@ -210,26 +155,35 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
     }
 
     patchUserContextMenus() {
-        _utils_patchContextMenus(/UserContextMenu$/, (thisObject, [{ user }], returnValue) => {
-            const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
-                const stream = StreamStore.getStreamForUser(user.id);
-                const previewURL = stream
-                    ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
-                    : null;
+        const patch = module => {
+            external_BoundedLibrary_namespaceObject.Patcher.after(module, 'default', (thisObject, [{ user }], returnValue) => {
+                const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
+                    const stream = StreamStore.getStreamForUser(user.id);
+                    const previewURL = stream
+                        ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
+                        : null;
 
-                return [stream, previewURL];
+                    return [stream, previewURL];
+                });
+
+                if (!stream) {
+                    return;
+                }
+
+                this.pushStreamPreviewMenuItems(returnValue, previewURL);
             });
+        };
 
-            if (!stream) {
-                return;
-            }
-
-            this.pushStreamPreviewMenuItems(returnValue, previewURL);
-        });
+        external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('UserContextMenu').then(patch);
+        external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('DMUserContextMenu').then(patch);
+        external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('GroupDMUserContextMenu').then(patch);
+        external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('GuildChannelUserContextMenu').then(patch);
     }
 
-    patchStreamContextMenu() {
-        _utils_patchContextMenus('StreamContextMenu', (thisObject, [{ stream }], returnValue) => {
+    async patchStreamContextMenu() {
+        const module = await external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('StreamContextMenu');
+
+        external_BoundedLibrary_namespaceObject.Patcher.after(module, 'default', (thisObject, [{ stream }], returnValue) => {
             const previewURL = useStateFromStores([StreamPreviewStore], () => {
                 return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
             });
