@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { DiscordModules, WebpackModules, Patcher } from '@zlibrary/api';
+import { DiscordModules, WebpackModules, Patcher, DCM } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 import { useStateFromStores } from '@discord/Flux';
 import { ModalRoot, ModalSize } from '@discord/components/Modal';
-
-import { patchContextMenus } from '@utils';
 
 const { StreamStore, StreamPreviewStore, ModalActions } = DiscordModules;
 
@@ -26,26 +24,35 @@ export default class BiggerStreamPreview extends Plugin {
     }
 
     patchUserContextMenus() {
-        patchContextMenus(/UserContextMenu$/, (thisObject, [{ user }], returnValue) => {
-            const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
-                const stream = StreamStore.getStreamForUser(user.id);
-                const previewURL = stream
-                    ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
-                    : null;
+        const patch = module => {
+            Patcher.after(module, 'default', (thisObject, [{ user }], returnValue) => {
+                const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
+                    const stream = StreamStore.getStreamForUser(user.id);
+                    const previewURL = stream
+                        ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
+                        : null;
 
-                return [stream, previewURL];
+                    return [stream, previewURL];
+                });
+
+                if (!stream) {
+                    return;
+                }
+
+                this.pushStreamPreviewMenuItems(returnValue, previewURL);
             });
+        };
 
-            if (!stream) {
-                return;
-            }
-
-            this.pushStreamPreviewMenuItems(returnValue, previewURL);
-        });
+        DCM.getDiscordMenu('UserContextMenu').then(patch);
+        DCM.getDiscordMenu('DMUserContextMenu').then(patch);
+        DCM.getDiscordMenu('GroupDMUserContextMenu').then(patch);
+        DCM.getDiscordMenu('GuildChannelUserContextMenu').then(patch);
     }
 
-    patchStreamContextMenu() {
-        patchContextMenus('StreamContextMenu', (thisObject, [{ stream }], returnValue) => {
+    async patchStreamContextMenu() {
+        const module = await DCM.getDiscordMenu('StreamContextMenu');
+
+        Patcher.after(module, 'default', (thisObject, [{ stream }], returnValue) => {
             const previewURL = useStateFromStores([StreamPreviewStore], () => {
                 return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
             });

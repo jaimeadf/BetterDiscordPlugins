@@ -5,13 +5,11 @@
 
 import React from 'react';
 
-import { DiscordModules, WebpackModules, PluginUtilities, Patcher, Utilities, Settings } from '@zlibrary/api';
+import { DiscordModules, WebpackModules, PluginUtilities, Patcher, Utilities, Settings, DCM } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 import i18n from '@discord/i18n';
 import { ModalRoot } from '@discord/components/Modal';
-
-import { patchContextMenus } from '@utils';
 
 import GuildProfileModal from './components/GuildProfileModal';
 import GuildProfileIcon from './assets/guild-profile.svg';
@@ -96,8 +94,10 @@ export default class GuildProfile extends Plugin {
         });
     }
 
-    patchGuildContextMenu() {
-        patchContextMenus('GuildContextMenu', (thisObject, [{ guild }], returnValue) => {
+    async patchGuildContextMenu() {
+        const GuildContextMenu = await DCM.getDiscordMenu('GuildContextMenu');
+
+        Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
             returnValue.props.children.splice(
                 this.settings.position === 'top' ? 1 : 5,
                 0,
