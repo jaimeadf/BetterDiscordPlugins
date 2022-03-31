@@ -25,7 +25,14 @@ export default class BiggerStreamPreview extends Plugin {
 
     patchUserContextMenus() {
         const patch = module => {
-            Patcher.after(module, 'default', (thisObject, [{ user }], returnValue) => {
+            Patcher.after(module, 'default', (thisObject, [ user ], returnValue) => {
+                const isMenuItem = typeof user === "string";
+
+                if (isMenuItem) user = BdApi.findModuleByProps('getUser', 'getCurrentUser').getUser(user);
+                else({ user } = user);
+
+                if (!user) return;
+
                 const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
                     const stream = StreamStore.getStreamForUser(user.id);
                     const previewURL = stream
@@ -43,10 +50,7 @@ export default class BiggerStreamPreview extends Plugin {
             });
         };
 
-        DCM.getDiscordMenu('UserContextMenu').then(patch);
-        DCM.getDiscordMenu('DMUserContextMenu').then(patch);
-        DCM.getDiscordMenu('GroupDMUserContextMenu').then(patch);
-        DCM.getDiscordMenu('GuildChannelUserContextMenu').then(patch);
+        DCM.getDiscordMenu('useUserRolesItems').then(patch);
     }
 
     async patchStreamContextMenu() {
@@ -62,7 +66,7 @@ export default class BiggerStreamPreview extends Plugin {
     }
 
     pushStreamPreviewMenuItems(menuWrapper, previewURL) {
-        menuWrapper.props.children.props.children.push(
+        menuWrapper.push(
             <Menu.MenuGroup>
                 <Menu.MenuItem
                     id="stream-preview"
