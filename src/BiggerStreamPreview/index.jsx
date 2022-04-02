@@ -54,6 +54,18 @@ export default class BiggerStreamPreview extends Plugin {
         DCM.getDiscordMenu('useUserRolesItems').then(patch);
     }
 
+    async patchStreamContextMenu() {
+        const module = await DCM.getDiscordMenu('StreamContextMenu');
+
+        Patcher.after(module, 'default', (thisObject, [{ stream }], returnValue) => {
+            const previewURL = useStateFromStores([StreamPreviewStore], () => {
+                return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
+            });
+
+            this.pushStreamPreviewMenuItems(returnValue, previewURL);
+        });
+    }
+
     pushStreamPreviewMenuItems(menuWrapper, previewURL, isMenuItem) {
         const item = (
             <Menu.MenuGroup>
