@@ -23,30 +23,31 @@ export default class BiggerStreamPreview extends Plugin {
         Patcher.unpatchAll();
     }
 
-    patchUserContextMenus() {
-        const patch = module => {
-            Patcher.after(module, 'default', (thisObject, [{ user }], returnValue) => {
-                const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
-                    const stream = StreamStore.getStreamForUser(user.id);
-                    const previewURL = stream
-                        ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
-                        : null;
+    async patchUserContextMenus() {
+        const module = await DCM.getDiscordMenu('useUserRolesItems');
 
-                    return [stream, previewURL];
-                });
+        Patcher.after(module, 'default', (thisObject, [userId], returnValue) => {
+            const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
+                const stream = StreamStore.getStreamForUser(userId);
+                const previewURL = stream
+                    ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
+                    : null;
 
-                if (!stream) {
-                    return;
-                }
-
-                this.pushStreamPreviewMenuItems(returnValue, previewURL);
+                return [stream, previewURL];
             });
-        };
 
-        DCM.getDiscordMenu('UserContextMenu').then(patch);
-        DCM.getDiscordMenu('DMUserContextMenu').then(patch);
-        DCM.getDiscordMenu('GroupDMUserContextMenu').then(patch);
-        DCM.getDiscordMenu('GuildChannelUserContextMenu').then(patch);
+            if (!stream) {
+                return;
+            }
+
+            return (
+                <Menu.MenuGroup>
+                    {returnValue}
+                    <Menu.MenuSeparator />
+                    {this.buildPreviewMenuItem(previewURL)}
+                </Menu.MenuGroup>
+            );
+        });
     }
 
     async patchStreamContextMenu() {
@@ -57,21 +58,21 @@ export default class BiggerStreamPreview extends Plugin {
                 return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
             });
 
-            this.pushStreamPreviewMenuItems(returnValue, previewURL);
+            returnValue.props.children.props.children.push(
+                <Menu.MenuGroup>{this.buildPreviewMenuItem(previewURL)}</Menu.MenuGroup>
+            );
         });
     }
 
-    pushStreamPreviewMenuItems(menuWrapper, previewURL) {
-        menuWrapper.props.children.props.children.push(
-            <Menu.MenuGroup>
-                <Menu.MenuItem
-                    id="stream-preview"
-                    key="stream-preview"
-                    label="View Stream Preview"
-                    action={() => this.openImageModal(previewURL)}
-                    disabled={previewURL === null}
-                />
-            </Menu.MenuGroup>
+    buildPreviewMenuItem(previewURL) {
+        return (
+            <Menu.MenuItem
+                id="stream-preview"
+                key="stream-preview"
+                label="View Stream Preview"
+                action={() => this.openImageModal(previewURL)}
+                disabled={previewURL === null}
+            />
         );
     }
 
