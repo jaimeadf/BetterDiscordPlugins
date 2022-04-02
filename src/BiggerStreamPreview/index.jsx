@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DiscordModules, WebpackModules, Patcher, DCM, Utilities } from '@zlibrary/api';
+import { DiscordModules, WebpackModules, Patcher, DCM } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 import { useStateFromStores } from '@discord/Flux';
@@ -23,35 +23,31 @@ export default class BiggerStreamPreview extends Plugin {
         Patcher.unpatchAll();
     }
 
-    patchUserContextMenus() {
-        const patch = module => {
-            Patcher.after(module, 'default', (thisObject, [user], returnValue) => {
-                const isMenuItem = typeof user === 'string';
+    async patchUserContextMenus() {
+        const module = await DCM.getDiscordMenu('useUserRolesItems');
 
-                if (isMenuItem) user = window.BdApi.findModuleByProps('getUser', 'getCurrentUser').getUser(user);
-                else ({ user } = user);
+        Patcher.after(module, 'default', (thisObject, [userId], returnValue) => {
+            const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
+                const stream = StreamStore.getStreamForUser(userId);
+                const previewURL = stream
+                    ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
+                    : null;
 
-                if (!user) return;
-
-                const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
-                    const stream = StreamStore.getStreamForUser(user.id);
-                    const previewURL = stream
-                        ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
-                        : null;
-
-                    return [stream, previewURL];
-                });
-
-                if (!stream) {
-                    return;
-                }
-
-                const returns = this.pushStreamPreviewMenuItems(returnValue, previewURL, isMenuItem);
-                if (returns) return returns;
+                return [stream, previewURL];
             });
-        };
 
-        DCM.getDiscordMenu('useUserRolesItems').then(patch);
+            if (!stream) {
+                return;
+            }
+
+            return (
+                <Menu.MenuGroup>
+                    {returnValue}
+                    <Menu.MenuSeparator />
+                    {this.buildPreviewMenuItem(previewURL)}
+                </Menu.MenuGroup>
+            );
+        });
     }
 
     async patchStreamContextMenu() {
@@ -62,29 +58,22 @@ export default class BiggerStreamPreview extends Plugin {
                 return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
             });
 
-            this.pushStreamPreviewMenuItems(returnValue, previewURL);
+            returnValue.props.children.props.children.push(
+                <Menu.MenuGroup>{this.buildPreviewMenuItem(previewURL)}</Menu.MenuGroup>
+            );
         });
     }
 
-    pushStreamPreviewMenuItems(menuWrapper, previewURL, isMenuItem) {
-        const item = (
-            <Menu.MenuGroup>
-                <Menu.MenuItem
-                    id="stream-preview"
-                    key="stream-preview"
-                    label="View Stream Preview"
-                    action={() => this.openImageModal(previewURL)}
-                    disabled={previewURL === null}
-                />
-            </Menu.MenuGroup>
+    buildPreviewMenuItem(previewURL) {
+        return (
+            <Menu.MenuItem
+                id="stream-preview"
+                key="stream-preview"
+                label="View Stream Preview"
+                action={() => this.openImageModal(previewURL)}
+                disabled={previewURL === null}
+            />
         );
-
-        if (isMenuItem) {
-            return [menuWrapper, item];
-        } else {
-            const children = Utilities.findInReactTree(menuWrapper, Array.isArray);
-            children && children.push(item);
-        }
     }
 
     async openImageModal(url) {
