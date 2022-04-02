@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DiscordModules, WebpackModules, Patcher, DCM } from '@zlibrary/api';
+import { DiscordModules, WebpackModules, Patcher, DCM, Utilities } from '@zlibrary/api';
 import Plugin from '@zlibrary/plugin';
 
 import { useStateFromStores } from '@discord/Flux';
@@ -25,11 +25,11 @@ export default class BiggerStreamPreview extends Plugin {
 
     patchUserContextMenus() {
         const patch = module => {
-            Patcher.after(module, 'default', (thisObject, [ user ], returnValue) => {
-                const isMenuItem = typeof user === "string";
+            Patcher.after(module, 'default', (thisObject, [user], returnValue) => {
+                const isMenuItem = typeof user === 'string';
 
-                if (isMenuItem) user = BdApi.findModuleByProps('getUser', 'getCurrentUser').getUser(user);
-                else({ user } = user);
+                if (isMenuItem) user = window.BdApi.findModuleByProps('getUser', 'getCurrentUser').getUser(user);
+                else ({ user } = user);
 
                 if (!user) return;
 
@@ -46,27 +46,16 @@ export default class BiggerStreamPreview extends Plugin {
                     return;
                 }
 
-                this.pushStreamPreviewMenuItems(returnValue, previewURL);
+                const returns = this.pushStreamPreviewMenuItems(returnValue, previewURL, isMenuItem);
+                if (returns) return returns;
             });
         };
 
         DCM.getDiscordMenu('useUserRolesItems').then(patch);
     }
 
-    async patchStreamContextMenu() {
-        const module = await DCM.getDiscordMenu('StreamContextMenu');
-
-        Patcher.after(module, 'default', (thisObject, [{ stream }], returnValue) => {
-            const previewURL = useStateFromStores([StreamPreviewStore], () => {
-                return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
-            });
-
-            this.pushStreamPreviewMenuItems(returnValue, previewURL);
-        });
-    }
-
-    pushStreamPreviewMenuItems(menuWrapper, previewURL) {
-        menuWrapper.push(
+    pushStreamPreviewMenuItems(menuWrapper, previewURL, isMenuItem) {
+        const item = (
             <Menu.MenuGroup>
                 <Menu.MenuItem
                     id="stream-preview"
@@ -77,6 +66,13 @@ export default class BiggerStreamPreview extends Plugin {
                 />
             </Menu.MenuGroup>
         );
+
+        if (isMenuItem) {
+            return [menuWrapper, item];
+        } else {
+            const children = Utilities.findInReactTree(menuWrapper, Array.isArray);
+            children && children.push(item);
+        }
     }
 
     async openImageModal(url) {
