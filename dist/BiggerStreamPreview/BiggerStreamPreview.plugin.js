@@ -1,7 +1,7 @@
 /**!
  * @name BiggerStreamPreview
  * @description Adds a button in the context menu to see bigger stream previews.
- * @version 1.0.11
+ * @version 1.0.12
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.11","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Use methods from ZLibrary to get the lazy loaded context menus."]}]};
+const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.12","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"It finally works again","type":"fixed","items":["Fixed broken context menus (Thanks @LoSunny on GitHub)."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -154,30 +154,31 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
         external_BoundedLibrary_namespaceObject.Patcher.unpatchAll();
     }
 
-    patchUserContextMenus() {
-        const patch = module => {
-            external_BoundedLibrary_namespaceObject.Patcher.after(module, 'default', (thisObject, [{ user }], returnValue) => {
-                const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
-                    const stream = StreamStore.getStreamForUser(user.id);
-                    const previewURL = stream
-                        ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
-                        : null;
+    async patchUserContextMenus() {
+        const module = await external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('useUserRolesItems');
 
-                    return [stream, previewURL];
-                });
+        external_BoundedLibrary_namespaceObject.Patcher.after(module, 'default', (thisObject, [userId], returnValue) => {
+            const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
+                const stream = StreamStore.getStreamForUser(userId);
+                const previewURL = stream
+                    ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
+                    : null;
 
-                if (!stream) {
-                    return;
-                }
-
-                this.pushStreamPreviewMenuItems(returnValue, previewURL);
+                return [stream, previewURL];
             });
-        };
 
-        external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('UserContextMenu').then(patch);
-        external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('DMUserContextMenu').then(patch);
-        external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('GroupDMUserContextMenu').then(patch);
-        external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('GuildChannelUserContextMenu').then(patch);
+            if (!stream) {
+                return;
+            }
+
+            return (
+                external_BdApi_React_default().createElement(Menu.MenuGroup, null
+                    , returnValue
+                    , external_BdApi_React_default().createElement(Menu.MenuSeparator, null )
+                    , this.buildPreviewMenuItem(previewURL)
+                )
+            );
+        });
     }
 
     async patchStreamContextMenu() {
@@ -188,20 +189,20 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
                 return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
             });
 
-            this.pushStreamPreviewMenuItems(returnValue, previewURL);
+            returnValue.props.children.props.children.push(
+                external_BdApi_React_default().createElement(Menu.MenuGroup, null, this.buildPreviewMenuItem(previewURL))
+            );
         });
     }
 
-    pushStreamPreviewMenuItems(menuWrapper, previewURL) {
-        menuWrapper.props.children.props.children.push(
-            external_BdApi_React_default().createElement(Menu.MenuGroup, null
-                , external_BdApi_React_default().createElement(Menu.MenuItem, {
-                    id: "stream-preview",
-                    key: "stream-preview",
-                    label: "View Stream Preview"  ,
-                    action: () => this.openImageModal(previewURL),
-                    disabled: previewURL === null,}
-                )
+    buildPreviewMenuItem(previewURL) {
+        return (
+            external_BdApi_React_default().createElement(Menu.MenuItem, {
+                id: "stream-preview",
+                key: "stream-preview",
+                label: "View Stream Preview"  ,
+                action: () => this.openImageModal(previewURL),
+                disabled: previewURL === null,}
             )
         );
     }
