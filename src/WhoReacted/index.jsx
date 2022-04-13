@@ -186,7 +186,7 @@ export default class WhoReacted extends Plugin {
                 popout.props.children = props => {
                     const reactionInner = renderReactionInner(props);
 
-                    reactionInner.props.children.props.children.push(
+                    reactionInner.props.children.push(
                         <Reactors
                             message={message}
                             emoji={emoji}
