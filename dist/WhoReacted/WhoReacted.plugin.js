@@ -313,7 +313,7 @@ class WhoReacted extends (external_Plugin_default()) {
                 popout.props.children = props => {
                     const reactionInner = renderReactionInner(props);
 
-                    reactionInner.props.children.props.children.push(
+                    reactionInner.props.children.push(
                         external_BdApi_React_default().createElement(components_Reactors, {
                             message: message,
                             emoji: emoji,
