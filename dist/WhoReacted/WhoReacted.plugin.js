@@ -1,7 +1,7 @@
 /**!
  * @name WhoReacted
  * @description Shows the avatars of the users who reacted to a message.
- * @version 1.2.3
+ * @version 1.2.4
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"WhoReacted","description":"Shows the avatars of the users who reacted to a message.","version":"1.2.3","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js"},"changelog":[{"title":"So many settings","items":["Added settings to let you decide whether you want to hide or show yourself and/or bots in the reactors (Thanks @FichteFoll on GitHub).","Added setting to set the avatars size (Thanks @FichteFoll on GitHub).","Categorized the settings for better organization and easier access."]},{"title":"I knew I shouldn't mess with the comparisons","type":"fixed","items":["Fixed setting to not show yourself not working for everyone (Thanks again @FichteFoll on GitHub)."]}]};
+const config = {"info":{"name":"WhoReacted","description":"Shows the avatars of the users who reacted to a message.","version":"1.2.4","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js"},"changelog":[{"title":"Fixed","type":"fixed","items":["Fixed crash on latest update (Thanks @awooooool on GitHub)."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -313,7 +313,7 @@ class WhoReacted extends (external_Plugin_default()) {
                 popout.props.children = props => {
                     const reactionInner = renderReactionInner(props);
 
-                    reactionInner.props.children.props.children.push(
+                    reactionInner.props.children.push(
                         external_BdApi_React_default().createElement(components_Reactors, {
                             message: message,
                             emoji: emoji,
