@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.5.6
+ * @version 1.5.7
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.6","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixes","type":"fixed","items":["Hopefully solved for everyone the crash this time."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.7","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Maintain fixed height no matter the content of the section."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -1373,7 +1373,7 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
                         )
                     )
                 )
-                , external_BdApi_React_default().createElement('div', { className: "body-1Ukv50 guild-profile-body" ,}, this.renderSelectedSection())
+                , external_BdApi_React_default().createElement('div', { className: "body-1Ukv50",}, this.renderSelectedSection())
             )
         );
     }
@@ -1420,7 +1420,7 @@ function SvgGuildProfile(props) {
 
 /* harmony default export */ const guild_profile = (SvgGuildProfile);
 ;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
-/* harmony default export */ const style = (".guild-profile .guildDetail-3EJhW_{flex-shrink:0;align-self:start}.guild-profile .profileBadge-12r2Nm{color:var(--header-secondary)}.guild-profile .guild-tag{display:flex;align-items:center}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}.guild-profile .guild-roles{color:var(--interactive-active);padding:10px 12px}.guild-profile .guild-profile-body{flex:1;min-height:0}\n");
+/* harmony default export */ const style = (".guild-profile .guildDetail-3EJhW_{flex-shrink:0;align-self:start}.guild-profile .profileBadge-12r2Nm{color:var(--header-secondary)}.guild-profile .guild-tag{display:flex;align-items:center}.guild-profile .guild-info{padding:20px 10px}.guild-profile .guild-info .section{padding:5px 10px}.guild-profile .guild-roles{color:var(--interactive-active);padding:10px 12px}\n");
 ;// CONCATENATED MODULE: ./src/GuildProfile/locales/index.js
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
