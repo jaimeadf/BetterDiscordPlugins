@@ -10,14 +10,14 @@ import { WebpackModules } from '@zlibrary/api';
 
 import { useStateFromStores } from '@discord/Flux';
 import i18n from '@discord/i18n';
+import StreamerModeStore from '@discord/stores/StreamerModeStore';
 
 import { ScrollerThin } from '@discord/components/Scroller';
 
-const StreamerModeStore = WebpackModules.getByProps('hidePersonalInformation');
 const { MemberRole } = WebpackModules.getByProps('MemberRole');
 
 export default function GuildRoles({ guild }) {
-    const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hide);
+    const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hidePersonalInformation);
     const roles = Object.values(guild.roles)?.sort((b, a) => a.position - b.position);
 
     if (hide) {

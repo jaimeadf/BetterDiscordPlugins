@@ -11,6 +11,7 @@ import { DiscordModules, WebpackModules } from '@zlibrary/api';
 
 import { useStateFromStores } from '@discord/Flux';
 import i18n from '@discord/i18n';
+import StreamerModeStore from '@discord/stores/StreamerModeStore';
 
 import { FormSection } from '@discord/components/Form';
 import Text from '@discord/components/Text';
@@ -25,7 +26,6 @@ const {
     DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes, GuildNSFWContentLevel }
 } = DiscordModules;
 
-const StreamerModeStore = WebpackModules.getByProps('hidePersonalInformation');
 const UserMention = WebpackModules.getByDisplayName('UserMention');
 const UserFetcher = WebpackModules.getByProps('getUser', 'fetchCurrentUser');
 
@@ -45,7 +45,7 @@ function InfoSection({ title, children }) {
 
 export default function GuildInfo({ guild }) {
     const owner = useStateFromStores([UserStore], () => UserStore.getUser(guild.ownerId));
-    const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hide);
+    const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hidePersonalInformation);
     const channel = useStateFromStores([GuildChannelsStore], () => GuildChannelsStore.getDefaultChannel(guild.id));
 
     useEffect(() => {
