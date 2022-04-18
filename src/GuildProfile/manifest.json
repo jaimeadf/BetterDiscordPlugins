@@ -1,7 +1,7 @@
 {
     "name": "GuildProfile",
     "description": "Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.",
-    "version": "1.5.6",
+    "version": "1.5.7",
     "author": {
         "id": "289112759948410881",
         "name": "Marmota (Jaime Filho)"
@@ -12,10 +12,10 @@
     "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js",
     "changelog": [
         {
-            "title": "Fixes",
-            "type": "fixed",
+            "title": "Improvements",
+            "type": "improved",
             "items": [
-                "Hopefully solved for everyone the crash this time."
+                "Maintain fixed height no matter the content of the section."
             ]
         }
     ]
