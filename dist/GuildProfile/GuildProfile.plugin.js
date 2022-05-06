@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.5.7
+ * @version 1.5.8
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.7","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Maintain fixed height no matter the content of the section."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.8","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixes","type":"fixed","items":["Correct spelling mistakes on French translation (Thanks @Leonito2003 on GitHub).","Fixed crashes."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -133,7 +133,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Perfil del Servidor","GUILD_PROFI
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Profil du serveur","GUILD_PROFILE_GUILD_INFO":"Info du serveur","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amis","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Bloqué","GUILD_PROFILE_LOADING":"Chargement","GUILD_PROFILE_CREATED_AT":"Créé à","GUILD_PROFILE_JOINED_AT":"Rejoins à","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Nombre de booster de serveur","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Niveau de boost du serveur","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Aucun ami sur ce serveur","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Aucun utilisateur bloqué sur ce serveur","GUILD_PROFILE_INVITE_SPLASH":"Contexte d\'invitation du serveur","GUILD_PROFILE_VIP_REGIONS":"Régions VIP","GUILD_PROFILE_VANITY_URL":"URL personnalisée","GUILD_PROFILE_MORE_EMOJI":"Plus d\'Emoji","GUILD_PROFILE_COMMERCE":"Stocker les chaînes","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Communauté","GUILD_PROFILE_FEATURABLE":"En vedette","GUILD_PROFILE_NEWS":"Canaux d\'annonce","GUILD_PROFILE_ANIMATED_ICON":"Icône de serveur animé","GUILD_PROFILE_BANNER":"Bannière du serveur","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activé détectable avant","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Écran de bienvenue activé","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Vérification des membres","GUILD_PROFILE_PREVIEW_ENABLED":"Aperçu activé"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Profil du serveur","GUILD_PROFILE_GUILD_INFO":"Info du serveur","GUILD_PROFILE_FRIENDS_IN_GUILD":"Amis","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Bloqué","GUILD_PROFILE_LOADING":"Chargement","GUILD_PROFILE_CREATED_AT":"Créé le","GUILD_PROFILE_JOINED_AT":"Rejoint le","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Nombre de booster de serveur","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Niveau de boost du serveur","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Aucun ami sur ce serveur","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Aucun utilisateur bloqué sur ce serveur","GUILD_PROFILE_INVITE_SPLASH":"Contexte d\'invitation du serveur","GUILD_PROFILE_VIP_REGIONS":"Régions VIP","GUILD_PROFILE_VANITY_URL":"URL personnalisée","GUILD_PROFILE_MORE_EMOJI":"Plus d\'Emoji","GUILD_PROFILE_COMMERCE":"Stocker les chaînes","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Communauté","GUILD_PROFILE_FEATURABLE":"En vedette","GUILD_PROFILE_NEWS":"Canaux d\'annonce","GUILD_PROFILE_ANIMATED_ICON":"Icône de serveur animé","GUILD_PROFILE_BANNER":"Bannière du serveur","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Activé détectable avant","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Écran de bienvenue activé","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Vérification des membres","GUILD_PROFILE_PREVIEW_ENABLED":"Aperçu activé"}');
 
 /***/ }),
 
@@ -1131,9 +1131,9 @@ const {
 
 
 ;// CONCATENATED MODULE: ./src/@discord/components/Text.js
+ function Text_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
-
-/* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Text'));
+/* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => Text_optionalChain([m, 'optionalAccess', _ => _.Text, 'optionalAccess', _2 => _2.displayName]) === 'Text').Text);
 
 ;// CONCATENATED MODULE: ./src/@discord/components/Flex.js
 
@@ -1174,7 +1174,7 @@ const {
     DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes, GuildNSFWContentLevel }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-const UserMention = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('UserMention');
+const { UserMention } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('UserMention');
 const UserFetcher = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getUser', 'fetchCurrentUser');
 
 const GuildExplicitContentFilterTypesMessages = {
