@@ -26,7 +26,7 @@ const {
     DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes, GuildNSFWContentLevel }
 } = DiscordModules;
 
-const UserMention = WebpackModules.getByDisplayName('UserMention');
+const { UserMention } = WebpackModules.getByProps('UserMention');
 const UserFetcher = WebpackModules.getByProps('getUser', 'fetchCurrentUser');
 
 const GuildExplicitContentFilterTypesMessages = {
