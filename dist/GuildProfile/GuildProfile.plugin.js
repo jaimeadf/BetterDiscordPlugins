@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.5.8
+ * @version 1.5.9
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.8","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixes","type":"fixed","items":["Correct spelling mistakes on French translation (Thanks @Leonito2003 on GitHub).","Fixed crashes."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.9","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixes","type":"fixed","items":["Fixed Unknown User on owner field."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -1174,7 +1174,9 @@ const {
     DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes, GuildNSFWContentLevel }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-const { UserMention } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('UserMention');
+const { default: UserMention } = external_BoundedLibrary_namespaceObject.WebpackModules.find(
+    m => !GuildInfo_optionalChain([m, 'optionalAccess', _ => _.default, 'optionalAccess', _2 => _2.displayName]) && GuildInfo_optionalChain([m, 'optionalAccess', _3 => _3.default, 'optionalAccess', _4 => _4.toString, 'call', _5 => _5(), 'access', _6 => _6.includes, 'call', _7 => _7('inlinePreview')])
+);
 const UserFetcher = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getUser', 'fetchCurrentUser');
 
 const GuildExplicitContentFilterTypesMessages = {
@@ -1213,7 +1215,7 @@ function GuildInfo({ guild }) {
                 external_BdApi_React_default().createElement(Flex, { justify: Flex.Justify.START, wrap: Flex.Wrap.WRAP,}
                     , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_OWNER,}
                         , owner ? (
-                            external_BdApi_React_default().createElement(UserMention, { className: "mention", userId: owner.id, channelId: GuildInfo_optionalChain([channel, 'optionalAccess', _ => _.id]),} )
+                            external_BdApi_React_default().createElement(UserMention, { className: "mention", userId: owner.id, channelId: GuildInfo_optionalChain([channel, 'optionalAccess', _8 => _8.id]),} )
                         ) : (
                             `${i18n.Messages.GUILD_PROFILE_LOADING}...`
                         )
