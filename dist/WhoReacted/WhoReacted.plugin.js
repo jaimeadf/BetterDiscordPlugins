@@ -97,16 +97,21 @@ var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin
  function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } } function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
 
-const { UserStore } = external_BoundedLibrary_namespaceObject.DiscordModules;
+const { UserStore, RelationshipStore } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const Flux = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Store', 'connectStores');
 const ReactionStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getReactions', '_changeCallbacks');
 const VoiceUserSummaryItem = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => _optionalChain([m, 'optionalAccess', _ => _.default, 'optionalAccess', _2 => _2.displayName]) === 'VoiceUserSummaryItem').default;
 
-function Reactors({ users, currentUser, showSelf, showBots, max, size, count }) {
+function Reactors({ users, currentUser, showSelf, showBots, showBlocked, max, size, count }) {
     const filteredUsers = (0,external_BdApi_React_namespaceObject.useMemo)(() => {
-        return users.filter(user => (showSelf || user.id !== currentUser.id) && (showBots || !user.bot));
-    }, [users, currentUser, showSelf, showBots]);
+        return users.filter(
+            user =>
+                (showSelf || user.id !== currentUser.id) &&
+                (showBots || !user.bot) &&
+                (showBlocked || !RelationshipStore.isBlocked(user.id))
+        );
+    }, [users, currentUser, showSelf, showBots, showBlocked]);
 
     function renderMoreUsers(text, className) {
         return (
@@ -156,7 +161,8 @@ class WhoReacted extends (external_Plugin_default()) {
             userThreshold: 100,
             useHighestUserCount: true,
             showSelf: true,
-            showBots: true
+            showBots: true,
+            showBlocked: true
         };
     }
 
@@ -290,6 +296,14 @@ class WhoReacted extends (external_Plugin_default()) {
                     this.settings.showBots,
                     value => (this.settings.showBots = value)
                 )
+            )
+            .append(
+                new Switch(
+                    'Show blocked users',
+                    'Shows blocked users within the reactors.',
+                    this.settings.showBlocked,
+                    value => (this.settings.showBlocked = value)
+                )
             );
     }
 
@@ -321,6 +335,7 @@ class WhoReacted extends (external_Plugin_default()) {
                             max: this.settings.maxUsersShown,
                             showSelf: this.settings.showSelf,
                             showBots: this.settings.showBots,
+                            showBlocked: this.settings.showBlocked,
                             size: this.settings.avatarSize,}
                         )
                     );

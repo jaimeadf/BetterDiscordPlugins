@@ -29,7 +29,8 @@ export default class WhoReacted extends Plugin {
             userThreshold: 100,
             useHighestUserCount: true,
             showSelf: true,
-            showBots: true
+            showBots: true,
+            showBlocked: true
         };
     }
 
@@ -163,6 +164,14 @@ export default class WhoReacted extends Plugin {
                     this.settings.showBots,
                     value => (this.settings.showBots = value)
                 )
+            )
+            .append(
+                new Switch(
+                    'Show blocked users',
+                    'Shows blocked users within the reactors.',
+                    this.settings.showBlocked,
+                    value => (this.settings.showBlocked = value)
+                )
             );
     }
 
@@ -194,6 +203,7 @@ export default class WhoReacted extends Plugin {
                             max={this.settings.maxUsersShown}
                             showSelf={this.settings.showSelf}
                             showBots={this.settings.showBots}
+                            showBlocked={this.settings.showBlocked}
                             size={this.settings.avatarSize}
                         />
                     );
