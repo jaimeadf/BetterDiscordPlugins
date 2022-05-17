@@ -1,16 +1,21 @@
 import React, { useMemo } from 'react';
 import { DiscordModules, WebpackModules } from '@zlibrary/api';
 
-const { UserStore } = DiscordModules;
+const { UserStore, RelationshipStore } = DiscordModules;
 
 const Flux = WebpackModules.getByProps('Store', 'connectStores');
 const ReactionStore = WebpackModules.getByProps('getReactions', '_changeCallbacks');
 const VoiceUserSummaryItem = WebpackModules.find(m => m?.default?.displayName === 'VoiceUserSummaryItem').default;
 
-function Reactors({ users, currentUser, showSelf, showBots, max, size, count }) {
+function Reactors({ users, currentUser, showSelf, showBots, showBlocked, max, size, count }) {
     const filteredUsers = useMemo(() => {
-        return users.filter(user => (showSelf || user.id !== currentUser.id) && (showBots || !user.bot));
-    }, [users, currentUser, showSelf, showBots]);
+        return users.filter(
+            user =>
+                (showSelf || user.id !== currentUser.id) &&
+                (showBots || !user.bot) &&
+                (showBlocked || !RelationshipStore.isBlocked(user.id))
+        );
+    }, [users, currentUser, showSelf, showBots, showBlocked]);
 
     function renderMoreUsers(text, className) {
         return (
