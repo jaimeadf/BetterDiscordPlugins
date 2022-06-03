@@ -7,6 +7,7 @@ import React from 'react';
 import { WebpackModules } from '@zlibrary/api';
 
 import { useStateFromStores } from '@discord/Flux';
+import Text from '@discord/components/Text';
 
 import MemberCountsStore from '../../stores/MemberCountsStore';
 
@@ -22,11 +23,7 @@ function MemberCounts({ guild }) {
         MemberCountsStore.getMemberCounts(guild.id)
     );
 
-    return (
-        <div className="guildDetail-3EJhW_">
-            <InviteButton.Data members={members} membersOnline={membersOnline} />
-        </div>
-    );
+    return <InviteButton.Data members={members} membersOnline={membersOnline} />;
 }
 
 export default function GuildProfileModalHeader({ guild }) {
@@ -37,7 +34,6 @@ export default function GuildProfileModalHeader({ guild }) {
                 <Avatar className="avatar-3QF_VA" src={guild.getIconURL(256, true)} size={Avatar.Sizes.SIZE_120} />
                 <div className="headerTop-1PNKck header-top">
                     {guild.features.size > 0 && <GuildFeatures className="badgeList-2aoHPw" guild={guild} />}
-                    <MemberCounts guild={guild} />
                 </div>
             </div>
             <GuildTag
@@ -45,6 +41,9 @@ export default function GuildProfileModalHeader({ guild }) {
                 usernameClass="username-1g6Iq1"
                 guild={guild}
             />
+            <Text className="guildDetail-3EJhW_ customStatusActivity-WKWGD-">
+                <MemberCounts guild={guild} />
+            </Text>
         </header>
     );
 }
