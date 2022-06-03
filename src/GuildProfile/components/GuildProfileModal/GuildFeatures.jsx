@@ -18,14 +18,10 @@ export default function GuildFeatures({ className, guild }) {
     return (
         <div className={`${className} container-1gYwHN`}>
             {features.map(feature => {
-                const Icon = FeatureIcons[feature];
-
-                if (!Icon) {
-                    return null;
-                }
+                const Icon = FeatureIcons[feature] ?? 'div';
 
                 return (
-                    <TooltipContainer key={feature} text={i18n.Messages[`GUILD_PROFILE_${feature}`]}>
+                    <TooltipContainer key={feature} text={i18n.Messages[`GUILD_PROFILE_${feature}`] || feature}>
                         <Clickable>
                             <Icon className="profileBadge24-sH1efV profileBadge-12r2Nm desaturate-_Twf3u" />
                         </Clickable>
