@@ -20,6 +20,11 @@ import EnabledDiscoverableBeforeIcon from './enabled-discoverable-before.svg';
 import WelcomeScreenEnabledIcon from './welcome-screen-enabled.svg';
 import MemberVerificationGateEnabledIcon from './member-verification-gate-enabled.svg';
 import PreviewEnabledIcon from './preview-enabled.svg';
+import PrivateThreadsIcon from './private-threads.svg';
+import ThreadsEnabledIcon from './threads-enabled.svg';
+import RoleIconsIcon from './role-icons.svg';
+import ThreeDayThreadArchiveIcon from './three-day-thread-archive.svg';
+import SevenDayThreadArchiveIcon from './seven-day-thread-archive.svg';
 
 const {
     DiscordConstants: { GuildFeatures }
@@ -40,5 +45,10 @@ export default {
     [GuildFeatures.ENABLED_DISCOVERABLE_BEFORE]: EnabledDiscoverableBeforeIcon,
     [GuildFeatures.WELCOME_SCREEN_ENABLED]: WelcomeScreenEnabledIcon,
     [GuildFeatures.MEMBER_VERIFICATION_GATE_ENABLED]: MemberVerificationGateEnabledIcon,
-    [GuildFeatures.PREVIEW_ENABLED]: PreviewEnabledIcon
+    [GuildFeatures.PREVIEW_ENABLED]: PreviewEnabledIcon,
+    [GuildFeatures.PRIVATE_THREADS]: PrivateThreadsIcon,
+    [GuildFeatures.THREADS_ENABLED]: ThreadsEnabledIcon,
+    [GuildFeatures.ROLE_ICONS]: RoleIconsIcon,
+    ['THREE_DAY_THREAD_ARCHIVE']: ThreeDayThreadArchiveIcon,
+    ['SEVEN_DAY_THREAD_ARCHIVE']: SevenDayThreadArchiveIcon
 };

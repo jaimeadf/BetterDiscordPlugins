@@ -30,5 +30,10 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Enabled Discoverable Before",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Welcome Screen Enabled",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Membership Screening",
-    "GUILD_PROFILE_PREVIEW_ENABLED": "Preview Enabled"
+    "GUILD_PROFILE_PREVIEW_ENABLED": "Preview Enabled",
+    "GUILD_PROFILE_PRIVATE_THREADS": "Private Threads",
+    "GUILD_PROFILE_THREADS_ENABLED": "Threads Enabled",
+    "GUILD_PROFILE_ROLE_ICONS": "Role Icons",
+    "GUILD_PROFILE_THREE_DAY_THREAD_ARCHIVE": "Three Day Thread Archive",
+    "GUILD_PROFILE_SEVEN_DAY_THREAD_ARCHIVE": "Seven Day Thread Archive"
 }
