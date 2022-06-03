@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.5.9
+ * @version 1.6.0
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.5.9","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixes","type":"fixed","items":["Fixed Unknown User on owner field."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.6.0","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Moved member counts to accommodate more server features.","Added icons and labels for newer server features (translations for other languages are welcome).","All server features, even those not pre-configured, are now shown."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -117,7 +117,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Προφίλ Διακομιστή
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_ROLES_IN_GUILD":"Roles","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NSFW_LEVEL":"NSFW Level","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Default","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explicit","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Safe","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Age Restricted","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_ROLES_IN_GUILD":"Roles","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NSFW_LEVEL":"NSFW Level","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Default","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explicit","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Safe","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Age Restricted","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled","GUILD_PROFILE_PRIVATE_THREADS":"Private Threads","GUILD_PROFILE_THREADS_ENABLED":"Threads Enabled","GUILD_PROFILE_ROLE_ICONS":"Role Icons","GUILD_PROFILE_THREE_DAY_THREAD_ARCHIVE":"Three Day Thread Archive","GUILD_PROFILE_SEVEN_DAY_THREAD_ARCHIVE":"Seven Day Thread Archive"}');
 
 /***/ }),
 
@@ -336,6 +336,11 @@ const {
 
 
 /* harmony default export */ const _discord_Flux = (Flux);
+
+;// CONCATENATED MODULE: ./src/@discord/components/Text.js
+ function Text_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+/* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => Text_optionalChain([m, 'optionalAccess', _ => _.Text, 'optionalAccess', _2 => _2.displayName]) === 'Text').Text);
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/stores/MemberCountsStore.js
 /* @license
@@ -851,11 +856,160 @@ function SvgPreviewEnabled(props) {
 }
 
 /* harmony default export */ const preview_enabled = (SvgPreviewEnabled);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/private-threads.svg
+var private_threads_path, private_threads_path2, _path3;
+
+function private_threads_extends() { private_threads_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return private_threads_extends.apply(this, arguments); }
+
+
+
+function SvgPrivateThreads(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", private_threads_extends({
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 1 1",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), private_threads_path || (private_threads_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M.94.205V.163A.085.085 0 00.855.08a.084.084 0 00-.083.083v.042H.74a.01.01 0 00-.01.01v.188c0 .006.005.01.01.01h.23a.01.01 0 00.01-.01V.215a.01.01 0 00-.01-.01H.94zm-.043 0H.814V.163a.042.042 0 11.083 0v.042z",
+    fill: "currentColor"
+  })), private_threads_path2 || (private_threads_path2 = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M.644.292a.01.01 0 01.01.01v.063a.01.01 0 01-.01.01H.393l-.044.25H.44v.083H.334l-.027.15a.02.02 0 01-.02.017H.246a.02.02 0 01-.02-.024L.25.708H.109a.02.02 0 01-.02-.024L.094.642A.02.02 0 01.116.625h.15l.043-.25H.167a.02.02 0 01-.02-.024L.154.309a.02.02 0 01.02-.017h.15L.35.142A.02.02 0 01.371.125h.041a.02.02 0 01.02.024L.408.292h.237z",
+    fill: "currentColor"
+  })), _path3 || (_path3 = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M.56.54a.04.04 0 00-.04.04v.263c0 .022.017.04.04.04H.6a.01.01 0 01.01.01v.085c0 .008.01.013.016.007L.728.893a.04.04 0 01.027-.01H.94a.04.04 0 00.04-.04V.58A.04.04 0 00.94.54H.56z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const private_threads = (SvgPrivateThreads);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/threads-enabled.svg
+var threads_enabled_path, threads_enabled_path2;
+
+function threads_enabled_extends() { threads_enabled_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return threads_enabled_extends.apply(this, arguments); }
+
+
+
+function SvgThreadsEnabled(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", threads_enabled_extends({
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, props), threads_enabled_path || (threads_enabled_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    fill: "currentColor",
+    d: "M5.433 21a.12.12 0 01-.118-.141L6 17H2.143a.12.12 0 01-.118-.14l.308-1.76a.12.12 0 01.118-.1H6.35l1.06-6H3.553a.12.12 0 01-.118-.14l.308-1.76A.12.12 0 013.86 7H7.76l.692-3.901A.12.12 0 018.57 3h1.757a.12.12 0 01.118.141L9.76 7h6l.692-3.901A.12.12 0 0116.57 3h1.757a.12.12 0 01.118.141L17.76 7h3.857a.12.12 0 01.118.14l-.308 1.76a.12.12 0 01-.118.1h-3.9l-.36 2.04H15.05L15.41 9h-6l-1.06 6h2.21v2H8l-.693 3.901A.12.12 0 017.19 21H5.433z"
+  })), threads_enabled_path2 || (threads_enabled_path2 = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    fill: "currentColor",
+    d: "M13.44 12.96a.96.96 0 00-.96.96v6.301c0 .53.43.96.96.96h.96a.24.24 0 01.24.24v2.039a.24.24 0 00.4.178l2.446-2.21a.96.96 0 01.643-.247h4.43c.531 0 .96-.43.96-.96V13.92a.96.96 0 00-.96-.96h-9.12z"
+  })));
+}
+
+/* harmony default export */ const threads_enabled = (SvgThreadsEnabled);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/role-icons.svg
+var role_icons_path, role_icons_path2;
+
+function role_icons_extends() { role_icons_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return role_icons_extends.apply(this, arguments); }
+
+
+
+function SvgRoleIcons(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", role_icons_extends({
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), role_icons_path || (role_icons_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M11.964 3.06a3 3 0 012.05-.81h5.111a2.625 2.625 0 012.625 2.625v5.068a3 3 0 01-.879 2.122l-.948.947a2.69 2.69 0 00-.256-.012h-5A2.667 2.667 0 0012 15.667v5c0 .086.004.172.012.256l-.008.009a3.188 3.188 0 01-4.508 0l-4.744-4.745a3.188 3.188 0 01.076-4.582l9.136-8.545zM16.875 9a1.875 1.875 0 100-3.75 1.875 1.875 0 000 3.75z",
+    fill: "currentColor"
+  })), role_icons_path2 || (role_icons_path2 = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M14.667 14h5c.92 0 1.666.746 1.666 1.667v5c0 .92-.746 1.666-1.666 1.666h-5c-.92 0-1.667-.746-1.667-1.666v-5c0-.92.746-1.667 1.667-1.667zm1.666 2.5a.834.834 0 10-1.667 0 .834.834 0 001.667 0zm-.416 2.5l-1.25 1.667h5l-1.25-2.917-1.667 2.083-.833-.833z",
+    fill: "currentColor"
+  })));
+}
+
+/* harmony default export */ const role_icons = (SvgRoleIcons);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/three-day-thread-archive.svg
+var _g, three_day_thread_archive_path, _defs;
+
+function three_day_thread_archive_extends() { three_day_thread_archive_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return three_day_thread_archive_extends.apply(this, arguments); }
+
+
+
+function SvgThreeDayThreadArchive(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", three_day_thread_archive_extends({
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 1 1",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), _g || (_g = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("g", {
+    clipPath: "url(#three-day-thread-archive_svg__clip0)"
+  }, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M.094.344h.562v.125H.094V.344zM.125.5h.5v.406h-.5V.5zm.172.094A.016.016 0 00.28.609v.047H.47V.61A.016.016 0 00.453.594H.297z",
+    fill: "currentColor"
+  }))), three_day_thread_archive_path || (three_day_thread_archive_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M.647.152h.025C.684.152.693.15.7.143A.033.033 0 00.708.12a.029.029 0 00-.01-.022A.033.033 0 00.676.09a.034.034 0 00-.022.008.023.023 0 00-.01.019H.598C.597.104.6.092.607.083A.067.067 0 01.635.06.094.094 0 01.675.05c.024 0 .044.006.058.018a.061.061 0 01.022.05.05.05 0 01-.01.03.065.065 0 01-.026.02.058.058 0 01.03.022c.006.01.01.021.01.034a.062.062 0 01-.024.05.092.092 0 01-.06.02.088.088 0 01-.059-.019.061.061 0 01-.022-.05H.64c0 .01.003.017.01.022a.037.037 0 00.024.009c.012 0 .02-.003.027-.009a.03.03 0 00.01-.024C.711.201.697.19.671.19H.647V.152zM.785.202c0-.027.007-.05.019-.065a.06.06 0 01.05-.025c.018 0 .032.007.043.02v-.09h.047v.25H.902L.899.272a.055.055 0 01-.045.023.06.06 0 01-.05-.025.11.11 0 01-.019-.068zm.048.004c0 .016.002.029.008.037a.028.028 0 00.025.014C.881.257.891.25.897.238v-.07C.891.158.881.15.867.15.844.15.833.17.833.206z",
+    fill: "currentColor"
+  })), _defs || (_defs = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("defs", null, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("clipPath", {
+    id: "three-day-thread-archive_svg__clip0"
+  }, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    fill: "currentColor",
+    transform: "translate(0 .25)",
+    d: "M0 0h.75v.75H0z"
+  })))));
+}
+
+/* harmony default export */ const three_day_thread_archive = (SvgThreeDayThreadArchive);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/seven-day-thread-archive.svg
+var seven_day_thread_archive_g, seven_day_thread_archive_path, seven_day_thread_archive_defs;
+
+function seven_day_thread_archive_extends() { seven_day_thread_archive_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return seven_day_thread_archive_extends.apply(this, arguments); }
+
+
+
+function SvgSevenDayThreadArchive(props) {
+  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", seven_day_thread_archive_extends({
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 1 1",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), seven_day_thread_archive_g || (seven_day_thread_archive_g = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("g", {
+    clipPath: "url(#seven-day-thread-archive_svg__clip0)"
+  }, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M.094.344h.562v.125H.094V.344zM.125.5h.5v.406h-.5V.5zm.172.094A.016.016 0 00.28.609v.047H.47V.61A.016.016 0 00.453.594H.297z",
+    fill: "currentColor"
+  }))), seven_day_thread_archive_path || (seven_day_thread_archive_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M.761.08L.67.293H.62l.093-.2H.594V.056H.76V.08zM.786.202c0-.027.006-.05.018-.065A.06.06 0 01.855.112c.017 0 .031.007.042.02v-.09h.048v.25H.902L.9.272a.055.055 0 01-.045.023.06.06 0 01-.05-.025.11.11 0 01-.019-.068zm.047.004c0 .016.003.029.009.037a.028.028 0 00.025.014C.88.257.89.25.897.238v-.07C.892.158.881.15.867.15.844.15.833.17.833.206z",
+    fill: "currentColor"
+  })), seven_day_thread_archive_defs || (seven_day_thread_archive_defs = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("defs", null, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("clipPath", {
+    id: "seven-day-thread-archive_svg__clip0"
+  }, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    fill: "currentColor",
+    transform: "translate(0 .25)",
+    d: "M0 0h.75v.75H0z"
+  })))));
+}
+
+/* harmony default export */ const seven_day_thread_archive = (SvgSevenDayThreadArchive);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/index.js
 /*@license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
+
+
+
+
+
 
 
 
@@ -894,11 +1048,16 @@ const {
     [GuildFeatures.ENABLED_DISCOVERABLE_BEFORE]: enabled_discoverable_before,
     [GuildFeatures.WELCOME_SCREEN_ENABLED]: welcome_screen_enabled,
     [GuildFeatures.MEMBER_VERIFICATION_GATE_ENABLED]: member_verification_gate_enabled,
-    [GuildFeatures.PREVIEW_ENABLED]: preview_enabled
+    [GuildFeatures.PREVIEW_ENABLED]: preview_enabled,
+    [GuildFeatures.PRIVATE_THREADS]: private_threads,
+    [GuildFeatures.THREADS_ENABLED]: threads_enabled,
+    [GuildFeatures.ROLE_ICONS]: role_icons,
+    ['THREE_DAY_THREAD_ARCHIVE']: three_day_thread_archive,
+    ['SEVEN_DAY_THREAD_ARCHIVE']: seven_day_thread_archive
 });
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildFeatures.jsx
-/* @license
+ function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }/* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
@@ -918,14 +1077,10 @@ function GuildFeatures_GuildFeatures({ className, guild }) {
     return (
         external_BdApi_React_default().createElement('div', { className: `${className} container-1gYwHN`,}
             , features.map(feature => {
-                const Icon = assets_features[feature];
-
-                if (!Icon) {
-                    return null;
-                }
+                const Icon = _nullishCoalesce(assets_features[feature], () => ( 'div'));
 
                 return (
-                    external_BdApi_React_default().createElement(TooltipContainer, { key: feature, text: i18n.Messages[`GUILD_PROFILE_${feature}`],}
+                    external_BdApi_React_default().createElement(TooltipContainer, { key: feature, text: i18n.Messages[`GUILD_PROFILE_${feature}`] || feature,}
                         , external_BdApi_React_default().createElement(Clickable, null
                             , external_BdApi_React_default().createElement(Icon, { className: "profileBadge24-sH1efV profileBadge-12r2Nm desaturate-_Twf3u"  ,} )
                         )
@@ -975,6 +1130,7 @@ function GuildTag({ className, usernameClass, guild }) {
 
 
 
+
 const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getModule(m => m.displayName === 'InviteButton' && m.Header);
 const { default: Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
 
@@ -983,11 +1139,7 @@ function MemberCounts({ guild }) {
         stores_MemberCountsStore.getMemberCounts(guild.id)
     );
 
-    return (
-        external_BdApi_React_default().createElement('div', { className: "guildDetail-3EJhW_",}
-            , external_BdApi_React_default().createElement(InviteButton.Data, { members: members, membersOnline: membersOnline,} )
-        )
-    );
+    return external_BdApi_React_default().createElement(InviteButton.Data, { members: members, membersOnline: membersOnline,} );
 }
 
 function GuildProfileModalHeader({ guild }) {
@@ -998,13 +1150,15 @@ function GuildProfileModalHeader({ guild }) {
                 , external_BdApi_React_default().createElement(Avatar, { className: "avatar-3QF_VA", src: guild.getIconURL(256, true), size: Avatar.Sizes.SIZE_120,} )
                 , external_BdApi_React_default().createElement('div', { className: "headerTop-1PNKck header-top" ,}
                     , guild.features.size > 0 && external_BdApi_React_default().createElement(GuildFeatures_GuildFeatures, { className: "badgeList-2aoHPw", guild: guild,} )
-                    , external_BdApi_React_default().createElement(MemberCounts, { guild: guild,} )
                 )
             )
             , external_BdApi_React_default().createElement(GuildTag, {
                 className: "nameTagNoCustomStatus-3ocqoK nameTag-2Nlmsy" ,
                 usernameClass: "username-1g6Iq1",
                 guild: guild,}
+            )
+            , external_BdApi_React_default().createElement(Text, { className: "guildDetail-3EJhW_ customStatusActivity-WKWGD-" ,}
+                , external_BdApi_React_default().createElement(MemberCounts, { guild: guild,} )
             )
         )
     );
@@ -1106,10 +1260,10 @@ function Relationships({ guild, relationshipType }) {
 const external_BoundedLibrary_DiscordModules_Moment_namespaceObject = BoundedLibrary.DiscordModules.Moment;
 var external_BoundedLibrary_DiscordModules_Moment_default = /*#__PURE__*/__webpack_require__.n(external_BoundedLibrary_DiscordModules_Moment_namespaceObject);
 ;// CONCATENATED MODULE: ./src/@discord/stores/StreamerModeStore.js
- function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } } function StreamerModeStore_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+ function StreamerModeStore_nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } } function StreamerModeStore_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
 /* harmony default export */ const StreamerModeStore = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m =>
-    Object.getOwnPropertyDescriptor(_nullishCoalesce(StreamerModeStore_optionalChain([m, 'optionalAccess', _ => _.default, 'optionalAccess', _2 => _2.__proto__]), () => ( {})), 'hidePersonalInformation')
+    Object.getOwnPropertyDescriptor(StreamerModeStore_nullishCoalesce(StreamerModeStore_optionalChain([m, 'optionalAccess', _ => _.default, 'optionalAccess', _2 => _2.__proto__]), () => ( {})), 'hidePersonalInformation')
 ).default);
 
 ;// CONCATENATED MODULE: ./src/@discord/components/Form.js
@@ -1129,11 +1283,6 @@ const {
 } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('FormSection');
 
 
-
-;// CONCATENATED MODULE: ./src/@discord/components/Text.js
- function Text_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-/* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => Text_optionalChain([m, 'optionalAccess', _ => _.Text, 'optionalAccess', _2 => _2.displayName]) === 'Text').Text);
 
 ;// CONCATENATED MODULE: ./src/@discord/components/Flex.js
 
