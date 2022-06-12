@@ -56,12 +56,12 @@ export default class GuildProfile extends Plugin {
         return new Settings.SettingPanel(
             this.saveSettings.bind(this),
             new Settings.Dropdown(
-                'Context menu position',
-                'The position of the guild profile item on the context menu, the one opened when you right-click a guild.',
+                i18n.Messages.SETTINGS_CONTEXT,
+                i18n.Messages.SETTINGS_DESCRIPTION,
                 this.settings.position,
                 [
-                    { label: 'Top', value: 'top' },
-                    { label: 'Bottom', value: 'bottom' }
+                    { label: i18n.Messages.SETTINGS_TOP, value: 'top' },
+                    { label: i18n.Messages.SETTINGS_BOTTOM, value: 'bottom' }
                 ],
                 value => (this.settings.position = value)
             )

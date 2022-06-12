@@ -1,4 +1,8 @@
 {
+    "SETTINGS_CONTEXT": "Context menu position",
+    "SETTINGS_DESCRIPTION": "The position of the guild profile item on the context menu, the one opened when you right-click a guild.",
+    "SETTINGS_TOP": "Top",
+    "SETTINGS_BOTTOM": "Bottom",
     "GUILD_PROFILE": "Server Profile",
     "GUILD_PROFILE_GUILD_INFO": "Server Info",
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Friends",

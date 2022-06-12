@@ -1,4 +1,8 @@
 {
+    "SETTINGS_CONTEXT": "Kontextmenü Position",
+    "SETTINGS_DESCRIPTION": "Die Position des Gildenprofils im Kontextmenü, das geöffnet wird, wenn Du mit der rechten Maustaste auf eine Gilde klickst.",
+    "SETTINGS_TOP": "Oben",
+    "SETTINGS_BOTTOM": "Unten",
     "GUILD_PROFILE": "Server Profil",
     "GUILD_PROFILE_GUILD_INFO": "Server Informationen",
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Freunde",
