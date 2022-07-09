@@ -9,7 +9,7 @@ import { ModalRoot, ModalSize } from '@discord/components/Modal';
 const { StreamStore, StreamPreviewStore, ModalActions } = DiscordModules;
 
 const ImageModal = WebpackModules.getByDisplayName('ImageModal');
-const MaskedLink = WebpackModules.getByDisplayName('MaskedLink');
+const { renderMaskedLinkComponent } = WebpackModules.getByProps('renderMaskedLinkComponent');
 
 const Menu = WebpackModules.getByProps('MenuItem');
 
@@ -79,19 +79,24 @@ export default class BiggerStreamPreview extends Plugin {
     async openImageModal(url) {
         const image = await this.fetchImage(url);
 
-        ModalActions.openModal(props => (
-            <ModalRoot className="modal-3Crloo" size={ModalSize.DYNAMIC} {...props}>
-                <ImageModal
-                    className="image-36HiZc"
-                    src={url}
-                    original={url}
-                    width={image.width}
-                    height={image.height}
-                    renderLinkComponent={props => <MaskedLink {...props} />}
-                    shouldAnimate={true}
-                />
-            </ModalRoot>
-        ));
+        ModalActions.openModal(
+            props => (
+                <ModalRoot className="modal-3Crloo" size={ModalSize.DYNAMIC} {...props}>
+                    <ImageModal
+                        className="image-36HiZc"
+                        src={url}
+                        original={url}
+                        width={image.width}
+                        height={image.height}
+                        renderLinkComponent={renderMaskedLinkComponent}
+                        shouldAnimate={true}
+                        animated={false}
+                    />
+                </ModalRoot>
+            ),
+            undefined,
+            ModalActions.modalContextFromAppContext(undefined)
+        );
     }
 
     async fetchImage(url) {
