@@ -101,21 +101,29 @@ export default class GuildProfile extends Plugin {
     }
 
     async patchGuildContextMenu() {
-        const GuildContextMenu = await DCM.getDiscordMenu('GuildContextMenu');
+        const GuildContextMenuWrapper = await DCM.getDiscordMenu('GuildContextMenuWrapper');
 
-        Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
-            returnValue.props.children.splice(
-                this.settings.position === 'top' ? 1 : 5,
-                0,
-                <Menu.MenuGroup>
-                    <Menu.MenuItem
-                        id="guild-profile"
-                        key="guild-profile"
-                        label={i18n.Messages.GUILD_PROFILE}
-                        action={() => this.openGuildProfileModal(guild)}
-                    />
-                </Menu.MenuGroup>
-            );
+        Patcher.after(GuildContextMenuWrapper, 'default', (thisObject, wrapperProps, returnValue) => {
+            const renderGuildContextMenu = returnValue.props.children.type;
+
+            returnValue.props.children.type = props => {
+                const menu = renderGuildContextMenu(props);
+
+                menu.props.children.splice(
+                    this.settings.position === 'top' ? 1 : 5,
+                    0,
+                    <Menu.MenuGroup>
+                        <Menu.MenuItem
+                            id="guild-profile"
+                            key="guild-profile"
+                            label={i18n.Messages.GUILD_PROFILE}
+                            action={() => this.openGuildProfileModal(props.guild)}
+                        />
+                    </Menu.MenuGroup>
+                );
+
+                return menu;
+            };
         });
     }
 
