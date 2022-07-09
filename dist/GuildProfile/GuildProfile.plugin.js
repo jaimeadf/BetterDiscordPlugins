@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.6.1
+ * @version 1.6.2
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.6.1","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Translations","items":["Added new translations and corrected typos for Turkish (Thanks @code-a-man on GitHub).","Added new translations for Polish (Thanks @MoonManPL on GitHub)."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.6.2","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixed Context Menu","type":"fixed","items":["Added Server Profile button back to the context menu."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -1693,21 +1693,29 @@ class GuildProfile extends (external_Plugin_default()) {
     }
 
     async patchGuildContextMenu() {
-        const GuildContextMenu = await external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('GuildContextMenu');
+        const GuildContextMenuWrapper = await external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('GuildContextMenuWrapper');
 
-        external_BoundedLibrary_namespaceObject.Patcher.after(GuildContextMenu, 'default', (thisObject, [{ guild }], returnValue) => {
-            returnValue.props.children.splice(
-                this.settings.position === 'top' ? 1 : 5,
-                0,
-                external_BdApi_React_default().createElement(Menu.MenuGroup, null
-                    , external_BdApi_React_default().createElement(Menu.MenuItem, {
-                        id: "guild-profile",
-                        key: "guild-profile",
-                        label: i18n.Messages.GUILD_PROFILE,
-                        action: () => this.openGuildProfileModal(guild),}
+        external_BoundedLibrary_namespaceObject.Patcher.after(GuildContextMenuWrapper, 'default', (thisObject, wrapperProps, returnValue) => {
+            const renderGuildContextMenu = returnValue.props.children.type;
+
+            returnValue.props.children.type = props => {
+                const menu = renderGuildContextMenu(props);
+
+                menu.props.children.splice(
+                    this.settings.position === 'top' ? 1 : 5,
+                    0,
+                    external_BdApi_React_default().createElement(Menu.MenuGroup, null
+                        , external_BdApi_React_default().createElement(Menu.MenuItem, {
+                            id: "guild-profile",
+                            key: "guild-profile",
+                            label: i18n.Messages.GUILD_PROFILE,
+                            action: () => this.openGuildProfileModal(props.guild),}
+                        )
                     )
-                )
-            );
+                );
+
+                return menu;
+            };
         });
     }
 

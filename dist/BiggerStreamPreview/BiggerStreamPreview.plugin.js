@@ -1,7 +1,7 @@
 /**!
  * @name BiggerStreamPreview
  * @description Adds a button in the context menu to see bigger stream previews.
- * @version 1.0.12
+ * @version 1.0.13
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.12","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"It finally works again","type":"fixed","items":["Fixed broken context menus (Thanks @LoSunny on GitHub)."]}]};
+const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.13","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Unbroked","type":"fixed","items":["Fixed crash when trying to open preview."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -140,7 +140,7 @@ const {
 const { StreamStore, StreamPreviewStore, ModalActions } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const ImageModal = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('ImageModal');
-const MaskedLink = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('MaskedLink');
+const { renderMaskedLinkComponent } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('renderMaskedLinkComponent');
 
 const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
 
@@ -210,19 +210,24 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
     async openImageModal(url) {
         const image = await this.fetchImage(url);
 
-        ModalActions.openModal(props => (
-            external_BdApi_React_default().createElement(ModalRoot, { className: "modal-3Crloo", size: ModalSize.DYNAMIC, ...props,}
-                , external_BdApi_React_default().createElement(ImageModal, {
-                    className: "image-36HiZc",
-                    src: url,
-                    original: url,
-                    width: image.width,
-                    height: image.height,
-                    renderLinkComponent: props => external_BdApi_React_default().createElement(MaskedLink, { ...props,} ),
-                    shouldAnimate: true,}
+        ModalActions.openModal(
+            props => (
+                external_BdApi_React_default().createElement(ModalRoot, { className: "modal-3Crloo", size: ModalSize.DYNAMIC, ...props,}
+                    , external_BdApi_React_default().createElement(ImageModal, {
+                        className: "image-36HiZc",
+                        src: url,
+                        original: url,
+                        width: image.width,
+                        height: image.height,
+                        renderLinkComponent: renderMaskedLinkComponent,
+                        shouldAnimate: true,
+                        animated: false,}
+                    )
                 )
-            )
-        ));
+            ),
+            undefined,
+            ModalActions.modalContextFromAppContext(undefined)
+        );
     }
 
     async fetchImage(url) {
