@@ -1,7 +1,7 @@
 {
     "name": "BiggerStreamPreview",
     "description": "Adds a button in the context menu to see bigger stream previews.",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "author": {
         "id": "289112759948410881",
         "name": "Marmota (Jaime Filho)"
@@ -12,10 +12,10 @@
     "updateUrl": "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js",
     "changelog": [
         {
-            "title": "It finally works again",
+            "title": "Unbroked",
             "type": "fixed",
             "items": [
-                "Fixed broken context menus (Thanks @LoSunny on GitHub)."
+                "Fixed crash when trying to open preview."
             ]
         }
     ]
