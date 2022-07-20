@@ -11,6 +11,15 @@ module.exports = (env, argv) => {
 
     const plugins = findPlugins();
 
+    const sucrase = {
+        loader: '@sucrase/webpack-loader',
+        options: {
+            production: isProduction,
+            transforms: ['jsx'],
+            disableESTransforms: true
+        }
+    };
+
     return {
         target: 'node',
         entry: Object.fromEntries(plugins.map(plugin => [plugin.folder, plugin.path])),
@@ -43,7 +52,13 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.svg$/,
-                    use: '@svgr/webpack'
+                    use: [
+                        sucrase,
+                        {
+                            loader: '@svgr/webpack',
+                            options: { babel: false }
+                        }
+                    ]
                 },
                 {
                     test: /\.(png|jpe?g|gif)$/,
@@ -51,17 +66,7 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.jsx?$/,
-                    use: [
-                        {
-                            loader: '@sucrase/webpack-loader',
-                            options: {
-                                production: isProduction,
-                                transforms: ['jsx'],
-                                disableESTransforms: true
-                            }
-                        },
-                        'eslint-loader'
-                    ]
+                    use: [sucrase, 'eslint-loader']
                 }
             ]
         },
