@@ -56,7 +56,8 @@ module.exports = (env, argv) => {
                             loader: '@sucrase/webpack-loader',
                             options: {
                                 production: isProduction,
-                                transforms: ['jsx']
+                                transforms: ['jsx'],
+                                disableESTransforms: true
                             }
                         },
                         'eslint-loader'
