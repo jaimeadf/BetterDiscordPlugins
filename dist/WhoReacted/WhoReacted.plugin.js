@@ -97,27 +97,39 @@ var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin
 
 
 
-const { UserStore, RelationshipStore } = external_BoundedLibrary_namespaceObject.DiscordModules;
+const {
+    UserStore,
+    RelationshipStore
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const Flux = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Store', 'connectStores');
 const ReactionStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getReactions', '_changeCallbacks');
 const VoiceUserSummaryItem = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'VoiceUserSummaryItem').default;
 
-function Reactors({ users, currentUser, showSelf, showBots, showBlocked, max, size, count }) {
+function Reactors({
+    users,
+    currentUser,
+    showSelf,
+    showBots,
+    showBlocked,
+    max,
+    size,
+    count
+}) {
     const filteredUsers = (0,external_BdApi_React_namespaceObject.useMemo)(() => {
         return users.filter(
             user =>
-                (showSelf || user.id !== currentUser.id) &&
-                (showBots || !user.bot) &&
-                (showBlocked || !RelationshipStore.isBlocked(user.id))
+            (showSelf || user.id !== currentUser.id) &&
+            (showBots || !user.bot) &&
+            (showBlocked || !RelationshipStore.isBlocked(user.id))
         );
     }, [users, currentUser, showSelf, showBots, showBlocked]);
 
     function renderMoreUsers(text, className) {
         return (
-            external_BdApi_React_default().createElement('div', { className: `${className} more-reactors`,}, "+"
-                , 1 + count - max - (users.length - filteredUsers.length)
-            )
+            external_BdApi_React_default().createElement('div', {
+                className: `${className} more-reactors`,
+            }, "+", 1 + count - max - (users.length - filteredUsers.length))
         );
     }
 
@@ -126,16 +138,18 @@ function Reactors({ users, currentUser, showSelf, showBots, showBlocked, max, si
             className: `reactors reactors-size-${size}px`,
             max: max,
             users: filteredUsers,
-            renderMoreUsers: renderMoreUsers,}
-        )
+            renderMoreUsers: renderMoreUsers,
+        })
     );
 }
 
-/* harmony default export */ const components_Reactors = (Flux.connectStores([UserStore, ReactionStore], ({ message, emoji }) => ({
+/* harmony default export */ const components_Reactors = (Flux.connectStores([UserStore, ReactionStore], ({
+    message,
+    emoji
+}) => ({
     currentUser: UserStore.getCurrentUser(),
     users: Object.values(ReactionStore.getReactions(message.getChannelId(), message.id, emoji) ?? {})
 }))(Reactors));
-
 ;// CONCATENATED MODULE: ./src/WhoReacted/style.scss
 /* harmony default export */ const style = (".reactors:not(:empty){margin-left:6px}.reactors .more-reactors{background-color:var(--background-tertiary);color:var(--text-normal);font-weight:500}.reactors-size-8px .avatarSize-EXG1Is{width:8px !important;height:8px !important}.reactors-size-8px .more-reactors{height:8px;padding-right:3.2px;padding-left:2.4px;font-size:4.8px;line-height:8px;border-radius:4px}.reactors-size-12px .avatarSize-EXG1Is{width:12px !important;height:12px !important}.reactors-size-12px .more-reactors{height:12px;padding-right:4.8px;padding-left:3.6px;font-size:7.2px;line-height:12px;border-radius:6px}.reactors-size-16px .avatarSize-EXG1Is{width:16px !important;height:16px !important}.reactors-size-16px .more-reactors{height:16px;padding-right:6.4px;padding-left:4.8px;font-size:9.6px;line-height:16px;border-radius:8px}.reactors-size-24px .avatarSize-EXG1Is{width:24px !important;height:24px !important}.reactors-size-24px .more-reactors{height:24px;padding-right:9.6px;padding-left:7.2px;font-size:14.4px;line-height:24px;border-radius:12px}.reactors-size-32px .avatarSize-EXG1Is{width:32px !important;height:32px !important}.reactors-size-32px .more-reactors{height:32px;padding-right:12.8px;padding-left:9.6px;font-size:19.2px;line-height:32px;border-radius:16px}\n");
 ;// CONCATENATED MODULE: ./src/WhoReacted/index.jsx
@@ -148,7 +162,13 @@ function Reactors({ users, currentUser, showSelf, showBots, showBlocked, max, si
 
 
 const Reactions = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'Reactions').default;
-const { SettingPanel, SettingGroup, Textbox, Slider, Switch } = external_BoundedLibrary_namespaceObject.Settings;
+const {
+    SettingPanel,
+    SettingGroup,
+    Textbox,
+    Slider,
+    Switch
+} = external_BoundedLibrary_namespaceObject.Settings;
 
 class WhoReacted extends (external_Plugin_default()) {
     constructor() {
@@ -211,8 +231,7 @@ class WhoReacted extends (external_Plugin_default()) {
                     8,
                     32,
                     this.settings.avatarSize,
-                    value => (this.settings.avatarSize = value),
-                    {
+                    value => (this.settings.avatarSize = value), {
                         defaultValue: this.defaultSettings.avatarSize,
                         markers: [8, 12, 16, 20, 24, 32],
                         stickToMarkers: true,
@@ -243,8 +262,7 @@ class WhoReacted extends (external_Plugin_default()) {
                     0,
                     20,
                     this.settings.reactionThreshold,
-                    value => (this.settings.reactionThreshold = value),
-                    {
+                    value => (this.settings.reactionThreshold = value), {
                         defaultValue: this.defaultSettings.reactionThreshold,
                         markers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
                         stickToMarkers: true,
@@ -259,8 +277,7 @@ class WhoReacted extends (external_Plugin_default()) {
                     0,
                     10000,
                     this.settings.userThreshold,
-                    value => (this.settings.userThreshold = value),
-                    {
+                    value => (this.settings.userThreshold = value), {
                         defaultValue: this.defaultSettings.userThreshold,
                         markers: [0, 10, 20, 50, 100, 500, 1000, 2000, 3000, 4000, 5000, 10000],
                         stickToMarkers: true,
@@ -315,7 +332,11 @@ class WhoReacted extends (external_Plugin_default()) {
         const Reaction = await this.findReaction();
 
         external_BoundedLibrary_namespaceObject.Patcher.after(Reaction.prototype, 'render', (thisObject, args, returnValue) => {
-            const { message, emoji, count } = thisObject.props;
+            const {
+                message,
+                emoji,
+                count
+            } = thisObject.props;
             if (!this.canShowReactors(message)) return;
 
             const renderTooltip = returnValue.props.children;
@@ -336,8 +357,8 @@ class WhoReacted extends (external_Plugin_default()) {
                             showSelf: this.settings.showSelf,
                             showBots: this.settings.showBots,
                             showBlocked: this.settings.showBlocked,
-                            size: this.settings.avatarSize,}
-                        )
+                            size: this.settings.avatarSize,
+                        })
                     );
 
                     return reactionInner;
@@ -350,17 +371,23 @@ class WhoReacted extends (external_Plugin_default()) {
         this.forceUpdateAllReactions();
     }
 
-    canShowReactors({ reactions }) {
-        const { reactionThreshold, userThreshold, useHighestUserCount } = this.settings;
+    canShowReactors({
+        reactions
+    }) {
+        const {
+            reactionThreshold,
+            userThreshold,
+            useHighestUserCount
+        } = this.settings;
 
         if (reactionThreshold !== 0 && reactions.length > reactionThreshold) {
             return false;
         }
 
         if (userThreshold !== 0) {
-            const userCount = useHighestUserCount
-                ? Math.max(...reactions.map(reaction => reaction.count))
-                : reactions.reduce((total, reaction) => total + reaction.count, 0);
+            const userCount = useHighestUserCount ?
+                Math.max(...reactions.map(reaction => reaction.count)) :
+                reactions.reduce((total, reaction) => total + reaction.count, 0);
 
             if (userCount > userThreshold) {
                 return false;
@@ -401,7 +428,6 @@ class WhoReacted extends (external_Plugin_default()) {
         });
     }
 }
-
 plugin = __webpack_exports__["default"];
 /******/ })()
 ;

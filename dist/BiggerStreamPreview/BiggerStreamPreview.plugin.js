@@ -109,7 +109,6 @@ const {
 
 
 /* harmony default export */ const _discord_Flux = ((/* unused pure expression or super */ null && (Flux)));
-
 ;// CONCATENATED MODULE: ./src/@discord/components/Modal.js
 
 
@@ -127,7 +126,6 @@ const {
 
 
 /* harmony default export */ const components_Modal = ((/* unused pure expression or super */ null && (Modal)));
-
 ;// CONCATENATED MODULE: ./src/BiggerStreamPreview/index.jsx
 
 
@@ -137,10 +135,16 @@ const {
 
 
 
-const { StreamStore, StreamPreviewStore, ModalActions } = external_BoundedLibrary_namespaceObject.DiscordModules;
+const {
+    StreamStore,
+    StreamPreviewStore,
+    ModalActions
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const ImageModal = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('ImageModal');
-const { renderMaskedLinkComponent } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('renderMaskedLinkComponent');
+const {
+    renderMaskedLinkComponent
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('renderMaskedLinkComponent');
 
 const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
 
@@ -160,9 +164,9 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
         external_BoundedLibrary_namespaceObject.Patcher.after(module, 'default', (thisObject, [userId], returnValue) => {
             const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
                 const stream = StreamStore.getStreamForUser(userId);
-                const previewURL = stream
-                    ? StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId)
-                    : null;
+                const previewURL = stream ?
+                    StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId) :
+                    null;
 
                 return [stream, previewURL];
             });
@@ -172,11 +176,7 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
             }
 
             return (
-                external_BdApi_React_default().createElement(Menu.MenuGroup, null
-                    , returnValue
-                    , external_BdApi_React_default().createElement(Menu.MenuSeparator, null )
-                    , this.buildPreviewMenuItem(previewURL)
-                )
+                external_BdApi_React_default().createElement(Menu.MenuGroup, null, returnValue, external_BdApi_React_default().createElement(Menu.MenuSeparator, null), this.buildPreviewMenuItem(previewURL))
             );
         });
     }
@@ -184,7 +184,9 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
     async patchStreamContextMenu() {
         const module = await external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('StreamContextMenu');
 
-        external_BoundedLibrary_namespaceObject.Patcher.after(module, 'default', (thisObject, [{ stream }], returnValue) => {
+        external_BoundedLibrary_namespaceObject.Patcher.after(module, 'default', (thisObject, [{
+            stream
+        }], returnValue) => {
             const previewURL = useStateFromStores([StreamPreviewStore], () => {
                 return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
             });
@@ -200,10 +202,10 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
             external_BdApi_React_default().createElement(Menu.MenuItem, {
                 id: "stream-preview",
                 key: "stream-preview",
-                label: "View Stream Preview"  ,
+                label: "View Stream Preview",
                 action: () => this.openImageModal(previewURL),
-                disabled: previewURL === null,}
-            )
+                disabled: previewURL === null,
+            })
         );
     }
 
@@ -212,18 +214,20 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
 
         ModalActions.openModal(
             props => (
-                external_BdApi_React_default().createElement(ModalRoot, { className: "modal-3Crloo", size: ModalSize.DYNAMIC, ...props,}
-                    , external_BdApi_React_default().createElement(ImageModal, {
-                        className: "image-36HiZc",
-                        src: url,
-                        original: url,
-                        width: image.width,
-                        height: image.height,
-                        renderLinkComponent: renderMaskedLinkComponent,
-                        shouldAnimate: true,
-                        animated: false,}
-                    )
-                )
+                external_BdApi_React_default().createElement(ModalRoot, {
+                    className: "modal-3Crloo",
+                    size: ModalSize.DYNAMIC,
+                    ...props,
+                }, external_BdApi_React_default().createElement(ImageModal, {
+                    className: "image-36HiZc",
+                    src: url,
+                    original: url,
+                    width: image.width,
+                    height: image.height,
+                    renderLinkComponent: renderMaskedLinkComponent,
+                    shouldAnimate: true,
+                    animated: false,
+                }))
             ),
             undefined,
             ModalActions.modalContextFromAppContext(undefined)
@@ -240,7 +244,6 @@ class BiggerStreamPreview extends (external_Plugin_default()) {
         });
     }
 }
-
 plugin = __webpack_exports__["default"];
 /******/ })()
 ;

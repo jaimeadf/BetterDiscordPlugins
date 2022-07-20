@@ -94,7 +94,9 @@ var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin
 
 
 
-const { j: WebAudioSound } = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.j?.prototype._ensureAudio);
+const {
+    j: WebAudioSound
+} = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.j?.prototype._ensureAudio);
 
 class SecretRingTone extends (external_Plugin_default()) {
     constructor() {
@@ -121,7 +123,6 @@ class SecretRingTone extends (external_Plugin_default()) {
         this.ringingSounds = [];
     }
 }
-
 plugin = __webpack_exports__["default"];
 /******/ })()
 ;

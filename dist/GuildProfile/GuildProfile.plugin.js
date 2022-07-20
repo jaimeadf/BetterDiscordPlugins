@@ -296,7 +296,6 @@ var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin
 
 
 /* harmony default export */ const i18n = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.Messages?.ACCOUNT));
-
 ;// CONCATENATED MODULE: ./src/@discord/components/Modal.js
 
 
@@ -314,12 +313,10 @@ const {
 
 
 /* harmony default export */ const components_Modal = ((/* unused pure expression or super */ null && (Modal)));
-
 ;// CONCATENATED MODULE: ./src/@discord/components/TabBar.js
 
 
 /* harmony default export */ const TabBar = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('TabBar'));
-
 ;// CONCATENATED MODULE: ./src/@discord/Flux.js
 
 
@@ -336,12 +333,10 @@ const {
 
 
 /* harmony default export */ const _discord_Flux = (Flux);
-
 ;// CONCATENATED MODULE: ./src/@discord/components/Text.js
 
 
 /* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.Text?.displayName === 'Text').Text);
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/stores/MemberCountsStore.js
 /* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
@@ -356,28 +351,40 @@ const {
 const {
     Dispatcher: MemberCountsStore_Dispatcher,
     MemberCountStore,
-    DiscordConstants: { ActionTypes }
+    DiscordConstants: {
+        ActionTypes
+    }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const memberCounts = new Map();
 const onlineMemberCounts = new Map();
 
-function handleConnectionOpen({ guilds }) {
+function handleConnectionOpen({
+    guilds
+}) {
     for (const guild of guilds) {
         memberCounts.set(guild.id, guild.member_count);
     }
 }
 
-function handleGuildCreate({ guild }) {
+function handleGuildCreate({
+    guild
+}) {
     memberCounts.set(guild.id, guild.member_count);
 }
 
-function handleGuildDelete({ guild }) {
+function handleGuildDelete({
+    guild
+}) {
     memberCounts.delete(guild.id);
     onlineMemberCounts.delete(guild.id);
 }
 
-function handleGuildMemberListUpdate({ guildId, memberCount, groups }) {
+function handleGuildMemberListUpdate({
+    guildId,
+    memberCount,
+    groups
+}) {
     if (memberCount !== 0) {
         memberCounts.set(guildId, memberCount);
     }
@@ -390,7 +397,10 @@ function handleGuildMemberListUpdate({ guildId, memberCount, groups }) {
     );
 }
 
-function handleOnlineGuildMemberCountUpdate({ guildId, count }) {
+function handleOnlineGuildMemberCountUpdate({
+    guildId,
+    count
+}) {
     onlineMemberCounts.set(guildId, count);
 }
 
@@ -417,7 +427,6 @@ class MemberCountsStore extends _discord_Flux.Store {
     [ActionTypes.GUILD_MEMBER_LIST_UPDATE]: handleGuildMemberListUpdate,
     [ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE]: handleOnlineGuildMemberCountUpdate
 }));
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildBanner.jsx
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
@@ -429,12 +438,18 @@ class MemberCountsStore extends _discord_Flux.Store {
 
 const {
     ImageResolver,
-    DiscordConstants: { Colors }
+    DiscordConstants: {
+        Colors
+    }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-const { default: useDominantColor } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('maybeFetchColor');
+const {
+    default: useDominantColor
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('maybeFetchColor');
 
-function GuildBanner({ guild }) {
+function GuildBanner({
+    guild
+}) {
     const dominantColor = useDominantColor(guild.getIconURL(), Colors.TRANSPARENT);
 
     return (
@@ -445,11 +460,10 @@ function GuildBanner({ guild }) {
             style: {
                 backgroundColor: dominantColor,
                 backgroundImage: `url(${ImageResolver.getGuildBannerURL({ id: guild.id, banner: guild.banner })})`
-            },}
-        )
+            },
+        })
     );
 }
-
 ;// CONCATENATED MODULE: ./src/@discord/components/Tooltip.js
 
 
@@ -464,540 +478,438 @@ const {
 
 
 /* harmony default export */ const components_Tooltip = ((/* unused pure expression or super */ null && (Tooltip)));
-
 ;// CONCATENATED MODULE: ./src/@discord/components/Clickable.js
 
 
 /* harmony default export */ const Clickable = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Clickable'));
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/invite-splash.svg
-var _path;
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
-
-function SvgInviteSplash(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", _extends({
+const SvgInviteSplash = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), _path || (_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M8.5 13.5l2.5 3 3.5-4.5 4.5 6H5m16 1V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "m8.5 13.5 2.5 3 3.5-4.5 4.5 6H5m16 1V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const invite_splash = (SvgInviteSplash);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/vip-regions.svg
-var vip_regions_path;
-
-function vip_regions_extends() { vip_regions_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return vip_regions_extends.apply(this, arguments); }
 
 
-
-function SvgVipRegions(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", vip_regions_extends({
+const SvgVipRegions = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), vip_regions_path || (vip_regions_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M12 1L9 9l-8 3 8 3 3 8 3-8 8-3-8-3-3-8z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3-3-8z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const vip_regions = (SvgVipRegions);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/vanity-url.svg
-var vanity_url_path;
-
-function vanity_url_extends() { vanity_url_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return vanity_url_extends.apply(this, arguments); }
 
 
-
-function SvgVanityUrl(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", vanity_url_extends({
+const SvgVanityUrl = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), vanity_url_path || (vanity_url_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M20 8l-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const vanity_url = (SvgVanityUrl);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/more-emoji.svg
-var more_emoji_path;
-
-function more_emoji_extends() { more_emoji_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return more_emoji_extends.apply(this, arguments); }
 
 
-
-function SvgMoreEmoji(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", more_emoji_extends({
+const SvgMoreEmoji = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), more_emoji_path || (more_emoji_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M5.5 2C3.56 2 2 3.56 2 5.5v13C2 20.44 3.56 22 5.5 22H16l6-6V5.5C22 3.56 20.44 2 18.5 2h-13m.25 2h12.5A1.75 1.75 0 0120 5.75V15h-1.5c-1.94 0-3.5 1.56-3.5 3.5V20H5.75A1.75 1.75 0 014 18.25V5.75A1.75 1.75 0 015.75 4m8.69 2.77c-.16 0-.32.02-.47.06-.94.26-1.47 1.22-1.23 2.17.05.15.12.3.21.44l3.23-.88c0-.17-.02-.34-.06-.51-.21-.75-.9-1.28-1.68-1.28M8.17 8.5c-.17 0-.32 0-.47.05-.93.26-1.48 1.22-1.23 2.15.03.16.12.3.21.46l3.23-.88c0-.17-.02-.34-.06-.5A1.72 1.72 0 008.17 8.5m8.55 2.76l-9.13 2.51a5.266 5.266 0 005.36 1.64 5.273 5.273 0 003.77-4.15z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M5.5 2C3.56 2 2 3.56 2 5.5v13C2 20.44 3.56 22 5.5 22H16l6-6V5.5C22 3.56 20.44 2 18.5 2h-13m.25 2h12.5A1.75 1.75 0 0 1 20 5.75V15h-1.5c-1.94 0-3.5 1.56-3.5 3.5V20H5.75A1.75 1.75 0 0 1 4 18.25V5.75A1.75 1.75 0 0 1 5.75 4m8.69 2.77c-.16 0-.32.02-.47.06-.94.26-1.47 1.22-1.23 2.17.05.15.12.3.21.44l3.23-.88c0-.17-.02-.34-.06-.51-.21-.75-.9-1.28-1.68-1.28M8.17 8.5c-.17 0-.32 0-.47.05-.93.26-1.48 1.22-1.23 2.15.03.16.12.3.21.46l3.23-.88c0-.17-.02-.34-.06-.5A1.72 1.72 0 0 0 8.17 8.5m8.55 2.76-9.13 2.51a5.266 5.266 0 0 0 5.36 1.64 5.273 5.273 0 0 0 3.77-4.15z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const more_emoji = (SvgMoreEmoji);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/commerce.svg
-var commerce_path;
-
-function commerce_extends() { commerce_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return commerce_extends.apply(this, arguments); }
 
 
-
-function SvgCommerce(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", commerce_extends({
+const SvgCommerce = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), commerce_path || (commerce_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M20 4H4c-1.11 0-2 .89-2 2v12a2 2 0 002 2h16c1.11 0 2-.89 2-2V6a2 2 0 00-2-2m-5 6h-4v1h3c.55 0 1 .45 1 1v3c0 .55-.45 1-1 1h-1v1h-2v-1H9v-2h4v-1h-3c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1h1V7h2v1h2v2z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M20 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16c1.11 0 2-.89 2-2V6a2 2 0 0 0-2-2m-5 6h-4v1h3c.55 0 1 .45 1 1v3c0 .55-.45 1-1 1h-1v1h-2v-1H9v-2h4v-1h-3c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1h1V7h2v1h2v2z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const commerce = (SvgCommerce);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/discoverable.svg
-var discoverable_path;
-
-function discoverable_extends() { discoverable_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return discoverable_extends.apply(this, arguments); }
 
 
-
-function SvgDiscoverable(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", discoverable_extends({
+const SvgDiscoverable = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), discoverable_path || (discoverable_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const discoverable = (SvgDiscoverable);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/community.svg
-var community_path;
-
-function community_extends() { community_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return community_extends.apply(this, arguments); }
 
 
-
-function SvgCommunity(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", community_extends({
+const SvgCommunity = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), community_path || (community_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M16 17v2H2v-2s0-4 7-4 7 4 7 4m-3.5-9.5A3.5 3.5 0 109 11a3.5 3.5 0 003.5-3.5m3.44 5.5A5.32 5.32 0 0118 17v2h4v-2s0-3.63-6.06-4M15 4a3.39 3.39 0 00-1.93.59 5 5 0 010 5.82A3.39 3.39 0 0015 11a3.5 3.5 0 000-7z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M16 17v2H2v-2s0-4 7-4 7 4 7 4m-3.5-9.5A3.5 3.5 0 1 0 9 11a3.5 3.5 0 0 0 3.5-3.5m3.44 5.5A5.32 5.32 0 0 1 18 17v2h4v-2s0-3.63-6.06-4M15 4a3.39 3.39 0 0 0-1.93.59 5 5 0 0 1 0 5.82A3.39 3.39 0 0 0 15 11a3.5 3.5 0 0 0 0-7z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const community = (SvgCommunity);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/featurable.svg
-var featurable_path;
-
-function featurable_extends() { featurable_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return featurable_extends.apply(this, arguments); }
 
 
-
-function SvgFeaturable(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", featurable_extends({
+const SvgFeaturable = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), featurable_path || (featurable_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M2 3h8a2 2 0 012-2 2 2 0 012 2h8v2h-1v11h-5.75L17 22h-2l-1.75-6h-2.5L9 22H7l1.75-6H3V5H2V3m3 2v9h14V5H5z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M2 3h8a2 2 0 0 1 2-2 2 2 0 0 1 2 2h8v2h-1v11h-5.75L17 22h-2l-1.75-6h-2.5L9 22H7l1.75-6H3V5H2V3m3 2v9h14V5H5z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const featurable = (SvgFeaturable);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/news.svg
-var news_path, _path2;
-
-function news_extends() { news_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return news_extends.apply(this, arguments); }
 
 
-
-function SvgNews(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", news_extends({
+const SvgNews = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), news_path || (news_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
     d: "M19.875 3H4.125C2.953 3 2 3.897 2 5v14c0 1.103.953 2 2.125 2h15.75C21.047 21 22 20.103 22 19V5c0-1.103-.953-2-2.125-2zm0 16H4.125c-.057 0-.096-.016-.113-.016-.007 0-.011.002-.012.008L3.988 5.046c.007-.01.052-.046.137-.046h15.75c.079.001.122.028.125.008l.012 13.946c-.007.01-.052.046-.137.046z",
-    fill: "currentColor"
-  })), _path2 || (_path2 = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    fill: "currentColor",
+}), external_BdApi_React_namespaceObject.createElement('path', {
     d: "M6 7h6v6H6zm7 8H6v2h12v-2h-4zm1-4h4v2h-4zm0-4h4v2h-4z",
-    fill: "currentColor"
-  })));
-}
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const news = (SvgNews);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/animated-icon.svg
-var animated_icon_path;
-
-function animated_icon_extends() { animated_icon_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return animated_icon_extends.apply(this, arguments); }
 
 
-
-function SvgAnimatedIcon(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", animated_icon_extends({
+const SvgAnimatedIcon = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), animated_icon_path || (animated_icon_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
     d: "M11 8h2v8h-2V8M7.67 8H4.33C3.53 8 3 8.67 3 9.33v5.34c0 .66.53 1.33 1.33 1.33h3.34c.8 0 1.33-.67 1.33-1.33V12H7v2H5v-4h4v-.67C9 8.67 8.47 8 7.67 8M21 10V8h-6v8h2v-2h2.5v-2H17v-2h4z",
-    fill: "currentColor"
-  })));
-}
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const animated_icon = (SvgAnimatedIcon);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/banner.svg
-var banner_path;
-
-function banner_extends() { banner_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return banner_extends.apply(this, arguments); }
 
 
-
-function SvgBanner(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", banner_extends({
+const SvgBanner = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), banner_path || (banner_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M21 3H3C2 3 1 4 1 5v14a2 2 0 002 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2M5 17l3.5-4.5 2.5 3 3.5-4.5 4.5 6H5z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M21 3H3C2 3 1 4 1 5v14a2 2 0 0 0 2 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2M5 17l3.5-4.5 2.5 3 3.5-4.5 4.5 6H5z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const banner = (SvgBanner);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/enabled-discoverable-before.svg
-var enabled_discoverable_before_path;
-
-function enabled_discoverable_before_extends() { enabled_discoverable_before_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return enabled_discoverable_before_extends.apply(this, arguments); }
 
 
-
-function SvgEnabledDiscoverableBefore(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", enabled_discoverable_before_extends({
+const SvgEnabledDiscoverableBefore = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), enabled_discoverable_before_path || (enabled_discoverable_before_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M15.5 14l5 5-1.5 1.5-5-5v-.79l-.27-.28A6.471 6.471 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3 6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.57 4.23l.28.27h.79m-6 0C12 14 14 12 14 9.5S12 5 9.5 5 5 7 5 9.5 7 14 9.5 14m2.5-4h-2v2H9v-2H7V9h2V7h1v2h2v1z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "m15.5 14 5 5-1.5 1.5-5-5v-.79l-.27-.28A6.471 6.471 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3 6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.57 4.23l.28.27h.79m-6 0C12 14 14 12 14 9.5S12 5 9.5 5 5 7 5 9.5 7 14 9.5 14m2.5-4h-2v2H9v-2H7V9h2V7h1v2h2v1z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const enabled_discoverable_before = (SvgEnabledDiscoverableBefore);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/welcome-screen-enabled.svg
-var welcome_screen_enabled_path;
-
-function welcome_screen_enabled_extends() { welcome_screen_enabled_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return welcome_screen_enabled_extends.apply(this, arguments); }
 
 
-
-function SvgWelcomeScreenEnabled(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", welcome_screen_enabled_extends({
+const SvgWelcomeScreenEnabled = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), welcome_screen_enabled_path || (welcome_screen_enabled_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M20 4c1.11 0 2 .89 2 2v12c0 1.11-.89 2-2 2H4c-1.11 0-2-.89-2-2V6c0-1.11.89-2 2-2h16M8.5 15V9H7.25v3.5L4.75 9H3.5v6h1.25v-3.5L7.3 15h1.2m5-4.74V9h-4v6h4v-1.25H11v-1.11h2.5v-1.26H11v-1.12h2.5m7 3.74V9h-1.25v4.5h-1.12V10h-1.25v3.5h-1.13V9H14.5v5a1 1 0 001 1h4a1 1 0 001-1z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M20 4c1.11 0 2 .89 2 2v12c0 1.11-.89 2-2 2H4c-1.11 0-2-.89-2-2V6c0-1.11.89-2 2-2h16M8.5 15V9H7.25v3.5L4.75 9H3.5v6h1.25v-3.5L7.3 15h1.2m5-4.74V9h-4v6h4v-1.25H11v-1.11h2.5v-1.26H11v-1.12h2.5m7 3.74V9h-1.25v4.5h-1.12V10h-1.25v3.5h-1.13V9H14.5v5a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const welcome_screen_enabled = (SvgWelcomeScreenEnabled);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/member-verification-gate-enabled.svg
-var member_verification_gate_enabled_path;
-
-function member_verification_gate_enabled_extends() { member_verification_gate_enabled_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return member_verification_gate_enabled_extends.apply(this, arguments); }
 
 
-
-function SvgMemberVerificationGateEnabled(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", member_verification_gate_enabled_extends({
+const SvgMemberVerificationGateEnabled = props => external_BdApi_React_namespaceObject.createElement('svg', {
     viewBox: "0 0 36 34",
     fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), member_verification_gate_enabled_path || (member_verification_gate_enabled_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M35.452 10.85l-5.216-3.28-1.895-1.197-3.78-2.333-1.884-1.236L18.449.142l-.22-.09a.938.938 0 00-.618 0l-.11.05-4.278 2.702-1.885 1.236L7.56 6.373 5.664 7.57.45 10.85a.936.936 0 00-.449.797v21.416A.997.997 0 00.997 34h34.006a.997.997 0 00.997-.937V11.647a.937.937 0 00-.548-.797zM1.885 32.116v-19.94l3.78-2.383v22.323h-3.78zm5.674 0V8.606l3.78-2.382v25.922l-3.78-.03zm5.664-27.079l3.78-2.382v29.46h-3.78V5.038zm5.724 27.079V2.655l3.73 2.382v27.079h-3.73zm5.665 0V6.194l3.78 2.383v23.539h-3.78zm9.453 0h-3.829V9.793l3.78 2.383.05 19.94z",
-    fill: "currentColor"
-  })));
-}
+    xmlns: "http://www.w3.org/2000/svg",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "m35.452 10.85-5.216-3.28-1.895-1.197-3.78-2.333-1.884-1.236L18.449.142l-.22-.09a.938.938 0 0 0-.618 0l-.11.05-4.278 2.702-1.885 1.236L7.56 6.373 5.664 7.57.45 10.85a.936.936 0 0 0-.449.797v21.416A.997.997 0 0 0 .997 34h34.006a.997.997 0 0 0 .997-.937V11.647a.937.937 0 0 0-.548-.797zM1.885 32.116v-19.94l3.78-2.383v22.323h-3.78zm5.674 0V8.606l3.78-2.382v25.922l-3.78-.03zm5.664-27.079 3.78-2.382v29.46h-3.78V5.038zm5.724 27.079V2.655l3.73 2.382v27.079h-3.73zm5.665 0V6.194l3.78 2.383v23.539h-3.78zm9.453 0h-3.829V9.793l3.78 2.383.05 19.94z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const member_verification_gate_enabled = (SvgMemberVerificationGateEnabled);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/preview-enabled.svg
-var preview_enabled_path;
-
-function preview_enabled_extends() { preview_enabled_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return preview_enabled_extends.apply(this, arguments); }
 
 
-
-function SvgPreviewEnabled(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", preview_enabled_extends({
+const SvgPreviewEnabled = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true",
+    'aria-hidden': "true",
     width: "1em",
     height: "1em",
     style: {
-      msTransform: "rotate(360deg)",
-      WebkitTransform: "rotate(360deg)"
+        msTransform: "rotate(360deg)",
+        WebkitTransform: "rotate(360deg)",
+        transform: "rotate(360deg)"
     },
     viewBox: "0 0 24 24",
-    transform: "rotate(360)"
-  }, props), preview_enabled_path || (preview_enabled_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M12 9a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3m0 8a5 5 0 01-5-5 5 5 0 015-5 5 5 0 015 5 5 5 0 01-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z",
-    fill: "currentColor"
-  })));
-}
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const preview_enabled = (SvgPreviewEnabled);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/private-threads.svg
-var private_threads_path, private_threads_path2, _path3;
-
-function private_threads_extends() { private_threads_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return private_threads_extends.apply(this, arguments); }
 
 
-
-function SvgPrivateThreads(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", private_threads_extends({
+const SvgPrivateThreads = props => external_BdApi_React_namespaceObject.createElement('svg', {
     width: "1em",
     height: "1em",
     viewBox: "0 0 1 1",
     fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), private_threads_path || (private_threads_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    xmlns: "http://www.w3.org/2000/svg",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
     fillRule: "evenodd",
     clipRule: "evenodd",
-    d: "M.94.205V.163A.085.085 0 00.855.08a.084.084 0 00-.083.083v.042H.74a.01.01 0 00-.01.01v.188c0 .006.005.01.01.01h.23a.01.01 0 00.01-.01V.215a.01.01 0 00-.01-.01H.94zm-.043 0H.814V.163a.042.042 0 11.083 0v.042z",
-    fill: "currentColor"
-  })), private_threads_path2 || (private_threads_path2 = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M.644.292a.01.01 0 01.01.01v.063a.01.01 0 01-.01.01H.393l-.044.25H.44v.083H.334l-.027.15a.02.02 0 01-.02.017H.246a.02.02 0 01-.02-.024L.25.708H.109a.02.02 0 01-.02-.024L.094.642A.02.02 0 01.116.625h.15l.043-.25H.167a.02.02 0 01-.02-.024L.154.309a.02.02 0 01.02-.017h.15L.35.142A.02.02 0 01.371.125h.041a.02.02 0 01.02.024L.408.292h.237z",
-    fill: "currentColor"
-  })), _path3 || (_path3 = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M.56.54a.04.04 0 00-.04.04v.263c0 .022.017.04.04.04H.6a.01.01 0 01.01.01v.085c0 .008.01.013.016.007L.728.893a.04.04 0 01.027-.01H.94a.04.04 0 00.04-.04V.58A.04.04 0 00.94.54H.56z",
-    fill: "currentColor"
-  })));
-}
+    d: "M.94.205V.163A.085.085 0 0 0 .855.08a.084.084 0 0 0-.083.083v.042H.74a.01.01 0 0 0-.01.01v.188c0 .006.005.01.01.01h.23a.01.01 0 0 0 .01-.01V.215a.01.01 0 0 0-.01-.01H.94Zm-.043 0H.814V.163a.042.042 0 1 1 .083 0v.042Z",
+    fill: "currentColor",
+}), external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M.644.292a.01.01 0 0 1 .01.01v.063a.01.01 0 0 1-.01.01H.393l-.044.25H.44v.083H.334l-.027.15a.02.02 0 0 1-.02.017H.246a.02.02 0 0 1-.02-.024L.25.708H.109a.02.02 0 0 1-.02-.024L.094.642A.02.02 0 0 1 .116.625h.15l.043-.25H.167a.02.02 0 0 1-.02-.024L.154.309a.02.02 0 0 1 .02-.017h.15L.35.142A.02.02 0 0 1 .371.125h.041a.02.02 0 0 1 .02.024L.408.292h.237Z",
+    fill: "currentColor",
+}), external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M.56.54a.04.04 0 0 0-.04.04v.263c0 .022.017.04.04.04H.6a.01.01 0 0 1 .01.01v.085c0 .008.01.013.016.007L.728.893a.04.04 0 0 1 .027-.01H.94a.04.04 0 0 0 .04-.04V.58A.04.04 0 0 0 .94.54H.56Z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const private_threads = (SvgPrivateThreads);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/threads-enabled.svg
-var threads_enabled_path, threads_enabled_path2;
-
-function threads_enabled_extends() { threads_enabled_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return threads_enabled_extends.apply(this, arguments); }
 
 
-
-function SvgThreadsEnabled(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", threads_enabled_extends({
+const SvgThreadsEnabled = props => external_BdApi_React_namespaceObject.createElement('svg', {
     width: "1em",
     height: "1em",
     viewBox: "0 0 24 24",
-    fill: "none"
-  }, props), threads_enabled_path || (threads_enabled_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    fill: "none",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
     fill: "currentColor",
-    d: "M5.433 21a.12.12 0 01-.118-.141L6 17H2.143a.12.12 0 01-.118-.14l.308-1.76a.12.12 0 01.118-.1H6.35l1.06-6H3.553a.12.12 0 01-.118-.14l.308-1.76A.12.12 0 013.86 7H7.76l.692-3.901A.12.12 0 018.57 3h1.757a.12.12 0 01.118.141L9.76 7h6l.692-3.901A.12.12 0 0116.57 3h1.757a.12.12 0 01.118.141L17.76 7h3.857a.12.12 0 01.118.14l-.308 1.76a.12.12 0 01-.118.1h-3.9l-.36 2.04H15.05L15.41 9h-6l-1.06 6h2.21v2H8l-.693 3.901A.12.12 0 017.19 21H5.433z"
-  })), threads_enabled_path2 || (threads_enabled_path2 = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M5.433 21a.12.12 0 0 1-.118-.141L6 17H2.143a.12.12 0 0 1-.118-.14l.308-1.76a.12.12 0 0 1 .118-.1H6.35l1.06-6H3.553a.12.12 0 0 1-.118-.14l.308-1.76A.12.12 0 0 1 3.86 7H7.76l.692-3.901A.12.12 0 0 1 8.57 3h1.757a.12.12 0 0 1 .118.141L9.76 7h6l.692-3.901A.12.12 0 0 1 16.57 3h1.757a.12.12 0 0 1 .118.141L17.76 7h3.857a.12.12 0 0 1 .118.14l-.308 1.76a.12.12 0 0 1-.118.1h-3.9l-.36 2.04H15.05L15.41 9h-6l-1.06 6h2.21v2H8l-.693 3.901A.12.12 0 0 1 7.19 21H5.433Z",
+}), external_BdApi_React_namespaceObject.createElement('path', {
     fill: "currentColor",
-    d: "M13.44 12.96a.96.96 0 00-.96.96v6.301c0 .53.43.96.96.96h.96a.24.24 0 01.24.24v2.039a.24.24 0 00.4.178l2.446-2.21a.96.96 0 01.643-.247h4.43c.531 0 .96-.43.96-.96V13.92a.96.96 0 00-.96-.96h-9.12z"
-  })));
-}
+    d: "M13.44 12.96a.96.96 0 0 0-.96.96v6.301c0 .53.43.96.96.96h.96a.24.24 0 0 1 .24.24v2.039a.24.24 0 0 0 .4.178l2.446-2.21a.96.96 0 0 1 .643-.247h4.43c.531 0 .96-.43.96-.96V13.92a.96.96 0 0 0-.96-.96h-9.12Z",
+}));
 
 /* harmony default export */ const threads_enabled = (SvgThreadsEnabled);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/role-icons.svg
-var role_icons_path, role_icons_path2;
-
-function role_icons_extends() { role_icons_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return role_icons_extends.apply(this, arguments); }
 
 
-
-function SvgRoleIcons(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", role_icons_extends({
+const SvgRoleIcons = props => external_BdApi_React_namespaceObject.createElement('svg', {
     width: "1em",
     height: "1em",
     viewBox: "0 0 24 24",
     fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), role_icons_path || (role_icons_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    xmlns: "http://www.w3.org/2000/svg",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
     fillRule: "evenodd",
     clipRule: "evenodd",
-    d: "M11.964 3.06a3 3 0 012.05-.81h5.111a2.625 2.625 0 012.625 2.625v5.068a3 3 0 01-.879 2.122l-.948.947a2.69 2.69 0 00-.256-.012h-5A2.667 2.667 0 0012 15.667v5c0 .086.004.172.012.256l-.008.009a3.188 3.188 0 01-4.508 0l-4.744-4.745a3.188 3.188 0 01.076-4.582l9.136-8.545zM16.875 9a1.875 1.875 0 100-3.75 1.875 1.875 0 000 3.75z",
-    fill: "currentColor"
-  })), role_icons_path2 || (role_icons_path2 = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    d: "M11.964 3.06a3 3 0 0 1 2.05-.81h5.111a2.625 2.625 0 0 1 2.625 2.625v5.068a3 3 0 0 1-.879 2.122l-.948.947a2.69 2.69 0 0 0-.256-.012h-5A2.667 2.667 0 0 0 12 15.667v5c0 .086.004.172.012.256l-.008.009a3.188 3.188 0 0 1-4.508 0l-4.744-4.745a3.188 3.188 0 0 1 .076-4.582l9.136-8.545ZM16.875 9a1.875 1.875 0 1 0 0-3.75 1.875 1.875 0 0 0 0 3.75Z",
+    fill: "currentColor",
+}), external_BdApi_React_namespaceObject.createElement('path', {
     fillRule: "evenodd",
     clipRule: "evenodd",
-    d: "M14.667 14h5c.92 0 1.666.746 1.666 1.667v5c0 .92-.746 1.666-1.666 1.666h-5c-.92 0-1.667-.746-1.667-1.666v-5c0-.92.746-1.667 1.667-1.667zm1.666 2.5a.834.834 0 10-1.667 0 .834.834 0 001.667 0zm-.416 2.5l-1.25 1.667h5l-1.25-2.917-1.667 2.083-.833-.833z",
-    fill: "currentColor"
-  })));
-}
+    d: "M14.667 14h5c.92 0 1.666.746 1.666 1.667v5c0 .92-.746 1.666-1.666 1.666h-5c-.92 0-1.667-.746-1.667-1.666v-5c0-.92.746-1.667 1.667-1.667Zm1.666 2.5a.834.834 0 1 0-1.667 0 .834.834 0 0 0 1.667 0Zm-.416 2.5-1.25 1.667h5l-1.25-2.917-1.667 2.083-.833-.833Z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const role_icons = (SvgRoleIcons);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/three-day-thread-archive.svg
-var _g, three_day_thread_archive_path, _defs;
-
-function three_day_thread_archive_extends() { three_day_thread_archive_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return three_day_thread_archive_extends.apply(this, arguments); }
 
 
-
-function SvgThreeDayThreadArchive(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", three_day_thread_archive_extends({
+const SvgThreeDayThreadArchive = props => external_BdApi_React_namespaceObject.createElement('svg', {
     width: "1em",
     height: "1em",
     viewBox: "0 0 1 1",
     fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), _g || (_g = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("g", {
-    clipPath: "url(#three-day-thread-archive_svg__clip0)"
-  }, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M.094.344h.562v.125H.094V.344zM.125.5h.5v.406h-.5V.5zm.172.094A.016.016 0 00.28.609v.047H.47V.61A.016.016 0 00.453.594H.297z",
-    fill: "currentColor"
-  }))), three_day_thread_archive_path || (three_day_thread_archive_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M.647.152h.025C.684.152.693.15.7.143A.033.033 0 00.708.12a.029.029 0 00-.01-.022A.033.033 0 00.676.09a.034.034 0 00-.022.008.023.023 0 00-.01.019H.598C.597.104.6.092.607.083A.067.067 0 01.635.06.094.094 0 01.675.05c.024 0 .044.006.058.018a.061.061 0 01.022.05.05.05 0 01-.01.03.065.065 0 01-.026.02.058.058 0 01.03.022c.006.01.01.021.01.034a.062.062 0 01-.024.05.092.092 0 01-.06.02.088.088 0 01-.059-.019.061.061 0 01-.022-.05H.64c0 .01.003.017.01.022a.037.037 0 00.024.009c.012 0 .02-.003.027-.009a.03.03 0 00.01-.024C.711.201.697.19.671.19H.647V.152zM.785.202c0-.027.007-.05.019-.065a.06.06 0 01.05-.025c.018 0 .032.007.043.02v-.09h.047v.25H.902L.899.272a.055.055 0 01-.045.023.06.06 0 01-.05-.025.11.11 0 01-.019-.068zm.048.004c0 .016.002.029.008.037a.028.028 0 00.025.014C.881.257.891.25.897.238v-.07C.891.158.881.15.867.15.844.15.833.17.833.206z",
-    fill: "currentColor"
-  })), _defs || (_defs = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("defs", null, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("clipPath", {
-    id: "three-day-thread-archive_svg__clip0"
-  }, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    xmlns: "http://www.w3.org/2000/svg",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('g', {
+    clipPath: "url(#three-day-thread-archive_svg__a)",
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M.094.344h.562v.125H.094V.344ZM.125.5h.5v.406h-.5V.5Zm.172.094A.016.016 0 0 0 .28.609v.047H.47V.61A.016.016 0 0 0 .453.594H.297Z",
+    fill: "currentColor",
+})), external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M.647.152h.025C.684.152.693.15.7.143A.033.033 0 0 0 .708.12a.029.029 0 0 0-.01-.022A.033.033 0 0 0 .676.09a.034.034 0 0 0-.022.008.023.023 0 0 0-.01.019H.598C.597.104.6.092.607.083A.067.067 0 0 1 .635.06.094.094 0 0 1 .675.05c.024 0 .044.006.058.018a.061.061 0 0 1 .022.05.05.05 0 0 1-.01.03.065.065 0 0 1-.026.02.058.058 0 0 1 .03.022c.006.01.01.021.01.034a.062.062 0 0 1-.024.05.092.092 0 0 1-.06.02.088.088 0 0 1-.059-.019.061.061 0 0 1-.022-.05H.64c0 .01.003.017.01.022a.037.037 0 0 0 .024.009c.012 0 .02-.003.027-.009a.03.03 0 0 0 .01-.024C.711.201.697.19.671.19H.647V.152ZM.785.202c0-.027.007-.05.019-.065a.06.06 0 0 1 .05-.025c.018 0 .032.007.043.02v-.09h.047v.25H.902L.899.272a.055.055 0 0 1-.045.023.06.06 0 0 1-.05-.025.11.11 0 0 1-.019-.068Zm.048.004c0 .016.002.029.008.037a.028.028 0 0 0 .025.014C.881.257.891.25.897.238v-.07C.891.158.881.15.867.15.844.15.833.17.833.206Z",
+    fill: "currentColor",
+}), external_BdApi_React_namespaceObject.createElement('defs', null, external_BdApi_React_namespaceObject.createElement('clipPath', {
+    id: "three-day-thread-archive_svg__a",
+}, external_BdApi_React_namespaceObject.createElement('path', {
     fill: "currentColor",
     transform: "translate(0 .25)",
-    d: "M0 0h.75v.75H0z"
-  })))));
-}
+    d: "M0 0h.75v.75H0z",
+}))));
 
 /* harmony default export */ const three_day_thread_archive = (SvgThreeDayThreadArchive);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/seven-day-thread-archive.svg
-var seven_day_thread_archive_g, seven_day_thread_archive_path, seven_day_thread_archive_defs;
-
-function seven_day_thread_archive_extends() { seven_day_thread_archive_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return seven_day_thread_archive_extends.apply(this, arguments); }
 
 
-
-function SvgSevenDayThreadArchive(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", seven_day_thread_archive_extends({
+const SvgSevenDayThreadArchive = props => external_BdApi_React_namespaceObject.createElement('svg', {
     width: "1em",
     height: "1em",
     viewBox: "0 0 1 1",
     fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, props), seven_day_thread_archive_g || (seven_day_thread_archive_g = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("g", {
-    clipPath: "url(#seven-day-thread-archive_svg__clip0)"
-  }, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M.094.344h.562v.125H.094V.344zM.125.5h.5v.406h-.5V.5zm.172.094A.016.016 0 00.28.609v.047H.47V.61A.016.016 0 00.453.594H.297z",
-    fill: "currentColor"
-  }))), seven_day_thread_archive_path || (seven_day_thread_archive_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
-    d: "M.761.08L.67.293H.62l.093-.2H.594V.056H.76V.08zM.786.202c0-.027.006-.05.018-.065A.06.06 0 01.855.112c.017 0 .031.007.042.02v-.09h.048v.25H.902L.9.272a.055.055 0 01-.045.023.06.06 0 01-.05-.025.11.11 0 01-.019-.068zm.047.004c0 .016.003.029.009.037a.028.028 0 00.025.014C.88.257.89.25.897.238v-.07C.892.158.881.15.867.15.844.15.833.17.833.206z",
-    fill: "currentColor"
-  })), seven_day_thread_archive_defs || (seven_day_thread_archive_defs = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("defs", null, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("clipPath", {
-    id: "seven-day-thread-archive_svg__clip0"
-  }, /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    xmlns: "http://www.w3.org/2000/svg",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('g', {
+    clipPath: "url(#seven-day-thread-archive_svg__a)",
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M.094.344h.562v.125H.094V.344ZM.125.5h.5v.406h-.5V.5Zm.172.094A.016.016 0 0 0 .28.609v.047H.47V.61A.016.016 0 0 0 .453.594H.297Z",
+    fill: "currentColor",
+})), external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M.761.08.67.293H.62l.093-.2H.594V.056H.76V.08ZM.786.202c0-.027.006-.05.018-.065A.06.06 0 0 1 .855.112c.017 0 .031.007.042.02v-.09h.048v.25H.902L.9.272a.055.055 0 0 1-.045.023.06.06 0 0 1-.05-.025.11.11 0 0 1-.019-.068Zm.047.004c0 .016.003.029.009.037a.028.028 0 0 0 .025.014C.88.257.89.25.897.238v-.07C.892.158.881.15.867.15.844.15.833.17.833.206Z",
+    fill: "currentColor",
+}), external_BdApi_React_namespaceObject.createElement('defs', null, external_BdApi_React_namespaceObject.createElement('clipPath', {
+    id: "seven-day-thread-archive_svg__a",
+}, external_BdApi_React_namespaceObject.createElement('path', {
     fill: "currentColor",
     transform: "translate(0 .25)",
-    d: "M0 0h.75v.75H0z"
-  })))));
-}
+    d: "M0 0h.75v.75H0z",
+}))));
 
 /* harmony default export */ const seven_day_thread_archive = (SvgSevenDayThreadArchive);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/index.js
@@ -1030,7 +942,9 @@ function SvgSevenDayThreadArchive(props) {
 
 
 const {
-    DiscordConstants: { GuildFeatures }
+    DiscordConstants: {
+        GuildFeatures
+    }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 /* harmony default export */ const assets_features = ({
@@ -1055,7 +969,6 @@ const {
     ['THREE_DAY_THREAD_ARCHIVE']: three_day_thread_archive,
     ['SEVEN_DAY_THREAD_ARCHIVE']: seven_day_thread_archive
 });
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildFeatures.jsx
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
@@ -1071,26 +984,29 @@ const {
 
 
 
-function GuildFeatures_GuildFeatures({ className, guild }) {
+function GuildFeatures_GuildFeatures({
+    className,
+    guild
+}) {
     const features = Array.from(guild.features);
 
     return (
-        external_BdApi_React_default().createElement('div', { className: `${className} container-1gYwHN`,}
-            , features.map(feature => {
-                const Icon = assets_features[feature] ?? 'div';
+        external_BdApi_React_default().createElement('div', {
+            className: `${className} container-1gYwHN`,
+        }, features.map(feature => {
+            const Icon = assets_features[feature] ?? 'div';
 
-                return (
-                    external_BdApi_React_default().createElement(TooltipContainer, { key: feature, text: i18n.Messages[`GUILD_PROFILE_${feature}`] || feature,}
-                        , external_BdApi_React_default().createElement(Clickable, null
-                            , external_BdApi_React_default().createElement(Icon, { className: "profileBadge24-sH1efV profileBadge-12r2Nm desaturate-_Twf3u"  ,} )
-                        )
-                    )
-                );
-            })
-        )
+            return (
+                external_BdApi_React_default().createElement(TooltipContainer, {
+                    key: feature,
+                    text: i18n.Messages[`GUILD_PROFILE_${feature}`] || feature,
+                }, external_BdApi_React_default().createElement(Clickable, null, external_BdApi_React_default().createElement(Icon, {
+                    className: "profileBadge24-sH1efV profileBadge-12r2Nm desaturate-_Twf3u",
+                })))
+            );
+        }))
     );
 }
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildTag.jsx
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
@@ -1102,17 +1018,25 @@ function GuildFeatures_GuildFeatures({ className, guild }) {
 
 const GuildBadge = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('GuildBadge');
 
-function GuildTag({ className, usernameClass, guild }) {
+function GuildTag({
+    className,
+    usernameClass,
+    guild
+}) {
     return (
-        external_BdApi_React_default().createElement('div', { className: `${className} nameTag-H6kSJ0 guild-tag`,}
-            , external_BdApi_React_default().createElement('div', { className: "guildIconContainer-3QvE6w",}
-                , external_BdApi_React_default().createElement(GuildBadge, { className: "guildBadge-3_UK6z", guild: guild, size: 20,} )
-            )
-            , external_BdApi_React_default().createElement('span', { className: `username-3JLfHz ${usernameClass}`,}, guild.name)
-        )
+        external_BdApi_React_default().createElement('div', {
+            className: `${className} nameTag-H6kSJ0 guild-tag`,
+        }, external_BdApi_React_default().createElement('div', {
+            className: "guildIconContainer-3QvE6w",
+        }, external_BdApi_React_default().createElement(GuildBadge, {
+            className: "guildBadge-3_UK6z",
+            guild: guild,
+            size: 20,
+        })), external_BdApi_React_default().createElement('span', {
+            className: `username-3JLfHz ${usernameClass}`,
+        }, guild.name))
     );
 }
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildProfileModalHeader.jsx
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
@@ -1132,47 +1056,66 @@ function GuildTag({ className, usernameClass, guild }) {
 
 
 const InviteButton = external_BoundedLibrary_namespaceObject.WebpackModules.getModule(m => m.displayName === 'InviteButton' && m.Header);
-const { default: Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
+const {
+    default: Avatar
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
 
-function MemberCounts({ guild }) {
-    const { members, membersOnline } = useStateFromStores([stores_MemberCountsStore], () =>
+function MemberCounts({
+    guild
+}) {
+    const {
+        members,
+        membersOnline
+    } = useStateFromStores([stores_MemberCountsStore], () =>
         stores_MemberCountsStore.getMemberCounts(guild.id)
     );
 
-    return external_BdApi_React_default().createElement(InviteButton.Data, { members: members, membersOnline: membersOnline,} );
+    return external_BdApi_React_default().createElement(InviteButton.Data, {
+        members: members,
+        membersOnline: membersOnline,
+    });
 }
 
-function GuildProfileModalHeader({ guild }) {
+function GuildProfileModalHeader({
+    guild
+}) {
     return (
-        external_BdApi_React_default().createElement('header', null
-            , external_BdApi_React_default().createElement(GuildBanner, { guild: guild,} )
-            , external_BdApi_React_default().createElement('div', { className: "header-S26rhB",}
-                , external_BdApi_React_default().createElement(Avatar, { className: "avatar-3QF_VA", src: guild.getIconURL(256, true), size: Avatar.Sizes.SIZE_120,} )
-                , external_BdApi_React_default().createElement('div', { className: "headerTop-1PNKck header-top" ,}
-                    , guild.features.size > 0 && external_BdApi_React_default().createElement(GuildFeatures_GuildFeatures, { className: "badgeList-2aoHPw", guild: guild,} )
-                )
-            )
-            , external_BdApi_React_default().createElement(GuildTag, {
-                className: "nameTagNoCustomStatus-3ocqoK nameTag-2Nlmsy" ,
-                usernameClass: "username-1g6Iq1",
-                guild: guild,}
-            )
-            , external_BdApi_React_default().createElement(Text, { className: "guildDetail-3EJhW_ customStatusActivity-WKWGD-" ,}
-                , external_BdApi_React_default().createElement(MemberCounts, { guild: guild,} )
-            )
-        )
+        external_BdApi_React_default().createElement('header', null, external_BdApi_React_default().createElement(GuildBanner, {
+            guild: guild,
+        }), external_BdApi_React_default().createElement('div', {
+            className: "header-S26rhB",
+        }, external_BdApi_React_default().createElement(Avatar, {
+            className: "avatar-3QF_VA",
+            src: guild.getIconURL(256, true),
+            size: Avatar.Sizes.SIZE_120,
+        }), external_BdApi_React_default().createElement('div', {
+            className: "headerTop-1PNKck header-top",
+        }, guild.features.size > 0 && external_BdApi_React_default().createElement(GuildFeatures_GuildFeatures, {
+            className: "badgeList-2aoHPw",
+            guild: guild,
+        }))), external_BdApi_React_default().createElement(GuildTag, {
+            className: "nameTagNoCustomStatus-3ocqoK nameTag-2Nlmsy",
+            usernameClass: "username-1g6Iq1",
+            guild: guild,
+        }), external_BdApi_React_default().createElement(Text, {
+            className: "guildDetail-3EJhW_ customStatusActivity-WKWGD-",
+        }, external_BdApi_React_default().createElement(MemberCounts, {
+            guild: guild,
+        })))
     );
 }
-
 ;// CONCATENATED MODULE: ./src/@discord/components/Scroller.js
 
 
-const { ScrollerAuto, ScrollerThin, default: Scroller } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('ScrollerAuto');
+const {
+    ScrollerAuto,
+    ScrollerThin,
+    default: Scroller
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('ScrollerAuto');
 
 
 
 /* harmony default export */ const components_Scroller = ((/* unused pure expression or super */ null && (Scroller)));
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/Relationships.jsx
 /* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
@@ -1193,10 +1136,14 @@ const {
     RelationshipStore,
     GuildMemberStore,
     UserStore,
-    DiscordConstants: { RelationshipTypes }
+    DiscordConstants: {
+        RelationshipTypes
+    }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-const { default: Relationships_Avatar } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
+const {
+    default: Relationships_Avatar
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('AnimatedAvatar');
 const DiscordTag = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('DiscordTag');
 
 const UserProfileModalActions = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('openUserProfileModal');
@@ -1206,7 +1153,10 @@ const NoRelationshipsOfTypeMessages = {
     [RelationshipTypes.BLOCKED]: 'GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD'
 };
 
-function Relationships({ guild, relationshipType }) {
+function Relationships({
+    guild,
+    relationshipType
+}) {
     const users = useStateFromStores([RelationshipStore, GuildMemberStore, UserStore], () => {
         const users = [];
         const relationships = RelationshipStore.getRelationships();
@@ -1223,39 +1173,47 @@ function Relationships({ guild, relationshipType }) {
     });
 
     function handleSelect(user) {
-        UserProfileModalActions.openUserProfileModal({ userId: user.id, guildId: guild.id });
+        UserProfileModalActions.openUserProfileModal({
+            userId: user.id,
+            guildId: guild.id
+        });
     }
 
     return (
-        external_BdApi_React_default().createElement(ScrollerThin, { className: "listScroller-entkMk", fade: true,}
-            , users.length <= 0 ? (
-                external_BdApi_React_default().createElement('div', { className: "empty-2zcusz",}
-                    , external_BdApi_React_default().createElement('div', { className: "emptyIconFriends-2LNxTX emptyIcon-uKVxYR" ,} )
-                    , external_BdApi_React_default().createElement('div', { className: "emptyText-mZZyQk",}
-                        , i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]
-                    )
-                )
-            ) : (
-                users.map(user => (
-                    external_BdApi_React_default().createElement(Clickable, {
+        external_BdApi_React_default().createElement(ScrollerThin, {
+            className: "listScroller-entkMk",
+            fade: true,
+        }, users.length <= 0 ? (
+            external_BdApi_React_default().createElement('div', {
+                className: "empty-2zcusz",
+            }, external_BdApi_React_default().createElement('div', {
+                className: "emptyIconFriends-2LNxTX emptyIcon-uKVxYR",
+            }), external_BdApi_React_default().createElement('div', {
+                className: "emptyText-mZZyQk",
+            }, i18n.Messages[NoRelationshipsOfTypeMessages[relationshipType]]))
+        ) : (
+            users.map(user => (
+                external_BdApi_React_default().createElement(Clickable, {
                         key: user.id,
                         className: "listRow-2nO1T6",
                         onClick: () => handleSelect(user),
-                        onSelect: () => handleSelect(user),}
-                    
-                        , external_BdApi_React_default().createElement(Relationships_Avatar, { className: "listAvatar-2bU5Uh", src: user.getAvatarURL(), size: Relationships_Avatar.Sizes.SIZE_40,} )
-                        , external_BdApi_React_default().createElement(DiscordTag, {
-                            user: user,
-                            className: "listName-PwbeHL",
-                            discriminatorClass: "listDiscriminator-1HAKWY",}
-                        )
-                    )
-                ))
-            )
-        )
+                        onSelect: () => handleSelect(user),
+                    }
+
+                    , external_BdApi_React_default().createElement(Relationships_Avatar, {
+                        className: "listAvatar-2bU5Uh",
+                        src: user.getAvatarURL(),
+                        size: Relationships_Avatar.Sizes.SIZE_40,
+                    }), external_BdApi_React_default().createElement(DiscordTag, {
+                        user: user,
+                        className: "listName-PwbeHL",
+                        discriminatorClass: "listDiscriminator-1HAKWY",
+                    })
+                )
+            ))
+        ))
     );
 }
-
 ;// CONCATENATED MODULE: external ["BoundedLibrary","DiscordModules","Moment"]
 const external_BoundedLibrary_DiscordModules_Moment_namespaceObject = BoundedLibrary.DiscordModules.Moment;
 var external_BoundedLibrary_DiscordModules_Moment_default = /*#__PURE__*/__webpack_require__.n(external_BoundedLibrary_DiscordModules_Moment_namespaceObject);
@@ -1265,7 +1223,6 @@ var external_BoundedLibrary_DiscordModules_Moment_default = /*#__PURE__*/__webpa
 /* harmony default export */ const StreamerModeStore = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m =>
     Object.getOwnPropertyDescriptor(m?.default?.__proto__ ?? {}, 'hidePersonalInformation')
 ).default);
-
 ;// CONCATENATED MODULE: ./src/@discord/components/Form.js
 
 
@@ -1283,17 +1240,14 @@ const {
 } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('FormSection');
 
 
-
 ;// CONCATENATED MODULE: ./src/@discord/components/Flex.js
 
 
 /* harmony default export */ const Flex = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Flex'));
-
 ;// CONCATENATED MODULE: ./src/@discord/components/Anchor.js
 
 
 /* harmony default export */ const Anchor = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Anchor'));
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildInfo.jsx
 /* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
@@ -1320,10 +1274,16 @@ const {
     UserStore: GuildInfo_UserStore,
     GuildChannelsStore,
     Timestamps,
-    DiscordConstants: { VerificationLevels, GuildExplicitContentFilterTypes, GuildNSFWContentLevel }
+    DiscordConstants: {
+        VerificationLevels,
+        GuildExplicitContentFilterTypes,
+        GuildNSFWContentLevel
+    }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
-const { default: UserMention } = external_BoundedLibrary_namespaceObject.WebpackModules.find(
+const {
+    default: UserMention
+} = external_BoundedLibrary_namespaceObject.WebpackModules.find(
     m => !m?.default?.displayName && m?.default?.toString().includes('inlinePreview')
 );
 const UserFetcher = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getUser', 'fetchCurrentUser');
@@ -1334,15 +1294,24 @@ const GuildExplicitContentFilterTypesMessages = {
     [GuildExplicitContentFilterTypes.ALL_MEMBERS]: 'EXPLICIT_CONTENT_FILTER_HIGH'
 };
 
-function InfoSection({ title, children }) {
+function InfoSection({
+    title,
+    children
+}) {
     return (
-        external_BdApi_React_default().createElement(FormSection, { className: "marginBottom8-emkd0_ section" , tag: "h5", title: title,}
-            , external_BdApi_React_default().createElement(Text, { selectable: true,}, children)
-        )
+        external_BdApi_React_default().createElement(FormSection, {
+            className: "marginBottom8-emkd0_ section",
+            tag: "h5",
+            title: title,
+        }, external_BdApi_React_default().createElement(Text, {
+            selectable: true,
+        }, children))
     );
 }
 
-function GuildInfo({ guild }) {
+function GuildInfo({
+    guild
+}) {
     const owner = useStateFromStores([GuildInfo_UserStore], () => GuildInfo_UserStore.getUser(guild.ownerId));
     const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hidePersonalInformation);
     const channel = useStateFromStores([GuildChannelsStore], () => GuildChannelsStore.getDefaultChannel(guild.id));
@@ -1354,63 +1323,61 @@ function GuildInfo({ guild }) {
     }, [guild, owner]);
 
     return (
-        external_BdApi_React_default().createElement(ScrollerThin, { className: "infoScroller-1QMpon guild-info" , fade: true,}
-            , hide ? (
-                external_BdApi_React_default().createElement('div', { className: "empty-2zcusz",}
-                    , external_BdApi_React_default().createElement('div', { className: "emptyIconStreamerMode-3P4I-V emptyIcon-uKVxYR" ,} )
-                    , external_BdApi_React_default().createElement('div', { className: "emptyText-mZZyQk",}, i18n.Messages.STREAMER_MODE_ENABLED)
-                )
+        external_BdApi_React_default().createElement(ScrollerThin, {
+            className: "infoScroller-1QMpon guild-info",
+            fade: true,
+        }, hide ? (
+            external_BdApi_React_default().createElement('div', {
+                className: "empty-2zcusz",
+            }, external_BdApi_React_default().createElement('div', {
+                className: "emptyIconStreamerMode-3P4I-V emptyIcon-uKVxYR",
+            }), external_BdApi_React_default().createElement('div', {
+                className: "emptyText-mZZyQk",
+            }, i18n.Messages.STREAMER_MODE_ENABLED))
+        ) : (
+            external_BdApi_React_default().createElement(Flex, {
+                justify: Flex.Justify.START,
+                wrap: Flex.Wrap.WRAP,
+            }, external_BdApi_React_default().createElement(InfoSection, {
+                title: i18n.Messages.GUILD_OWNER,
+            }, owner ? (
+                external_BdApi_React_default().createElement(UserMention, {
+                    className: "mention",
+                    userId: owner.id,
+                    channelId: channel?.id,
+                })
             ) : (
-                external_BdApi_React_default().createElement(Flex, { justify: Flex.Justify.START, wrap: Flex.Wrap.WRAP,}
-                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_OWNER,}
-                        , owner ? (
-                            external_BdApi_React_default().createElement(UserMention, { className: "mention", userId: owner.id, channelId: channel?.id,} )
-                        ) : (
-                            `${i18n.Messages.GUILD_PROFILE_LOADING}...`
-                        )
-                    )
-                    , guild.description && (
-                        external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_SERVER_DESCRIPTION,}
-                            , guild.description
-                        )
-                    )
-                    , guild.vanityURLCode && (
-                        external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.VANITY_URL,}
-                            , external_BdApi_React_default().createElement(Anchor, { href: `https://discord.gg/${guild.vanityURLCode}`,}, "discord.gg/"
-                                , guild.vanityURLCode
-                            )
-                        )
-                    )
-                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_CREATED_AT,}
-                        , external_BoundedLibrary_DiscordModules_Moment_default()(Timestamps.extractTimestamp(guild.id)).format('LLL')
-                    )
-                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_JOINED_AT,}
-                        , external_BoundedLibrary_DiscordModules_Moment_default()(guild.joinedAt).format('LLL')
-                    )
-                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL,}
-                        , i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]
-                    )
-                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER,}
-                        , i18n.Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]
-                    )
-                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT,}
-                        , guild.premiumSubscriberCount
-                    )
-                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER,}
-                        , guild.premiumTier
-                    )
-                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.FORM_LABEL_SERVER_LANGUAGE,}
-                        , i18n.Messages[guild.preferredLocale]
-                    )
-                    , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_PROFILE_NSFW_LEVEL,}
-                        , i18n.Messages[`GUILD_PROFILE_NSFW_LEVEL_${GuildNSFWContentLevel[guild.nsfwLevel]}`]
-                    )
-                )
-            )
-        )
+                `${i18n.Messages.GUILD_PROFILE_LOADING}...`
+            )), guild.description && (
+                external_BdApi_React_default().createElement(InfoSection, {
+                    title: i18n.Messages.FORM_LABEL_SERVER_DESCRIPTION,
+                }, guild.description)
+            ), guild.vanityURLCode && (
+                external_BdApi_React_default().createElement(InfoSection, {
+                    title: i18n.Messages.VANITY_URL,
+                }, external_BdApi_React_default().createElement(Anchor, {
+                    href: `https://discord.gg/${guild.vanityURLCode}`,
+                }, "discord.gg/", guild.vanityURLCode))
+            ), external_BdApi_React_default().createElement(InfoSection, {
+                title: i18n.Messages.GUILD_PROFILE_CREATED_AT,
+            }, external_BoundedLibrary_DiscordModules_Moment_default()(Timestamps.extractTimestamp(guild.id)).format('LLL')), external_BdApi_React_default().createElement(InfoSection, {
+                title: i18n.Messages.GUILD_PROFILE_JOINED_AT,
+            }, external_BoundedLibrary_DiscordModules_Moment_default()(guild.joinedAt).format('LLL')), external_BdApi_React_default().createElement(InfoSection, {
+                title: i18n.Messages.FORM_LABEL_VERIFICATION_LEVEL,
+            }, i18n.Messages[`VERIFICATION_LEVEL_${VerificationLevels[guild.verificationLevel]}`]), external_BdApi_React_default().createElement(InfoSection, {
+                title: i18n.Messages.FORM_LABEL_EXPLICIT_CONTENT_FILTER,
+            }, i18n.Messages[GuildExplicitContentFilterTypesMessages[guild.explicitContentFilter]]), external_BdApi_React_default().createElement(InfoSection, {
+                title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT,
+            }, guild.premiumSubscriberCount), external_BdApi_React_default().createElement(InfoSection, {
+                title: i18n.Messages.GUILD_PROFILE_GUILD_PREMIUM_TIER,
+            }, guild.premiumTier), external_BdApi_React_default().createElement(InfoSection, {
+                title: i18n.Messages.FORM_LABEL_SERVER_LANGUAGE,
+            }, i18n.Messages[guild.preferredLocale]), external_BdApi_React_default().createElement(InfoSection, {
+                title: i18n.Messages.GUILD_PROFILE_NSFW_LEVEL,
+            }, i18n.Messages[`GUILD_PROFILE_NSFW_LEVEL_${GuildNSFWContentLevel[guild.nsfwLevel]}`]))
+        ))
     );
 }
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildRoles.jsx
 /* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
@@ -1428,32 +1395,44 @@ function GuildInfo({ guild }) {
 
 
 
-const { MemberRole } = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MemberRole');
+const {
+    MemberRole
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MemberRole');
 
-function GuildRoles({ guild }) {
+function GuildRoles({
+    guild
+}) {
     const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hidePersonalInformation);
     const roles = Object.values(guild.roles)?.sort((b, a) => a.position - b.position);
 
     if (hide) {
         return (
-            external_BdApi_React_default().createElement('div', { className: "empty-2zcusz",}
-                , external_BdApi_React_default().createElement('div', { className: "emptyIconStreamerMode-3P4I-V emptyIcon-uKVxYR" ,} )
-                , external_BdApi_React_default().createElement('div', { className: "emptyText-mZZyQk",}, i18n.Messages.STREAMER_MODE_ENABLED)
-            )
+            external_BdApi_React_default().createElement('div', {
+                className: "empty-2zcusz",
+            }, external_BdApi_React_default().createElement('div', {
+                className: "emptyIconStreamerMode-3P4I-V emptyIcon-uKVxYR",
+            }), external_BdApi_React_default().createElement('div', {
+                className: "emptyText-mZZyQk",
+            }, i18n.Messages.STREAMER_MODE_ENABLED))
         );
     }
 
     return (
-        external_BdApi_React_default().createElement(ScrollerThin, { className: "infoScroller-1QMpon guild-roles" , fade: true,}
-            , external_BdApi_React_default().createElement('div', { className: "root-jbEB5E flex-3BkGQD wrap-7NZuTn"  ,}
-                , roles.map(role => (
-                    external_BdApi_React_default().createElement(MemberRole, { key: role.id, guildId: guild.id, role: role, canRemove: false,} )
-                ))
-            )
-        )
+        external_BdApi_React_default().createElement(ScrollerThin, {
+            className: "infoScroller-1QMpon guild-roles",
+            fade: true,
+        }, external_BdApi_React_default().createElement('div', {
+            className: "root-jbEB5E flex-3BkGQD wrap-7NZuTn",
+        }, roles.map(role => (
+            external_BdApi_React_default().createElement(MemberRole, {
+                key: role.id,
+                guildId: guild.id,
+                role: role,
+                canRemove: false,
+            })
+        ))))
     );
 }
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/index.jsx
 /* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
@@ -1473,7 +1452,9 @@ function GuildRoles({ guild }) {
 
 
 const {
-    DiscordConstants: { RelationshipTypes: GuildProfileModal_RelationshipTypes }
+    DiscordConstants: {
+        RelationshipTypes: GuildProfileModal_RelationshipTypes
+    }
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const GuildProfileSections = {
@@ -1495,79 +1476,95 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
     }
 
     render() {
-        const { selectedSection } = this.state;
-        const { guild } = this.props;
+        const {
+            selectedSection
+        } = this.state;
+        const {
+            guild
+        } = this.props;
 
         return (
-            external_BdApi_React_default().createElement((external_BdApi_React_default()).Fragment, null
-                , external_BdApi_React_default().createElement('div', { className: "topSection-13QKHs",}
-                    , external_BdApi_React_default().createElement(GuildProfileModalHeader, { guild: guild,} )
-                    , external_BdApi_React_default().createElement('div', { className: "tabBarContainer-sCZC4w",}
-                        , external_BdApi_React_default().createElement(TabBar, {
-                            className: "tabBar-2hXqzU",
-                            type: TabBar.Types.TOP,
-                            selectedItem: selectedSection,
-                            onItemSelect: this.handleSectionSelect,}
-                        
-                            , external_BdApi_React_default().createElement(TabBar.Item, { className: "tabBarItem-30Te4-", id: GuildProfileSections.GUILD_INFO,}
-                                , i18n.Messages.GUILD_PROFILE_GUILD_INFO
-                            )
-                            , external_BdApi_React_default().createElement(TabBar.Item, { className: "tabBarItem-30Te4-", id: GuildProfileSections.GUILD_ROLES,}
-                                , i18n.Messages.GUILD_PROFILE_ROLES_IN_GUILD
-                            )
-                            , external_BdApi_React_default().createElement(TabBar.Item, { className: "tabBarItem-30Te4-", id: GuildProfileSections.FRIENDS,}
-                                , i18n.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD
-                            )
-                            , external_BdApi_React_default().createElement(TabBar.Item, { className: "tabBarItem-30Te4-", id: GuildProfileSections.BLOCKED_USERS,}
-                                , i18n.Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD
-                            )
-                        )
-                    )
-                )
-                , external_BdApi_React_default().createElement('div', { className: "body-1Ukv50",}, this.renderSelectedSection())
-            )
+            external_BdApi_React_default().createElement((external_BdApi_React_default()).Fragment, null, external_BdApi_React_default().createElement('div', {
+                className: "topSection-13QKHs",
+            }, external_BdApi_React_default().createElement(GuildProfileModalHeader, {
+                guild: guild,
+            }), external_BdApi_React_default().createElement('div', {
+                className: "tabBarContainer-sCZC4w",
+            }, external_BdApi_React_default().createElement(TabBar, {
+                    className: "tabBar-2hXqzU",
+                    type: TabBar.Types.TOP,
+                    selectedItem: selectedSection,
+                    onItemSelect: this.handleSectionSelect,
+                }
+
+                , external_BdApi_React_default().createElement(TabBar.Item, {
+                    className: "tabBarItem-30Te4-",
+                    id: GuildProfileSections.GUILD_INFO,
+                }, i18n.Messages.GUILD_PROFILE_GUILD_INFO), external_BdApi_React_default().createElement(TabBar.Item, {
+                    className: "tabBarItem-30Te4-",
+                    id: GuildProfileSections.GUILD_ROLES,
+                }, i18n.Messages.GUILD_PROFILE_ROLES_IN_GUILD), external_BdApi_React_default().createElement(TabBar.Item, {
+                    className: "tabBarItem-30Te4-",
+                    id: GuildProfileSections.FRIENDS,
+                }, i18n.Messages.GUILD_PROFILE_FRIENDS_IN_GUILD), external_BdApi_React_default().createElement(TabBar.Item, {
+                    className: "tabBarItem-30Te4-",
+                    id: GuildProfileSections.BLOCKED_USERS,
+                }, i18n.Messages.GUILD_PROFILE_BLOCKED_USERS_IN_GUILD)
+            ))), external_BdApi_React_default().createElement('div', {
+                className: "body-1Ukv50",
+            }, this.renderSelectedSection()))
         );
     }
 
     renderSelectedSection() {
-        const { selectedSection } = this.state;
-        const { guild } = this.props;
+        const {
+            selectedSection
+        } = this.state;
+        const {
+            guild
+        } = this.props;
 
         switch (selectedSection) {
             case GuildProfileSections.GUILD_ROLES:
-                return external_BdApi_React_default().createElement(GuildRoles, { guild: guild,} );
+                return external_BdApi_React_default().createElement(GuildRoles, {
+                    guild: guild,
+                });
             case GuildProfileSections.FRIENDS:
-                return external_BdApi_React_default().createElement(Relationships, { guild: guild, relationshipType: GuildProfileModal_RelationshipTypes.FRIEND,} );
+                return external_BdApi_React_default().createElement(Relationships, {
+                    guild: guild,
+                    relationshipType: GuildProfileModal_RelationshipTypes.FRIEND,
+                });
             case GuildProfileSections.BLOCKED_USERS:
-                return external_BdApi_React_default().createElement(Relationships, { guild: guild, relationshipType: GuildProfileModal_RelationshipTypes.BLOCKED,} );
+                return external_BdApi_React_default().createElement(Relationships, {
+                    guild: guild,
+                    relationshipType: GuildProfileModal_RelationshipTypes.BLOCKED,
+                });
             default:
-                return external_BdApi_React_default().createElement(GuildInfo, { guild: guild,} );
+                return external_BdApi_React_default().createElement(GuildInfo, {
+                    guild: guild,
+                });
         }
     }
 
     handleSectionSelect(section) {
-        this.setState({ selectedSection: section });
+        this.setState({
+            selectedSection: section
+        });
     }
 }
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/guild-profile.svg
-var guild_profile_path;
-
-function guild_profile_extends() { guild_profile_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return guild_profile_extends.apply(this, arguments); }
 
 
-
-function SvgGuildProfile(props) {
-  return /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("svg", guild_profile_extends({
+const SvgGuildProfile = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
-    viewBox: "0 0 24 24"
-  }, props), guild_profile_path || (guild_profile_path = /*#__PURE__*/external_BdApi_React_namespaceObject.createElement("path", {
+    viewBox: "0 0 24 24",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
     fillRule: "evenodd",
     clipRule: "evenodd",
-    d: "M21 3H3v18h18V3zm-3.6 3.6H6.6v1.8h10.8V6.6zM6.6 10.2h10.8V12H6.6v-1.8zm7.2 3.6H6.6v1.8h7.2v-1.8z",
-    fill: "currentColor"
-  })));
-}
+    d: "M21 3H3v18h18V3Zm-3.6 3.6H6.6v1.8h10.8V6.6ZM6.6 10.2h10.8V12H6.6v-1.8Zm7.2 3.6H6.6v1.8h7.2v-1.8Z",
+    fill: "currentColor",
+}));
 
 /* harmony default export */ const guild_profile = (SvgGuildProfile);
 ;// CONCATENATED MODULE: ./src/GuildProfile/style.scss
@@ -1588,7 +1585,6 @@ for (const localePath of requireContext.keys()) {
 }
 
 /* harmony default export */ const GuildProfile_locales = (locales);
-
 ;// CONCATENATED MODULE: ./src/GuildProfile/index.jsx
 /* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
@@ -1611,7 +1607,12 @@ for (const localePath of requireContext.keys()) {
 
 
 
-const { ModalActions, UserSettingsStore, SelectedGuildStore, GuildStore } = external_BoundedLibrary_namespaceObject.DiscordModules;
+const {
+    ModalActions,
+    UserSettingsStore,
+    SelectedGuildStore,
+    GuildStore
+} = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
 
@@ -1651,9 +1652,14 @@ class GuildProfile extends (external_Plugin_default()) {
                 'Context menu position',
                 'The position of the guild profile item on the context menu, the one opened when you right-click a guild.',
                 this.settings.position,
-                [
-                    { label: 'Top', value: 'top' },
-                    { label: 'Bottom', value: 'bottom' }
+                [{
+                        label: 'Top',
+                        value: 'top'
+                    },
+                    {
+                        label: 'Bottom',
+                        value: 'bottom'
+                    }
                 ],
                 value => (this.settings.position = value)
             )
@@ -1670,7 +1676,10 @@ class GuildProfile extends (external_Plugin_default()) {
                 return;
             }
 
-            const { navId, children } = props;
+            const {
+                navId,
+                children
+            } = props;
 
             if (
                 navId !== 'guild-header-popout' ||
@@ -1680,14 +1689,12 @@ class GuildProfile extends (external_Plugin_default()) {
             }
 
             children.unshift(
-                external_BdApi_React_default().createElement(Menu.MenuGroup, null
-                    , external_BdApi_React_default().createElement(Menu.MenuItem, {
-                        id: "guild-profile",
-                        label: i18n.Messages.GUILD_PROFILE,
-                        icon: guild_profile,
-                        action: () => this.openGuildProfileModal(GuildStore.getGuild(SelectedGuildStore.getGuildId())),}
-                    )
-                )
+                external_BdApi_React_default().createElement(Menu.MenuGroup, null, external_BdApi_React_default().createElement(Menu.MenuItem, {
+                    id: "guild-profile",
+                    label: i18n.Messages.GUILD_PROFILE,
+                    icon: guild_profile,
+                    action: () => this.openGuildProfileModal(GuildStore.getGuild(SelectedGuildStore.getGuildId())),
+                }))
             );
         });
     }
@@ -1704,14 +1711,12 @@ class GuildProfile extends (external_Plugin_default()) {
                 menu.props.children.splice(
                     this.settings.position === 'top' ? 1 : 5,
                     0,
-                    external_BdApi_React_default().createElement(Menu.MenuGroup, null
-                        , external_BdApi_React_default().createElement(Menu.MenuItem, {
-                            id: "guild-profile",
-                            key: "guild-profile",
-                            label: i18n.Messages.GUILD_PROFILE,
-                            action: () => this.openGuildProfileModal(props.guild),}
-                        )
-                    )
+                    external_BdApi_React_default().createElement(Menu.MenuGroup, null, external_BdApi_React_default().createElement(Menu.MenuItem, {
+                        id: "guild-profile",
+                        key: "guild-profile",
+                        label: i18n.Messages.GUILD_PROFILE,
+                        action: () => this.openGuildProfileModal(props.guild),
+                    }))
                 );
 
                 return menu;
@@ -1731,13 +1736,15 @@ class GuildProfile extends (external_Plugin_default()) {
 
     openGuildProfileModal(guild) {
         ModalActions.openModal(props => (
-            external_BdApi_React_default().createElement(ModalRoot, { className: "root-8LYsGj guild-profile" , ...props,}
-                , external_BdApi_React_default().createElement(GuildProfileModal, { guild: guild,} )
-            )
+            external_BdApi_React_default().createElement(ModalRoot, {
+                className: "root-8LYsGj guild-profile",
+                ...props,
+            }, external_BdApi_React_default().createElement(GuildProfileModal, {
+                guild: guild,
+            }))
         ));
     }
 }
-
 })();
 
 plugin = __webpack_exports__["default"];
