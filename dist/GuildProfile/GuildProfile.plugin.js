@@ -293,9 +293,9 @@ const external_BoundedLibrary_namespaceObject = BoundedLibrary;
 const external_Plugin_namespaceObject = Plugin;
 var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
 ;// CONCATENATED MODULE: ./src/@discord/i18n.js
- function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
-/* harmony default export */ const i18n = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => _optionalChain([m, 'optionalAccess', _ => _.Messages, 'optionalAccess', _2 => _2.ACCOUNT])));
+
+/* harmony default export */ const i18n = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.Messages?.ACCOUNT));
 
 ;// CONCATENATED MODULE: ./src/@discord/components/Modal.js
 
@@ -338,9 +338,9 @@ const {
 /* harmony default export */ const _discord_Flux = (Flux);
 
 ;// CONCATENATED MODULE: ./src/@discord/components/Text.js
- function Text_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
-/* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => Text_optionalChain([m, 'optionalAccess', _ => _.Text, 'optionalAccess', _2 => _2.displayName]) === 'Text').Text);
+
+/* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.Text?.displayName === 'Text').Text);
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/stores/MemberCountsStore.js
 /* @license
@@ -1057,7 +1057,7 @@ const {
 });
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildFeatures.jsx
- function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }/* @license
+/* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
@@ -1077,7 +1077,7 @@ function GuildFeatures_GuildFeatures({ className, guild }) {
     return (
         external_BdApi_React_default().createElement('div', { className: `${className} container-1gYwHN`,}
             , features.map(feature => {
-                const Icon = _nullishCoalesce(assets_features[feature], () => ( 'div'));
+                const Icon = assets_features[feature] ?? 'div';
 
                 return (
                     external_BdApi_React_default().createElement(TooltipContainer, { key: feature, text: i18n.Messages[`GUILD_PROFILE_${feature}`] || feature,}
@@ -1260,10 +1260,10 @@ function Relationships({ guild, relationshipType }) {
 const external_BoundedLibrary_DiscordModules_Moment_namespaceObject = BoundedLibrary.DiscordModules.Moment;
 var external_BoundedLibrary_DiscordModules_Moment_default = /*#__PURE__*/__webpack_require__.n(external_BoundedLibrary_DiscordModules_Moment_namespaceObject);
 ;// CONCATENATED MODULE: ./src/@discord/stores/StreamerModeStore.js
- function StreamerModeStore_nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } } function StreamerModeStore_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
 
 /* harmony default export */ const StreamerModeStore = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m =>
-    Object.getOwnPropertyDescriptor(StreamerModeStore_nullishCoalesce(StreamerModeStore_optionalChain([m, 'optionalAccess', _ => _.default, 'optionalAccess', _2 => _2.__proto__]), () => ( {})), 'hidePersonalInformation')
+    Object.getOwnPropertyDescriptor(m?.default?.__proto__ ?? {}, 'hidePersonalInformation')
 ).default);
 
 ;// CONCATENATED MODULE: ./src/@discord/components/Form.js
@@ -1295,7 +1295,7 @@ const {
 /* harmony default export */ const Anchor = (external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('Anchor'));
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildInfo.jsx
- function GuildInfo_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
+/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
@@ -1324,7 +1324,7 @@ const {
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const { default: UserMention } = external_BoundedLibrary_namespaceObject.WebpackModules.find(
-    m => !GuildInfo_optionalChain([m, 'optionalAccess', _ => _.default, 'optionalAccess', _2 => _2.displayName]) && GuildInfo_optionalChain([m, 'optionalAccess', _3 => _3.default, 'optionalAccess', _4 => _4.toString, 'call', _5 => _5(), 'access', _6 => _6.includes, 'call', _7 => _7('inlinePreview')])
+    m => !m?.default?.displayName && m?.default?.toString().includes('inlinePreview')
 );
 const UserFetcher = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getUser', 'fetchCurrentUser');
 
@@ -1364,7 +1364,7 @@ function GuildInfo({ guild }) {
                 external_BdApi_React_default().createElement(Flex, { justify: Flex.Justify.START, wrap: Flex.Wrap.WRAP,}
                     , external_BdApi_React_default().createElement(InfoSection, { title: i18n.Messages.GUILD_OWNER,}
                         , owner ? (
-                            external_BdApi_React_default().createElement(UserMention, { className: "mention", userId: owner.id, channelId: GuildInfo_optionalChain([channel, 'optionalAccess', _8 => _8.id]),} )
+                            external_BdApi_React_default().createElement(UserMention, { className: "mention", userId: owner.id, channelId: channel?.id,} )
                         ) : (
                             `${i18n.Messages.GUILD_PROFILE_LOADING}...`
                         )
@@ -1412,7 +1412,7 @@ function GuildInfo({ guild }) {
 }
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildRoles.jsx
- function GuildRoles_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
+/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
@@ -1432,7 +1432,7 @@ const { MemberRole } = external_BoundedLibrary_namespaceObject.WebpackModules.ge
 
 function GuildRoles({ guild }) {
     const hide = useStateFromStores([StreamerModeStore], () => StreamerModeStore.hidePersonalInformation);
-    const roles = GuildRoles_optionalChain([Object, 'access', _ => _.values, 'call', _2 => _2(guild.roles), 'optionalAccess', _3 => _3.sort, 'call', _4 => _4((b, a) => a.position - b.position)]);
+    const roles = Object.values(guild.roles)?.sort((b, a) => a.position - b.position);
 
     if (hide) {
         return (
@@ -1455,7 +1455,7 @@ function GuildRoles({ guild }) {
 }
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/index.jsx
- function GuildProfileModal_nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }/* @license
+/* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
@@ -1488,7 +1488,7 @@ class GuildProfileModal extends (external_BdApi_React_default()).PureComponent {
         super(props);
 
         this.state = {
-            selectedSection: GuildProfileModal_nullishCoalesce(props.section, () => ( GuildProfileSections.GUILD_INFO))
+            selectedSection: props.section ?? GuildProfileSections.GUILD_INFO
         };
 
         this.handleSectionSelect = this.handleSectionSelect.bind(this);
@@ -1590,7 +1590,7 @@ for (const localePath of requireContext.keys()) {
 /* harmony default export */ const GuildProfile_locales = (locales);
 
 ;// CONCATENATED MODULE: ./src/GuildProfile/index.jsx
- function GuildProfile_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* @license
+/* @license
  * Copyright (c) 2021 jaimeadf (Jaime Filho)
  * Licensed under the Open Software License version 3.0
  */
@@ -1674,7 +1674,7 @@ class GuildProfile extends (external_Plugin_default()) {
 
             if (
                 navId !== 'guild-header-popout' ||
-                external_BoundedLibrary_namespaceObject.Utilities.findInReactTree(children, c => GuildProfile_optionalChain([c, 'optionalAccess', _ => _.id]) === 'guild-profile')
+                external_BoundedLibrary_namespaceObject.Utilities.findInReactTree(children, c => c?.id === 'guild-profile')
             ) {
                 return;
             }

@@ -94,14 +94,14 @@ const external_BoundedLibrary_namespaceObject = BoundedLibrary;
 const external_Plugin_namespaceObject = Plugin;
 var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
 ;// CONCATENATED MODULE: ./src/WhoReacted/components/Reactors.jsx
- function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } } function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
 
 
 const { UserStore, RelationshipStore } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const Flux = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Store', 'connectStores');
 const ReactionStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getReactions', '_changeCallbacks');
-const VoiceUserSummaryItem = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => _optionalChain([m, 'optionalAccess', _ => _.default, 'optionalAccess', _2 => _2.displayName]) === 'VoiceUserSummaryItem').default;
+const VoiceUserSummaryItem = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'VoiceUserSummaryItem').default;
 
 function Reactors({ users, currentUser, showSelf, showBots, showBlocked, max, size, count }) {
     const filteredUsers = (0,external_BdApi_React_namespaceObject.useMemo)(() => {
@@ -133,13 +133,12 @@ function Reactors({ users, currentUser, showSelf, showBots, showBlocked, max, si
 
 /* harmony default export */ const components_Reactors = (Flux.connectStores([UserStore, ReactionStore], ({ message, emoji }) => ({
     currentUser: UserStore.getCurrentUser(),
-    users: Object.values(_nullishCoalesce(ReactionStore.getReactions(message.getChannelId(), message.id, emoji), () => ( {})))
+    users: Object.values(ReactionStore.getReactions(message.getChannelId(), message.id, emoji) ?? {})
 }))(Reactors));
 
 ;// CONCATENATED MODULE: ./src/WhoReacted/style.scss
 /* harmony default export */ const style = (".reactors:not(:empty){margin-left:6px}.reactors .more-reactors{background-color:var(--background-tertiary);color:var(--text-normal);font-weight:500}.reactors-size-8px .avatarSize-EXG1Is{width:8px !important;height:8px !important}.reactors-size-8px .more-reactors{height:8px;padding-right:3.2px;padding-left:2.4px;font-size:4.8px;line-height:8px;border-radius:4px}.reactors-size-12px .avatarSize-EXG1Is{width:12px !important;height:12px !important}.reactors-size-12px .more-reactors{height:12px;padding-right:4.8px;padding-left:3.6px;font-size:7.2px;line-height:12px;border-radius:6px}.reactors-size-16px .avatarSize-EXG1Is{width:16px !important;height:16px !important}.reactors-size-16px .more-reactors{height:16px;padding-right:6.4px;padding-left:4.8px;font-size:9.6px;line-height:16px;border-radius:8px}.reactors-size-24px .avatarSize-EXG1Is{width:24px !important;height:24px !important}.reactors-size-24px .more-reactors{height:24px;padding-right:9.6px;padding-left:7.2px;font-size:14.4px;line-height:24px;border-radius:12px}.reactors-size-32px .avatarSize-EXG1Is{width:32px !important;height:32px !important}.reactors-size-32px .more-reactors{height:32px;padding-right:12.8px;padding-left:9.6px;font-size:19.2px;line-height:32px;border-radius:16px}\n");
 ;// CONCATENATED MODULE: ./src/WhoReacted/index.jsx
- function WhoReacted_optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
 
 
@@ -147,7 +146,8 @@ function Reactors({ users, currentUser, showSelf, showBots, showBlocked, max, si
 
 
 
-const Reactions = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => WhoReacted_optionalChain([m, 'optionalAccess', _ => _.default, 'optionalAccess', _2 => _2.displayName]) === 'Reactions').default;
+
+const Reactions = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'Reactions').default;
 const { SettingPanel, SettingGroup, Textbox, Slider, Switch } = external_BoundedLibrary_namespaceObject.Settings;
 
 class WhoReacted extends (external_Plugin_default()) {
@@ -396,7 +396,7 @@ class WhoReacted extends (external_Plugin_default()) {
     }
 
     findReactionReactInstance(node) {
-        return external_BoundedLibrary_namespaceObject.Utilities.findInTree(external_BoundedLibrary_namespaceObject.ReactTools.getReactInstance(node), r => WhoReacted_optionalChain([r, 'optionalAccess', _3 => _3.type, 'optionalAccess', _4 => _4.displayName]) === 'Reaction', {
+        return external_BoundedLibrary_namespaceObject.Utilities.findInTree(external_BoundedLibrary_namespaceObject.ReactTools.getReactInstance(node), r => r?.type?.displayName === 'Reaction', {
             walkable: ['return']
         });
     }

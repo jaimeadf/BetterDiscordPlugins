@@ -91,10 +91,10 @@ const external_BoundedLibrary_namespaceObject = BoundedLibrary;
 const external_Plugin_namespaceObject = Plugin;
 var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
 ;// CONCATENATED MODULE: ./src/SecretRingTone/index.js
- function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
 
-const { j: WebAudioSound } = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => _optionalChain([m, 'optionalAccess', _ => _.j, 'optionalAccess', _2 => _2.prototype, 'access', _3 => _3._ensureAudio]));
+
+const { j: WebAudioSound } = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.j?.prototype._ensureAudio);
 
 class SecretRingTone extends (external_Plugin_default()) {
     constructor() {
