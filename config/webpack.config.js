@@ -11,6 +11,7 @@ module.exports = (env, argv) => {
 
     const plugins = findPlugins();
 
+    const prettify = path.resolve(__dirname, 'loaders', 'prettify.js');
     const sucrase = {
         loader: '@sucrase/webpack-loader',
         options: {
@@ -53,6 +54,7 @@ module.exports = (env, argv) => {
                 {
                     test: /\.svg$/,
                     use: [
+                        prettify,
                         sucrase,
                         {
                             loader: '@svgr/webpack',
@@ -66,7 +68,7 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.jsx?$/,
-                    use: [sucrase, 'eslint-loader']
+                    use: [prettify, sucrase, 'eslint-loader']
                 }
             ]
         },
