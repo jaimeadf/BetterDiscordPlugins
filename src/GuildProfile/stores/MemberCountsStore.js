@@ -7,12 +7,9 @@
 import { DiscordModules } from '@zlibrary/api';
 
 import Flux from '@discord/Flux';
+import ActionTypes from '@discord/ActionTypes';
 
-const {
-    Dispatcher,
-    MemberCountStore,
-    DiscordConstants: { ActionTypes }
-} = DiscordModules;
+const { Dispatcher, MemberCountStore } = DiscordModules;
 
 const memberCounts = new Map();
 const onlineMemberCounts = new Map();
