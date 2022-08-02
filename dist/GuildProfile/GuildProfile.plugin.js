@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.6.2
+ * @version 1.6.3
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.6.2","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixed Context Menu","type":"fixed","items":["Added Server Profile button back to the context menu."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.6.3","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixed","type":"fixed","items":[]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -337,6 +337,14 @@ const {
 
 
 /* harmony default export */ const Text = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.Text?.displayName === 'Text').Text);
+;// CONCATENATED MODULE: ./src/@discord/ActionTypes.js
+/* harmony default export */ const ActionTypes = ({
+    CONNECTION_OPEN: 'CONNECTION_OPEN',
+    GUILD_CREATE: 'GUILD_CREATE',
+    GUILD_DELETE: 'GUILD_DELETE',
+    GUILD_MEMBER_LIST_UPDATE: 'GUILD_MEMBER_LIST_UPDATE',
+    ONLINE_GUILD_MEMBER_COUNT_UPDATE: 'ONLINE_GUILD_MEMBER_COUNT_UPDATE'
+});
 ;// CONCATENATED MODULE: ./src/GuildProfile/stores/MemberCountsStore.js
 /* @license
  * Copyright (c) 2020 NurMarvin (Marvin Witt)
@@ -348,12 +356,10 @@ const {
 
 
 
+
 const {
     Dispatcher: MemberCountsStore_Dispatcher,
-    MemberCountStore,
-    DiscordConstants: {
-        ActionTypes
-    }
+    MemberCountStore
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const memberCounts = new Map();
