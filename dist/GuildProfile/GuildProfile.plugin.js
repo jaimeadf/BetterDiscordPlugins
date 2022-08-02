@@ -350,10 +350,7 @@ const {
 
 const {
     Dispatcher: MemberCountsStore_Dispatcher,
-    MemberCountStore,
-    DiscordConstants: {
-        ActionTypes
-    }
+    MemberCountStore
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const memberCounts = new Map();
@@ -421,11 +418,11 @@ class MemberCountsStore extends _discord_Flux.Store {
 }
 
 /* harmony default export */ const stores_MemberCountsStore = (new MemberCountsStore(MemberCountsStore_Dispatcher, {
-    [ActionTypes.CONNECTION_OPEN]: handleConnectionOpen,
-    [ActionTypes.GUILD_CREATE]: handleGuildCreate,
-    [ActionTypes.GUILD_DELETE]: handleGuildDelete,
-    [ActionTypes.GUILD_MEMBER_LIST_UPDATE]: handleGuildMemberListUpdate,
-    [ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE]: handleOnlineGuildMemberCountUpdate
+    ['CONNECTION_OPEN']: handleConnectionOpen,
+    ['GUILD_CREATE']: handleGuildCreate,
+    ['GUILD_DELETE']: handleGuildDelete,
+    ['GUILD_MEMBER_LIST_UPDATE']: handleGuildMemberListUpdate,
+    ['ONLINE_GUILD_MEMBER_COUNT_UPDATE']: handleOnlineGuildMemberCountUpdate
 }));
 ;// CONCATENATED MODULE: ./src/GuildProfile/components/GuildProfileModal/GuildBanner.jsx
 /* @license

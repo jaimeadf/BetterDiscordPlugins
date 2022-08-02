@@ -8,11 +8,7 @@ import { DiscordModules } from '@zlibrary/api';
 
 import Flux from '@discord/Flux';
 
-const {
-    Dispatcher,
-    MemberCountStore,
-    DiscordConstants: { ActionTypes }
-} = DiscordModules;
+const { Dispatcher, MemberCountStore } = DiscordModules;
 
 const memberCounts = new Map();
 const onlineMemberCounts = new Map();
@@ -66,9 +62,9 @@ class MemberCountsStore extends Flux.Store {
 }
 
 export default new MemberCountsStore(Dispatcher, {
-    [ActionTypes.CONNECTION_OPEN]: handleConnectionOpen,
-    [ActionTypes.GUILD_CREATE]: handleGuildCreate,
-    [ActionTypes.GUILD_DELETE]: handleGuildDelete,
-    [ActionTypes.GUILD_MEMBER_LIST_UPDATE]: handleGuildMemberListUpdate,
-    [ActionTypes.ONLINE_GUILD_MEMBER_COUNT_UPDATE]: handleOnlineGuildMemberCountUpdate
+    ['CONNECTION_OPEN']: handleConnectionOpen,
+    ['GUILD_CREATE']: handleGuildCreate,
+    ['GUILD_DELETE']: handleGuildDelete,
+    ['GUILD_MEMBER_LIST_UPDATE']: handleGuildMemberListUpdate,
+    ['ONLINE_GUILD_MEMBER_COUNT_UPDATE']: handleOnlineGuildMemberCountUpdate
 });
