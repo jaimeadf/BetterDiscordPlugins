@@ -1,4 +1,8 @@
 {
+    "SETTINGS_CONTEXT": "Kontextmenü Position",
+    "SETTINGS_DESCRIPTION": "Die Position des Gildenprofils im Kontextmenü, das geöffnet wird, wenn Du mit der rechten Maustaste auf eine Gilde klickst.",
+    "SETTINGS_TOP": "Oben",
+    "SETTINGS_BOTTOM": "Unten",
     "GUILD_PROFILE": "Server Profil",
     "GUILD_PROFILE_GUILD_INFO": "Server Informationen",
     "GUILD_PROFILE_FRIENDS_IN_GUILD": "Freunde",
@@ -9,6 +13,11 @@
     "GUILD_PROFILE_JOINED_AT": "Beigetreten am",
     "GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT": "Server Booster Anzahl",
     "GUILD_PROFILE_GUILD_PREMIUM_TIER": "Server Boost Level",
+    "GUILD_PROFILE_NSFW_LEVEL": "NSFW Level",
+    "GUILD_PROFILE_NSFW_LEVEL_DEFAULT": "Standart",
+    "GUILD_PROFILE_NSFW_LEVEL_EXPLICIT": "Explizit",
+    "GUILD_PROFILE_NSFW_LEVEL_SAFE": "Sicher",
+    "GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED": "Altersbeschränkt",
     "GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD": "Keine Freunde auf diesem Server",
     "GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD": "Keine geblockten Nutzer auf diesem Server",
     "GUILD_PROFILE_INVITE_SPLASH": "Server Einladungs-Hintergrund",
@@ -25,5 +34,10 @@
     "GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE": "Vorher auffindbar aktiviert",
     "GUILD_PROFILE_WELCOME_SCREEN_ENABLED": "Willkommens Übersicht",
     "GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED": "Mitgliedschaftsprüfung",
-    "GUILD_PROFILE_PREVIEW_ENABLED": "Vorschau aktiviert"
+    "GUILD_PROFILE_PREVIEW_ENABLED": "Vorschau aktiviert",
+    "GUILD_PROFILE_PRIVATE_THREADS": "Private Threads",
+    "GUILD_PROFILE_THREADS_ENABLED": "Threads aktiviert",
+    "GUILD_PROFILE_ROLE_ICONS": "Rollen Icons",
+    "GUILD_PROFILE_THREE_DAY_THREAD_ARCHIVE": "Drei Tage Thread Archivierung",
+    "GUILD_PROFILE_SEVEN_DAY_THREAD_ARCHIVE": "Sieben Tage Thread Archivierung"
 }
