@@ -101,7 +101,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Profil serveru","GUILD_PROFILE_GU
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profil","GUILD_PROFILE_GUILD_INFO":"Server Informationen","GUILD_PROFILE_FRIENDS_IN_GUILD":"Freunde","GUILD_PROFILE_ROLES_IN_GUILD":"Rollen","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Geblockte Nutzer","GUILD_PROFILE_LOADING":"Lädt","GUILD_PROFILE_CREATED_AT":"Erstellt am","GUILD_PROFILE_JOINED_AT":"Beigetreten am","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Anzahl","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Keine Freunde auf diesem Server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Keine geblockten Nutzer auf diesem Server","GUILD_PROFILE_INVITE_SPLASH":"Server Einladungs-Hintergrund","GUILD_PROFILE_VIP_REGIONS":"VIP Regionen","GUILD_PROFILE_VANITY_URL":"Eigene Server URL","GUILD_PROFILE_MORE_EMOJI":"Mehr Emoji","GUILD_PROFILE_COMMERCE":"Store Kanal","GUILD_PROFILE_DISCOVERABLE":"Suchbar","GUILD_PROFILE_COMMUNITY":"Gemeinschaft","GUILD_PROFILE_FEATURABLE":"Empfehlbar","GUILD_PROFILE_NEWS":"Nachrichten Kanal","GUILD_PROFILE_ANIMATED_ICON":"Animiertes Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Vorher auffindbar aktiviert","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Willkommens Übersicht","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Mitgliedschaftsprüfung","GUILD_PROFILE_PREVIEW_ENABLED":"Vorschau aktiviert"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profil","GUILD_PROFILE_GUILD_INFO":"Server Informationen","GUILD_PROFILE_FRIENDS_IN_GUILD":"Freunde","GUILD_PROFILE_ROLES_IN_GUILD":"Rollen","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Geblockte Nutzer","GUILD_PROFILE_LOADING":"Lädt","GUILD_PROFILE_CREATED_AT":"Erstellt am","GUILD_PROFILE_JOINED_AT":"Beigetreten am","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Anzahl","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NSFW_LEVEL":"NSFW Level","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Standart","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explizit","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Sicher","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Altersbeschränkung","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"Keine Freunde auf diesem Server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"Keine geblockten Nutzer auf diesem Server","GUILD_PROFILE_INVITE_SPLASH":"Server Einladungs-Hintergrund","GUILD_PROFILE_PARTNERED":"Partnerschaft","GUILD_PROFILE_VIP_REGIONS":"VIP Regionen","GUILD_PROFILE_VANITY_URL":"Eigene Server URL","GUILD_PROFILE_MORE_EMOJI":"Mehr Emoji","GUILD_PROFILE_COMMERCE":"Store Kanal","GUILD_PROFILE_DISCOVERABLE":"Suchbar","GUILD_PROFILE_COMMUNITY":"Gemeinschaft","GUILD_PROFILE_AUTO_MODERATION":"Auto Moderation","GUILD_PROFILE_FEATURABLE":"Empfehlbar","GUILD_PROFILE_NEWS":"Nachrichten Kanal","GUILD_PROFILE_ANIMATED_ICON":"Animiertes Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Vorher auffindbar aktiviert","GUILD_PROFILE_ANIMATED_BANNER":"Animiertes Banner","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Willkommens Übersicht","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Mitgliedschaftsprüfung","GUILD_PROFILE_VERIFIED":"Verifiziert","GUILD_PROFILE_NEW_THREAD_PERMISSIONS":"Neue Thread-Berechtigungen","GUILD_PROFILE_PREVIEW_ENABLED":"Vorschau aktiviert","GUILD_PROFILE_TEXT_IN_VOICE_ENABLED":"Texten in Sprachkanälen aktiviert","GUILD_PROFILE_PRIVATE_THREADS":"Private Threads","GUILD_PROFILE_THREADS_ENABLED":"Threads aktiviert","GUILD_PROFILE_ROLE_ICONS":"Rollenicons","GUILD_PROFILE_MEMBER_PROFILES":"Mitgliederprofile","GUILD_PROFILE_THREE_DAY_THREAD_ARCHIVE":"Dreitägiges Thread-Archiv","GUILD_PROFILE_SEVEN_DAY_THREAD_ARCHIVE":"Sieben-Tage-Thread-Archiv","GUILD_PROFILE_CONTEXT_MENU_POSITION":"Position im Kontextmenü","GUILD_PROFILE_CONTEXT_MENU_POSITION_DESCRIPTION":"Die Position des Gildenprofils im Kontextmenü, das geöffnet wird, wenn du mit der rechten Maustaste auf eine Gilde klickst."}');
 
 /***/ }),
 
@@ -117,7 +117,7 @@ module.exports = JSON.parse('{"GUILD_PROFILE":"Προφίλ Διακομιστή
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_ROLES_IN_GUILD":"Roles","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NSFW_LEVEL":"NSFW Level","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Default","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explicit","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Safe","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Age Restricted","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled","GUILD_PROFILE_PRIVATE_THREADS":"Private Threads","GUILD_PROFILE_THREADS_ENABLED":"Threads Enabled","GUILD_PROFILE_ROLE_ICONS":"Role Icons","GUILD_PROFILE_THREE_DAY_THREAD_ARCHIVE":"Three Day Thread Archive","GUILD_PROFILE_SEVEN_DAY_THREAD_ARCHIVE":"Seven Day Thread Archive"}');
+module.exports = JSON.parse('{"GUILD_PROFILE":"Server Profile","GUILD_PROFILE_GUILD_INFO":"Server Info","GUILD_PROFILE_FRIENDS_IN_GUILD":"Friends","GUILD_PROFILE_ROLES_IN_GUILD":"Roles","GUILD_PROFILE_BLOCKED_USERS_IN_GUILD":"Blocked Users","GUILD_PROFILE_LOADING":"Loading","GUILD_PROFILE_CREATED_AT":"Created at","GUILD_PROFILE_JOINED_AT":"Joined at","GUILD_PROFILE_GUILD_PREMIUM_SUBSCRIBER_COUNT":"Server Booster Count","GUILD_PROFILE_GUILD_PREMIUM_TIER":"Server Boost Level","GUILD_PROFILE_NSFW_LEVEL":"NSFW Level","GUILD_PROFILE_NSFW_LEVEL_DEFAULT":"Default","GUILD_PROFILE_NSFW_LEVEL_EXPLICIT":"Explicit","GUILD_PROFILE_NSFW_LEVEL_SAFE":"Safe","GUILD_PROFILE_NSFW_LEVEL_AGE_RESTRICTED":"Age Restricted","GUILD_PROFILE_NO_FRIENDS_IN_THIS_GUILD":"No friends in this server","GUILD_PROFILE_NO_BLOCKED_USERS_IN_THIS_GUILD":"No blocked users in this server","GUILD_PROFILE_INVITE_SPLASH":"Server Invite Background","GUILD_PROFILE_PARTNERED":"Partnership","GUILD_PROFILE_VIP_REGIONS":"VIP Regions","GUILD_PROFILE_VANITY_URL":"Vanity URL","GUILD_PROFILE_MORE_EMOJI":"More Emoji","GUILD_PROFILE_COMMERCE":"Store Channels","GUILD_PROFILE_DISCOVERABLE":"Discoverable","GUILD_PROFILE_COMMUNITY":"Community","GUILD_PROFILE_AUTO_MODERATION":"Auto Moderation","GUILD_PROFILE_FEATURABLE":"Featurable","GUILD_PROFILE_NEWS":"Announcement Channels","GUILD_PROFILE_ANIMATED_ICON":"Animated Server Icon","GUILD_PROFILE_BANNER":"Server Banner","GUILD_PROFILE_ENABLED_DISCOVERABLE_BEFORE":"Enabled Discoverable Before","GUILD_PROFILE_ANIMATED_BANNER":"Animated Banner","GUILD_PROFILE_WELCOME_SCREEN_ENABLED":"Welcome Screen Enabled","GUILD_PROFILE_MEMBER_VERIFICATION_GATE_ENABLED":"Membership Screening","GUILD_PROFILE_VERIFIED":"Verified","GUILD_PROFILE_NEW_THREAD_PERMISSIONS":"New Thread Permissions","GUILD_PROFILE_PREVIEW_ENABLED":"Preview Enabled","GUILD_PROFILE_TEXT_IN_VOICE_ENABLED":"Texting in voicechannels activated","GUILD_PROFILE_PRIVATE_THREADS":"Private Threads","GUILD_PROFILE_THREADS_ENABLED":"Threads Enabled","GUILD_PROFILE_ROLE_ICONS":"Role Icons","GUILD_PROFILE_MEMBER_PROFILES":"Member Profiles","GUILD_PROFILE_THREE_DAY_THREAD_ARCHIVE":"Three Day Thread Archive","GUILD_PROFILE_SEVEN_DAY_THREAD_ARCHIVE":"Seven Day Thread Archive","GUILD_PROFILE_CONTEXT_MENU_POSITION":"Context menu position","GUILD_PROFILE_CONTEXT_MENU_POSITION_DESCRIPTION":"The position of the guild profile item on the context menu, the one opened when you right-click a guild."}');
 
 /***/ }),
 
@@ -593,6 +593,22 @@ const SvgCommerce = props => external_BdApi_React_namespaceObject.createElement(
 }));
 
 /* harmony default export */ const commerce = (SvgCommerce);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/auto-moderation.svg
+
+
+const SvgAutoModeration = props => external_BdApi_React_namespaceObject.createElement('svg', {
+    xmlns: "http://www.w3.org/2000/svg",
+    'aria-hidden': "true",
+    width: "1em",
+    height: "1em",
+    viewBox: "-1.5 -1.5 24 24",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    fill: "currentColor",
+    d: "m2.536 8.9 2.828 2.828 6.364-6.364-2.829-2.828-6.363 6.363zm12.727 5.656-4.95-4.95-.706.708 4.95 4.95.706-.708zm1.415 1.415-.707.707 1.767 1.767a.5.5 0 0 0 .707-.707l-1.767-1.767zM6.01 2.596 7.485 1.12a2 2 0 0 1 2.829 0l2.828 2.829a2 2 0 0 1 0 2.828l-1.414 1.414 8.132 8.132a2.5 2.5 0 1 1-3.536 3.536l-8.132-8.132-1.414 1.414a2 2 0 0 1-2.828 0l-2.83-2.827a2 2 0 0 1 0-2.829l1.475-1.474a1.5 1.5 0 0 1 .293-1.708L4.303 2.89a1.5 1.5 0 0 1 1.708-.293z",
+}));
+
+/* harmony default export */ const auto_moderation = (SvgAutoModeration);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/discoverable.svg
 
 
@@ -701,10 +717,26 @@ const SvgAnimatedIcon = props => external_BdApi_React_namespaceObject.createElem
 }));
 
 /* harmony default export */ const animated_icon = (SvgAnimatedIcon);
-;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/banner.svg
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/animated-banner.svg
 
 
-const SvgBanner = props => external_BdApi_React_namespaceObject.createElement('svg', {
+const SvgAnimatedBanner = props => external_BdApi_React_namespaceObject.createElement('svg', {
+    xmlns: "http://www.w3.org/2000/svg",
+    'aria-hidden': "true",
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 256 256",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    fill: "currentColor",
+    d: "m186.2 108 44-55a8 8 0 0 0-6.2-13H40a8 8 0 0 0-8 8v168a8 8 0 0 0 16 0v-40h176a8 8 0 0 0 6.2-13ZM48 160V56h159.4l-37.6 47a7.8 7.8 0 0 0 0 10l37.6 47Z",
+}));
+
+/* harmony default export */ const animated_banner = (SvgAnimatedBanner);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/server-banner.svg
+
+
+const SvgServerBanner = props => external_BdApi_React_namespaceObject.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
     'aria-hidden': "true",
     width: "1em",
@@ -721,7 +753,7 @@ const SvgBanner = props => external_BdApi_React_namespaceObject.createElement('s
     fill: "currentColor",
 }));
 
-/* harmony default export */ const banner = (SvgBanner);
+/* harmony default export */ const server_banner = (SvgServerBanner);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/enabled-discoverable-before.svg
 
 
@@ -778,6 +810,44 @@ const SvgMemberVerificationGateEnabled = props => external_BdApi_React_namespace
 }));
 
 /* harmony default export */ const member_verification_gate_enabled = (SvgMemberVerificationGateEnabled);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/verified.svg
+
+
+const SvgVerified = props => external_BdApi_React_namespaceObject.createElement('svg', {
+    xmlns: "http://www.w3.org/2000/svg",
+    'aria-hidden': "true",
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    fill: "currentColor",
+    fillRule: "evenodd",
+    d: "M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1Zm4.768 9.14a1 1 0 1 0-1.536-1.28l-4.3 5.159-2.225-2.226a1 1 0 0 0-1.414 1.414l3 3a1 1 0 0 0 1.475-.067l5-6Z",
+    clipRule: "evenodd",
+}));
+
+/* harmony default export */ const verified = (SvgVerified);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/new-thread-permissions.svg
+
+
+const SvgNewThreadPermissions = props => external_BdApi_React_namespaceObject.createElement('svg', {
+    xmlns: "http://www.w3.org/2000/svg",
+    'aria-hidden': "true",
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    fill: "none",
+    stroke: "currentColor",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M10 3 6 21M18 3l-4 18M4 8h17M3 16h17",
+}));
+
+/* harmony default export */ const new_thread_permissions = (SvgNewThreadPermissions);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/preview-enabled.svg
 
 
@@ -799,6 +869,29 @@ const SvgPreviewEnabled = props => external_BdApi_React_namespaceObject.createEl
 }));
 
 /* harmony default export */ const preview_enabled = (SvgPreviewEnabled);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/text_in_voice_enabled.svg
+
+
+const SvgTextInVoiceEnabled = props => external_BdApi_React_namespaceObject.createElement('svg', {
+    xmlns: "http://www.w3.org/2000/svg",
+    'aria-hidden': "true",
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('g', {
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.5,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    d: "M7 12h10M7 8h6",
+}), external_BdApi_React_namespaceObject.createElement('path', {
+    d: "M3 20.29V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7.961a2 2 0 0 0-1.561.75l-2.331 2.914A.6.6 0 0 1 3 20.29Z",
+})));
+
+/* harmony default export */ const text_in_voice_enabled = (SvgTextInVoiceEnabled);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/private-threads.svg
 
 
@@ -864,6 +957,22 @@ const SvgRoleIcons = props => external_BdApi_React_namespaceObject.createElement
 }));
 
 /* harmony default export */ const role_icons = (SvgRoleIcons);
+;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/member-profiles.svg
+
+
+const SvgMemberProfiles = props => external_BdApi_React_namespaceObject.createElement('svg', {
+    xmlns: "http://www.w3.org/2000/svg",
+    'aria-hidden': "true",
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    ...props,
+}, external_BdApi_React_namespaceObject.createElement('path', {
+    fill: "currentColor",
+    d: "M21 9h-6v13h-2v-6h-2v6H9V9H3V7h18m-9-5a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2Z",
+}));
+
+/* harmony default export */ const member_profiles = (SvgMemberProfiles);
 ;// CONCATENATED MODULE: ./src/GuildProfile/assets/features/three-day-thread-archive.svg
 
 
@@ -947,6 +1056,12 @@ const SvgSevenDayThreadArchive = props => external_BdApi_React_namespaceObject.c
 
 
 
+
+
+
+
+
+
 const {
     DiscordConstants: {
         GuildFeatures
@@ -961,17 +1076,23 @@ const {
     [GuildFeatures.COMMERCE]: commerce,
     [GuildFeatures.DISCOVERABLE]: discoverable,
     [GuildFeatures.COMMUNITY]: community,
+    ['AUTO_MODERATION']: auto_moderation,
     [GuildFeatures.FEATURABLE]: featurable,
     [GuildFeatures.NEWS]: news,
     [GuildFeatures.ANIMATED_ICON]: animated_icon,
-    [GuildFeatures.BANNER]: banner,
+    ['ANIMATED_BANNER']: animated_banner,
+    [GuildFeatures.BANNER]: server_banner,
     [GuildFeatures.ENABLED_DISCOVERABLE_BEFORE]: enabled_discoverable_before,
     [GuildFeatures.WELCOME_SCREEN_ENABLED]: welcome_screen_enabled,
     [GuildFeatures.MEMBER_VERIFICATION_GATE_ENABLED]: member_verification_gate_enabled,
+    ['VERIFIED']: verified,
+    ['NEW_THREAD_PERMISSIONS']: new_thread_permissions,
     [GuildFeatures.PREVIEW_ENABLED]: preview_enabled,
+    ['TEXT_IN_VOICE_ENABLED']: text_in_voice_enabled,
     [GuildFeatures.PRIVATE_THREADS]: private_threads,
     [GuildFeatures.THREADS_ENABLED]: threads_enabled,
     [GuildFeatures.ROLE_ICONS]: role_icons,
+    ['MEMBER_PROFILES']: member_profiles,
     ['THREE_DAY_THREAD_ARCHIVE']: three_day_thread_archive,
     ['SEVEN_DAY_THREAD_ARCHIVE']: seven_day_thread_archive
 });
@@ -1655,8 +1776,8 @@ class GuildProfile extends (external_Plugin_default()) {
         return new external_BoundedLibrary_namespaceObject.Settings.SettingPanel(
             this.saveSettings.bind(this),
             new external_BoundedLibrary_namespaceObject.Settings.Dropdown(
-                'Context menu position',
-                'The position of the guild profile item on the context menu, the one opened when you right-click a guild.',
+                i18n.Messages.GUILD_PROFILE_CONTEXT_MENU_POSITION,
+                i18n.Messages.GUILD_PROFILE_CONTEXT_MENU_POSITION_DESCRIPTION,
                 this.settings.position,
                 [{
                         label: 'Top',
