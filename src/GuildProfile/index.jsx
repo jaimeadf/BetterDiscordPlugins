@@ -56,8 +56,8 @@ export default class GuildProfile extends Plugin {
         return new Settings.SettingPanel(
             this.saveSettings.bind(this),
             new Settings.Dropdown(
-                i18n.Messages.GUILD_PROFILE_CONTEXT_MENU_POSITION,
-                i18n.Messages.GUILD_PROFILE_CONTEXT_MENU_POSITION_DESCRIPTION,
+                i18n.Messages.GUILD_PROFILE_SETTINGS_CONTEXT_MENU_POSITION,
+                i18n.Messages.GUILD_PROFILE_SETTINGS_CONTEXT_MENU_POSITION_DESCRIPTION,
                 this.settings.position,
                 [
                     { label: 'Top', value: 'top' },
