@@ -11,7 +11,7 @@ const {
     DiscordConstants: { Colors }
 } = DiscordModules;
 
-const { default: useDominantColor } = WebpackModules.getByProps('maybeFetchColor');
+const { default: useDominantColor } = WebpackModules.getByProps('maybeFetchColors');
 
 export default function GuildBanner({ guild }) {
     const dominantColor = useDominantColor(guild.getIconURL(), Colors.TRANSPARENT);

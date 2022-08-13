@@ -10,6 +10,7 @@ import Plugin from '@zlibrary/plugin';
 
 import i18n from '@discord/i18n';
 import { ModalRoot } from '@discord/components/Modal';
+import UserSettingsStore from '@discord/stores/UserSettingsStore';
 
 import GuildProfileModal from './components/GuildProfileModal';
 import GuildProfileIcon from './assets/guild-profile.svg';
@@ -19,7 +20,7 @@ import MemberCountsStore from './stores/MemberCountsStore';
 import style from './style.scss';
 import locales from './locales';
 
-const { ModalActions, UserSettingsStore, SelectedGuildStore, GuildStore } = DiscordModules;
+const { ModalActions, SelectedGuildStore, GuildStore } = DiscordModules;
 
 const Menu = WebpackModules.getByProps('MenuItem');
 
