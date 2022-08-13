@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.6.4
+ * @version 1.6.5
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.6.4","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Improvements","type":"improved","items":["Added more icons for the server features (Thanks @Justman10000 on GitHub).","Added translations of the plugin settings for German (Thanks @Justman10000 on GitHub)."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.6.5","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixed","type":"fixed","items":["Everything has gone back to normal."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -313,6 +313,10 @@ const {
 
 
 /* harmony default export */ const components_Modal = ((/* unused pure expression or super */ null && (Modal)));
+;// CONCATENATED MODULE: ./src/@discord/stores/UserSettingsStore.js
+
+
+/* harmony default export */ const UserSettingsStore = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m.locale && m.theme));
 ;// CONCATENATED MODULE: ./src/@discord/components/TabBar.js
 
 
@@ -451,7 +455,7 @@ const {
 
 const {
     default: useDominantColor
-} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('maybeFetchColor');
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('maybeFetchColors');
 
 function GuildBanner({
     guild
@@ -1734,9 +1738,9 @@ for (const localePath of requireContext.keys()) {
 
 
 
+
 const {
     ModalActions,
-    UserSettingsStore,
     SelectedGuildStore,
     GuildStore
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
