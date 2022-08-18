@@ -1,7 +1,7 @@
 {
     "name": "GuildProfile",
     "description": "Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.",
-    "version": "1.6.5",
+    "version": "1.6.6",
     "author": {
         "id": "289112759948410881",
         "name": "Marmota (Jaime Filho)"
@@ -15,7 +15,7 @@
             "title": "Fixed",
             "type": "fixed",
             "items": [
-                "Everything has gone back to normal."
+                "Everything has gone back to normal again."
             ]
         }
     ]
