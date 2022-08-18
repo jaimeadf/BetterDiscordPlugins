@@ -10,7 +10,6 @@ import Plugin from '@zlibrary/plugin';
 
 import i18n from '@discord/i18n';
 import { ModalRoot } from '@discord/components/Modal';
-import UserSettingsStore from '@discord/stores/UserSettingsStore';
 
 import GuildProfileModal from './components/GuildProfileModal';
 import GuildProfileIcon from './assets/guild-profile.svg';
@@ -23,6 +22,7 @@ import locales from './locales';
 const { ModalActions, SelectedGuildStore, GuildStore } = DiscordModules;
 
 const Menu = WebpackModules.getByProps('MenuItem');
+const LocaleStore = WebpackModules.getByProps('locale', 'addChangeListener');
 
 export default class GuildProfile extends Plugin {
     constructor() {
@@ -37,7 +37,7 @@ export default class GuildProfile extends Plugin {
 
     onStart() {
         PluginUtilities.addStyle(this.getName(), style);
-        UserSettingsStore.addChangeListener(this.handleUserSettingsChange);
+        LocaleStore.addChangeListener(this.handleUserSettingsChange);
 
         MemberCountsStore.initializeIfNeeded();
 
@@ -48,7 +48,7 @@ export default class GuildProfile extends Plugin {
 
     onStop() {
         PluginUtilities.removeStyle(this.getName());
-        UserSettingsStore.removeChangeListener(this.handleUserSettingsChange);
+        LocaleStore.removeChangeListener(this.handleUserSettingsChange);
 
         Patcher.unpatchAll();
     }
@@ -134,7 +134,7 @@ export default class GuildProfile extends Plugin {
     }
 
     loadLocale() {
-        Object.assign(i18n._provider._context.messages, locales[UserSettingsStore.locale]);
+        Object.assign(i18n._provider._context.messages, locales[LocaleStore.locale]);
         Object.assign(i18n._provider._context.defaultMessages, locales['en-US']);
     }
 
