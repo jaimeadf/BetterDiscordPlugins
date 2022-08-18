@@ -1,7 +1,7 @@
 /**!
  * @name GuildProfile
  * @description Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.
- * @version 1.6.5
+ * @version 1.6.6
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.6.5","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixed","type":"fixed","items":["Everything has gone back to normal."]}]};
+const config = {"info":{"name":"GuildProfile","description":"Adds a modal that can be opened via any guild menu and contains various information about the guild, such as its owner, creation date, joined date, your friends and blocked users who are in it, and much more.","version":"1.6.6","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/GuildProfile","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/GuildProfile/GuildProfile.plugin.js"},"changelog":[{"title":"Fixed","type":"fixed","items":["Everything has gone back to normal again."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -313,10 +313,6 @@ const {
 
 
 /* harmony default export */ const components_Modal = ((/* unused pure expression or super */ null && (Modal)));
-;// CONCATENATED MODULE: ./src/@discord/stores/UserSettingsStore.js
-
-
-/* harmony default export */ const UserSettingsStore = (external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m.locale && m.theme));
 ;// CONCATENATED MODULE: ./src/@discord/components/TabBar.js
 
 
@@ -1738,7 +1734,6 @@ for (const localePath of requireContext.keys()) {
 
 
 
-
 const {
     ModalActions,
     SelectedGuildStore,
@@ -1746,6 +1741,7 @@ const {
 } = external_BoundedLibrary_namespaceObject.DiscordModules;
 
 const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
+const LocaleStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('locale', 'addChangeListener');
 
 class GuildProfile extends (external_Plugin_default()) {
     constructor() {
@@ -1760,7 +1756,7 @@ class GuildProfile extends (external_Plugin_default()) {
 
     onStart() {
         external_BoundedLibrary_namespaceObject.PluginUtilities.addStyle(this.getName(), style);
-        UserSettingsStore.addChangeListener(this.handleUserSettingsChange);
+        LocaleStore.addChangeListener(this.handleUserSettingsChange);
 
         stores_MemberCountsStore.initializeIfNeeded();
 
@@ -1771,7 +1767,7 @@ class GuildProfile extends (external_Plugin_default()) {
 
     onStop() {
         external_BoundedLibrary_namespaceObject.PluginUtilities.removeStyle(this.getName());
-        UserSettingsStore.removeChangeListener(this.handleUserSettingsChange);
+        LocaleStore.removeChangeListener(this.handleUserSettingsChange);
 
         external_BoundedLibrary_namespaceObject.Patcher.unpatchAll();
     }
@@ -1861,7 +1857,7 @@ class GuildProfile extends (external_Plugin_default()) {
     }
 
     loadLocale() {
-        Object.assign(i18n._provider._context.messages, GuildProfile_locales[UserSettingsStore.locale]);
+        Object.assign(i18n._provider._context.messages, GuildProfile_locales[LocaleStore.locale]);
         Object.assign(i18n._provider._context.defaultMessages, GuildProfile_locales["en-US"]);
     }
 
