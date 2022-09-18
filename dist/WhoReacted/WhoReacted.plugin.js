@@ -46,7 +46,7 @@ function buildPlugin() {
 /******/ 	"use strict";
 /******/ 	// The require scope
 /******/ 	var __webpack_require__ = {};
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -59,7 +59,7 @@ function buildPlugin() {
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -71,12 +71,12 @@ function buildPlugin() {
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /************************************************************************/
 var __webpack_exports__ = {};
 
@@ -161,7 +161,7 @@ function Reactors({
 
 
 
-const Reactions = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'Reactions').default;
+const Reactions = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'MessageReactions').default;
 const {
     SettingPanel,
     SettingGroup,

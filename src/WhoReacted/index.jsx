@@ -15,7 +15,7 @@ import Plugin from '@zlibrary/plugin';
 import Reactors from './components/Reactors';
 import style from './style.scss';
 
-const Reactions = WebpackModules.find(m => m?.default?.displayName === 'Reactions').default;
+const Reactions = WebpackModules.find(m => m?.default?.displayName === 'MessageReactions').default;
 const { SettingPanel, SettingGroup, Textbox, Slider, Switch } = Settings;
 
 export default class WhoReacted extends Plugin {
