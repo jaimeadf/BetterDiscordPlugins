@@ -1,7 +1,7 @@
 /**!
  * @name WhoReacted
  * @description Shows the avatars of the users who reacted to a message.
- * @version 1.2.6
+ * @version 1.2.7
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"WhoReacted","description":"Shows the avatars of the users who reacted to a message.","version":"1.2.6","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js"},"changelog":[{"title":"I'm still alive","type":"fixed","items":["Fixed crash."]}]};
+const config = {"info":{"name":"WhoReacted","description":"Shows the avatars of the users who reacted to a message.","version":"1.2.7","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js"},"changelog":[{"title":"I'm still alive","type":"fixed","items":["Fixed crash."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -161,7 +161,9 @@ function Reactors({
 
 
 
-const Reactions = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'ConnectedReactions').default;
+const {
+    Reaction
+} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Reaction');
 const {
     SettingPanel,
     SettingGroup,
@@ -186,9 +188,9 @@ class WhoReacted extends (external_Plugin_default()) {
         };
     }
 
-    async onStart() {
+    onStart() {
         external_BoundedLibrary_namespaceObject.PluginUtilities.addStyle(this.getName(), style);
-        await this.patchReaction();
+        this.patchReaction();
     }
 
     onStop() {
@@ -328,9 +330,7 @@ class WhoReacted extends (external_Plugin_default()) {
         return this.buildSettingsPanel().getElement();
     }
 
-    async patchReaction() {
-        const Reaction = await this.findReaction();
-
+    patchReaction() {
         external_BoundedLibrary_namespaceObject.Patcher.after(Reaction.prototype, 'render', (thisObject, args, returnValue) => {
             const {
                 message,
@@ -395,25 +395,6 @@ class WhoReacted extends (external_Plugin_default()) {
         }
 
         return true;
-    }
-
-    findReaction() {
-        return new Promise(resolve => {
-            const node = document.querySelector(external_BoundedLibrary_namespaceObject.DiscordSelectors.Reactions.reaction);
-            if (node) {
-                return resolve(this.findReactionReactInstance(node).type);
-            }
-
-            const unpatch = external_BoundedLibrary_namespaceObject.Patcher.after(Reactions.prototype, 'render', (thisObject, args, returnValue) => {
-                if (!returnValue) return;
-
-                const reaction = returnValue.props.children[0][0];
-                if (reaction) {
-                    unpatch();
-                    resolve(reaction.type);
-                }
-            });
-        });
     }
 
     forceUpdateAllReactions() {
