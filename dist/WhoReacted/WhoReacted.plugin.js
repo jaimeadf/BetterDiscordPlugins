@@ -1,7 +1,7 @@
 /**!
  * @name WhoReacted
  * @description Shows the avatars of the users who reacted to a message.
- * @version 1.2.5
+ * @version 1.2.6
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -37,7 +37,7 @@ const path = require('path');
 const request = require('request');
 const electron = require('electron');
 
-const config = {"info":{"name":"WhoReacted","description":"Shows the avatars of the users who reacted to a message.","version":"1.2.5","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js"},"changelog":[{"title":"New Filter","items":["Add option to show or hide blocked users (Thanks @Visne on GitHub)."]}]};
+const config = {"info":{"name":"WhoReacted","description":"Shows the avatars of the users who reacted to a message.","version":"1.2.6","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js"},"changelog":[{"title":"I'm still alive","type":"fixed","items":["Fixed crash."]}]};
 
 function buildPlugin() {
     const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
@@ -151,7 +151,7 @@ function Reactors({
     users: Object.values(ReactionStore.getReactions(message.getChannelId(), message.id, emoji) ?? {})
 }))(Reactors));
 ;// CONCATENATED MODULE: ./src/WhoReacted/style.scss
-/* harmony default export */ const style = (".reactors:not(:empty){margin-left:6px}.reactors .more-reactors{background-color:var(--background-tertiary);color:var(--text-normal);font-weight:500}.reactors-size-8px .avatarSize-EXG1Is{width:8px !important;height:8px !important}.reactors-size-8px .more-reactors{height:8px;padding-right:3.2px;padding-left:2.4px;font-size:4.8px;line-height:8px;border-radius:4px}.reactors-size-12px .avatarSize-EXG1Is{width:12px !important;height:12px !important}.reactors-size-12px .more-reactors{height:12px;padding-right:4.8px;padding-left:3.6px;font-size:7.2px;line-height:12px;border-radius:6px}.reactors-size-16px .avatarSize-EXG1Is{width:16px !important;height:16px !important}.reactors-size-16px .more-reactors{height:16px;padding-right:6.4px;padding-left:4.8px;font-size:9.6px;line-height:16px;border-radius:8px}.reactors-size-24px .avatarSize-EXG1Is{width:24px !important;height:24px !important}.reactors-size-24px .more-reactors{height:24px;padding-right:9.6px;padding-left:7.2px;font-size:14.4px;line-height:24px;border-radius:12px}.reactors-size-32px .avatarSize-EXG1Is{width:32px !important;height:32px !important}.reactors-size-32px .more-reactors{height:32px;padding-right:12.8px;padding-left:9.6px;font-size:19.2px;line-height:32px;border-radius:16px}\n");
+/* harmony default export */ const style = (".reactors:not(:empty){margin-left:6px}.reactors .more-reactors{background-color:var(--background-tertiary);color:var(--text-normal);font-weight:500}.reactors-size-8px .avatarSize-1KpZ5E,.reactors-size-8px .svg-2azL_l{width:8px !important;height:8px !important}.reactors-size-8px .more-reactors{height:8px;padding-right:3.2px;padding-left:2.4px;font-size:4.8px;line-height:8px;border-radius:4px}.reactors-size-12px .avatarSize-1KpZ5E,.reactors-size-12px .svg-2azL_l{width:12px !important;height:12px !important}.reactors-size-12px .more-reactors{height:12px;padding-right:4.8px;padding-left:3.6px;font-size:7.2px;line-height:12px;border-radius:6px}.reactors-size-16px .avatarSize-1KpZ5E,.reactors-size-16px .svg-2azL_l{width:16px !important;height:16px !important}.reactors-size-16px .more-reactors{height:16px;padding-right:6.4px;padding-left:4.8px;font-size:9.6px;line-height:16px;border-radius:8px}.reactors-size-20px .avatarSize-1KpZ5E,.reactors-size-20px .svg-2azL_l{width:20px !important;height:20px !important}.reactors-size-20px .more-reactors{height:20px;padding-right:8px;padding-left:6px;font-size:12px;line-height:20px;border-radius:10px}.reactors-size-24px .avatarSize-1KpZ5E,.reactors-size-24px .svg-2azL_l{width:24px !important;height:24px !important}.reactors-size-24px .more-reactors{height:24px;padding-right:9.6px;padding-left:7.2px;font-size:14.4px;line-height:24px;border-radius:12px}.reactors-size-32px .avatarSize-1KpZ5E,.reactors-size-32px .svg-2azL_l{width:32px !important;height:32px !important}.reactors-size-32px .more-reactors{height:32px;padding-right:12.8px;padding-left:9.6px;font-size:19.2px;line-height:32px;border-radius:16px}\n");
 ;// CONCATENATED MODULE: ./src/WhoReacted/index.jsx
 
 
@@ -161,7 +161,7 @@ function Reactors({
 
 
 
-const Reactions = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'Reactions').default;
+const Reactions = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'ConnectedReactions').default;
 const {
     SettingPanel,
     SettingGroup,
