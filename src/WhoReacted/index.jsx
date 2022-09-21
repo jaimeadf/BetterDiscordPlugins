@@ -15,7 +15,7 @@ import Plugin from '@zlibrary/plugin';
 import Reactors from './components/Reactors';
 import style from './style.scss';
 
-const Reactions = WebpackModules.find(m => m?.default?.displayName === 'ConnectedReactions').default;
+const { Reaction } = WebpackModules.getByProps('Reaction');
 const { SettingPanel, SettingGroup, Textbox, Slider, Switch } = Settings;
 
 export default class WhoReacted extends Plugin {
@@ -34,9 +34,9 @@ export default class WhoReacted extends Plugin {
         };
     }
 
-    async onStart() {
+    onStart() {
         PluginUtilities.addStyle(this.getName(), style);
-        await this.patchReaction();
+        this.patchReaction();
     }
 
     onStop() {
@@ -179,9 +179,7 @@ export default class WhoReacted extends Plugin {
         return this.buildSettingsPanel().getElement();
     }
 
-    async patchReaction() {
-        const Reaction = await this.findReaction();
-
+    patchReaction() {
         Patcher.after(Reaction.prototype, 'render', (thisObject, args, returnValue) => {
             const { message, emoji, count } = thisObject.props;
             if (!this.canShowReactors(message)) return;
@@ -236,25 +234,6 @@ export default class WhoReacted extends Plugin {
         }
 
         return true;
-    }
-
-    findReaction() {
-        return new Promise(resolve => {
-            const node = document.querySelector(DiscordSelectors.Reactions.reaction);
-            if (node) {
-                return resolve(this.findReactionReactInstance(node).type);
-            }
-
-            const unpatch = Patcher.after(Reactions.prototype, 'render', (thisObject, args, returnValue) => {
-                if (!returnValue) return;
-
-                const reaction = returnValue.props.children[0][0];
-                if (reaction) {
-                    unpatch();
-                    resolve(reaction.type);
-                }
-            });
-        });
     }
 
     forceUpdateAllReactions() {
