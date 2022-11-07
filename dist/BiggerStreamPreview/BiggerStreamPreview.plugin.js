@@ -1,7 +1,7 @@
-/**!
+/**
  * @name BiggerStreamPreview
  * @description Adds a button in the context menu to see bigger stream previews.
- * @version 1.0.13
+ * @version 1.1.0
  * @author Marmota (Jaime Filho)
  * @authorId 289112759948410881
  * @invite z6Yx9A8VDR
@@ -9,302 +9,294 @@
  * @source https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview
  * @updateUrl https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js
  */
-
 /*@cc_on
 @if (@_jscript)
-    // Offer to self-install for clueless users that try to run this directly.
-    var shell = WScript.CreateObject("WScript.Shell");
-    var fs = new ActiveXObject("Scripting.FileSystemObject");
-    var pathPlugins = shell.ExpandEnvironmentStrings("%APPDATA%\\BetterDiscord\\plugins");
-    var pathSelf = WScript.ScriptFullName;
-    // Put the user at ease by addressing them in the first person
-    shell.Popup("It looks like you've mistakenly tried to run me directly. \n(Don't do that!)", 0, "I'm a plugin for BetterDiscord", 0x30);
-    if (fs.GetParentFolderName(pathSelf) === fs.GetAbsolutePathName(pathPlugins)) {
-        shell.Popup("I'm in the correct folder already.", 0, "I'm already installed", 0x40);
-    } else if (!fs.FolderExists(pathPlugins)) {
-        shell.Popup("I can't find the BetterDiscord plugins folder.\nAre you sure it's even installed?", 0, "Can't install myself", 0x10);
-    } else if (shell.Popup("Should I copy myself to BetterDiscord's plugins folder for you?", 0, "Do you need some help?", 0x34) === 6) {
-        fs.CopyFile(pathSelf, fs.BuildPath(pathPlugins, fs.GetFileName(pathSelf)), true);
-        // Show the user where to put plugins in the future
-        shell.Exec("explorer " + pathPlugins);
-        shell.Popup("I'm installed!", 0, "Successfully installed", 0x40);
-    }
-    WScript.Quit();
+var shell = WScript.CreateObject("WScript.Shell");
+var fs = new ActiveXObject("Scripting.FileSystemObject");
+var pathPlugins = shell.ExpandEnvironmentStrings("%APPDATA%\\BetterDiscord\\plugins");
+var pathSelf = WScript.ScriptFullName;
+shell.Popup("It looks like you've mistakenly tried to run me directly. \n(Don't do that!)", 0, "I'm a plugin for BetterDiscord", 0x30);
+if (fs.GetParentFolderName(pathSelf) === fs.GetAbsolutePathName(pathPlugins)) {
+shell.Popup("I'm in the correct folder already.", 0, "I'm already installed", 0x40);
+} else if (!fs.FolderExists(pathPlugins)) {
+shell.Popup("I can't find the BetterDiscord plugins folder.\nAre you sure it's even installed?", 0, "Can't install myself", 0x10);
+} else if (shell.Popup("Should I move myself to BetterDiscord's plugins folder for you?", 0, "Do you need some help?", 0x34) === 6) {
+fs.MoveFile(pathSelf, fs.BuildPath(pathPlugins, fs.GetFileName(pathSelf)));
+shell.Exec("explorer " + pathPlugins);
+shell.Popup("I'm installed!", 0, "Successfully installed", 0x40);
+}
+WScript.Quit();
 @else@*/
-
-const fs = require('fs');
-const path = require('path');
-const request = require('request');
-const electron = require('electron');
-
-const config = {"info":{"name":"BiggerStreamPreview","description":"Adds a button in the context menu to see bigger stream previews.","version":"1.0.13","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js"},"changelog":[{"title":"Unbroked","type":"fixed","items":["Fixed crash when trying to open preview."]}]};
-
-function buildPlugin() {
-    const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
-    var plugin;
-/******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
-/******/ 	// The require scope
-/******/ 	var __webpack_require__ = {};
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ BiggerStreamPreview)
-});
-
-;// CONCATENATED MODULE: external ["BdApi","React"]
-const external_BdApi_React_namespaceObject = global["BdApi"]["React"];
-var external_BdApi_React_default = /*#__PURE__*/__webpack_require__.n(external_BdApi_React_namespaceObject);
-;// CONCATENATED MODULE: external "BoundedLibrary"
-const external_BoundedLibrary_namespaceObject = BoundedLibrary;
-;// CONCATENATED MODULE: external "Plugin"
-const external_Plugin_namespaceObject = Plugin;
-var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
-;// CONCATENATED MODULE: ./src/@discord/Flux.js
-
-
-const {
-    Dispatcher,
-    Store,
-    BatchedStoreListener,
-    useStateFromStores,
-    useStateFromStoresArray,
-    useStateFromStoresObject,
-    default: Flux
-} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Store', 'default');
-
-
-
-/* harmony default export */ const _discord_Flux = ((/* unused pure expression or super */ null && (Flux)));
-;// CONCATENATED MODULE: ./src/@discord/components/Modal.js
-
-
-const {
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalListContent,
-    ModalRoot,
-    ModalSize,
-    default: Modal
-} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('ModalRoot');
-
-
-
-/* harmony default export */ const components_Modal = ((/* unused pure expression or super */ null && (Modal)));
-;// CONCATENATED MODULE: ./src/BiggerStreamPreview/index.jsx
-
-
-
-
-
-
-
-
-const {
-    StreamStore,
-    StreamPreviewStore,
-    ModalActions
-} = external_BoundedLibrary_namespaceObject.DiscordModules;
-
-const ImageModal = external_BoundedLibrary_namespaceObject.WebpackModules.getByDisplayName('ImageModal');
-const {
-    renderMaskedLinkComponent
-} = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('renderMaskedLinkComponent');
-
-const Menu = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('MenuItem');
-
-class BiggerStreamPreview extends (external_Plugin_default()) {
-    onStart() {
-        this.patchUserContextMenus();
-        this.patchStreamContextMenu();
-    }
-
-    onStop() {
-        external_BoundedLibrary_namespaceObject.Patcher.unpatchAll();
-    }
-
-    async patchUserContextMenus() {
-        const module = await external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('useUserRolesItems');
-
-        external_BoundedLibrary_namespaceObject.Patcher.after(module, 'default', (thisObject, [userId], returnValue) => {
-            const [stream, previewURL] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
-                const stream = StreamStore.getStreamForUser(userId);
-                const previewURL = stream ?
-                    StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId) :
-                    null;
-
-                return [stream, previewURL];
-            });
-
-            if (!stream) {
-                return;
+module.exports = ((_) => {
+  const config = {
+    info: {
+      name: "BiggerStreamPreview",
+      authors: [
+        { name: "Marmota (Jaime Filho)", discord_id: "289112759948410881" },
+        {
+          name: "Ahlawat",
+          discord_id: "887483349369765930",
+          github_username: "Tharki-God",
+        },
+      ],
+      version: "1.1.0",
+      description:
+        "Adds a button in the context menu to see bigger stream previews.",
+      github:
+        "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/BiggerStreamPreview",
+      github_raw:
+        "https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/BiggerStreamPreview/BiggerStreamPreview.plugin.js",
+    },
+    changelog: [
+      {
+        title: "Unbroked",
+        type: "fixed",
+        items: ["Fixed after discord broke it."],
+      },
+    ],
+  };
+  return !window.hasOwnProperty("ZeresPluginLibrary")
+    ? class {
+        load() {
+          BdApi.showConfirmationModal(
+            "ZLib Missing",
+            `The library plugin (ZeresPluginLibrary) needed for ${config.info.name} is missing. Please click Download Now to install it.`,
+            {
+              confirmText: "Download Now",
+              cancelText: "Cancel",
+              onConfirm: () => this.downloadZLib(),
             }
-
-            return (
-                external_BdApi_React_default().createElement(Menu.MenuGroup, null, returnValue, external_BdApi_React_default().createElement(Menu.MenuSeparator, null), this.buildPreviewMenuItem(previewURL))
+          );
+        }
+        async downloadZLib() {
+          const fs = require("fs");
+          const path = require("path");
+          const ZLib = await fetch(
+            "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js"
+          );
+          if (!ZLib.ok) return this.errorDownloadZLib();
+          const ZLibContent = await ZLib.text();
+          try {
+            await fs.writeFile(
+              path.join(BdApi.Plugins.folder, "0PluginLibrary.plugin.js"),
+              ZLibContent,
+              (err) => {
+                if (err) return this.errorDownloadZLib();
+              }
             );
-        });
-    }
-
-    async patchStreamContextMenu() {
-        const module = await external_BoundedLibrary_namespaceObject.DCM.getDiscordMenu('StreamContextMenu');
-
-        external_BoundedLibrary_namespaceObject.Patcher.after(module, 'default', (thisObject, [{
-            stream
-        }], returnValue) => {
-            const previewURL = useStateFromStores([StreamPreviewStore], () => {
-                return StreamPreviewStore.getPreviewURL(stream.guildId, stream.channelId, stream.ownerId);
-            });
-
-            returnValue.props.children.props.children.push(
-                external_BdApi_React_default().createElement(Menu.MenuGroup, null, this.buildPreviewMenuItem(previewURL))
+          } catch (err) {
+            return this.errorDownloadZLib();
+          }
+        }
+        errorDownloadZLib() {
+          const { shell } = require("electron");
+          BdApi.showConfirmationModal(
+            "Error Downloading",
+            [
+              `ZeresPluginLibrary download failed. Manually install plugin library from the link below.`,
+            ],
+            {
+              confirmText: "Download",
+              cancelText: "Cancel",
+              onConfirm: () => {
+                shell.openExternal(
+                  "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js"
+                );
+              },
+            }
+          );
+        }
+        start() {}
+        stop() {}
+      }
+    : (([Plugin, Library]) => {
+        const {
+          WebpackModules,
+          Logger,
+          PluginUpdater,
+          DiscordModules: {
+            StreamStore,
+            StreamPreviewStore,
+            ModalActions,
+            ModalRoot,
+            React,
+          },
+        } = Library;
+        const { ContextMenu } = BdApi;
+        const Flux = Object.assign(
+          {},
+          WebpackModules.getByProps("Store", "connectStores"),
+          WebpackModules.getModule((m) =>
+            m?.ZP?.toString().includes("useStateFromStores")
+          )
+        );
+        const Anchor = WebpackModules.getModule((m) =>
+          ["anchorUnderlineOnHover", "noreferrer noopener"].every((s) =>
+            m?.toString().includes(s)
+          )
+        );
+        const ModalComponents = {
+          Module: WebpackModules.getModule((m) =>
+            [".renderModal,", "onCloseRequest"].every((s) =>
+              Object.values(m).some((m) => m?.toString?.().includes(s))
+            )
+          ),
+          get Modal() {
+            return Object.values(this.Module).find((m) =>
+              m.toString().includes(".renderModal")
             );
-        });
-    }
-
-    buildPreviewMenuItem(previewURL) {
-        return (
-            external_BdApi_React_default().createElement(Menu.MenuItem, {
-                id: "stream-preview",
-                key: "stream-preview",
-                label: "View Stream Preview",
-                action: () => this.openImageModal(previewURL),
-                disabled: previewURL === null,
-            })
+          },
+          get ModalCloseButton() {
+            return Object.values(this.Module).find((m) =>
+              m.toString().includes("closeWithCircle")
+            );
+          },
+          get ModalContent() {
+            return Object.values(this.Module).find((m) =>
+              m.toString().includes(".content,")
+            );
+          },
+          get ModalFooter() {
+            return Object.values(this.Module).find((m) =>
+              m.toString().includes(".footer,")
+            );
+          },
+          get ModalHeader() {
+            return Object.values(this.Module).find((m) =>
+              m.toString().includes(".headerId")
+            );
+          },
+          get ModalListContent() {
+            return Object.values(this.Module).find((m) =>
+              m.toString().includes(".scrollerRef")
+            );
+          },
+          get ModalRoot() {
+            return Object.values(this.Module).find((m) =>
+              m.toString().includes(".transitionState", ".size")
+            );
+          },
+          get ModalSize() {
+            return Object.values(this.Module).find(
+              (m) =>
+                typeof m == "object" &&
+                JSON.stringify(m).includes("DYNAMIC", "SMALL")
+            );
+          },
+        };
+        const ImageModal = WebpackModules.getModule((m) =>
+          ["mobileCloseWrapper", "closeAction"].every((s) =>
+            m?.toString().includes(s)
+          )
         );
-    }
-
-    async openImageModal(url) {
-        const image = await this.fetchImage(url);
-
-        ModalActions.openModal(
-            props => (
-                external_BdApi_React_default().createElement(ModalRoot, {
-                    className: "modal-3Crloo",
-                    size: ModalSize.DYNAMIC,
-                    ...props,
-                }, external_BdApi_React_default().createElement(ImageModal, {
-                    className: "image-36HiZc",
-                    src: url,
-                    original: url,
-                    width: image.width,
-                    height: image.height,
-                    renderLinkComponent: renderMaskedLinkComponent,
-                    shouldAnimate: true,
-                    animated: false,
-                }))
-            ),
-            undefined,
-            ModalActions.modalContextFromAppContext(undefined)
-        );
-    }
-
-    async fetchImage(url) {
-        return new Promise((resolve, reject) => {
+        const fetchImage = (url) =>
+          new Promise((resolve, reject) => {
             const image = new Image();
             image.src = url;
+            image.addEventListener("load", () => resolve(image));
+            image.addEventListener("error", () =>
+              reject("Unable to fetch image.")
+            );
+          });
 
-            image.addEventListener('load', () => resolve(image));
-            image.addEventListener('error', () => reject('Unable to fetch image.'));
-        });
-    }
-}
-plugin = __webpack_exports__["default"];
-/******/ })()
-;
-
-    return plugin;
-}
-
-module.exports = global.ZeresPluginLibrary
-    ? buildPlugin()
-    : class {
+        return class BiggerStreamPreview extends Plugin {
           constructor() {
-              this._config = config;
+            super();
+            this.patchUserContextMenus = this.patchUserContextMenus.bind(this);
+            this.patchStreamContextMenu =
+              this.patchStreamContextMenu.bind(this);
           }
-
-          getName() {
-              return config.info.name;
-          }
-
-          getAuthor() {
-              return config.info.authors.map(a => a.name).join(', ');
-          }
-
-          getDescription() {
-              return config.info.description;
-          }
-
-          getVersion() {
-              return config.info.version;
-          }
-
-          load() {
-              global.BdApi.showConfirmationModal(
-                  'Library plugin is needed',
-                  `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`,
-                  {
-                      confirmText: 'Download',
-                      cancelText: 'Cancel',
-                      onConfirm() {
-                          request.get(
-                              'https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js',
-                              (error, response, body) => {
-                                  if (error) {
-                                      return electron.shell.openExternal(
-                                          'https://betterdiscord.app/Download?id=9'
-                                      );
-                                  }
-
-                                  fs.writeFileSync(
-                                      path.join(global.BdApi.Plugins.folder, '0PluginLibrary.plugin.js'),
-                                      body
-                                  );
-                              }
-                          );
-                      }
-                  }
+          checkForUpdates() {
+            try {
+              PluginUpdater.checkForUpdate(
+                config.info.name,
+                config.info.version,
+                config.info.github_raw
               );
+            } catch (err) {
+              Logger.err("Plugin Updater could not be reached.", err);
+            }
           }
-
-          start() {}
-
-          stop() {}
-      };
-
+          onStart() {
+            this.checkForUpdates();
+            this.patchMenus();
+            console.log(ModalComponents);
+          }
+          patchMenus() {
+            ContextMenu.patch("user-context", this.patchUserContextMenus);
+            ContextMenu.patch("stream-context", this.patchStreamContextMenu);
+          }
+          patchUserContextMenus(menu, { user }) {
+            const [stream, previewURL] = Flux.ZP(
+              [StreamStore, StreamPreviewStore],
+              () => {
+                const stream = StreamStore.getStreamForUser(user.id);
+                const previewURL = stream
+                  ? StreamPreviewStore.getPreviewURL(
+                      stream.guildId,
+                      stream.channelId,
+                      stream.ownerId
+                    )
+                  : null;
+                return [stream, previewURL];
+              }
+            );
+            if (!stream) return;
+            menu.props.children.push(this.buildPreviewMenuItem(previewURL));
+          }
+          patchStreamContextMenu(menu, { stream }) {
+            const previewURL = Flux.ZP([StreamPreviewStore], () => {
+              return StreamPreviewStore.getPreviewURL(
+                stream.guildId,
+                stream.channelId,
+                stream.ownerId
+              );
+            });
+            menu.props.children.props.children.push(
+              this.buildPreviewMenuItem(previewURL)
+            );
+          }
+          buildPreviewMenuItem(previewURL) {
+            return ContextMenu.buildItem({
+              label: "View Stream Preview",
+              id: "stream-preview",
+              disabled: previewURL === null,
+              action: () => this.openImageModal(previewURL),
+            });
+          }
+          async openImageModal(url) {
+            const image = await fetchImage(url);
+            ModalActions.openModal((modalData) =>
+              React.createElement(
+                ModalRoot,
+                Object.assign({}, modalData, {
+                  className: "modal-3Crloo",
+                  size: ModalComponents.ModalSize.DYNAMIC,
+                }),
+                React.createElement(ImageModal, {
+                  animated: false,
+                  src: url,
+                  original: url,
+                  width: image.width,
+                  height: image.height,
+                  className: "image-36HiZc",
+                  shouldAnimate: true,
+                  renderLinkComponent: (props) =>
+                    React.createElement(Anchor, props),
+                  children: null,
+                })
+              )
+            );
+          }
+          unpatchMenus() {
+            ContextMenu.unpatch("user-context", this.patchUserContextMenus);
+            ContextMenu.unpatch("stream-context", this.patchStreamContextMenu);
+          }
+          onStop() {
+            this.unpatchMenus();
+          }
+        };
+        return plugin(Plugin, Library);
+      })(window.ZeresPluginLibrary.buildPlugin(config));
+})();
 /*@end@*/
