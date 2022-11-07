@@ -220,7 +220,6 @@ module.exports = ((_) => {
           onStart() {
             this.checkForUpdates();
             this.patchMenus();
-            console.log(ModalComponents);
           }
           patchMenus() {
             ContextMenu.patch("user-context", this.patchUserContextMenus);
