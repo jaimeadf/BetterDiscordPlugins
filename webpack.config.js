@@ -18,7 +18,7 @@ module.exports = function generatePluginConfig(pluginPath) {
             output: {
                 clean: isProduction,
                 filename: `${manifest.name}.plugin.js`,
-                path: isProduction ? path.join(pluginPath, 'build') : bdPluginsPath,
+                path: isProduction ? path.join(pluginPath, "dist") : bdPluginsPath,
                 library: {
                     type: "commonjs2",
                     export: "default"
