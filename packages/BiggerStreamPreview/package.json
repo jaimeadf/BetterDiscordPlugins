@@ -2,7 +2,7 @@
     "name": "BiggerStreamPreview",
     "author": "Marmota (Jaime Filho)",
     "authorLink": "https://github.com/jaimeadf",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "View bigger stream previews via the context menu.",
     "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/packages/BiggerStreamPreview",
     "main": "src/index.jsx",
