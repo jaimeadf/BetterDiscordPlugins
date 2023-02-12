@@ -10,7 +10,7 @@ module.exports = function generatePluginConfig(pluginPath) {
     const bdPluginsPath = getBdPluginsPath();
 
     return (env, argv) => {
-        const isProduction = argv.mode === 'production';
+        const isProduction = argv.mode === "production";
 
         return {
             target: "node",
@@ -30,15 +30,11 @@ module.exports = function generatePluginConfig(pluginPath) {
                         test: /\.jsx?$/,
                         exclude: /node_modules/,
                         use: {
-                            loader: "swc-loader",
+                            loader: "@sucrase/webpack-loader",
                             options: {
-                                jsc: {
-                                    target: "es2020",
-                                    parser: {
-                                        syntax: "ecmascript",
-                                        jsx: true
-                                    }
-                                }
+                                production: isProduction,
+                                disableESTransforms: true,
+                                transforms: ["jsx"]
                             }
                         }
                     }
