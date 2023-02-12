@@ -3,7 +3,7 @@
  * @author Marmota (Jaime Filho)
  * @authorLink https://github.com/jaimeadf
  * @description View bigger stream previews via the context menu.
- * @version 1.1.1
+ * @version 1.1.2
  * @source https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/packages/BiggerStreamPreview
  */
 /******/ (() => { // webpackBootstrap
