@@ -3,7 +3,7 @@
  * @author Marmota (Jaime Filho)
  * @authorLink https://github.com/jaimeadf
  * @description View bigger stream previews via the context menu.
- * @version 1.1.2
+ * @version 1.1.3
  * @source https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/packages/BiggerStreamPreview
  */
 /******/ (() => { // webpackBootstrap
@@ -61,7 +61,12 @@ const { Filters } = Webpack;
 const openModal = Webpack.getModule(Filters.byStrings("modalKey", "Layer", "onCloseCallback"), { searchExports: true });
 
 const ModalRoot = Webpack.getModule(Filters.byStrings("impressionType", "MODAL"), { searchExports: true });
-const ImageModal = Webpack.getModule(Filters.byStrings("renderMobileCloseButton"), { searchExports: true });
+const ImageModal = Webpack.getModule(Filters.byStrings(
+    '"src","original","placeholder",' +
+    '"width","height","animated",'+
+    '"children","responsive","renderLinkComponent",' +
+    '"maxWidth","maxHeight","shouldAnimate"'
+), { searchExports: true });
 const ModalSize = Webpack.getModule(Filters.byProps("DYNAMIC"), { searchExports: true });
 
 const MaskedLink = Webpack.getModule(m => m?.type?.toString()?.includes("MASKED_LINK"), { searchExports: true });
@@ -138,7 +143,7 @@ class BiggerStreamPreview {
 
     handleUserContextMenu = (menu, { user }) => {
         const [stream, previewUrl] = useStateFromStores([StreamStore, StreamPreviewStore], () => {
-            const stream = StreamStore.getStreamForUser(user.id);
+            const stream = StreamStore.getAnyStreamForUser(user.id);
             const previewUrl = stream && StreamPreviewStore.getPreviewURL(
                 stream.guildId,
                 stream.channelId,
