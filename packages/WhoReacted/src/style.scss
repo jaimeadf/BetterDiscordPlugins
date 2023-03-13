@@ -1,0 +1,37 @@
+.reactors {
+    &:not(:empty) {
+        margin-left: 6px;
+    }
+
+    .more-reactors {
+        background-color: var(--background-tertiary);
+        color: var(--text-normal);
+        font-weight: 500;
+    }
+}
+
+$original-size: 20px;
+$sizes: 8px, 12px, 16px, 20px, 24px, 32px;
+
+@each $size in $sizes {
+    $factor: $size / $original-size;
+
+    .reactors-size-#{$size} {
+        .avatarSize-1KpZ5E, .svg-2azL_l {
+            // Some other styling has !important, so we need to override that.
+            width: $size !important;
+            height: $size !important;
+        }
+
+        .more-reactors {
+            // Scaling doesn't affect the bounding box of the parent calculator,
+            // so we override every property related to size.
+            height: 20px * $factor;
+            padding-right: 8px * $factor;
+            padding-left: 6px * $factor;
+            font-size: 12px * $factor;
+            line-height: 20px * $factor;
+            border-radius: 10px * $factor;
+        }
+    }
+}

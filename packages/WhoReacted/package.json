@@ -1,0 +1,15 @@
+{
+    "name": "WhoReacted",
+    "author": "Marmota (Jaime Filho)",
+    "authorLink": "https://github.com/jaimeadf",
+    "version": "1.2.8",
+    "description": "Shows the avatars of the users who reacted to a message.",
+    "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted",
+    "main": "src/index.jsx",
+    "private": true,
+    "scripts": {
+        "build": "webpack --mode production",
+        "build:dev": "webpack --mode development",
+        "watch:dev": "webpack --watch --mode development"
+    }
+}

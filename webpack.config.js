@@ -3,7 +3,9 @@ const path = require("path");
 const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 
-module.exports = function generatePluginConfig(pluginPath) {
+const BdWrapperPlugin = require('./config/BdWrapperPlugin');
+
+module.exports = function generatePluginConfig(pluginPath, zlibrary = false) {
     const manifest = readManifest(pluginPath);
 
     const bdHeader = buildBdHeader(manifest);
@@ -20,7 +22,8 @@ module.exports = function generatePluginConfig(pluginPath) {
                 filename: `${manifest.name}.plugin.js`,
                 path: isProduction ? path.join(pluginPath, "dist") : bdPluginsPath,
                 library: {
-                    type: "commonjs2",
+                    type: zlibrary ? "var" : "commonjs2",
+                    name: zlibrary ? "plugin" : undefined,
                     export: "default"
                 }
             },
@@ -37,7 +40,11 @@ module.exports = function generatePluginConfig(pluginPath) {
                                 transforms: ["jsx"]
                             }
                         }
-                    }
+                    },
+                    {
+                        test: /\.scss$/,
+                        use: ['raw-loader', 'sass-loader']
+                    },
                 ]
             },
             resolve: {
@@ -48,6 +55,9 @@ module.exports = function generatePluginConfig(pluginPath) {
             },
             plugins: [
                 new webpack.BannerPlugin({ banner: bdHeader.toString(), raw: true }),
+                zlibrary && new BdWrapperPlugin({
+                    manifest: require(path.join(pluginPath, "manifest.json"))
+                }),
                 isProduction && new CopyPlugin({
                     patterns: [
                         path.join(pluginPath, "README.md")
@@ -55,7 +65,9 @@ module.exports = function generatePluginConfig(pluginPath) {
                 })
             ].filter(Boolean),
             externals: {
-                react: ["global BdApi", "React"]
+                react: ["global BdApi", "React"],
+                '@zlibrary/api': 'assign BoundedLibrary',
+                '@zlibrary/plugin': 'assign Plugin'
             }
         }
     };
