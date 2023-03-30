@@ -37,6 +37,14 @@ module.exports = function generatePluginConfig(pluginPath) {
                                 transforms: ["jsx"]
                             }
                         }
+                    },
+                    {
+                        test: /\.css$/,
+                        use: 'raw-loader'
+                    },
+                    {
+                        test: /\.scss$/,
+                        use: ['raw-loader', 'sass-loader']
                     }
                 ]
             },
