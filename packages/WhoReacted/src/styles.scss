@@ -1,0 +1,23 @@
+.bd-who-reacted__reactors {
+    display: flex;
+    align-items: center;
+
+    &:not(:empty) {
+        margin-left: 8px;
+    }
+}
+
+.bd-who-reacted__reactor-avatar {
+    border-radius: 50%;
+}
+
+.bd-who-reacted__more-reactors {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--text-normal);
+    font-weight: 500;
+
+    background-color: var(--background-tertiary);
+}
