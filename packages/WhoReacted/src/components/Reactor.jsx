@@ -18,7 +18,7 @@ export function MaskedReactor({ user, guildId, size, overlap, spacing }) {
     const absoluteOffset = (overlap - spacing) * size;
 
     return (
-        <svg style={{ marginRight: `-${absoluteOffset}px` }} width={size} height={size}>
+        <svg style={{ marginRight: `${-absoluteOffset}px` }} width={size} height={size}>
             <defs>
                 <mask id="bd-who-reacted-reactor-mask" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
                     <rect fill="white" width="1" height="1" />
