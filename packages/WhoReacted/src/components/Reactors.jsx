@@ -84,10 +84,10 @@ export function SmartReactors({ message, emoji, count, type }) {
         return withStoresConnected(component);
     }, [settings.hideSelf, settings.hideBots, settings.hideBlocked]);
 
-    function shouldDisplayReactors() {
-        return !isEmojiAboveThreshold() &&
-            !isTotalReactionsAboveThreshold() &&
-            !isReactionsPerEmojiAboveThreshold();
+    function shouldHide() {
+        return isEmojiAboveThreshold() &&
+            isTotalReactionsAboveThreshold() &&
+            isReactionsPerEmojiAboveThreshold();
     }
 
     function isEmojiAboveThreshold() {
@@ -122,7 +122,7 @@ export function SmartReactors({ message, emoji, count, type }) {
         return threshold == 0;
     }
 
-    if (!shouldDisplayReactors()) {
+    if (shouldHide()) {
         return null;
     }
 
