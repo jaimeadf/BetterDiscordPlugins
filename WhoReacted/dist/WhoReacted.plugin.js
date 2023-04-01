@@ -1,47 +1,11 @@
-/**!
+/**
  * @name WhoReacted
- * @description Shows the avatars of the users who reacted to a message.
- * @version 1.2.5
  * @author Marmota (Jaime Filho)
- * @authorId 289112759948410881
- * @invite z6Yx9A8VDR
- * @website https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted
- * @source https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted
- * @updateUrl https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js
+ * @authorLink https://github.com/jaimeadf
+ * @description Shows the avatars of the users who reacted to a message.
+ * @version 1.3.0
+ * @source https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/packages/WhoReacted
  */
-
-/*@cc_on
-@if (@_jscript)
-    // Offer to self-install for clueless users that try to run this directly.
-    var shell = WScript.CreateObject("WScript.Shell");
-    var fs = new ActiveXObject("Scripting.FileSystemObject");
-    var pathPlugins = shell.ExpandEnvironmentStrings("%APPDATA%\\BetterDiscord\\plugins");
-    var pathSelf = WScript.ScriptFullName;
-    // Put the user at ease by addressing them in the first person
-    shell.Popup("It looks like you've mistakenly tried to run me directly. \n(Don't do that!)", 0, "I'm a plugin for BetterDiscord", 0x30);
-    if (fs.GetParentFolderName(pathSelf) === fs.GetAbsolutePathName(pathPlugins)) {
-        shell.Popup("I'm in the correct folder already.", 0, "I'm already installed", 0x40);
-    } else if (!fs.FolderExists(pathPlugins)) {
-        shell.Popup("I can't find the BetterDiscord plugins folder.\nAre you sure it's even installed?", 0, "Can't install myself", 0x10);
-    } else if (shell.Popup("Should I copy myself to BetterDiscord's plugins folder for you?", 0, "Do you need some help?", 0x34) === 6) {
-        fs.CopyFile(pathSelf, fs.BuildPath(pathPlugins, fs.GetFileName(pathSelf)), true);
-        // Show the user where to put plugins in the future
-        shell.Exec("explorer " + pathPlugins);
-        shell.Popup("I'm installed!", 0, "Successfully installed", 0x40);
-    }
-    WScript.Quit();
-@else@*/
-
-const fs = require('fs');
-const path = require('path');
-const request = require('request');
-const electron = require('electron');
-
-const config = {"info":{"name":"WhoReacted","description":"Shows the avatars of the users who reacted to a message.","version":"1.2.5","authors":[{"name":"Marmota (Jaime Filho)","discord_id":"289112759948410881"}],"github":"https://github.com/jaimeadf/BetterDiscordPlugins/tree/release/src/WhoReacted","github_raw":"https://raw.githubusercontent.com/jaimeadf/BetterDiscordPlugins/release/dist/WhoReacted/WhoReacted.plugin.js"},"changelog":[{"title":"New Filter","items":["Add option to show or hide blocked users (Thanks @Visne on GitHub)."]}]};
-
-function buildPlugin() {
-    const [Plugin, BoundedLibrary] = global.ZeresPluginLibrary.buildPlugin(config);
-    var plugin;
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	// The require scope
@@ -88,407 +52,678 @@ __webpack_require__.d(__webpack_exports__, {
 ;// CONCATENATED MODULE: external ["BdApi","React"]
 const external_BdApi_React_namespaceObject = global["BdApi"]["React"];
 var external_BdApi_React_default = /*#__PURE__*/__webpack_require__.n(external_BdApi_React_namespaceObject);
-;// CONCATENATED MODULE: external "BoundedLibrary"
-const external_BoundedLibrary_namespaceObject = BoundedLibrary;
-;// CONCATENATED MODULE: external "Plugin"
-const external_Plugin_namespaceObject = Plugin;
-var external_Plugin_default = /*#__PURE__*/__webpack_require__.n(external_Plugin_namespaceObject);
-;// CONCATENATED MODULE: ./src/WhoReacted/components/Reactors.jsx
+;// CONCATENATED MODULE: ./src/environment.js
+const BoundedBdApi = new BdApi('WhoReacted');
+
+;// CONCATENATED MODULE: ./src/components/Reactor.jsx
 
 
-
-const {
-    UserStore,
-    RelationshipStore
-} = external_BoundedLibrary_namespaceObject.DiscordModules;
-
-const Flux = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('Store', 'connectStores');
-const ReactionStore = external_BoundedLibrary_namespaceObject.WebpackModules.getByProps('getReactions', '_changeCallbacks');
-const VoiceUserSummaryItem = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'VoiceUserSummaryItem').default;
-
-function Reactors({
-    users,
-    currentUser,
-    showSelf,
-    showBots,
-    showBlocked,
-    max,
-    size,
-    count
-}) {
-    const filteredUsers = (0,external_BdApi_React_namespaceObject.useMemo)(() => {
-        return users.filter(
-            user =>
-            (showSelf || user.id !== currentUser.id) &&
-            (showBots || !user.bot) &&
-            (showBlocked || !RelationshipStore.isBlocked(user.id))
-        );
-    }, [users, currentUser, showSelf, showBots, showBlocked]);
-
-    function renderMoreUsers(text, className) {
-        return (
-            external_BdApi_React_default().createElement('div', {
-                className: `${className} more-reactors`,
-            }, "+", 1 + count - max - (users.length - filteredUsers.length))
-        );
-    }
-
+function Reactor({ user, guildId, size }) {
     return (
-        external_BdApi_React_default().createElement(VoiceUserSummaryItem, {
-            className: `reactors reactors-size-${size}px`,
-            max: max,
-            users: filteredUsers,
-            renderMoreUsers: renderMoreUsers,
-        })
+        external_BdApi_React_default().createElement('img', {
+            className: "bd-who-reacted__reactor-avatar",
+            width: size,
+            height: size,
+            src: user.getAvatarURL(guildId, size),}
+        )
     );
 }
 
-/* harmony default export */ const components_Reactors = (Flux.connectStores([UserStore, ReactionStore], ({
-    message,
-    emoji
-}) => ({
-    currentUser: UserStore.getCurrentUser(),
-    users: Object.values(ReactionStore.getReactions(message.getChannelId(), message.id, emoji) ?? {})
-}))(Reactors));
-;// CONCATENATED MODULE: ./src/WhoReacted/style.scss
-/* harmony default export */ const style = (".reactors:not(:empty){margin-left:6px}.reactors .more-reactors{background-color:var(--background-tertiary);color:var(--text-normal);font-weight:500}.reactors-size-8px .avatarSize-EXG1Is{width:8px !important;height:8px !important}.reactors-size-8px .more-reactors{height:8px;padding-right:3.2px;padding-left:2.4px;font-size:4.8px;line-height:8px;border-radius:4px}.reactors-size-12px .avatarSize-EXG1Is{width:12px !important;height:12px !important}.reactors-size-12px .more-reactors{height:12px;padding-right:4.8px;padding-left:3.6px;font-size:7.2px;line-height:12px;border-radius:6px}.reactors-size-16px .avatarSize-EXG1Is{width:16px !important;height:16px !important}.reactors-size-16px .more-reactors{height:16px;padding-right:6.4px;padding-left:4.8px;font-size:9.6px;line-height:16px;border-radius:8px}.reactors-size-24px .avatarSize-EXG1Is{width:24px !important;height:24px !important}.reactors-size-24px .more-reactors{height:24px;padding-right:9.6px;padding-left:7.2px;font-size:14.4px;line-height:24px;border-radius:12px}.reactors-size-32px .avatarSize-EXG1Is{width:32px !important;height:32px !important}.reactors-size-32px .more-reactors{height:32px;padding-right:12.8px;padding-left:9.6px;font-size:19.2px;line-height:32px;border-radius:16px}\n");
-;// CONCATENATED MODULE: ./src/WhoReacted/index.jsx
+function MaskedReactor({ user, guildId, size, overlap, spacing }) {
+    const proportionalInnerRadius = 1 / 2;
+    const proportionalOuterRadius = proportionalInnerRadius + spacing;
 
+    const absoluteOffset = (overlap - spacing) * size;
 
-
-
-
-
-
-
-const Reactions = external_BoundedLibrary_namespaceObject.WebpackModules.find(m => m?.default?.displayName === 'Reactions').default;
-const {
-    SettingPanel,
-    SettingGroup,
-    Textbox,
-    Slider,
-    Switch
-} = external_BoundedLibrary_namespaceObject.Settings;
-
-class WhoReacted extends (external_Plugin_default()) {
-    constructor() {
-        super();
-
-        this.defaultSettings = {
-            maxUsersShown: 6,
-            avatarSize: 20,
-            reactionThreshold: 10,
-            userThreshold: 100,
-            useHighestUserCount: true,
-            showSelf: true,
-            showBots: true,
-            showBlocked: true
-        };
-    }
-
-    async onStart() {
-        external_BoundedLibrary_namespaceObject.PluginUtilities.addStyle(this.getName(), style);
-        await this.patchReaction();
-    }
-
-    onStop() {
-        external_BoundedLibrary_namespaceObject.PluginUtilities.removeStyle(this.getName());
-        external_BoundedLibrary_namespaceObject.Patcher.unpatchAll();
-    }
-
-    buildSettingsPanel() {
-        return new SettingPanel(
-            () => {
-                this.saveSettings();
-                this.forceUpdateAllReactions();
-            },
-            this.buildDisplaySettingsGroup(),
-            this.buildThresholdSettingsGroup(),
-            this.buildFilterSettingsGroup()
-        );
-    }
-
-    buildDisplaySettingsGroup() {
-        return new SettingGroup('Display settings')
-            .append(
-                new Textbox(
-                    'Max users shown',
-                    'The maximum number of users shown for each reaction emoji.',
-                    this.settings.maxUsersShown,
-                    value => {
-                        if (isNaN(value) || value < 1 || value > 99) {
-                            return external_BoundedLibrary_namespaceObject.Toasts.error('Value must be a number between 1 and 99!');
-                        }
-
-                        this.settings.maxUsersShown = parseInt(value);
-                    }
+    return (
+        external_BdApi_React_default().createElement('svg', { style: { marginRight: `${-absoluteOffset}px` }, width: size, height: size,}
+            , external_BdApi_React_default().createElement('defs', null
+                , external_BdApi_React_default().createElement('mask', { id: "bd-who-reacted-reactor-mask", maskContentUnits: "objectBoundingBox", viewBox: "0 0 1 1"   ,}
+                    , external_BdApi_React_default().createElement('rect', { fill: "white", width: "1", height: "1",} )
+                    , external_BdApi_React_default().createElement('circle', {
+                        fill: "black",
+                        cx: 2 * proportionalInnerRadius + proportionalOuterRadius - overlap,
+                        cy: "0.5",
+                        r: proportionalOuterRadius,}
+                    )
                 )
             )
-            .append(
-                new Slider(
-                    'Avatar size',
-                    'Sets the size of the user avatars.',
-                    8,
-                    32,
-                    this.settings.avatarSize,
-                    value => (this.settings.avatarSize = value), {
-                        defaultValue: this.defaultSettings.avatarSize,
-                        markers: [8, 12, 16, 20, 24, 32],
-                        stickToMarkers: true,
-                        units: 'px'
-                    }
-                )
-            );
-    }
 
-    buildThresholdSettingsGroup() {
-        function renderMarker(value) {
-            if (value === 0) {
-                return 'Off';
-            }
-
-            if (value >= 1000) {
-                return `${value / 1000}k`;
-            }
-
-            return value;
-        }
-
-        return new SettingGroup('Thresholds')
-            .append(
-                new Slider(
-                    'Reaction threshold',
-                    'Hides the reactors when the number of separate reactions is exceeded on a message.',
-                    0,
-                    20,
-                    this.settings.reactionThreshold,
-                    value => (this.settings.reactionThreshold = value), {
-                        defaultValue: this.defaultSettings.reactionThreshold,
-                        markers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-                        stickToMarkers: true,
-                        renderMarker
-                    }
-                )
+            , external_BdApi_React_default().createElement('foreignObject', { width: "100%", height: "100%", mask: "url(#bd-who-reacted-reactor-mask)",}
+                , external_BdApi_React_default().createElement(Reactor, { size: size, user: user, guildId: guildId,} )
             )
-            .append(
-                new Slider(
-                    'User threshold',
-                    'Hides the reactors when their count is exceeded on a message.',
-                    0,
-                    10000,
-                    this.settings.userThreshold,
-                    value => (this.settings.userThreshold = value), {
-                        defaultValue: this.defaultSettings.userThreshold,
-                        markers: [0, 10, 20, 50, 100, 500, 1000, 2000, 3000, 4000, 5000, 10000],
-                        stickToMarkers: true,
-                        equidistant: true,
-                        renderMarker
-                    }
-                )
-            )
-            .append(
-                new Switch(
-                    'Use highest user count',
-                    'Uses the reaction with most reactors of a message for user threshold.',
-                    this.settings.useHighestUserCount,
-                    value => (this.settings.useHighestUserCount = value)
-                )
-            );
-    }
+        )
+    );
+}
 
-    buildFilterSettingsGroup() {
-        return new SettingGroup('Filters')
-            .append(
-                new Switch(
-                    'Show self',
-                    'Shows yourself within the reactors.',
-                    this.settings.showSelf,
-                    value => (this.settings.showSelf = value)
-                )
-            )
-            .append(
-                new Switch(
-                    'Show bots',
-                    'Shows bots within the reactors.',
-                    this.settings.showBots,
-                    value => (this.settings.showBots = value)
-                )
-            )
-            .append(
-                new Switch(
-                    'Show blocked users',
-                    'Shows blocked users within the reactors.',
-                    this.settings.showBlocked,
-                    value => (this.settings.showBlocked = value)
-                )
-            );
-    }
+;// CONCATENATED MODULE: ./src/hooks/useStateFromStores.js
 
-    getSettingsPanel() {
-        return this.buildSettingsPanel().getElement();
-    }
 
-    async patchReaction() {
-        const Reaction = await this.findReaction();
+const { Webpack } = BoundedBdApi;
+const { Filters } = Webpack;
 
-        external_BoundedLibrary_namespaceObject.Patcher.after(Reaction.prototype, 'render', (thisObject, args, returnValue) => {
-            const {
-                message,
-                emoji,
-                count
-            } = thisObject.props;
-            if (!this.canShowReactors(message)) return;
+const useStateFromStores = Webpack.getModule(
+    Filters.byStrings('useStateFromStores'),
+    { searchExports: true }
+);
 
-            const renderTooltip = returnValue.props.children;
-            returnValue.props.children = props => {
-                const tooltip = renderTooltip(props);
-                const popout = tooltip.props.children.props.children;
+;// CONCATENATED MODULE: ./src/stores/SettingsStore.js
 
-                const renderReactionInner = popout.props.children;
-                popout.props.children = props => {
-                    const reactionInner = renderReactionInner(props);
 
-                    reactionInner.props.children.push(
-                        external_BdApi_React_default().createElement(components_Reactors, {
-                            message: message,
-                            emoji: emoji,
-                            count: count,
-                            max: this.settings.maxUsersShown,
-                            showSelf: this.settings.showSelf,
-                            showBots: this.settings.showBots,
-                            showBlocked: this.settings.showBlocked,
-                            size: this.settings.avatarSize,
-                        })
-                    );
 
-                    return reactionInner;
-                };
+const { Webpack: SettingsStore_Webpack } = BoundedBdApi;
+const { Filters: SettingsStore_Filters } = SettingsStore_Webpack;
 
-                return tooltip;
-            };
+const Flux = SettingsStore_Webpack.getModule(SettingsStore_Filters.byProps('Store', 'connectStores'));
+const Dispatcher = SettingsStore_Webpack.getModule(SettingsStore_Filters.byPrototypeFields('dispatch'), { searchExports: true });
+
+const ActionTypes = {
+    SETTINGS_UPDATE: 'BD_WHO_REACTED_SETTINGS_UPDATE'
+};
+
+class DefaultSettingsStore extends Flux.Store {
+    constructor(defaults) {
+        super(new Dispatcher(), {
+            [ActionTypes.SETTINGS_UPDATE]: () => this.save()
         });
 
-        this.forceUpdateAllReactions();
+        this.defaults = defaults;
+        this.settings = {};
     }
 
-    canShowReactors({
-        reactions
-    }) {
-        const {
-            reactionThreshold,
-            userThreshold,
-            useHighestUserCount
-        } = this.settings;
+    update(name, value) {
+        this.settings[name] = value;
+        this._dispatchUpdate();
+    }
 
-        if (reactionThreshold !== 0 && reactions.length > reactionThreshold) {
+    getSettings() {
+        return this.settings;
+    }
+
+    getDefaultSettings() {
+        return this.defaults;
+    }
+
+    load() {
+        this.settings = { ...this.defaults, ...BoundedBdApi.Data.load('settings') };
+        this._dispatchUpdate();
+    }
+
+    save() {
+        BoundedBdApi.Data.save('settings', this.settings);
+    }
+
+    _dispatchUpdate() {
+        this._dispatcher.dispatch({
+            type: ActionTypes.SETTINGS_UPDATE
+        });
+    }
+}
+
+const SettingsStore = new DefaultSettingsStore({
+    max: 6,
+    avatarSize: 24,
+    avatarOverlap: 100 / 3,
+    avatarSpacing: 100 / 12,
+    emojiThreshold: 10,
+    reactionsTotalThreshold: 500,
+    reactionsPerEmojiThreshold: 100,
+    hideSelf: false,
+    hideBots: false,
+    hideBlocked: false
+});
+
+function useSettings() {
+    return useStateFromStores([SettingsStore], () => [
+        SettingsStore.getSettings(),
+        SettingsStore.getDefaultSettings(),
+        (name, value) => SettingsStore.update(name, value)
+    ]);
+}
+
+;// CONCATENATED MODULE: ./src/components/Reactors.jsx
+
+
+
+
+
+
+
+
+
+const { Webpack: Reactors_Webpack } = BoundedBdApi;
+const { Filters: Reactors_Filters } = Reactors_Webpack;
+
+const ReactionStore = Reactors_Webpack.getModule(Reactors_Filters.byProps('getReactions'));
+const ChannelStore = Reactors_Webpack.getModule(Reactors_Filters.byProps('getChannel', 'hasChannel'));
+const UserStore = Reactors_Webpack.getModule(Reactors_Filters.byProps('getUser', 'getCurrentUser'));
+const RelationshipStore = Reactors_Webpack.getModule(Reactors_Filters.byProps('isBlocked'));
+
+function Reactors({ count, channel, users, max, size, overlap, spacing }) {
+    const usersShown = Math.min(max, users.length);
+
+    const hasMoreUsers = count > usersShown;
+    const userSummary = users.slice(0, usersShown);
+
+    if (userSummary.length == 0) {
+        return null;
+    }
+
+    return (
+        external_BdApi_React_default().createElement('div', { className: "bd-who-reacted__reactors",}
+            , userSummary.map((user, index) => index == count - 1
+                ? (
+                    external_BdApi_React_default().createElement(Reactor, {
+                        size: size,
+                        user: user,
+                        guildId: channel.guild_id,}
+                    )
+                )
+                : (
+                    external_BdApi_React_default().createElement(MaskedReactor, {
+                        size: size,
+                        user: user,
+                        guildId: channel.guild_id,
+                        overlap: overlap,
+                        spacing: spacing,}
+                    )
+                )
+            )
+
+            , hasMoreUsers && (
+                external_BdApi_React_default().createElement('div', {
+                    className: "bd-who-reacted__more-reactors",
+                    style: {
+                        height: `${size}px`,
+                        minWidth: `${size}px`,
+                        padding: `0 ${size / 3}px`,
+                        borderRadius: `${size / 2}px`,
+                        fontSize: `${size / 2}px`
+                    },}
+, "+"
+                    , count - usersShown
+                )
+            )
+        )
+    );
+}
+
+function SmartReactors({ message, emoji, count, type }) {
+    const [settings] = useSettings();
+    const ReactorsComponent = (0,external_BdApi_React_namespaceObject.useMemo)(() => {
+        let component = Reactors;
+
+        if (settings.hideSelf) {
+            component = withSelfHidden(component);
+        }
+
+        if (settings.hideBots) {
+            component = withBotsHidden(component);
+        }
+
+        if (settings.hideBlocked) {
+            component = withBlockedHidden(component);
+        }
+
+        return withStoresConnected(component);
+    }, [settings.hideSelf, settings.hideBots, settings.hideBlocked]);
+
+    function shouldHide() {
+        return isEmojiAboveThreshold() &&
+            isTotalReactionsAboveThreshold() &&
+            isReactionsPerEmojiAboveThreshold();
+    }
+
+    function isEmojiAboveThreshold() {
+        if (isThresholdDisabled(settings.emojiThreshold)) {
             return false;
         }
 
-        if (userThreshold !== 0) {
-            const userCount = useHighestUserCount ?
-                Math.max(...reactions.map(reaction => reaction.count)) :
-                reactions.reduce((total, reaction) => total + reaction.count, 0);
+        return message.reactions.length > settings.emojiThreshold;
+    }
 
-            if (userCount > userThreshold) {
-                return false;
+    function isTotalReactionsAboveThreshold() {
+        if (isThresholdDisabled(settings.reactionsTotalThreshold)) {
+            return false;
+        }
+
+        return message.reactions.reduce((sum, reaction) => sum + reaction.count, 0) > settings.reactionsTotalThreshold;
+    }
+
+    function isReactionsPerEmojiAboveThreshold() {
+        if (!isThresholdDisabled(settings.reactionsPerEmojiThreshold)) {
+            for (const reaction of message.reactions) {
+                if (reaction.count > settings.reactionsPerEmojiThreshold) {
+                    return true;
+                }
             }
         }
 
-        return true;
+        return false;
     }
 
-    findReaction() {
-        return new Promise(resolve => {
-            const node = document.querySelector(external_BoundedLibrary_namespaceObject.DiscordSelectors.Reactions.reaction);
-            if (node) {
-                return resolve(this.findReactionReactInstance(node).type);
-            }
+    function isThresholdDisabled(threshold) {
+        return threshold == 0;
+    }
 
-            const unpatch = external_BoundedLibrary_namespaceObject.Patcher.after(Reactions.prototype, 'render', (thisObject, args, returnValue) => {
-                if (!returnValue) return;
+    if (shouldHide()) {
+        return null;
+    }
 
-                const reaction = returnValue.props.children[0][0];
-                if (reaction) {
-                    unpatch();
-                    resolve(reaction.type);
-                }
+    return (
+        external_BdApi_React_default().createElement(ReactorsComponent, {
+            message: message,
+            emoji: emoji,
+            count: count,
+            type: type,
+            max: settings.max,
+            size: settings.avatarSize,
+            overlap: settings.avatarOverlap / 100,
+            spacing: settings.avatarSpacing / 100,}
+        )
+    );
+}
+
+function withStoresConnected(ReactorsComponent) {
+    return props => {
+        const channel = useStateFromStores([ChannelStore], () => ChannelStore.getChannel(props.message.getChannelId()));
+        const users = useStateFromStores(
+            [ReactionStore],
+            () => Object.values(ReactionStore.getReactions(
+                props.message.getChannelId(),
+                props.message.id,
+                props.emoji,
+                100,
+                props.type
+            ))
+        );
+
+        return (
+            external_BdApi_React_default().createElement(ReactorsComponent, { ...props, channel: channel, users: users,} )
+        );
+    };
+}
+
+function withSelfHidden(ReactorsComponent) {
+    return props => {
+        const currentUser = useStateFromStores([UserStore], () => UserStore.getCurrentUser());
+        const filteredUsers = props.users.filter(user => user.id != currentUser.id)
+
+        return (
+            external_BdApi_React_default().createElement(ReactorsComponent, {
+                ...props,
+                users: filteredUsers,}
+            )
+        );
+    };
+}
+
+function withBotsHidden(ReactorsComponent) {
+    return props => {
+        const filteredUsers = props.users.filter(user => !user.bot);
+
+        return (
+            external_BdApi_React_default().createElement(ReactorsComponent, {
+                ...props,
+                users: filteredUsers,}
+            )
+        );
+    };
+}
+
+function withBlockedHidden(ReactorsComponent) {
+    return props => {
+        const filteredUsers = useStateFromStores(
+            [RelationshipStore],
+            () => props.users.filter(user => !RelationshipStore.isBlocked(user.id))
+        );
+
+        return (
+            external_BdApi_React_default().createElement(ReactorsComponent, {
+                ...props,
+                users: filteredUsers,}
+            )
+        );
+    };
+}
+
+;// CONCATENATED MODULE: ./src/components/SettingsPanel.jsx
+
+
+
+
+
+const { Webpack: SettingsPanel_Webpack } = BdApi;
+const { Filters: SettingsPanel_Filters } = SettingsPanel_Webpack;
+
+const margins = BdApi.findModuleByProps('marginLarge');
+
+const FormSection = SettingsPanel_Webpack.getModule(SettingsPanel_Filters.byStrings('.titleClassName', '.sectionTitle'), { searchExports: true });
+const FormItem = SettingsPanel_Webpack.getModule(m => SettingsPanel_Filters.byStrings('.titleClassName', '.required')(m?.render), { searchExports: true });
+const FormTitle = SettingsPanel_Webpack.getModule(SettingsPanel_Filters.byStrings('.faded', '.required'), { searchExports: true });
+const FormText = SettingsPanel_Webpack.getModule(m => m?.Types?.INPUT_PLACEHOLDER, { searchExports: true });
+const TextInput = SettingsPanel_Webpack.getModule(m => m?.defaultProps?.type === 'text', { searchExports: true });
+const Slider = SettingsPanel_Webpack.getModule(SettingsPanel_Filters.byStrings('.asValueChanges'), { searchExports: true });
+const SwitchItem = SettingsPanel_Webpack.getModule(SettingsPanel_Filters.byStrings('.tooltipNote'), { searchExports: true });
+
+function SettingsPanel() {
+    const [
+        settings,
+        defaults,
+        update
+    ] = useSettings();
+
+    function handlePixelMarkerRender(value) {
+        return `${value}px`;
+    }
+
+    function handlePercentageMarkerRender(value) {
+        return `${value.toFixed(2)}%`;
+    }
+
+    function handleThresholdMarkerRender(value) {
+        if (value == 0) {
+            return 'Off';
+        }
+
+        if (value >= 1000) {
+            return `${value / 1000}k`;
+        }
+
+        return value;
+    }
+
+    return external_BdApi_React_default().createElement((external_BdApi_React_default()).Fragment, null
+        , external_BdApi_React_default().createElement(FormSection, null
+            , external_BdApi_React_default().createElement(FormTitle, { tag: "h2",}, "Appearance")
+
+            , external_BdApi_React_default().createElement(FormItem, { className: margins.marginBottom40,}
+                , external_BdApi_React_default().createElement(FormTitle, null, "Maximum Avatars" )
+                , external_BdApi_React_default().createElement(TextInput, {
+                    type: "number",
+                    placeholder: defaults.max,
+                    defaultValue: settings.max,
+                    onChange: value => {
+                        const number = parseInt(value);
+
+                        if (number >= 1 && number <= 100) {
+                            update('max', number);
+                        } else {
+                            BoundedBdApi.showToast('The value must be a number from 1 to 100.', 'danger');
+                        }
+                    },}
+                )
+                , external_BdApi_React_default().createElement(FormText, { type: FormText.Types.DESCRIPTION,}, "Sets the maximum number of avatars shown per emoji from 1 to 100."
+
+
+                )
+            )
+
+            , external_BdApi_React_default().createElement(FormItem, { className: margins.marginBottom40,}
+                , external_BdApi_React_default().createElement(FormTitle, { className: margins.marginBottom20,}, "Avatar Size" )
+                , external_BdApi_React_default().createElement(Slider, {
+                    markers: [
+                        8,
+                        12,
+                        16,
+                        20,
+                        24,
+                        32
+                    ],
+                    equidistant: true,
+                    stickToMarkers: true,
+                    defaultValue: defaults.avatarSize,
+                    initialValue: settings.avatarSize,
+                    onMarkerRender: handlePixelMarkerRender,
+                    onValueChange: value => update('avatarSize', value),}
+                )
+                , external_BdApi_React_default().createElement(FormText, { type: FormText.Types.DESCRIPTION,}, "Sets the size of the avatars."
+
+                )
+            )
+
+            , external_BdApi_React_default().createElement(FormItem, { className: margins.marginBottom40,}
+                , external_BdApi_React_default().createElement(FormTitle, { className: margins.marginBottom20,}, "Avatar Overlap" )
+                , external_BdApi_React_default().createElement(Slider, {
+                    markers: [
+                        0,
+                        100 / 8,
+                        100 / 4,
+                        100 / 3,
+                        100 / 2
+                    ],
+                    stickToMarkers: true,
+                    defaultValue: defaults.avatarOverlap,
+                    initialValue: settings.avatarOverlap,
+                    onMarkerRender: handlePercentageMarkerRender,
+                    onValueChange: value => update('avatarOverlap', value),}
+                )
+                , external_BdApi_React_default().createElement(FormText, { type: FormText.Types.DESCRIPTION,}, "Sets how much an avatar covers the previous one."
+
+                )
+            )
+
+            , external_BdApi_React_default().createElement(FormItem, { className: margins.marginBottom40,}
+                , external_BdApi_React_default().createElement(FormTitle, { className: margins.marginBottom20,}, "Avatar Spacing" )
+                , external_BdApi_React_default().createElement(Slider, {
+                    markers: [
+                        0,
+                        100 / 48,
+                        100 / 24,
+                        100 / 16,
+                        100 / 12,
+                        100 / 8,
+                        100 / 6,
+                        100 / 4
+                    ],
+                    stickToMarkers: true,
+                    defaultValue: defaults.avatarSpacing,
+                    initialValue: settings.avatarSpacing,
+                    onMarkerRender: handlePercentageMarkerRender,
+                    onValueChange: value => update('avatarSpacing', value),}
+                )
+                , external_BdApi_React_default().createElement(FormText, { type: FormText.Types.DESCRIPTION,}, "Sets the gap between two avatars."
+
+                )
+            )
+        )
+
+        , external_BdApi_React_default().createElement(FormSection, null
+            , external_BdApi_React_default().createElement(FormTitle, { tag: "h2",}, "Thresholds")
+
+            , external_BdApi_React_default().createElement(FormItem, { className: margins.marginBottom40,}
+                , external_BdApi_React_default().createElement(FormTitle, { className: margins.marginBottom20,}, "Emoji Threshold" )
+                , external_BdApi_React_default().createElement(Slider, {
+                    markers: [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                        20
+                    ],
+                    stickToMarkers: true,
+                    defaultValue: defaults.emojiThreshold,
+                    initialValue: settings.emojiThreshold,
+                    onMarkerRender: handleThresholdMarkerRender,
+                    onValueChange: value => update('emojiThreshold', value),}
+                )
+                , external_BdApi_React_default().createElement(FormText, { type: FormText.Types.DESCRIPTION,}, "Hides the reactors when the number of emojis exceeds the threshold."
+
+
+                )
+            )
+
+            , external_BdApi_React_default().createElement(FormItem, { className: margins.marginBottom40,}
+                , external_BdApi_React_default().createElement(FormTitle, { className: margins.marginBottom20,}, "Reactions Total Threshold"  )
+                , external_BdApi_React_default().createElement(Slider, {
+                    markers: [
+                        0,
+                        10,
+                        20,
+                        50,
+                        100,
+                        500,
+                        1000,
+                        2000,
+                        3000,
+                        4000,
+                        5000,
+                        10000
+                    ],
+                    equidistant: true,
+                    stickToMarkers: true,
+                    defaultValue: defaults.reactionsTotalThreshold,
+                    initialValue: settings.reactionsTotalThreshold,
+                    onMarkerRender: handleThresholdMarkerRender,
+                    onValueChange: value => update('reactionsTotalThreshold', value),}
+                )
+                , external_BdApi_React_default().createElement(FormText, { type: FormText.Types.DESCRIPTION,}, "Hides the reactors when the sum of the number of reactions in all emojis exceeds the threshold."
+
+
+                )
+            )
+
+            , external_BdApi_React_default().createElement(FormItem, { className: margins.marginBottom40,}
+                , external_BdApi_React_default().createElement(FormTitle, { className: margins.marginBottom20,}, "Reactions per Emoji Threshold"   )
+                , external_BdApi_React_default().createElement(Slider, {
+                    markers: [
+                        0,
+                        5,
+                        10,
+                        20,
+                        50,
+                        100,
+                        200,
+                        500
+                    ],
+                    equidistant: true,
+                    stickToMarkers: true,
+                    defaultValue: defaults.reactionsPerEmojiThreshold,
+                    initialValue: settings.reactionsPerEmojiThreshold,
+                    onMarkerRender: handleThresholdMarkerRender,
+                    onValueChange: value => update('reactionsPerEmojiThreshold', value),}
+                )
+                , external_BdApi_React_default().createElement(FormText, { type: FormText.Types.DESCRIPTION,}, "Hides the reactors when the number of reactions on a single emoji exceeds the threshold."
+
+
+                )
+            )
+        )
+
+        , external_BdApi_React_default().createElement(FormSection, null
+            , external_BdApi_React_default().createElement(FormTitle, { tag: "h2",}, "Filters")
+
+            , external_BdApi_React_default().createElement(SwitchItem, {
+                value: settings.hideSelf,
+                onChange: checked => update('hideSelf', checked),}
+, "Hide Self"
+
+            )
+
+            , external_BdApi_React_default().createElement(SwitchItem, {
+                value: settings.hideBots,
+                onChange: checked => update('hideBots', checked),}
+, "Hide Bots"
+
+            )
+
+            , external_BdApi_React_default().createElement(SwitchItem, {
+                value: settings.hideBlocked,
+                onChange: checked => update('hideBlocked', checked),}
+, "Hide Blocked Users"
+
+            )
+        )
+    );
+}
+
+;// CONCATENATED MODULE: ./src/styles.scss
+/* harmony default export */ const styles = (".bd-who-reacted__reactors{display:flex;align-items:center}.bd-who-reacted__reactors:not(:empty){margin-left:8px}.bd-who-reacted__reactor-avatar{border-radius:50%}.bd-who-reacted__more-reactors{box-sizing:border-box;display:flex;justify-content:center;align-items:center;color:var(--text-normal);font-weight:500;background-color:var(--background-tertiary)}");
+;// CONCATENATED MODULE: ./src/index.jsx
+
+
+
+
+
+
+
+
+
+
+const { Webpack: src_Webpack, Patcher } = BoundedBdApi;
+
+const ConnectedReaction = src_Webpack.getModule(m => m?.type?.toString()?.includes('burstReactionsEnabled'), { searchExports: true });
+
+class WhoReacted {
+    constructor() {
+        SettingsStore.initializeIfNeeded();
+        SettingsStore.load();
+    }
+
+    start() {
+        BoundedBdApi.DOM.addStyle(styles);
+        this.patchReaction();
+    }
+
+    stop() {
+        BoundedBdApi.DOM.removeStyle();
+        Patcher.unpatchAll();
+    }
+
+    getSettingsPanel() {
+        return external_BdApi_React_default().createElement(SettingsPanel, null );
+    }
+
+    patchReaction() {
+        const unpatchConnectedReaction = Patcher.after(ConnectedReaction, 'type', (_, __, reaction) => {
+            unpatchConnectedReaction();
+
+            Patcher.after(reaction.type.prototype, 'render', (thisObject, _, tooltip) => {
+                const { message, emoji, count, type } = thisObject.props;
+                const renderTooltipChildren = tooltip.props.children;
+
+                tooltip.props.children = reactionProps => {
+                    const tooltipChildren = renderTooltipChildren(reactionProps);
+                    const renderReactionInner = tooltipChildren.props.children.props.children.props.children;
+
+                    tooltipChildren.props.children.props.children.props.children = reactionInnerProps => {
+                        const reactionInner = renderReactionInner(reactionInnerProps);
+
+                        reactionInner.props.children.push(
+                            external_BdApi_React_default().createElement(SmartReactors, {
+                                message: message,
+                                emoji: emoji,
+                                count: count,
+                                type: type,}
+                            )
+                        );
+
+                        return reactionInner;
+                    };
+
+                    return tooltipChildren;
+                };
             });
         });
     }
-
-    forceUpdateAllReactions() {
-        for (const node of document.querySelectorAll(external_BoundedLibrary_namespaceObject.DiscordSelectors.Reactions.reaction)) {
-            this.findReactionReactInstance(node).stateNode.forceUpdate();
-        }
-    }
-
-    findReactionReactInstance(node) {
-        return external_BoundedLibrary_namespaceObject.Utilities.findInTree(external_BoundedLibrary_namespaceObject.ReactTools.getReactInstance(node), r => r?.type?.displayName === 'Reaction', {
-            walkable: ['return']
-        });
-    }
 }
-plugin = __webpack_exports__["default"];
+
+module.exports = __webpack_exports__["default"];
 /******/ })()
 ;
-
-    return plugin;
-}
-
-module.exports = global.ZeresPluginLibrary
-    ? buildPlugin()
-    : class {
-          constructor() {
-              this._config = config;
-          }
-
-          getName() {
-              return config.info.name;
-          }
-
-          getAuthor() {
-              return config.info.authors.map(a => a.name).join(', ');
-          }
-
-          getDescription() {
-              return config.info.description;
-          }
-
-          getVersion() {
-              return config.info.version;
-          }
-
-          load() {
-              global.BdApi.showConfirmationModal(
-                  'Library plugin is needed',
-                  `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`,
-                  {
-                      confirmText: 'Download',
-                      cancelText: 'Cancel',
-                      onConfirm() {
-                          request.get(
-                              'https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js',
-                              (error, response, body) => {
-                                  if (error) {
-                                      return electron.shell.openExternal(
-                                          'https://betterdiscord.app/Download?id=9'
-                                      );
-                                  }
-
-                                  fs.writeFileSync(
-                                      path.join(global.BdApi.Plugins.folder, '0PluginLibrary.plugin.js'),
-                                      body
-                                  );
-                              }
-                          );
-                      }
-                  }
-              );
-          }
-
-          start() {}
-
-          stop() {}
-      };
-
-/*@end@*/
