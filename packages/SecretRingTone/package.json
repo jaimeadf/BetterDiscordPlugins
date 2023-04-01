@@ -2,7 +2,7 @@
     "name": "SecretRingTone",
     "author": "Marmota (Jaime Filho)",
     "authorLink": "https://github.com/jaimeadf",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "description": "Forces discord to play the secret ringtone every time someone calls you instead of the 1 in a 1000 chance of it happening.",
     "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/packages/SecretRingTone",
     "main": "src/index.js",
