@@ -3,7 +3,7 @@
  * @author Marmota (Jaime Filho)
  * @authorLink https://github.com/jaimeadf
  * @description Shows the avatars of the users who reacted to a message.
- * @version 1.3.0
+ * @version 1.3.1
  * @source https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/packages/WhoReacted
  */
 /******/ (() => { // webpackBootstrap
@@ -694,18 +694,18 @@ class WhoReacted {
         const unpatchConnectedReaction = Patcher.after(ConnectedReaction, 'type', (_, __, reaction) => {
             unpatchConnectedReaction();
 
-            Patcher.after(reaction.type.prototype, 'render', (thisObject, _, tooltip) => {
+            Patcher.after(reaction.type.prototype, 'render', (thisObject, _, result) => {
                 const { message, emoji, count, type } = thisObject.props;
-                const renderTooltipChildren = tooltip.props.children;
+                const renderTooltip = result.props.children[0].props.children;
 
-                tooltip.props.children = reactionProps => {
-                    const tooltipChildren = renderTooltipChildren(reactionProps);
-                    const renderReactionInner = tooltipChildren.props.children.props.children.props.children;
+                result.props.children[0].props.children = tooltipProps => {
+                    const tooltipChildren = renderTooltip(tooltipProps);
+                    const renderPopout = tooltipChildren.props.children.props.children.props.children;
 
-                    tooltipChildren.props.children.props.children.props.children = reactionInnerProps => {
-                        const reactionInner = renderReactionInner(reactionInnerProps);
+                    tooltipChildren.props.children.props.children.props.children = popoutProps => {
+                        const popoutChildren = renderPopout(popoutProps);
 
-                        reactionInner.props.children.push(
+                        popoutChildren.props.children.push(
                             external_BdApi_React_default().createElement(SmartReactors, {
                                 message: message,
                                 emoji: emoji,
@@ -714,9 +714,9 @@ class WhoReacted {
                             )
                         );
 
-                        return reactionInner;
+                        return popoutChildren;
                     };
-
+                    
                     return tooltipChildren;
                 };
             });
