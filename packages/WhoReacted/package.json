@@ -2,7 +2,7 @@
     "name": "WhoReacted",
     "author": "Marmota (Jaime Filho)",
     "authorLink": "https://github.com/jaimeadf",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "description": "Shows the avatars of the users who reacted to a message.",
     "source": "https://github.com/jaimeadf/BetterDiscordPlugins/tree/main/packages/WhoReacted",
     "main": "src/index.jsx",
