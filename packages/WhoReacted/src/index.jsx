@@ -36,18 +36,18 @@ export default class WhoReacted {
         const unpatchConnectedReaction = Patcher.after(ConnectedReaction, 'type', (_, __, reaction) => {
             unpatchConnectedReaction();
 
-            Patcher.after(reaction.type.prototype, 'render', (thisObject, _, tooltip) => {
+            Patcher.after(reaction.type.prototype, 'render', (thisObject, _, result) => {
                 const { message, emoji, count, type } = thisObject.props;
-                const renderTooltipChildren = tooltip.props.children;
+                const renderTooltip = result.props.children[0].props.children;
 
-                tooltip.props.children = reactionProps => {
-                    const tooltipChildren = renderTooltipChildren(reactionProps);
-                    const renderReactionInner = tooltipChildren.props.children.props.children.props.children;
+                result.props.children[0].props.children = tooltipProps => {
+                    const tooltipChildren = renderTooltip(tooltipProps);
+                    const renderPopout = tooltipChildren.props.children.props.children.props.children;
 
-                    tooltipChildren.props.children.props.children.props.children = reactionInnerProps => {
-                        const reactionInner = renderReactionInner(reactionInnerProps);
+                    tooltipChildren.props.children.props.children.props.children = popoutProps => {
+                        const popoutChildren = renderPopout(popoutProps);
 
-                        reactionInner.props.children.push(
+                        popoutChildren.props.children.push(
                             <SmartReactors
                                 message={message}
                                 emoji={emoji}
@@ -56,9 +56,9 @@ export default class WhoReacted {
                             />
                         );
 
-                        return reactionInner;
+                        return popoutChildren;
                     };
-
+                    
                     return tooltipChildren;
                 };
             });
